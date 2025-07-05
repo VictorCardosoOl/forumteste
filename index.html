@@ -7,6 +7,8 @@
     
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css">
+    
     <link rel="stylesheet" href="style.css" />
 
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
@@ -17,28 +19,44 @@
   </head>
   <body class="bg-slate-50" style='font-family: Inter, "Noto Sans", sans-serif;'>
     
-    <div class="relative flex size-full min-h-screen flex-col group/design-root overflow-x-hidden">
-      <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#e7edf4] px-10 py-3 bg-slate-50">
+    <div class="relative flex size-full min-h-screen flex-col group/design-root overflow-hidden">
+      <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#e7edf4] px-6 py-3 bg-slate-50 z-10">
         <div class="flex items-center gap-4 text-[#0d141c]">
           <div class="size-4">
-            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" clip-rule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor"></path>
-            </svg>
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor"></path></svg>
           </div>
           <h2 class="text-[#0d141c] text-lg font-bold leading-tight tracking-[-0.015em]">Wise System</h2>
         </div>
         <div class="flex flex-1 justify-end gap-8 items-center">
-            <p class="text-sm text-gray-600">Fórum de Suporte Técnico Interno</p>
+            <p class="text-sm text-gray-600 hidden md:block">Fórum de Suporte Técnico Interno</p>
             <div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" style='background-image: url("https://i.pravatar.cc/40");'></div>
         </div>
       </header>
 
-      <main class="px-4 md:px-20 lg:px-40 flex flex-1 justify-center py-5">
-        <div id="app" class="layout-content-container flex flex-col max-w-[960px] flex-1">
-          </div>
-      </main>
+      <div class="flex flex-1">
+        <aside class="w-64 flex-col justify-between bg-slate-50 p-4 border-r border-solid border-r-[#e7edf4] hidden md:flex">
+            <div class="flex flex-col gap-4">
+                <h1 class="text-[#0d141c] text-base font-medium leading-normal">Navegação</h1>
+                <div class="flex flex-col gap-2">
+                    <a onclick="renderCategories()" class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-[#e7edf4]">
+                        <div class="text-[#0d141c]"><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256"><path d="M218.83,103.77l-80-75.48a1.14,1.14,0,0,1-.11-.11,16,16,0,0,0-21.53,0l-.11.11L37.17,103.77A16,16,0,0,0,32,115.55V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V160h32v48a16,16,0,0,0,16,16h48a16,16,0,0,0,16-16V115.55A16,16,0,0,0,218.83,103.77ZM208,208H160V160a16,16,0,0,0-16-16H112a16,16,0,0,0-16,16v48H48V115.55l.11-.1L128,40l79.9,75.43.11.1Z"></path></svg></div>
+                        <p class="text-[#0d141c] text-sm font-medium leading-normal">Início / Categorias</p>
+                    </a>
+                    </div>
+            </div>
+            <div class="flex flex-col gap-1">
+                <p class="text-xs text-slate-400 px-3">© 2024 Wise System</p>
+            </div>
+        </aside>
+
+        <main id="app-container" class="flex-1 p-6 overflow-y-auto">
+            <div id="app" class="layout-content-container flex flex-col max-w-full flex-1">
+              </div>
+        </main>
+      </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

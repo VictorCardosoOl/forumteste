@@ -1,21 +1,19 @@
-/* Define o cursor como ponteiro para todos os links, melhorando a usabilidade */
-a {
-  cursor: pointer;
+/* Garante que o corpo da página não tenha scroll */
+body {
+  overflow: hidden;
 }
 
-/* Estilo para blocos de código nos artigos */
-pre {
-  background-color: #f3f4f6; /* Cor de fundo cinza claro */
-  border: 1px solid #e5e7eb; /* Borda cinza */
-  border-radius: 8px; /* Cantos arredondados */
-  padding: 16px; /* Espaçamento interno */
-  overflow-x: auto; /* Adiciona scroll horizontal se o código for muito grande */
-  font-family: 'Courier New', Courier, monospace; /* Fonte monoespaçada */
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+/* O container principal da aplicação ocupará toda a altura disponível e controlará a rolagem */
+#app-container {
+  height: calc(100vh - 61px); /* Altura total da tela menos a altura do header */
+  overflow-y: auto;
 }
 
-/* Estilos para o conteúdo do artigo */
+/* Estilos para o conteúdo do artigo, para melhor legibilidade */
+.article-content {
+  color: #334155; /* Um cinza escuro mais suave para textos longos */
+}
+
 .article-content h3 {
     font-size: 1.5rem; /* 24px */
     font-weight: 700;
@@ -23,15 +21,39 @@ pre {
     margin-bottom: 1rem;
     border-bottom: 2px solid #e7edf4;
     padding-bottom: 0.5rem;
+    color: #0d141c;
 }
 
-.article-content p {
+.article-content p, .article-content ul {
     margin-bottom: 1rem;
-    line-height: 1.6;
+    line-height: 1.7;
+    font-size: 1rem; /* 16px */
 }
 
 .article-content ul {
     list-style-type: disc;
-    margin-left: 20px;
-    margin-bottom: 1rem;
+    padding-left: 20px;
+}
+
+.article-content a {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+/* Estilo para blocos de código */
+pre {
+  background-color: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px;
+  overflow-x: auto;
+  font-family: 'Courier New', Courier, monospace;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Efeito de destaque nos resultados da busca */
+.search-highlight {
+    background-color: #fef08a; /* Amarelo para destacar */
+    font-weight: bold;
 }
