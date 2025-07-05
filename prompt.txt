@@ -21,4 +21,3 @@ Por exemplo, dentro de "Gestão de Processos":
 - Prazos e Alertas
 
 
-Chat poderia incluir a barra lateral como na segunda pagina criada pelo stich, alem disso eu gostaria que o site tivesse uma barra de pesquisa que buscasse por palavras dentro dos artigos, categoria de artigos, titulos de artigos e etec, que facilitace que o funcionario pesquisse de forma rapida durante o atendimento e não se perca, por fim eu gostaria que o programa tivesse o locomotive scroll, tambem gostaria que o site tivesse uma sensação de congelamento, que o usuario navegace sem o ato de scroll
