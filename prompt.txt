@@ -21,4 +21,4 @@ Por exemplo, dentro de "Gestão de Processos":
 - Prazos e Alertas
 
 
-Chat onde na navbar no canto superior da tela no lado esquedo eu gostaria que ao clicar o site retornasse para a tela inical, sem precisar de um botão "Inicio" na barra de navegação, eu gosto do estilo minimalista de cores brancas e pretas, porem eu gostaria que refinasse o desing do site, por fim eu gostaria que deixasse a barra de pesquisa mais bonita, talvez seja interessante diminuir um pougo a largura da barra de navegação, subir um pouco o top do artigo para aumentar o espaço de leitura dele e deixar a barra de pesquisa em toda tela do site no rodapé dele, ao inves de ter um footer como é comum eu queria que la tivesse a barra de pesquisa como mais ou menos é a barra do cirucle para pesquisa do prorpio google, acho que ficaria mais bonito.
+Chat esta ficando otimo, porem a 

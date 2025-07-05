@@ -16,7 +16,7 @@ body {
   font-family: Inter, "Noto Sans", sans-serif;
 }
 
-header, aside {
+aside {
   background-color: var(--bg-color);
   border-color: var(--border-color);
 }
@@ -33,20 +33,23 @@ a:hover p, a:hover h3 {
   color: var(--text-color);
 }
 
-/* Ajustes no container principal para dar espaço para o rodapé */
+/* MODIFICAÇÃO: Altura ajustada para 100vh pois não há mais header */
 #app-container {
-  height: calc(100vh - 69px); /* Altura da tela - altura do header */
+  height: 100vh;
   overflow-y: auto;
-  padding: 1rem 1.5rem; /* MODIFICAÇÃO: Mais espaço para leitura */
-  padding-bottom: 120px; /* MODIFICAÇÃO: Garante que o conteúdo não fique atrás do rodapé */
+  /* MODIFICAÇÃO: Padding no topo removido para o artigo começar mais cedo */
+  padding: 0.5rem 1.5rem;
+  /* MODIFICAÇÃO: Padding no rodapé ajustado para a nova altura da barra de busca */
+  padding-bottom: 100px;
 }
 
 /* Estilos do novo rodapé de busca */
 #footer-search {
-  background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.7));
+  /* MODIFICAÇÃO: O gradiente e o blur criam o efeito flutuante */
+  background: linear-gradient(to top, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0));
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border-top: 1px solid var(--border-color);
+  /* REMOVIDO: A borda superior foi removida para um visual mais integrado */
 }
 
 #search-input {
@@ -69,15 +72,13 @@ a:hover p, a:hover h3 {
 /* Destaque da busca mais sutil */
 .search-highlight {
     background-color: var(--highlight-bg-color);
-    font-weight: 600; /* semi-bold */
+    font-weight: 600;
     border-radius: 3px;
     padding: 0 2px;
 }
 
 /* Estilos do conteúdo do artigo */
-.article-content {
-  color: #374151; /* Cinza um pouco mais escuro para leitura */
-}
+.article-content { color: #374151; }
 .article-content h3 { font-size: 1.5rem; font-weight: 700; margin-top: 2rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; }
 .article-content p, .article-content ul { margin-bottom: 1rem; line-height: 1.7; font-size: 1rem; }
 .article-content ul { list-style-type: disc; padding-left: 20px; }
