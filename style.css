@@ -1,110 +1,152 @@
-/* Definição de variáveis de cor para um tema minimalista */
+/* Definição de variáveis de cor para o tema claro (padrão) */
 :root {
   --bg-color: #ffffff;
-  --text-color: #111827; /* Preto suave (gray-900) */
-  --text-color-light: #6b7280; /* Cinza para descrições (gray-500) */
-  --border-color: #e5e7eb; /* Cinza claro para bordas (gray-200) */
-  --hover-bg-color: #f3f4f6; /* Cinza bem claro para hover (gray-100) */
-  --highlight-bg-color: #e5e7eb; /* Destaque da busca (gray-200) */
+  --card-bg-color: #ffffff;
+  --text-color: #000000;
+  --text-color-light: #555555;
+  --border-color: #f0f0f0;
+  --hover-bg-color: #f5f5f5;
+  --hover-border-color: #dddddd;
 }
 
-/* Estilos de base com as novas cores */
+/* Definição de variáveis para o tema escuro */
+body.dark-mode {
+  --bg-color: #000000;
+  --card-bg-color: #000000;
+  --text-color: #ffffff;
+  --text-color-light: #bbbbbb;
+  --border-color: #222222;
+  --hover-bg-color: #1a1a1a;
+  --hover-border-color: #444444;
+}
+
+/* Estilos de base com a nova fonte Poppins */
 body {
   overflow: hidden;
   background-color: var(--bg-color);
   color: var(--text-color);
-  font-family: Inter, "Noto Sans", sans-serif;
+  font-family: 'Poppins', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-aside {
-  background-color: var(--bg-color);
-  border-color: var(--border-color);
-}
-
-h2, h3, h1 {
-  color: var(--text-color);
-}
-
-p, span, a {
-  color: var(--text-color-light);
-}
-
-a:hover p, a:hover h3 {
-  color: var(--text-color);
-}
-
-/* Layout */
-#app-container {
+/* NOVO LAYOUT: Container da página inteira como Flexbox em coluna */
+#page-container {
+  display: flex;
+  flex-direction: column;
   height: 100vh;
-  overflow-y: auto;
-  padding-bottom: 100px;
 }
 
-/* NOVO: Estilo do invólucro de centralização */
+aside, main, footer {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+aside { border-color: var(--border-color); }
+h1, h2, h3, h4, h5, h6 { color: var(--text-color); font-weight: 600; }
+p, span, a { color: var(--text-color-light); }
+a:hover p, a:hover h3, a:hover h2 { color: var(--text-color); }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+#app.animate-in {
+  animation: fadeIn 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* Layout do conteúdo */
+#app-container {
+  flex-grow: 1; /* Faz esta área ocupar todo o espaço disponível */
+  overflow-y: auto;
+}
 #content-wrapper {
-  display: flex; /* Ativa o Flexbox */
-  flex-direction: column; /* Organiza os itens em coluna */
-  justify-content: center; /* Centraliza verticalmente */
-  min-height: 100%; /* Garante que ele ocupe no mínimo toda a altura da tela */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100%;
   width: 100%;
 }
-
-/* MODIFICAÇÃO: Ajustado para funcionar com o wrapper */
 #app {
   max-width: 1024px;
   width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 2rem 1.5rem; /* Padding movido para cá para garantir espaçamento correto */
+  margin: auto;
+  padding: 2.5rem;
 }
 
-/* Efeito de vidro refinado (Glassmorphism) */
+/* Rodapé da Pesquisa */
 #footer-search {
-  background-color: rgba(255, 255, 255, 0.8); 
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  flex-shrink: 0; /* Impede que o rodapé encolha */
+  border-top: 1px solid var(--border-color);
+  background-color: var(--bg-color);
 }
-
 #search-input {
-  background-color: #ffffff;
+  background-color: transparent;
   color: var(--text-color);
+  border: none;
+  border-radius: 0;
+}
+#search-input:focus { outline: none; }
+#search-input::placeholder { color: var(--text-color-light); }
+#footer-search svg { color: var(--text-color-light); }
+
+/* Estilos de Conteúdo Aprimorados */
+.card-link {
   border: 1px solid var(--border-color);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  transition: all 0.2s ease-in-out;
+  background-color: var(--card-bg-color);
+  transition: all 0.25s ease-out;
 }
-#search-input:focus {
-  outline: none;
-  border-color: var(--text-color);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  transform: translateY(-2px);
+.card-link:hover {
+  border-color: var(--hover-border-color);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.04);
 }
-#search-input::placeholder {
-  color: var(--text-color-light);
-}
+body.dark-mode .card-link:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
 
-/* Destaque da busca mais sutil */
-.search-highlight {
-    background-color: var(--highlight-bg-color);
-    font-weight: 600;
-    border-radius: 3px;
-    padding: 0 2px;
+/* Visualização de Artigo Aprimorada */
+.article-content { color: var(--text-color-light); }
+.article-content h1 { font-size: 2.75rem; line-height: 1.2; font-weight: 700; }
+.article-content h2 { font-size: 1.75rem; font-weight: 600; margin-top: 3rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color); }
+.article-content h3 { font-size: 1.25rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; }
+.article-content p, .article-content ul { font-size: 1rem; line-height: 1.8; }
+.article-content ul { list-style-type: disc; padding-left: 25px; }
+.article-content a { color: var(--text-color); text-decoration: underline; font-weight: 500; }
+.article-content strong { color: var(--text-color); font-weight: 600; }
+pre {
+  background-color: var(--hover-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 20px;
+  overflow-x: auto;
+  font-family: 'Courier New', Courier, monospace;
+  margin: 1.5rem 0;
+  position: relative;
 }
-
-/* Estilos do conteúdo do artigo */
-.article-content { color: #374151; }
-.article-content h3 { font-size: 1.5rem; font-weight: 700; margin-top: 2rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem; }
-.article-content p, .article-content ul { margin-bottom: 1rem; line-height: 1.7; font-size: 1rem; }
-.article-content ul { list-style-type: disc; padding-left: 20px; }
-.article-content a { color: var(--text-color); text-decoration: underline; font-weight: 500;}
-pre { background-color: #f3f4f6; border-radius: 8px; padding: 16px; overflow-x: auto; font-family: 'Courier New', Courier, monospace; margin: 1rem 0; }
-
-/* Estilo para imagens dentro dos artigos */
+pre code { font-size: 0.9rem; }
 .article-image {
-  display: block;
   max-width: 100%;
-  height: auto;
-  margin: 2rem auto;
+  margin: 2.5rem auto;
   border-radius: 8px;
   border: 1px solid var(--border-color);
+}
+
+/* Botão de Cópia */
+.copy-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: var(--card-bg-color);
+  color: var(--text-color-light);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.copy-button:hover {
+  background-color: var(--hover-bg-color);
+  border-color: var(--hover-border-color);
+  color: var(--text-color);
 }
