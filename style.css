@@ -57,3 +57,18 @@ pre {
     background-color: #fef08a; /* Amarelo para destacar */
     font-weight: bold;
 }
+
+/* ... (todo o CSS anterior) ... */
+
+/* Estilo para imagens dentro dos artigos */
+.article-image {
+  display: block; /* Essencial para que a margem automática funcione */
+  max-width: 100%; /* A imagem nunca será maior que a largura do container */
+  height: auto; /* Mantém a proporção da imagem */
+  margin-top: 1.5rem; /* Espaçamento acima */
+  margin-bottom: 1.5rem; /* Espaçamento abaixo */
+  margin-left: auto; /* Centraliza a imagem horizontalmente */
+  margin-right: auto; /* Centraliza a imagem horizontalmente */
+  border-radius: 8px; /* Cantos arredondados, opcional */
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1); /* Sombra suave, opcional */
+}
