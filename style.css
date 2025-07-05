@@ -33,23 +33,31 @@ a:hover p, a:hover h3 {
   color: var(--text-color);
 }
 
-/* MODIFICAÇÃO: Altura ajustada para 100vh pois não há mais header */
+/* Layout */
 #app-container {
   height: 100vh;
   overflow-y: auto;
-  /* MODIFICAÇÃO: Padding no topo removido para o artigo começar mais cedo */
-  padding: 0.5rem 1.5rem;
-  /* MODIFICAÇÃO: Padding no rodapé ajustado para a nova altura da barra de busca */
+  padding: 2rem 1.5rem; /* Aumentado o padding no topo para um respiro inicial */
   padding-bottom: 100px;
 }
 
-/* Estilos do novo rodapé de busca */
+/* NOVO: Centraliza o container principal do conteúdo */
+#app {
+  max-width: 1024px; /* Define uma largura máxima para o conteúdo */
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* MODIFICAÇÃO: Efeito de vidro refinado (Glassmorphism) */
 #footer-search {
-  /* MODIFICAÇÃO: O gradiente e o blur criam o efeito flutuante */
-  background: linear-gradient(to top, rgba(255, 255, 255, 1) 50%, rgba(255, 255, 255, 0));
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  /* REMOVIDO: A borda superior foi removida para um visual mais integrado */
+  /* Fundo semi-transparente uniforme para o efeito de vidro */
+  background-color: rgba(255, 255, 255, 0.8); 
+  /* Blur mais intenso para se assemelhar ao iOS */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  /* Borda sutil para dar profundidade, em vez de uma linha sólida */
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 #search-input {

@@ -21,4 +21,4 @@ Por exemplo, dentro de "Gestão de Processos":
 - Prazos e Alertas
 
 
-Chat esta ficando otimo, porem a 
+Chat esta ficando otimo, porem a a tela incial não esta centalizada na seção de visualização fora da barra de navegação, poderia centalizar por favor? outra coisa o efeito glass de vidro não esta visivel na barra de pesquisa, eu gostaria que o efeito ficsse parecido com o matrial iu do ios 17, que fique com um efeito de vidro mas refinado 
