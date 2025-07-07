@@ -1,21 +1,24 @@
-const forumData = [
-  { id: 'instalacao', title: 'Instalação', description: 'Guias e passo-a-passos para instalação do sistema.', icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M216,40H88a8,8,0,0,0-6.13,2.81L46.8,80H40a16,16,0,0,0-16,16V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V74.83l-20.73-20A8,8,0,0,0,188.7,56H88a16,16,0,0,0-13.86,8H216ZM40,96H80a16,16,0,0,0,13.86-8L104,72.43l18.14,18.14a8,8,0,0,0,11.32-11.32L113.31,59.1A16,16,0,0,0,102.14,56H89.5L81.87,42.81A8,8,0,0,1,88,40a.39.39,0,0,1,.13,0h0a.39.39,0,0,1,.13,0H216a15.93,15.93,0,0,0-2.3-6.5l.3.5V56h.17A16,16,0,0,1,216,56V192H40Z"></path></svg>`,
-    topics: [ { id: 'instalacao-windows', title: 'Instalando no Windows 10/11', description: 'Passo a passo completo para o ambiente Windows.', content: `<h2>Requisitos Mínimos</h2><p>Antes de começar, garanta que o computador atende aos seguintes requisitos: <strong>Windows 10 ou 11 (64-bit)</strong>, <strong>8GB de RAM</strong> e pelo menos <strong>10GB de espaço livre em disco</strong>.</p><h2>Exemplo de Fluxograma</h2><p>Siga o fluxo visual abaixo para entender o processo de decisão durante a instalação.</p><img class="article-image" src="images/placeholder-fluxograma.png" alt="Fluxograma do processo de instalação"><h2>Passo a Passo com Código</h2><p>Use o comando abaixo no terminal para verificar a versão. Clique em "Copiar" para facilitar.</p><pre><code>systeminfo | findstr /B /C:"OS Name" /C:"OS Version"</code></pre><p>Após a verificação, prossiga para a próxima etapa de configuração do banco de dados.</p>` }, { id: 'instalacao-windows', title: 'Instalando no Windows 10/11', description: 'Passo a passo completo para o ambiente Windows.', content: `<h2>Requisitos Mínimos</h2><p>Antes de começar, garanta que o computador atende aos seguintes requisitos: <strong>Windows 10 ou 11 (64-bit)</strong>, <strong>8GB de RAM</strong> e pelo menos <strong>10GB de espaço livre em disco</strong>.</p><h2>Exemplo de Fluxograma</h2><p>Siga o fluxo visual abaixo para entender o processo de decisão durante a instalação.</p><img class="article-image" src="images/placeholder-fluxograma.png" alt="Fluxograma do processo de instalação"><h2>Passo a Passo com Código</h2><p>Use o comando abaixo no terminal para verificar a versão. Clique em "Copiar" para facilitar.</p><pre><code>systeminfo | findstr /B /C:"OS Name" /C:"OS Version"</code></pre><p>Após a verificação, prossiga para a próxima etapa de configuração do banco de dados.</p>` } ]
-  },
-  { id: 'erros-eventos', title: 'Erros e Eventos', description: 'Soluções para os erros mais comuns e eventos do sistema.', icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24a104,104,0,1,0,104,104A104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm-8-40V88a8,8,0,0,1,16,0v88a8,8,0,0,1-16,0Zm8,72a12,12,0,1,1,12-12A12,12,0,0,1,128,200Z"></path></svg>`, topics: [] },
-  { id: 'duvidas-frequentes', title: 'Dúvidas Frequentes', description: 'Respostas rápidas para as perguntas mais comuns.', icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 256 256"><path d="M140,180a12,12,0,1,1-12-12A12,12,0,0,1,140,180ZM128,72c-22.06,0-40,16.15-40,36v4a8,8,0,0,0,16,0v-4c0-11,10.77-20,24-20s24,9,24,20-10.77,20-24,20a8,8,0,0,0-8,8v8a8,8,0,0,0,16,0v-.72c18.24-3.35,32-17.9,32-35.28C168,88.15,150.06,72,128,72Zm104,56A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"></path></svg>`, topics: [] },
-];
+// O arquivo script.js agora contém apenas a LÓGICA da aplicação.
+// Ele assume que a constante 'forumData' já foi carregada a partir do arquivo data.js
 
 const app = document.getElementById('app');
 const appContainer = document.getElementById('app-container');
 const sidebarNav = document.getElementById('sidebar-nav');
 
+/**
+ * Aplica uma animação de "fade-in" ao contêiner principal da aplicação.
+ * A função força o navegador a reiniciar a animação CSS.
+ */
 function triggerAnimation() {
   app.classList.remove('animate-in');
-  void app.offsetWidth;
+  void app.offsetWidth; // Truque para forçar o reinício da animação
   app.classList.add('animate-in');
 }
 
+/**
+ * Renderiza a barra de navegação lateral com links para cada categoria.
+ * Os dados são lidos da variável global 'forumData'.
+ */
 function renderSidebar() {
   sidebarNav.innerHTML = forumData.map(category => `
     <a onclick="renderTopics('${category.id}')" class="flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer group">
@@ -25,8 +28,11 @@ function renderSidebar() {
   `).join('');
 }
 
+/**
+ * Renderiza a página inicial, mostrando todos os módulos (categorias) como cartões.
+ */
 function renderCategories() {
-  appContainer.scrollTop = 0;
+  appContainer.scrollTop = 0; // Leva o scroll para o topo
   triggerAnimation();
   app.innerHTML = `
     <div class="text-center">
@@ -47,6 +53,10 @@ function renderCategories() {
   `;
 }
 
+/**
+ * Renderiza a lista de tópicos para uma categoria específica.
+ * @param {string} categoryId - O ID da categoria a ser exibida.
+ */
 function renderTopics(categoryId) {
   appContainer.scrollTop = 0;
   triggerAnimation();
@@ -76,6 +86,11 @@ function renderTopics(categoryId) {
   `;
 }
 
+/**
+ * Renderiza o conteúdo completo de um artigo/tópico.
+ * @param {string} categoryId - O ID da categoria pai.
+ * @param {string} topicId - O ID do tópico a ser exibido.
+ */
 function renderArticle(categoryId, topicId) {
   appContainer.scrollTop = 0;
   triggerAnimation();
@@ -96,9 +111,14 @@ function renderArticle(categoryId, topicId) {
         <div>${topic.content}</div>
     </div>
   `;
-  addCopyButtons();
+  addCopyButtons(); // Adiciona os botões de copiar aos blocos de código
 }
 
+/**
+ * Renderiza a página de resultados da busca.
+ * @param {Array} results - Um array de objetos de tópico que correspondem à busca.
+ * @param {string} query - O termo que foi pesquisado.
+ */
 function renderSearchResults(results, query) {
     appContainer.scrollTop = 0;
     triggerAnimation();
@@ -111,9 +131,9 @@ function renderSearchResults(results, query) {
             ? `<p class="opacity-70">Nenhum resultado encontrado.</p>`
             : results.map(item => `
                 <a onclick="renderArticle('${item.categoryId}', '${item.id}')" class="card-link block cursor-pointer p-5 rounded-xl mb-4 group">
-                    <p class="text-sm font-semibold opacity-50 group-hover:opacity-100">${item.categoryTitle.replace(queryRegex, `<span class="search-highlight">$1</span>`)}</p>
-                    <h3 class="text-lg font-semibold mt-1">${item.title.replace(queryRegex, `<span class="search-highlight">$1</span>`)}</h3>
-                    <p class="text-sm mt-2 opacity-70">${(item.content.replace(/<[^>]*>/g, '').substring(0, 150) + '...').replace(queryRegex, `<span class="search-highlight">$1</span>`)}</p>
+                    <p class="text-sm font-semibold opacity-50 group-hover:opacity-100">${item.categoryTitle.replace(queryRegex, `<mark>$1</mark>`)}</p>
+                    <h3 class="text-lg font-semibold mt-1">${item.title.replace(queryRegex, `<mark>$1</mark>`)}</h3>
+                    <p class="text-sm mt-2 opacity-70">${(item.content.replace(/<[^>]*>/g, '').substring(0, 150) + '...').replace(queryRegex, `<mark>$1</mark>`)}</p>
                 </a>
             `).join('')
         }
@@ -121,39 +141,64 @@ function renderSearchResults(results, query) {
     `;
 }
 
+/**
+ * Manipula os eventos de teclado no campo de busca.
+ * @param {Event} event - O objeto do evento de teclado.
+ */
 function handleSearch(event) {
     const query = event.target.value.trim();
-    if (event.key === 'Enter' && query) { performSearch(query); }
-    if (event.key === 'Escape' || (event.type === 'keyup' && !query)) { event.target.value = ''; renderCategories(); }
+    if (event.key === 'Enter' && query) {
+        performSearch(query);
+    }
+    if (event.key === 'Escape' || (event.type === 'keyup' && !query)) {
+        event.target.value = '';
+        renderCategories();
+    }
 }
 
+/**
+ * Realiza a busca por um termo nos dados do fórum.
+ * @param {string} query - O termo a ser pesquisado.
+ */
 function performSearch(query) {
     if (!query || query.length < 2) return;
     const results = [];
+    const lowerCaseQuery = query.toLowerCase();
+
     forumData.forEach(category => {
         category.topics.forEach(topic => {
             const fullText = `${category.title} ${topic.title} ${topic.description} ${topic.content}`.toLowerCase();
-            if (fullText.includes(query.toLowerCase())) { results.push({ ...topic, categoryId: category.id, categoryTitle: category.title }); }
+            if (fullText.includes(lowerCaseQuery)) {
+                results.push({ ...topic, categoryId: category.id, categoryTitle: category.title });
+            }
         });
     });
     renderSearchResults(results, query);
 }
 
+/**
+ * Adiciona botões de "Copiar" a todos os blocos de código (`<pre>`).
+ */
 function addCopyButtons() {
     document.querySelectorAll('pre').forEach(block => {
         const button = document.createElement('button');
         button.innerText = 'Copiar';
         button.className = 'copy-button';
         block.appendChild(button);
+        
         button.addEventListener('click', (e) => {
-            e.stopPropagation();
-            navigator.clipboard.writeText(block.querySelector('code').innerText);
-            button.innerText = 'Copiado!';
-            setTimeout(() => { button.innerText = 'Copiar'; }, 2000);
+            e.stopPropagation(); // Impede que o clique no botão dispare outros eventos
+            const code = block.querySelector('code');
+            if (code) {
+                navigator.clipboard.writeText(code.innerText);
+                button.innerText = 'Copiado!';
+                setTimeout(() => { button.innerText = 'Copiar'; }, 2000);
+            }
         });
     });
 }
 
+// --- LÓGICA DO TEMA (Claro/Escuro) ---
 const themeToggle = document.getElementById('theme-toggle');
 const themeIconContainer = document.getElementById('theme-icon-container');
 const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
@@ -169,8 +214,13 @@ themeToggle.addEventListener('click', () => {
     setTheme(!document.body.classList.contains('dark-mode'));
 });
 
+/**
+ * Função de inicialização que é chamada quando o DOM está totalmente carregado.
+ */
 document.addEventListener('DOMContentLoaded', () => {
   renderSidebar();
   renderCategories();
-  setTheme(localStorage.getItem('theme') === 'dark');
+  // Define o tema com base no que está salvo no localStorage do usuário
+  const savedThemeIsDark = localStorage.getItem('theme') === 'dark';
+  setTheme(savedThemeIsDark);
 });
