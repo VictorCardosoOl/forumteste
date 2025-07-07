@@ -1,93 +1,101 @@
-// Arquivo: creator.js (versão simplificada, sem dependências externas)
+// Arquivo: creator.js (Versão segura que gera o arquivo data.js completo)
 
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Referências aos elementos do formulário ---
+    // --- Referências aos elementos do DOM ---
     const categorySelect = document.getElementById('category');
     const titleInput = document.getElementById('topic-title');
     const descriptionInput = document.getElementById('topic-description');
-    const contentEditor = document.getElementById('topic-content-editor');
-    
-    // --- Referências aos botões e área de resultado ---
-    const generateBtn = document.getElementById('generate-btn');
+    const addTopicBtn = document.getElementById('add-topic-btn');
     const resultArea = document.getElementById('result-area');
-    const outputCode = document.getElementById('output');
+    const outputArea = document.getElementById('output');
     const copyBtn = document.getElementById('copy-btn');
-    
-    // --- Lógica do Editor de Texto Simples ---
-    const editorToolbar = document.getElementById('editor-toolbar');
-    
-    editorToolbar.addEventListener('click', (e) => {
-        // Verifica se o clique foi em um botão com o atributo 'data-tag'
-        const button = e.target.closest('button[data-tag]');
-        if (!button) return;
+    const successArea = document.getElementById('success-area');
 
-        const tag = button.dataset.tag;
-        const selectedText = contentEditor.value.substring(contentEditor.selectionStart, contentEditor.selectionEnd);
-        
-        // Envolve o texto selecionado com a tag HTML apropriada
-        const newText = `<${tag}>${selectedText}</${tag}>`;
-        
-        // Insere o texto formatado de volta no textarea
-        contentEditor.setRangeText(newText, contentEditor.selectionStart, contentEditor.selectionEnd, 'end');
-        contentEditor.focus();
+    // --- Inicialização do Editor Pell ---
+    const editor = pell.init({
+      element: document.getElementById('editor'),
+      actions: ['bold', 'italic', 'underline', 'heading2', 'paragraph', 'olist', 'ulist', 'link', 'image'],
+      defaultParagraphSeparator: 'p'
     });
 
-    // --- Lógica para o botão de Adicionar Imagem ---
-    document.getElementById('add-image-btn').addEventListener('click', () => {
-        const filename = prompt("Por favor, digite o nome do arquivo da imagem (ex: meu-fluxograma.png).\nA imagem já deve estar na pasta 'images'.");
-        if (!filename) return; // Usuário cancelou
-
-        const altText = prompt("Digite um texto descritivo para a imagem (importante para acessibilidade).", "Fluxograma");
-        
-        // Cria a tag de imagem com o caminho correto e uma classe padrão
-        const imageTag = `<img src="images/${filename}" alt="${altText}" class="article-image">\n`;
-        
-        // Insere a tag da imagem na posição atual do cursor
-        contentEditor.setRangeText(imageTag, contentEditor.selectionStart, contentEditor.selectionEnd, 'end');
-        contentEditor.focus();
-    });
-
-    // 1. Popula o seletor de categorias com base no data.js
+    // 1. Popula o seletor de categorias com base no data.js carregado
     forumData.forEach(category => {
         const option = document.createElement('option');
         option.value = category.id;
         option.textContent = category.title;
         categorySelect.appendChild(option);
     });
+    
+    /**
+     * Limpa os campos do formulário para facilitar a adição de um novo tópico em sequência.
+     */
+    function clearForm() {
+        titleInput.value = '';
+        descriptionInput.value = '';
+        editor.content.innerHTML = ''; // Limpa o conteúdo do editor Pell
+    }
 
-    // 2. Função para gerar o código quando o botão é clicado
-    generateBtn.addEventListener('click', () => {
-        const title = titleInput.value;
-        const description = descriptionInput.value;
-        const content = contentEditor.value;
+    /**
+     * Função principal que é chamada ao clicar no botão.
+     */
+    addTopicBtn.addEventListener('click', () => {
+        // Obter os valores do formulário
+        const selectedCategoryId = categorySelect.value;
+        const title = titleInput.value.trim();
+        const description = descriptionInput.value.trim();
+        const content = editor.content.innerHTML.trim();
 
+        // Validação simples
         if (!title || !content) {
             alert('Por favor, preencha pelo menos o Título e o Conteúdo do Artigo.');
             return;
         }
 
-        const topicId = title.toLowerCase().replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-');
+        // --- A LÓGICA SEGURA COMEÇA AQUI ---
 
-        // Monta o objeto JavaScript como uma string
-        const generatedCode = `
-{
-  id: '${topicId}',
-  title: '${title.replace(/'/g, "\\'")}',
-  description: '${description.replace(/'/g, "\\'")}',
-  content: \`
-${content.replace(/`/g, "\\`")}
-  \`
-},`;
-        
-        outputCode.textContent = generatedCode;
+        // Encontrar a categoria correta no array 'forumData' que está em memória
+        const targetCategory = forumData.find(category => category.id === selectedCategoryId);
+
+        if (!targetCategory) {
+            alert('Erro: Categoria selecionada não foi encontrada. Por favor, recarregue a página.');
+            return;
+        }
+
+        // Criar o novo objeto de tópico
+        const newTopic = {
+            id: title.toLowerCase().replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-'),
+            title: title,
+            description: description,
+            content: `\n${content}\n` // Adiciona quebras de linha para melhor formatação
+        };
+
+        // Adicionar (push) o novo tópico à lista de tópicos da categoria encontrada
+        targetCategory.topics.push(newTopic);
+
+        // --- GERAÇÃO DO NOVO `data.js` ---
+
+        // Converter o objeto 'forumData' MODIFICADO de volta para uma string formatada
+        // JSON.stringify com 'null, 2' formata o JSON de forma legível
+        const newForumDataString = `const forumData = ${JSON.stringify(forumData, null, 2)};`;
+
+        // Exibir o resultado
+        outputArea.value = newForumDataString;
         resultArea.style.display = 'block';
+
+        // Limpar o formulário e mostrar mensagem de sucesso
+        clearForm();
+        successArea.innerHTML = `<div class="success-message">Tópico "${title}" adicionado com sucesso! O código abaixo foi atualizado.</div>`;
+
+        // Scroll para a área de resultado
+        resultArea.scrollIntoView({ behavior: 'smooth' });
     });
     
-    // 3. Função para copiar o código gerado
+    // Lógica para o botão de copiar o conteúdo inteiro
     copyBtn.addEventListener('click', () => {
-        navigator.clipboard.writeText(outputCode.textContent.trim()).then(() => {
-            copyBtn.textContent = 'Copiado!';
-            setTimeout(() => { copyBtn.textContent = 'Copiar'; }, 2000);
-        });
+        outputArea.select(); // Seleciona todo o texto na textarea
+        document.execCommand('copy'); // Copia o texto selecionado
+        
+        copyBtn.textContent = 'Copiado!';
+        setTimeout(() => { copyBtn.textContent = 'Copiar'; }, 2000);
     });
 });
