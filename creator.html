@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Tópicos do Fórum</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        .output-code { background-color: #2d3748; color: #f7fafc; padding: 1rem; border-radius: 0.5rem; font-family: monospace; white-space: pre-wrap; word-wrap: break-word; position: relative; }
+        .copy-button { position: absolute; top: 0.5rem; right: 0.5rem; background-color: #4a5568; color: white; padding: 0.25rem 0.75rem; border-radius: 0.25rem; cursor: pointer; }
+    </style>
+</head>
+<body class="bg-gray-100 p-8">
+
+    <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow">
+        <h1 class="text-3xl font-bold mb-2">Gerador de Tópicos</h1>
+        <p class="text-gray-600 mb-8">Preencha os campos abaixo e clique em "Gerar Código" para criar o objeto do novo tópico.</p>
+
+        <div class="space-y-6">
+            <div>
+                <label for="category" class="block text-sm font-medium text-gray-700">Selecione a Categoria</label>
+                <select id="category" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"></select>
+            </div>
+            <div>
+                <label for="topic-title" class="block text-sm font-medium text-gray-700">Título do Tópico</label>
+                <input type="text" id="topic-title" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+            </div>
+            <div>
+                <label for="topic-description" class="block text-sm font-medium text-gray-700">Descrição Curta (para o card)</label>
+                <input type="text" id="topic-description" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Conteúdo do Artigo</label>
+                <textarea id="topic-content"></textarea>
+            </div>
+        </div>
+
+        <div class="mt-8">
+            <button id="generate-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                Gerar Código do Tópico
+            </button>
+        </div>
+
+        <div id="result-area" class="mt-8" style="display: none;">
+            <h2 class="text-xl font-bold">Código Gerado</h2>
+            <p class="text-gray-600 mb-4">Copie o código abaixo e cole dentro do array `topics` da categoria correspondente no arquivo <strong>data.js</strong>.</p>
+            <div class="output-code">
+                <button id="copy-btn" class="copy-button">Copiar</button>
+                <code id="output"></code>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="creator.js"></script>
+
+</body>
+</html>
