@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Tópicos do Fórum</title>
+    <title>Gerenciador de Conteúdo do Fórum</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="pell/pell.css">
     
     <style>
@@ -16,44 +15,58 @@
         .pell { border: 1px solid #d1d5db; border-radius: 0.375rem; }
         .pell-content { height: 300px; padding: 10px; }
         .pell-actionbar { background-color: #f9fafb; border-bottom: 1px solid #d1d5db; }
-        .success-message { color: #16a34a; background-color: #f0fdf4; border: 1px solid #bbf7d0; padding: 0.75rem 1rem; border-radius: 0.375rem; font-weight: 500; margin-top: 1rem; }
     </style>
 </head>
 <body class="bg-gray-100 p-8">
     <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow">
-        <h1 class="text-3xl font-bold mb-2">Gerador de Tópicos do Fórum</h1>
-        <p class="text-gray-600 mb-8">Esta ferramenta ajuda a adicionar novos tópicos ao fórum de forma segura.</p>
+        <h1 class="text-3xl font-bold mb-2">Gerenciador de Conteúdo</h1>
         
-        <div id="success-area"></div>
-
-        <div class="space-y-6 mt-6">
-            <div>
-                <label for="category" class="block text-sm font-medium text-gray-700">Selecione a Categoria onde o tópico será adicionado</label>
-                <select id="category" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"></select>
-            </div>
-            <div>
-                <label for="topic-title" class="block text-sm font-medium text-gray-700">Título do Novo Tópico</label>
-                <input type="text" id="topic-title" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-            </div>
-            <div>
-                <label for="topic-description" class="block text-sm font-medium text-gray-700">Descrição Curta (para o card)</label>
-                <input type="text" id="topic-description" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
-            </div>
-            <div>
-                <label class="block text-sm font-medium text-gray-700">Conteúdo do Artigo</label>
-                <div id="editor" class="mt-1"></div>
-            </div>
+        <div id="mode-selector" class="flex flex-wrap gap-x-6 gap-y-2 border-b pb-4 mb-6">
+            <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="mode" value="topic" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300" checked>
+                <span class="font-medium">Criar Novo Tópico</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="mode" value="module" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300">
+                <span class="font-medium">Criar Novo Módulo</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+                <input type="radio" name="mode" value="edit" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300">
+                <span class="font-medium">Editar Tópico Existente</span>
+            </label>
         </div>
+
+        <div id="create-module-form" class="space-y-6" style="display: none;">
+            <p class="text-sm text-gray-600">Use este modo para criar uma nova categoria no menu principal.</p>
+            </div>
+
+        <div id="edit-topic-selector" class="space-y-4 p-4 bg-gray-50 rounded-lg" style="display: none;">
+             <p class="text-sm text-gray-600 font-medium">Primeiro, selecione o tópico que deseja editar e clique em "Carregar".</p>
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                 <div>
+                    <label for="edit-category-select" class="block text-xs font-medium text-gray-700">Módulo</label>
+                    <select id="edit-category-select" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"></select>
+                 </div>
+                 <div>
+                    <label for="edit-topic-select" class="block text-xs font-medium text-gray-700">Tópico</label>
+                    <select id="edit-topic-select" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"></select>
+                 </div>
+             </div>
+             <button id="load-topic-btn" class="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700">Carregar Tópico para Edição</button>
+        </div>
+
+        <div id="topic-form-area" class="space-y-6 mt-6">
+            </div>
+
         <div class="mt-8">
-            <button id="add-topic-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700">
-                Adicionar Tópico e Gerar Novo data.js
+            <button id="generate-code-btn" class="w-full bg-indigo-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-indigo-700">
+                Gerar Código do Tópico
             </button>
         </div>
+
         <div id="result-area" class="mt-8" style="display: none;">
-            <h2 class="text-xl font-bold">Código `data.js` Atualizado</h2>
-            <p class="text-gray-600 mb-4">
-                <strong>Atenção:</strong> Copie <strong>TODO</strong> o código gerado abaixo. Depois, abra o arquivo <strong>data.js</strong>, apague tudo o que está nele e cole este novo código.
-            </p>
+            <h2 id="result-title" class="text-xl font-bold">Código Gerado</h2>
+            <p id="result-instruction" class="text-gray-600 mb-4"></p>
             <div class="output-code">
                 <button id="copy-btn" class="copy-button">Copiar</button>
                 <textarea id="output" readonly class="w-full h-64 bg-transparent text-white border-none resize-none font-mono"></textarea>

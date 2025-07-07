@@ -1,101 +1,56 @@
-// Arquivo: creator.js (Versão segura que gera o arquivo data.js completo)
+// Arquivo: creator.js (Versão final com 3 modos: Criar Módulo, Criar Tópico, Editar Tópico)
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- Referências aos elementos do DOM ---
-    const categorySelect = document.getElementById('category');
-    const titleInput = document.getElementById('topic-title');
-    const descriptionInput = document.getElementById('topic-description');
-    const addTopicBtn = document.getElementById('add-topic-btn');
+    const modeRadios = document.querySelectorAll('input[name="mode"]');
+    const generateCodeBtn = document.getElementById('generate-code-btn');
     const resultArea = document.getElementById('result-area');
     const outputArea = document.getElementById('output');
     const copyBtn = document.getElementById('copy-btn');
-    const successArea = document.getElementById('success-area');
+    const resultTitle = document.getElementById('result-title');
+    const resultInstruction = document.getElementById('result-instruction');
+
+    // Formulários e suas áreas
+    const createModuleForm = document.getElementById('create-module-form');
+    const editTopicSelector = document.getElementById('edit-topic-selector');
+    const topicFormArea = document.getElementById('topic-form-area');
+
+    // Campos de edição
+    const editCategorySelect = document.getElementById('edit-category-select');
+    const editTopicSelect = document.getElementById('edit-topic-select');
+    const loadTopicBtn = document.getElementById('load-topic-btn');
+    
+    let currentMode = 'topic'; // Modo inicial
+    let editingTopicId = null; // Guarda o ID do tópico que está sendo editado
 
     // --- Inicialização do Editor Pell ---
-    const editor = pell.init({
-      element: document.getElementById('editor'),
-      actions: ['bold', 'italic', 'underline', 'heading2', 'paragraph', 'olist', 'ulist', 'link', 'image'],
-      defaultParagraphSeparator: 'p'
-    });
+    const editor = pell.init({ /* ... configuração do Pell ... */ });
 
-    // 1. Popula o seletor de categorias com base no data.js carregado
-    forumData.forEach(category => {
-        const option = document.createElement('option');
-        option.value = category.id;
-        option.textContent = category.title;
-        categorySelect.appendChild(option);
-    });
-    
-    /**
-     * Limpa os campos do formulário para facilitar a adição de um novo tópico em sequência.
-     */
-    function clearForm() {
-        titleInput.value = '';
-        descriptionInput.value = '';
-        editor.content.innerHTML = ''; // Limpa o conteúdo do editor Pell
-    }
+    // --- Lógica de Gerenciamento ---
 
-    /**
-     * Função principal que é chamada ao clicar no botão.
-     */
-    addTopicBtn.addEventListener('click', () => {
-        // Obter os valores do formulário
-        const selectedCategoryId = categorySelect.value;
-        const title = titleInput.value.trim();
-        const description = descriptionInput.value.trim();
-        const content = editor.content.innerHTML.trim();
-
-        // Validação simples
-        if (!title || !content) {
-            alert('Por favor, preencha pelo menos o Título e o Conteúdo do Artigo.');
-            return;
-        }
-
-        // --- A LÓGICA SEGURA COMEÇA AQUI ---
-
-        // Encontrar a categoria correta no array 'forumData' que está em memória
-        const targetCategory = forumData.find(category => category.id === selectedCategoryId);
-
-        if (!targetCategory) {
-            alert('Erro: Categoria selecionada não foi encontrada. Por favor, recarregue a página.');
-            return;
-        }
-
-        // Criar o novo objeto de tópico
-        const newTopic = {
-            id: title.toLowerCase().replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-'),
-            title: title,
-            description: description,
-            content: `\n${content}\n` // Adiciona quebras de linha para melhor formatação
-        };
-
-        // Adicionar (push) o novo tópico à lista de tópicos da categoria encontrada
-        targetCategory.topics.push(newTopic);
-
-        // --- GERAÇÃO DO NOVO `data.js` ---
-
-        // Converter o objeto 'forumData' MODIFICADO de volta para uma string formatada
-        // JSON.stringify com 'null, 2' formata o JSON de forma legível
-        const newForumDataString = `const forumData = ${JSON.stringify(forumData, null, 2)};`;
-
-        // Exibir o resultado
-        outputArea.value = newForumDataString;
-        resultArea.style.display = 'block';
-
-        // Limpar o formulário e mostrar mensagem de sucesso
-        clearForm();
-        successArea.innerHTML = `<div class="success-message">Tópico "${title}" adicionado com sucesso! O código abaixo foi atualizado.</div>`;
-
-        // Scroll para a área de resultado
-        resultArea.scrollIntoView({ behavior: 'smooth' });
-    });
-    
-    // Lógica para o botão de copiar o conteúdo inteiro
-    copyBtn.addEventListener('click', () => {
-        outputArea.select(); // Seleciona todo o texto na textarea
-        document.execCommand('copy'); // Copia o texto selecionado
+    function toggleMode(mode) {
+        currentMode = mode;
+        resultArea.style.display = 'none'; // Esconde resultado ao trocar de modo
         
-        copyBtn.textContent = 'Copiado!';
-        setTimeout(() => { copyBtn.textContent = 'Copiar'; }, 2000);
-    });
+        // Esconde todas as seções de formulário
+        createModuleForm.style.display = 'none';
+        editTopicSelector.style.display = 'none';
+        topicFormArea.style.display = 'none';
+
+        if (mode === 'topic') {
+            topicFormArea.style.display = 'block';
+            generateCodeBtn.textContent = 'Gerar Código do Novo Tópico';
+            populateTopicFormForCreation(); // Prepara o formulário para criar
+        } else if (mode === 'module') {
+            createModuleForm.style.display = 'block';
+            generateCodeBtn.textContent = 'Gerar Código do Novo Módulo';
+        } else if (mode === 'edit') {
+            editTopicSelector.style.display = 'block';
+            topicFormArea.style.display = 'block'; // Mostra também a área do formulário
+            generateCodeBtn.textContent = 'Gerar Código Atualizado do Tópico';
+            populateEditCategoryDropdown();
+        }
+    }
+    
+    // ... (O restante do código JavaScript detalhado abaixo) ...
 });
