@@ -37,8 +37,10 @@ document.addEventListener('DOMContentLoaded', () => {
         defaultParagraphSeparator: 'p'
     });
 
-    function populateDropdown(selectElement, items, defaultOption) {
-        selectElement.innerHTML = `<option value="">${defaultOption}</option>`;
+    // --- LÓGICA DE GERENCIAMENTO ---
+
+    function populateDropdown(selectElement, items, defaultOptionText) {
+        selectElement.innerHTML = `<option value="">${defaultOptionText}</option>`;
         items.forEach(item => {
             const option = document.createElement('option');
             option.value = item.id;
@@ -53,6 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
         pellEditor.content.innerHTML = '';
         editingTopicId = null;
         topicCategorySelect.disabled = false;
+        // Limpa também o formulário de módulo para garantir consistência
+        moduleTitleInput.value = '';
+        moduleDescriptionInput.value = '';
+        moduleIconInput.value = '';
     }
     
     function toggleMode(mode) {
@@ -60,12 +66,14 @@ document.addEventListener('DOMContentLoaded', () => {
         resultArea.style.display = 'none';
         clearTopicForm();
 
+        // Esconde todos os formulários e seções
         createModuleForm.style.display = 'none';
         editTopicSelector.style.display = 'none';
         topicFormArea.style.display = 'none';
         
         generateCodeBtn.textContent = 'Gerar Código';
 
+        // Mostra os formulários corretos para o modo selecionado
         if (mode === 'topic') {
             topicFormArea.style.display = 'block';
             populateDropdown(topicCategorySelect, forumData, 'Selecione um módulo...');
@@ -79,6 +87,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // --- EVENT LISTENERS ---
+
+    // Listener para os botões de rádio que trocam o modo
+    modeRadios.forEach(radio => {
+        radio.addEventListener('change', (e) => toggleMode(e.target.value));
+    });
+
+    // Popula o dropdown de tópicos quando um módulo é selecionado no modo de edição
     editCategorySelect.addEventListener('change', () => {
         const categoryId = editCategorySelect.value;
         const category = forumData.find(c => c.id === categoryId);
@@ -89,6 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Carrega os dados de um tópico selecionado para o formulário
     loadTopicBtn.addEventListener('click', () => {
         const categoryId = editCategorySelect.value;
         const topicId = editTopicSelect.value;
@@ -104,29 +121,33 @@ document.addEventListener('DOMContentLoaded', () => {
             topicTitleInput.value = topic.title;
             topicDescriptionInput.value = topic.description;
             pellEditor.content.innerHTML = topic.content.trim();
-            editingTopicId = topic.id;
+            editingTopicId = topic.id; // Salva o ID original
+            
+            // Preenche e desabilita o dropdown de categoria no formulário principal
             populateDropdown(topicCategorySelect, forumData, '');
             topicCategorySelect.value = categoryId;
             topicCategorySelect.disabled = true;
+            
             alert(`Tópico "${topic.title}" carregado. Faça suas alterações e gere o código.`);
         }
     });
 
+    // Botão principal para gerar os fragmentos de código
     generateCodeBtn.addEventListener('click', () => {
         let codeSnippet = '';
         
         if (currentMode === 'module') {
             const title = moduleTitleInput.value.trim();
             if (!title) { alert('O título do módulo é obrigatório.'); return; }
-            const newModule = {
+
+            const moduleObject = {
                 id: title.toLowerCase().replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-'),
                 title: title,
                 description: moduleDescriptionInput.value.trim(),
                 icon: moduleIconInput.value.trim() || '<svg></svg>',
                 topics: []
             };
-            // Usando JSON.stringify para formatar e depois ajustando para ser um objeto JS
-            codeSnippet = JSON.stringify(newModule, null, 2).replace(/"([^"]+)":/g, '$1:') + ',';
+            codeSnippet = JSON.stringify(moduleObject, null, 2).replace(/"([^"]+)":/g, '$1:').replace(/icon: "((.|\n)*)"/g, 'icon: `$1`') + ',';
             
             resultTitle.textContent = "Código do Novo Módulo";
             resultInstruction.textContent = "Copie este código e cole-o dentro do array principal `forumData` no seu arquivo data.js.";
@@ -136,18 +157,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const content = pellEditor.content.innerHTML;
             if (!title) { alert('O título do tópico é obrigatório.'); return; }
 
-            const newTopic = {
+            const topicObject = {
                 id: currentMode === 'edit' ? editingTopicId : title.toLowerCase().replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-'),
                 title: title,
                 description: topicDescriptionInput.value.trim(),
                 content: `\n          ${content.trim()}\n        `
             };
             
-            let tempString = JSON.stringify(newTopic, null, 2);
-            // Remove aspas das chaves e formata 'content' com crases
+            let tempString = JSON.stringify(topicObject, null, 2);
             tempString = tempString.replace(/"([^"]+)":/g, '$1:');
-            tempString = tempString.replace(/content: "((.|\n)*)"/g, 'content: `$1`');
-            
+            tempString = tempString.replace(/content: "((.|\n|\r)*?)"/g, (match, p1) => `content: \`${p1.replace(/\\n/g, '\n').replace(/\\"/g, '"')}\``);
             codeSnippet = tempString + ',';
 
             if (currentMode === 'edit') {
@@ -167,6 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Botão para copiar o código gerado
     copyBtn.addEventListener('click', () => {
         outputArea.select();
         document.execCommand('copy');
@@ -174,6 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => { copyBtn.textContent = 'Copiar'; }, 2000);
     });
 
-    // Inicializa a ferramenta no modo 'Criar Tópico'
+    // --- INICIALIZAÇÃO ---
+    // Inicia a ferramenta no modo 'Criar Tópico' por padrão
     toggleMode('topic');
 });
