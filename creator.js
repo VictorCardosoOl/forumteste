@@ -1,19 +1,13 @@
+// creator.js (Versão simplificada e corrigida)
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Referências aos elementos do DOM ---
+    // --- Referências aos Elementos ---
     const modeRadios = document.querySelectorAll('input[name="mode"]');
-    const generateCodeBtn = document.getElementById('generate-code-btn');
-    const resultArea = document.getElementById('result-area');
-    const outputArea = document.getElementById('output');
-    const copyBtn = document.getElementById('copy-btn');
-    const resultTitle = document.getElementById('result-title');
-    const resultInstruction = document.getElementById('result-instruction');
-
-    const createModuleForm = document.getElementById('create-module-form');
-    const editTopicSelector = document.getElementById('edit-topic-selector');
-    const topicFormArea = document.getElementById('topic-form-area');
+    const topicForm = document.getElementById('topic-form');
+    const moduleForm = document.getElementById('module-form');
+    const generateBtn = document.getElementById('generate-btn');
 
     // Campos do formulário de Tópico
-    const topicCategorySelect = document.getElementById('topic-category');
+    const categorySelect = document.getElementById('category-select');
     const topicTitleInput = document.getElementById('topic-title');
     const topicDescriptionInput = document.getElementById('topic-description');
 
@@ -22,13 +16,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const moduleDescriptionInput = document.getElementById('module-description');
     const moduleIconInput = document.getElementById('module-icon');
 
-    // Campos de Edição
-    const editCategorySelect = document.getElementById('edit-category-select');
-    const editTopicSelect = document.getElementById('edit-topic-select');
-    const loadTopicBtn = document.getElementById('load-topic-btn');
-    
+    // Área de Resultado
+    const resultArea = document.getElementById('result-area');
+    const resultTitle = document.getElementById('result-title');
+    const resultInstruction = document.getElementById('result-instruction');
+    const outputArea = document.getElementById('output');
+    const copyBtn = document.getElementById('copy-btn');
+
     let currentMode = 'topic';
-    let editingTopicId = null;
 
     // --- Inicialização do Editor Pell ---
     const pellEditor = pell.init({
@@ -37,156 +32,107 @@ document.addEventListener('DOMContentLoaded', () => {
         defaultParagraphSeparator: 'p'
     });
 
-    // --- LÓGICA DE GERENCIAMENTO ---
+    // --- Lógica Principal ---
 
-    function populateDropdown(selectElement, items, defaultOptionText) {
-        selectElement.innerHTML = `<option value="">${defaultOptionText}</option>`;
-        items.forEach(item => {
+    // Popula o dropdown com os módulos existentes do data.js
+    function populateCategoryDropdown() {
+        // Verifica se forumData existe e é um array
+        if (typeof forumData === 'undefined' || !Array.isArray(forumData)) {
+            console.error("A variável 'forumData' não foi encontrada ou não é um array. Verifique se o arquivo 'data.js' está sendo carregado corretamente.");
+            alert("ERRO: Não foi possível carregar os módulos. Verifique o console do navegador.");
+            return;
+        }
+        
+        categorySelect.innerHTML = ''; // Limpa antes de preencher
+        forumData.forEach(category => {
             const option = document.createElement('option');
-            option.value = item.id;
-            option.textContent = item.title;
-            selectElement.appendChild(option);
+            option.value = category.id;
+            option.textContent = category.title;
+            categorySelect.appendChild(option);
         });
     }
 
-    function clearTopicForm() {
-        topicTitleInput.value = '';
-        topicDescriptionInput.value = '';
-        pellEditor.content.innerHTML = '';
-        editingTopicId = null;
-        topicCategorySelect.disabled = false;
-        // Limpa também o formulário de módulo para garantir consistência
-        moduleTitleInput.value = '';
-        moduleDescriptionInput.value = '';
-        moduleIconInput.value = '';
-    }
-    
-    function toggleMode(mode) {
-        currentMode = mode;
-        resultArea.style.display = 'none';
-        clearTopicForm();
-
-        // Esconde todos os formulários e seções
-        createModuleForm.style.display = 'none';
-        editTopicSelector.style.display = 'none';
-        topicFormArea.style.display = 'none';
-        
-        generateCodeBtn.textContent = 'Gerar Código';
-
-        // Mostra os formulários corretos para o modo selecionado
-        if (mode === 'topic') {
-            topicFormArea.style.display = 'block';
-            populateDropdown(topicCategorySelect, forumData, 'Selecione um módulo...');
-        } else if (mode === 'module') {
-            createModuleForm.style.display = 'block';
-        } else if (mode === 'edit') {
-            editTopicSelector.style.display = 'block';
-            topicFormArea.style.display = 'block';
-            populateDropdown(editCategorySelect, forumData, 'Selecione um módulo...');
-            editTopicSelect.innerHTML = '<option value="">Selecione um tópico...</option>';
-        }
-    }
-
-    // --- EVENT LISTENERS ---
-
-    // Listener para os botões de rádio que trocam o modo
+    // Alterna a visibilidade dos formulários
     modeRadios.forEach(radio => {
-        radio.addEventListener('change', (e) => toggleMode(e.target.value));
+        radio.addEventListener('change', (e) => {
+            currentMode = e.target.value;
+            if (currentMode === 'topic') {
+                topicForm.style.display = 'block';
+                moduleForm.style.display = 'none';
+            } else {
+                topicForm.style.display = 'none';
+                moduleForm.style.display = 'block';
+            }
+            resultArea.style.display = 'none';
+        });
     });
 
-    // Popula o dropdown de tópicos quando um módulo é selecionado no modo de edição
-    editCategorySelect.addEventListener('change', () => {
-        const categoryId = editCategorySelect.value;
-        const category = forumData.find(c => c.id === categoryId);
-        if (category) {
-            populateDropdown(editTopicSelect, category.topics, 'Selecione um tópico...');
-        } else {
-            editTopicSelect.innerHTML = '<option value="">Selecione um tópico...</option>';
-        }
-    });
-
-    // Carrega os dados de um tópico selecionado para o formulário
-    loadTopicBtn.addEventListener('click', () => {
-        const categoryId = editCategorySelect.value;
-        const topicId = editTopicSelect.value;
-        if (!categoryId || !topicId) {
-            alert('Por favor, selecione um módulo e um tópico para carregar.');
-            return;
-        }
-
-        const category = forumData.find(c => c.id === categoryId);
-        const topic = category.topics.find(t => t.id === topicId);
-
-        if (topic) {
-            topicTitleInput.value = topic.title;
-            topicDescriptionInput.value = topic.description;
-            pellEditor.content.innerHTML = topic.content.trim();
-            editingTopicId = topic.id; // Salva o ID original
-            
-            // Preenche e desabilita o dropdown de categoria no formulário principal
-            populateDropdown(topicCategorySelect, forumData, '');
-            topicCategorySelect.value = categoryId;
-            topicCategorySelect.disabled = true;
-            
-            alert(`Tópico "${topic.title}" carregado. Faça suas alterações e gere o código.`);
-        }
-    });
-
-    // Botão principal para gerar os fragmentos de código
-    generateCodeBtn.addEventListener('click', () => {
-        let codeSnippet = '';
+    // Gera o código ao clicar no botão
+    generateBtn.addEventListener('click', () => {
+        let generatedCode = '';
         
-        if (currentMode === 'module') {
-            const title = moduleTitleInput.value.trim();
-            if (!title) { alert('O título do módulo é obrigatório.'); return; }
+        if (currentMode === 'topic') {
+            const title = topicTitleInput.value.trim();
+            const content = pellEditor.content.innerHTML;
 
+            if (!title || !content.trim()) {
+                alert('O Título e o Conteúdo do Tópico são obrigatórios.');
+                return;
+            }
+            if (!categorySelect.value) {
+                alert('Por favor, selecione um módulo para adicionar o tópico.');
+                return;
+            }
+
+            const topicId = title.toLowerCase().replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-');
+            
+            // Usando JSON.stringify para garantir que as aspas sejam tratadas corretamente
+            const topicObject = {
+                id: topicId,
+                title: title,
+                description: topicDescriptionInput.value.trim(),
+                content: `\n          ${content.trim()}\n        `
+            };
+
+            let tempString = JSON.stringify(topicObject, null, 2);
+            // Substitui aspas duplas das chaves por nada, e formata o content com crases
+            tempString = tempString.replace(/"([^"]+)":/g, '$1:');
+            tempString = tempString.replace(/content: "((.|\n|\r)*?)"/g, (match, p1) => `content: \`${p1.replace(/\\n/g, '\n').replace(/\\"/g, '"')}\``);
+            generatedCode = tempString + ',';
+            
+            resultTitle.textContent = "Código do Novo Tópico";
+            resultInstruction.textContent = `Copie o código abaixo e cole-o DENTRO do array 'topics' do módulo "${categorySelect.options[categorySelect.selectedIndex].text}" no seu arquivo data.js.`;
+
+        } else { // currentMode === 'module'
+            const title = moduleTitleInput.value.trim();
+            if (!title) {
+                alert('O Título do Módulo é obrigatório.');
+                return;
+            }
+            const moduleId = title.toLowerCase().replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-');
             const moduleObject = {
-                id: title.toLowerCase().replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-'),
+                id: moduleId,
                 title: title,
                 description: moduleDescriptionInput.value.trim(),
                 icon: moduleIconInput.value.trim() || '<svg></svg>',
                 topics: []
             };
-            codeSnippet = JSON.stringify(moduleObject, null, 2).replace(/"([^"]+)":/g, '$1:').replace(/icon: "((.|\n)*)"/g, 'icon: `$1`') + ',';
-            
-            resultTitle.textContent = "Código do Novo Módulo";
-            resultInstruction.textContent = "Copie este código e cole-o dentro do array principal `forumData` no seu arquivo data.js.";
 
-        } else if (currentMode === 'topic' || currentMode === 'edit') {
-            const title = topicTitleInput.value.trim();
-            const content = pellEditor.content.innerHTML;
-            if (!title) { alert('O título do tópico é obrigatório.'); return; }
-
-            const topicObject = {
-                id: currentMode === 'edit' ? editingTopicId : title.toLowerCase().replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-'),
-                title: title,
-                description: topicDescriptionInput.value.trim(),
-                content: `\n          ${content.trim()}\n        `
-            };
-            
-            let tempString = JSON.stringify(topicObject, null, 2);
+            let tempString = JSON.stringify(moduleObject, null, 2);
+            // Formatação para se parecer com um objeto JS
             tempString = tempString.replace(/"([^"]+)":/g, '$1:');
-            tempString = tempString.replace(/content: "((.|\n|\r)*?)"/g, (match, p1) => `content: \`${p1.replace(/\\n/g, '\n').replace(/\\"/g, '"')}\``);
-            codeSnippet = tempString + ',';
+            tempString = tempString.replace(/icon: "((.|\n|\r)*?)"/g, (match, p1) => `icon: \`${p1.replace(/\\"/g, '"')}\``);
+            generatedCode = tempString + ',';
 
-            if (currentMode === 'edit') {
-                resultTitle.textContent = "Código do Tópico Atualizado";
-                resultInstruction.textContent = `No arquivo data.js, encontre o tópico com id: "${editingTopicId}" e SUBSTITUA o objeto inteiro por este código.`;
-            } else {
-                resultTitle.textContent = "Código do Novo Tópico";
-                const categoryId = topicCategorySelect.value;
-                resultInstruction.textContent = `No arquivo data.js, encontre o módulo com id: "${categoryId}" e cole este código DENTRO do seu array 'topics'.`;
-            }
+            resultTitle.textContent = "Código do Novo Módulo";
+            resultInstruction.textContent = "Copie este código e cole-o DENTRO do array principal 'forumData' no seu arquivo data.js.";
         }
         
-        if (codeSnippet) {
-            outputArea.value = codeSnippet;
-            resultArea.style.display = 'block';
-            resultArea.scrollIntoView({ behavior: 'smooth' });
-        }
+        outputArea.value = generatedCode;
+        resultArea.style.display = 'block';
     });
 
-    // Botão para copiar o código gerado
+    // Função para copiar o código
     copyBtn.addEventListener('click', () => {
         outputArea.select();
         document.execCommand('copy');
@@ -194,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => { copyBtn.textContent = 'Copiar'; }, 2000);
     });
 
-    // --- INICIALIZAÇÃO ---
-    // Inicia a ferramenta no modo 'Criar Tópico' por padrão
-    toggleMode('topic');
+    // --- Execução Inicial ---
+    // Popula o dropdown assim que a página carrega
+    populateCategoryDropdown();
 });
