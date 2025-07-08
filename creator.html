@@ -3,23 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Conteúdo do Fórum</title>
+    <title>Gerador de Conteúdo (Versão Simples)</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="pell/pell.css">
     <style>
         body { font-family: 'Poppins', sans-serif; }
         .output-code { background-color: #2d3748; color: #f7fafc; padding: 1rem; border-radius: 0.5rem; font-family: monospace; white-space: pre-wrap; word-wrap: break-word; position: relative; }
         .copy-button { position: absolute; top: 0.5rem; right: 0.5rem; background-color: #4a5568; color: white; padding: 0.25rem 0.75rem; border-radius: 0.25rem; cursor: pointer; }
-        .pell { border: 1px solid #d1d5db; border-radius: 0.375rem; }
-        .pell-content { height: 300px; padding: 10px; }
-        .pell-actionbar { background-color: #f9fafb; border-bottom: 1px solid #d1d5db; }
+        #content-editor { font-family: monospace; border: 1px solid #d1d5db; border-radius: 0.375rem; padding: 10px; }
     </style>
 </head>
 <body class="bg-gray-100 p-8">
     <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow">
-        <h1 class="text-3xl font-bold mb-2">Gerador de Conteúdo</h1>
-        <p class="text-gray-600 mb-6">Use esta ferramenta para criar novos módulos ou tópicos para o fórum.</p>
+        <h1 class="text-3xl font-bold mb-2">Gerador de Conteúdo (Versão Simples)</h1>
+        <p class="text-gray-600 mb-6">Esta ferramenta gera o código para novos módulos e tópicos.</p>
         
         <div class="flex gap-6 border-b pb-4 mb-6">
             <label class="flex items-center gap-2 cursor-pointer">
@@ -46,8 +43,11 @@
                 <input type="text" id="topic-description" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
             </div>
             <div>
-                <label class="block text-sm font-medium text-gray-700">Conteúdo do Artigo</label>
-                <div id="editor" class="mt-1"></div>
+                <div class="flex justify-between items-center">
+                    <label class="block text-sm font-medium text-gray-700">Conteúdo do Artigo (em HTML)</label>
+                    <button id="insert-image-btn" class="text-sm bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300">Inserir Imagem</button>
+                </div>
+                <textarea id="content-editor" name="content-editor" rows="10" class="mt-1 block w-full" placeholder="Ex: <h2>Título</h2><p>Este é um parágrafo.</p>"></textarea>
             </div>
         </div>
         
@@ -80,7 +80,6 @@
         </div>
     </div>
     
-    <script src="pell/pell.min.js"></script>
     <script src="data.js"></script>
     <script src="creator.js"></script>
 </body>

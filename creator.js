@@ -1,4 +1,4 @@
-// creator.js (Versão simplificada e corrigida)
+// creator.js (Versão final com CKEditor e correção de bugs)
 document.addEventListener('DOMContentLoaded', () => {
     // --- Referências aos Elementos ---
     const modeRadios = document.querySelectorAll('input[name="mode"]');
@@ -25,25 +25,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentMode = 'topic';
 
-    // --- Inicialização do Editor Pell ---
-    const pellEditor = pell.init({
-        element: document.getElementById('editor'),
-        actions: ['bold', 'italic', 'underline', 'heading2', 'paragraph', 'olist', 'ulist', 'link', 'image'],
-        defaultParagraphSeparator: 'p'
+    // --- Inicialização do CKEditor ---
+    // Substitui o <textarea> pelo editor completo.
+    const editor = CKEDITOR.replace('content-editor', {
+        // Opções extras para um editor mais limpo
+        height: 300,
+        removeButtons: 'Subscript,Superscript,About', // Remove botões menos usados
     });
 
     // --- Lógica Principal ---
 
-    // Popula o dropdown com os módulos existentes do data.js
     function populateCategoryDropdown() {
-        // Verifica se forumData existe e é um array
         if (typeof forumData === 'undefined' || !Array.isArray(forumData)) {
-            console.error("A variável 'forumData' não foi encontrada ou não é um array. Verifique se o arquivo 'data.js' está sendo carregado corretamente.");
-            alert("ERRO: Não foi possível carregar os módulos. Verifique o console do navegador.");
+            console.error("A variável 'forumData' não foi encontrada. Verifique o 'data.js'.");
+            alert("ERRO: Não foi possível carregar os módulos.");
             return;
         }
         
-        categorySelect.innerHTML = ''; // Limpa antes de preencher
+        categorySelect.innerHTML = '';
         forumData.forEach(category => {
             const option = document.createElement('option');
             option.value = category.id;
@@ -52,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Alterna a visibilidade dos formulários
     modeRadios.forEach(radio => {
         radio.addEventListener('change', (e) => {
             currentMode = e.target.value;
@@ -67,13 +65,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Gera o código ao clicar no botão
     generateBtn.addEventListener('click', () => {
         let generatedCode = '';
         
         if (currentMode === 'topic') {
             const title = topicTitleInput.value.trim();
-            const content = pellEditor.content.innerHTML;
+            // CORREÇÃO: Usando a API do CKEditor para obter o conteúdo de forma segura
+            const content = editor.getData();
 
             if (!title || !content.trim()) {
                 alert('O Título e o Conteúdo do Tópico são obrigatórios.');
@@ -85,20 +83,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const topicId = title.toLowerCase().replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-');
+            const description = topicDescriptionInput.value.trim().replace(/'/g, "\\'");
             
-            // Usando JSON.stringify para garantir que as aspas sejam tratadas corretamente
-            const topicObject = {
-                id: topicId,
-                title: title,
-                description: topicDescriptionInput.value.trim(),
-                content: `\n          ${content.trim()}\n        `
-            };
-
-            let tempString = JSON.stringify(topicObject, null, 2);
-            // Substitui aspas duplas das chaves por nada, e formata o content com crases
-            tempString = tempString.replace(/"([^"]+)":/g, '$1:');
-            tempString = tempString.replace(/content: "((.|\n|\r)*?)"/g, (match, p1) => `content: \`${p1.replace(/\\n/g, '\n').replace(/\\"/g, '"')}\``);
-            generatedCode = tempString + ',';
+            generatedCode = `{
+  id: '${topicId}',
+  title: '${title.replace(/'/g, "\\'")}',
+  description: '${description}',
+  content: \`
+          ${content.trim().replace(/`/g, "\\`")}
+        \`
+},`;
             
             resultTitle.textContent = "Código do Novo Tópico";
             resultInstruction.textContent = `Copie o código abaixo e cole-o DENTRO do array 'topics' do módulo "${categorySelect.options[categorySelect.selectedIndex].text}" no seu arquivo data.js.`;
@@ -110,19 +104,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             const moduleId = title.toLowerCase().replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-');
-            const moduleObject = {
-                id: moduleId,
-                title: title,
-                description: moduleDescriptionInput.value.trim(),
-                icon: moduleIconInput.value.trim() || '<svg></svg>',
-                topics: []
-            };
+            const description = moduleDescriptionInput.value.trim().replace(/'/g, "\\'");
+            const icon = moduleIconInput.value.trim().replace(/`/g, "\\`");
 
-            let tempString = JSON.stringify(moduleObject, null, 2);
-            // Formatação para se parecer com um objeto JS
-            tempString = tempString.replace(/"([^"]+)":/g, '$1:');
-            tempString = tempString.replace(/icon: "((.|\n|\r)*?)"/g, (match, p1) => `icon: \`${p1.replace(/\\"/g, '"')}\``);
-            generatedCode = tempString + ',';
+            generatedCode = `{
+  id: '${moduleId}',
+  title: '${title.replace(/'/g, "\\'")}',
+  description: '${description}',
+  icon: \`${icon}\`,
+  topics: []
+},`;
 
             resultTitle.textContent = "Código do Novo Módulo";
             resultInstruction.textContent = "Copie este código e cole-o DENTRO do array principal 'forumData' no seu arquivo data.js.";
@@ -132,7 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
         resultArea.style.display = 'block';
     });
 
-    // Função para copiar o código
     copyBtn.addEventListener('click', () => {
         outputArea.select();
         document.execCommand('copy');
@@ -140,7 +130,5 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => { copyBtn.textContent = 'Copiar'; }, 2000);
     });
 
-    // --- Execução Inicial ---
-    // Popula o dropdown assim que a página carrega
     populateCategoryDropdown();
 });
