@@ -13,10 +13,10 @@ const forumData = [
         content: `<h2>Requisitos Mínimos</h2><p>O sistema requer Windows 10 ou superior, 8GB de RAM e 2GB de espaço em disco.</p>`
       },
       {
-  id: 'batata',
-  title: 'Batata',
-  description: 'Batata 123',
-  content: `
+        id: 'batata',
+        title: 'Batata',
+        description: 'Batata 123',
+        content: `
 <h2>Teste do Victor</h2>
 
 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget velit sagittis, molestie ante id, maximus nunc. Maecenas venenatis felis ipsum, ac varius eros luctus at. Vestibulum quis ipsum sed odio pretium bibendum. Vivamus eleifend sollicitudin finibus. Quisque facilisis mauris vitae magna maximus, non finibus augue luctus. In hac habitasse platea dictumst. Maecenas eget vestibulum velit, a volutpat augue. Donec tristique feugiat sapien a suscipit. Phasellus fringilla non dui nec auctor. Praesent nunc lacus, pharetra nec mauris ac, accumsan gravida justo. Maecenas mollis luctus ultricies. Integer ultrices nunc at sem lacinia consequat. Nam ipsum tortor, posuere eget diam et, sollicitudin placerat nisl. Ut a volutpat purus. Ut ut tincidunt metus, sit amet egestas sapien.</p>
@@ -27,7 +27,7 @@ const forumData = [
 
 <p>Mauris sed mattis dolor, quis commodo nisi. Maecenas tortor lectus, gravida in mi a, faucibus suscipit magna. Suspendisse potenti. Donec vitae aliquet justo, a ullamcorper massa. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer nec commodo risus, a posuere diam. Ut eget odio libero. Vivamus fringilla felis facilisis elit feugiat gravida. Nam eu scelerisque tortor, id ornare nisl. Aliquam iaculis rutrum ornare. Vestibulum euismod ligula nec purus volutpat, pharetra sollicitudin magna placerat. Ut maximus urna sed nibh semper pulvinar. Ut eu sem congue ipsum vestibulum blandit. Suspendisse eu leo sapien. Quisque rhoncus lacus et lacus imperdiet, sit amet egestas justo luctus.</p>
   `
-},
+      },
     ]
 
   },
