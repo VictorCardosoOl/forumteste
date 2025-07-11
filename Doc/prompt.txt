@@ -1,3 +1,10 @@
 Chat estou desenvolvendo um faq para meus funcionários, esse faq tem como objetivo melhorar o nível de conhecimento da minha equipe, o foco dele é ser intuitivo e rápido, como não posso fazer uma hospedagem em nuvem do backend eu estou desenvolvendo o fórum em duas estruturas, a primeira é o frontend onde o usuário consegue pesquisar por artigos e palavras relacionadas justamente para deixar a retirada de duvidas, mais rápida, os dados dos artigos estão estruturado em o data.js e com base nisso criei um gerador de data, onde vou escrever o artigo e o modulo e ele vai criar um trecho do data especifico para em seguida eu editar o data.js inserido as informações. 
-Com base nisso analise os seguintes códigos:
-index.html
+
+Com base nisso analise os seguintes códigos em anexo:
+
+index.html, script.js, style.css e data.js
+São relacionadas ao artigo
+
+utilize ele como base para anlisar os arquivos 
+creator.js e crator.html
+

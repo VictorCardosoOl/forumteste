@@ -1,24 +1,9 @@
-// creator.js (Versão de Emergência - Simples e Sem Dependências de Editor)
 document.addEventListener('DOMContentLoaded', () => {
     // --- Referências aos Elementos ---
     const modeRadios = document.querySelectorAll('input[name="mode"]');
-    const topicForm = document.getElementById('topic-form');
-    const moduleForm = document.getElementById('module-form');
+    const topicFormContainer = document.getElementById('topic-form');
+    const moduleFormContainer = document.getElementById('module-form');
     const generateBtn = document.getElementById('generate-btn');
-    const insertImageBtn = document.getElementById('insert-image-btn');
-
-    // Campos do formulário de Tópico
-    const categorySelect = document.getElementById('category-select');
-    const topicTitleInput = document.getElementById('topic-title');
-    const topicDescriptionInput = document.getElementById('topic-description');
-    const contentEditor = document.getElementById('content-editor'); // Agora um textarea simples
-
-    // Campos do formulário de Módulo
-    const moduleTitleInput = document.getElementById('module-title');
-    const moduleDescriptionInput = document.getElementById('module-description');
-    const moduleIconInput = document.getElementById('module-icon');
-
-    // Área de Resultado
     const resultArea = document.getElementById('result-area');
     const resultTitle = document.getElementById('result-title');
     const resultInstruction = document.getElementById('result-instruction');
@@ -27,109 +12,190 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentMode = 'topic';
 
-    // --- Lógica Principal ---
+    // --- TEMPLATES HTML PARA OS FORMULÁRIOS ---
+    const topicFormHTML = `
+        <div>
+            <label for="category-select" class="block text-sm font-medium text-[var(--text-color-light)]">Adicionar Tópico Dentro do Módulo:</label>
+            <select id="category-select" class="mt-1 block w-full rounded-md shadow-sm form-input"></select>
+        </div>
+        <div>
+            <label for="topic-title" class="block text-sm font-medium text-[var(--text-color-light)]">Título do Tópico</label>
+            <input type="text" id="topic-title" class="mt-1 block w-full rounded-md shadow-sm form-input">
+        </div>
+        <div>
+            <label for="topic-description" class="block text-sm font-medium text-[var(--text-color-light)]">Descrição Curta do Tópico</label>
+            <input type="text" id="topic-description" class="mt-1 block w-full rounded-md shadow-sm form-input">
+        </div>
+        <div>
+            <label class="block text-sm font-medium text-[var(--text-color-light)] mb-2">Conteúdo do Artigo</label>
+            <textarea id="content-editor" rows="12" class="mt-0 block w-full rounded-md shadow-sm form-input font-mono text-sm" placeholder="Escreva seu conteúdo em HTML aqui..."></textarea>
+        </div>
+    `;
 
-    function populateCategoryDropdown() {
-        if (typeof forumData === 'undefined' || !Array.isArray(forumData)) {
-            alert("ERRO: A variável 'forumData' não foi encontrada. Verifique se o arquivo 'data.js' está sendo carregado corretamente.");
-            return;
-        }
-        categorySelect.innerHTML = '';
-        forumData.forEach(category => {
-            const option = document.createElement('option');
-            option.value = category.id;
-            option.textContent = category.title;
-            categorySelect.appendChild(option);
-        });
+    const moduleFormHTML = `
+        <div>
+            <label for="module-title" class="block text-sm font-medium text-[var(--text-color-light)]">Título do Novo Módulo</label>
+            <input type="text" id="module-title" class="mt-1 block w-full rounded-md shadow-sm form-input">
+        </div>
+        <div>
+            <label for="module-description" class="block text-sm font-medium text-[var(--text-color-light)]">Descrição do Módulo</label>
+            <input type="text" id="module-description" class="mt-1 block w-full rounded-md shadow-sm form-input">
+        </div>
+        <div>
+            <div class="flex justify-between items-center">
+                <label for="module-icon" class="block text-sm font-medium text-[var(--text-color-light)]">Ícone do Módulo (código SVG)</label>
+                <button id="clean-svg-btn" type="button" class="btn-secondary">Limpar SVG</button>
+            </div>
+            <textarea id="module-icon" rows="5" class="mt-1 block w-full rounded-md shadow-sm font-mono text-sm form-input" placeholder="Cole o código <svg>...</svg> aqui"></textarea>
+        </div>
+    `;
+
+    // --- LÓGICA DO TEMA (Claro/Escuro) ---
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIconContainer = document.getElementById('theme-icon-container');
+    const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
+    const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+
+    function setTheme(isDark) {
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        document.body.classList.toggle('dark-mode', isDark);
+        themeIconContainer.innerHTML = isDark ? sunIcon : moonIcon;
     }
 
-    modeRadios.forEach(radio => {
-        radio.addEventListener('change', (e) => {
-            currentMode = e.target.value;
-            if (currentMode === 'topic') {
-                topicForm.style.display = 'block';
-                moduleForm.style.display = 'none';
-            } else {
-                topicForm.style.display = 'none';
-                moduleForm.style.display = 'block';
-            }
-            resultArea.style.display = 'none';
-        });
+    themeToggle.addEventListener('click', () => {
+        setTheme(!document.body.classList.contains('dark-mode'));
     });
+    
+    // --- LÓGICA PRINCIPAL DO GERADOR ---
 
-    // Botão para ajudar a inserir a tag de imagem
-    insertImageBtn.addEventListener('click', () => {
-        const imageName = prompt("Digite o nome do arquivo da imagem (ex: fluxograma.png).\nA imagem deve estar na pasta 'images'.");
-        if (imageName) {
-            const imageTag = `<img src="images/${imageName}" alt="Descrição da imagem aqui">`;
-            // Insere a tag de imagem onde o cursor estiver no textarea
-            contentEditor.value = contentEditor.value.substring(0, contentEditor.selectionStart) + imageTag + contentEditor.value.substring(contentEditor.selectionEnd);
+    function populateCategoryDropdown() {
+        const categorySelect = document.getElementById('category-select');
+        if (!categorySelect) return;
+
+        if (typeof forumData === 'undefined' || !Array.isArray(forumData)) {
+            alert("ERRO: A variável 'forumData' não foi encontrada.");
+            categorySelect.disabled = true;
+            return;
         }
-    });
+        categorySelect.innerHTML = forumData.map(cat => `<option value="${cat.id}">${cat.title}</option>`).join('');
+    }
 
+    /**
+     * NOVA FUNÇÃO: Limpa o código SVG colado pelo usuário.
+     */
+    function cleanSVG() {
+        const iconTextarea = document.getElementById('module-icon');
+        if (!iconTextarea) return;
+
+        let svgCode = iconTextarea.value;
+        if (!svgCode.trim().startsWith('<svg')) {
+            alert('Por favor, cole um código SVG válido.');
+            return;
+        }
+
+        // 1. Remove width e height para permitir controle via CSS
+        svgCode = svgCode.replace(/width="[^"]*"/g, '').replace(/height="[^"]*"/g, '');
+        // 2. Substitui cores fixas por 'currentColor' para adaptar ao tema
+        svgCode = svgCode.replace(/fill="[^"]*"/g, 'fill="currentColor"');
+        svgCode = svgCode.replace(/stroke="[^"]*"/g, 'stroke="currentColor"');
+        // 3. Garante que o fill principal do SVG seja 'none' se houver paths com 'currentColor'
+        if (svgCode.includes('fill="currentColor"')) {
+            svgCode = svgCode.replace(/<svg/g, '<svg fill="none"');
+        }
+
+        iconTextarea.value = svgCode;
+        alert('SVG Limpo e otimizado!');
+    }
+
+    function switchFormMode(mode) {
+        currentMode = mode;
+        resultArea.style.display = 'none';
+
+        // Atualiza a aparência do seletor
+        document.querySelectorAll('.mode-span').forEach(span => {
+            if (span.parentElement.querySelector(`input[value="${mode}"]`)) {
+                span.style.backgroundColor = 'var(--bg-color)';
+                span.style.color = 'var(--text-color)';
+            } else {
+                span.style.backgroundColor = 'transparent';
+                span.style.color = 'var(--text-color-light)';
+            }
+        });
+        
+        if (currentMode === 'topic') {
+            topicFormContainer.style.display = 'block';
+            moduleFormContainer.style.display = 'none';
+            topicFormContainer.innerHTML = topicFormHTML;
+            populateCategoryDropdown();
+        } else {
+            topicFormContainer.style.display = 'none';
+            moduleFormContainer.style.display = 'block';
+            moduleFormContainer.innerHTML = moduleFormHTML;
+            // Adiciona o listener para o novo botão "Limpar SVG"
+            document.getElementById('clean-svg-btn').addEventListener('click', cleanSVG);
+        }
+    }
+    
     generateBtn.addEventListener('click', () => {
         let generatedCode = '';
         
         if (currentMode === 'topic') {
-            const title = topicTitleInput.value.trim();
-            const content = contentEditor.value;
+            const categorySelect = document.getElementById('category-select');
+            const titleInput = document.getElementById('topic-title');
+            const descriptionInput = document.getElementById('topic-description');
+            const contentEditor = document.getElementById('content-editor');
 
-            if (!title || !content.trim()) {
-                alert('O Título e o Conteúdo do Tópico são obrigatórios.');
+            if (categorySelect.selectedIndex < 0) {
+                alert('Por favor, selecione um módulo.');
                 return;
             }
-            if (!categorySelect.value) {
-                alert('Por favor, selecione um módulo para adicionar o tópico.');
+            const title = titleInput.value.trim();
+            if (!title || !contentEditor.value.trim()) {
+                alert('O Título e o Conteúdo são obrigatórios.');
                 return;
             }
-
+            
             const topicId = title.toLowerCase().replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-');
-            const description = topicDescriptionInput.value.trim().replace(/'/g, "\\'");
+            generatedCode = `{\n  id: '${topicId}',\n  title: '${title.replace(/'/g, "\\'")}',\n  description: '${descriptionInput.value.trim().replace(/'/g, "\\'")}',\n  content: \`\n${contentEditor.value.trim().replace(/`/g, "\\`")}\n  \`\n},`;
             
-            generatedCode = `{
-  id: '${topicId}',
-  title: '${title.replace(/'/g, "\\'")}',
-  description: '${description}',
-  content: \`
-          ${content.trim().replace(/`/g, "\\`")}
-        \`
-},`;
-            
+            const selectedModuleText = categorySelect.options[categorySelect.selectedIndex].text;
             resultTitle.textContent = "Código do Novo Tópico";
-            resultInstruction.textContent = `Copie o código abaixo e cole-o DENTRO do array 'topics' do módulo "${categorySelect.options[categorySelect.selectedIndex].text}" no seu arquivo data.js.`;
+            resultInstruction.innerHTML = `Copie o código e cole-o dentro do array <b>'topics'</b> do módulo <b>"${selectedModuleText}"</b> em <code>data.js</code>.`;
 
-        } else { // currentMode === 'module'
-            const title = moduleTitleInput.value.trim();
+        } else { // mode === 'module'
+            const titleInput = document.getElementById('module-title');
+            const descriptionInput = document.getElementById('module-description');
+            const iconInput = document.getElementById('module-icon');
+            
+            const title = titleInput.value.trim();
             if (!title) {
                 alert('O Título do Módulo é obrigatório.');
                 return;
             }
+            
             const moduleId = title.toLowerCase().replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-');
-            const description = moduleDescriptionInput.value.trim().replace(/'/g, "\\'");
-            const icon = moduleIconInput.value.trim().replace(/`/g, "\\`");
-
-            generatedCode = `{
-  id: '${moduleId}',
-  title: '${title.replace(/'/g, "\\'")}',
-  description: '${description}',
-  icon: \`${icon}\`,
-  topics: []
-},`;
+            generatedCode = `{\n  id: '${moduleId}',\n  title: '${title.replace(/'/g, "\\'")}',\n  description: '${descriptionInput.value.trim().replace(/'/g, "\\'")}',\n  icon: \`${iconInput.value.trim().replace(/`/g, "\\`")}\`,\n  topics: []\n},`;
 
             resultTitle.textContent = "Código do Novo Módulo";
-            resultInstruction.textContent = "Copie este código e cole-o DENTRO do array principal 'forumData' no seu arquivo data.js.";
+            resultInstruction.innerHTML = `Copie este código e cole-o dentro do array <b>'forumData'</b> em <code>data.js</code>.`;
         }
         
         outputArea.value = generatedCode;
         resultArea.style.display = 'block';
+        outputArea.focus();
+        outputArea.select();
     });
 
     copyBtn.addEventListener('click', () => {
-        outputArea.select();
-        document.execCommand('copy');
-        copyBtn.textContent = 'Copiado!';
-        setTimeout(() => { copyBtn.textContent = 'Copiar'; }, 2000);
+        navigator.clipboard.writeText(outputArea.value).then(() => {
+            copyBtn.textContent = 'Copiado!';
+            setTimeout(() => { copyBtn.textContent = 'Copiar'; }, 2000);
+        });
     });
 
-    populateCategoryDropdown();
+    // --- Inicialização ---
+    const savedThemeIsDark = localStorage.getItem('theme') === 'dark';
+    setTheme(savedThemeIsDark);
+    modeRadios.forEach(radio => radio.addEventListener('change', (e) => switchFormMode(e.target.value)));
+    switchFormMode('topic'); // Inicia no modo Tópico
 });
