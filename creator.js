@@ -31,39 +31,68 @@ document.addEventListener('DOMContentLoaded', () => {
     function openModal() { elements.modalOverlay.classList.add('visible'); }
     function closeModal() { elements.modalOverlay.classList.remove('visible'); }
 
-    function wrapSelectionWithTag(textarea, tag, isBlock) {
+    /**
+     * NOVO: Função para envolver o texto selecionado com tags ou estilos.
+     * Agora ela lida com casos mais complexos como links, imagens e cores.
+     */
+    function wrapSelectionWithTag(textarea, command, isBlock) {
         const start = textarea.selectionStart;
         const end = textarea.selectionEnd;
         const selectedText = textarea.value.substring(start, end);
-        let replacement;
-        if (tag === 'a') {
-            const url = prompt('Digite a URL do link:', 'https://');
-            if (!url) return;
-            replacement = `<a href="${url}" target="_blank">${selectedText || 'texto do link'}</a>`;
-        } else if (tag === 'ul') {
-            replacement = `<ul>\n  <li>${selectedText || 'Item 1'}</li>\n  <li>Item 2</li>\n</ul>`;
-        } else {
-            replacement = `<${tag}>${selectedText}</${tag}>`;
+        let replacement = '';
+
+        // Comandos que necessitam de input do usuário
+        switch (command) {
+            case 'a':
+                const url = prompt('Digite a URL do link:', 'https://');
+                if (!url) return;
+                replacement = `<a href="${url}" target="_blank">${selectedText || 'texto do link'}</a>`;
+                break;
+            case 'img':
+                const imgUrl = prompt('Digite a URL da imagem:');
+                if (!imgUrl) return;
+                const altText = prompt('Digite o texto alternativo (descrição da imagem):', 'imagem');
+                // Adicionamos a classe 'content-image' para estilização automática
+                replacement = `\n<img src="${imgUrl}" alt="${altText}" class="content-image">\n`;
+                break;
+            case 'color':
+                const color = prompt("Digite a cor (ex: 'red' ou '#FF0000'):");
+                if (!color) return;
+                replacement = `<span style="color: ${color};">${selectedText || 'texto colorido'}</span>`;
+                break;
+            case 'justify':
+                 replacement = `<p style="text-align: justify;">${selectedText || 'Parágrafo justificado...'}</p>`;
+                 break;
+            case 'ul':
+                replacement = `<ul>\n  <li>${selectedText || 'Item 1'}</li>\n  <li>Item 2</li>\n</ul>`;
+                break;
+            // Comandos simples de tags
+            default:
+                replacement = `<${command}>${selectedText}</${command}>`;
+                break;
         }
-        const prefix = isBlock && start > 0 && textarea.value[start-1] !== '\n' ? '\n\n' : '';
+
+        const prefix = isBlock ? '\n\n' : '';
         const suffix = isBlock ? '\n\n' : '';
         textarea.value = textarea.value.substring(0, start) + prefix + replacement + suffix + textarea.value.substring(end);
+        
+        // Dispara o evento 'input' para que a pré-visualização seja atualizada
         textarea.dispatchEvent(new Event('input', { bubbles: true }));
         textarea.focus();
     }
-
-    function handleToolbarClick(event) {
-        const button = event.target.closest('.toolbar-btn');
-        if (!button) return;
-        const tag = button.dataset.tag;
-        const isBlock = button.dataset.block === 'true';
-        wrapSelectionWithTag(document.getElementById('content-editor'), tag, isBlock);
-    }
+    
+    // Função não precisa mais existir, a lógica foi movida para wrapSelectionWithTag
+    // function handleToolbarClick(event) { ... }
 
     function updateTopicPreview() {
         const title = document.getElementById('topic-title')?.value || 'Título do seu artigo';
         const description = document.getElementById('topic-description')?.value || 'Descrição curta sobre o que o artigo aborda.';
-        const content = document.getElementById('content-editor')?.value.replace(/\n/g, '<br>') || '<p>O conteúdo do seu artigo aparecerá aqui.</p>';
+        // Agora substituímos apenas o \n que NÃO está dentro de uma tag HTML para <br>
+        // Esta é uma simplificação. Para casos complexos, seria necessário um parser mais robusto.
+        // Mas para este uso, vamos apenas renderizar o HTML diretamente.
+        const content = document.getElementById('content-editor')?.value || '<p>O conteúdo do seu artigo aparecerá aqui.</p>';
+        
+        // A pré-visualização agora renderiza o HTML diretamente, sem substituir \n por <br>
         elements.previewContent.innerHTML = `<div class="article-content"><h1>${title}</h1><p class="text-xl mt-4 opacity-80">${description}</p><hr class="my-6 opacity-20"><div>${content}</div></div>`;
     }
 
@@ -80,6 +109,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const categories = (typeof forumData !== 'undefined' && Array.isArray(forumData)) 
                 ? forumData.map(cat => `<option value="${cat.id}">${cat.title}</option>`).join('')
                 : '';
+            
+            // NOVO: A barra de ferramentas foi expandida com as novas opções
             formHTML = `
                 <div class="p-6 rounded-xl bg-[var(--card-bg-color)] border border-[var(--border-color)]">
                     <h3 class="text-base font-semibold mb-4">Informações Básicas</h3>
@@ -91,7 +122,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
                 <div class="p-6 rounded-xl bg-[var(--card-bg-color)] border border-[var(--border-color)]">
                     <h3 class="text-base font-semibold mb-4">Conteúdo do Artigo</h3>
-                    <div id="editor-toolbar" class="editor-toolbar"><button class="toolbar-btn" data-tag="h2" data-block="true">H2</button><button class="toolbar-btn" data-tag="h3" data-block="true">H3</button><button class="toolbar-btn" data-tag="p" data-block="true">P</button><button class="toolbar-btn" data-tag="strong"><b>B</b></button><button class="toolbar-btn" data-tag="ul" data-block="true">Lista</button><button class="toolbar-btn" data-tag="a">Link</button></div>
+                    <div id="editor-toolbar" class="editor-toolbar">
+                        <button class="toolbar-btn" data-command="h2" data-block="true">H2</button>
+                        <button class="toolbar-btn" data-command="h3" data-block="true">H3</button>
+                        <button class="toolbar-btn" data-command="p" data-block="true">P</button>
+                        <button class="toolbar-btn" data-command="strong"><b>B</b></button>
+                        <button class="toolbar-btn" data-command="i"><i>I</i></button>
+                        <button class="toolbar-btn" data-command="u"><u>U</u></button>
+                        <button class="toolbar-btn" data-command="ul" data-block="true">Lista</button>
+                        <button class="toolbar-btn" data-command="a">Link</button>
+                        <button class="toolbar-btn" data-command="img" data-block="true">Imagem</button>
+                        <button class="toolbar-btn" data-command="justify" data-block="true">Justificar</button>
+                        <button class="toolbar-btn" data-command="color">Cor</button>
+                    </div>
                     <textarea id="content-editor" rows="20" class="block w-full form-input font-mono text-sm" style="border-radius: 0 0 0.5rem 0.5rem;"></textarea>
                 </div>
             `;
@@ -100,7 +143,14 @@ document.addEventListener('DOMContentLoaded', () => {
             ['category-select', 'topic-title', 'topic-description', 'content-editor'].forEach(id => {
                 document.getElementById(id)?.addEventListener('input', updateTopicPreview);
             });
-            document.getElementById('editor-toolbar')?.addEventListener('click', handleToolbarClick);
+            // NOVO: Adicionamos um único 'event listener' na toolbar que delega o evento
+            document.getElementById('editor-toolbar')?.addEventListener('click', (event) => {
+                const button = event.target.closest('.toolbar-btn');
+                if (!button) return;
+                const command = button.dataset.command;
+                const isBlock = button.dataset.block === 'true';
+                wrapSelectionWithTag(document.getElementById('content-editor'), command, isBlock);
+            });
         } else { // mode === 'module'
             formHTML = `
                 <div class="p-6 rounded-xl bg-[var(--card-bg-color)] border border-[var(--border-color)] space-y-4">
@@ -128,7 +178,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     elements.generateBtn.addEventListener('click', () => {
         let generatedCode = '', instructionText = '';
-        // ... Lógica de geração de código (sem alterações) ...
         if (currentMode === 'topic') {
             const categorySelect = document.getElementById('category-select');
             const title = document.getElementById('topic-title').value.trim();
