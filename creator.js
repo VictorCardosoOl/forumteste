@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentMode = 'topic';
     const autoSaveKey = 'studioProAutoSave';
     let autoSaveInterval;
+    let debounceTimer;
 
     // Inicialização
     initTheme();
@@ -64,76 +65,75 @@ document.addEventListener('DOMContentLoaded', () => {
 
         elements.formContent.innerHTML = `
             <div class="space-y-6">
-                <div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm">
-                    <h3 class="text-base font-semibold text-gray-900 dark:text-white mb-4">
-                        <i class="fas fa-info-circle mr-2 text-gray-600 dark:text-gray-300"></i>
-                        Informações do Tópico
-                    </h3>
+                <div class="form-card">
+                    <div class="form-header">
+                        <i class="fas fa-info-circle text-blue-500"></i>
+                        <h3>Informações do Tópico</h3>
+                    </div>
                     <div class="space-y-4">
-                        <div>
-                            <label for="category-select" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Módulo</label>
-                            <select id="category-select" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400 focus:border-transparent transition-all">
+                        <div class="form-group">
+                            <label for="category-select">Módulo</label>
+                            <select id="category-select" class="form-control">
+                                <option value="" disabled selected>Selecione um módulo</option>
                                 ${categories}
                             </select>
                         </div>
-                        <div>
-                            <label for="topic-title" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Título</label>
-                            <input type="text" id="topic-title" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400 focus:border-transparent transition-all">
+                        <div class="form-group">
+                            <label for="topic-title">Título</label>
+                            <input type="text" id="topic-title" class="form-control" placeholder="Título do tópico">
                         </div>
-                        <div>
-                            <label for="topic-description" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Descrição</label>
-                            <input type="text" id="topic-description" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400 focus:border-transparent transition-all">
+                        <div class="form-group">
+                            <label for="topic-description">Descrição</label>
+                            <input type="text" id="topic-description" class="form-control" placeholder="Breve descrição do tópico">
                         </div>
                     </div>
                 </div>
 
                 <div class="editor-wrapper">
-                    <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-                        <h3 class="text-base font-semibold text-gray-900 dark:text-white">
-                            <i class="fas fa-edit mr-2 text-gray-600 dark:text-gray-300"></i>
+                    <div class="editor-header">
+                        <h3>
+                            <i class="fas fa-edit text-blue-500"></i>
                             Conteúdo
                         </h3>
-                        <div class="flex items-center gap-2">
-                            <button id="show-tags-guide" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors" title="Ajuda com formatação">
-                                <i class="fas fa-question-circle"></i>
-                            </button>
-                        </div>
+                        <button id="show-tags-guide" title="Ajuda com formatação" aria-label="Ajuda com formatação">
+                            <i class="fas fa-question-circle text-gray-500 hover:text-gray-700"></i>
+                        </button>
                     </div>
                     <div class="editor-toolbar">
-                        <button class="toolbar-btn" data-command="h2" title="Título Principal (h2)">
+                        <button class="toolbar-btn" data-command="h2" title="Título Principal (h2)" aria-label="Adicionar título">
                             <i class="fas fa-heading"></i>
                         </button>
-                        <button class="toolbar-btn" data-command="h3" title="Subtítulo (h3)">
+                        <button class="toolbar-btn" data-command="h3" title="Subtítulo (h3)" aria-label="Adicionar subtítulo">
                             <i class="fas fa-heading" style="font-size: 0.8em"></i>
                         </button>
-                        <button class="toolbar-btn" data-command="p" title="Parágrafo (p)">
+                        <button class="toolbar-btn" data-command="p" title="Parágrafo (p)" aria-label="Adicionar parágrafo">
                             <i class="fas fa-paragraph"></i>
                         </button>
-                        <div class="w-px h-6 bg-gray-200 dark:bg-gray-600 mx-1"></div>
-                        <button class="toolbar-btn" data-command="bold" title="Negrito (strong)">
+                        <div class="toolbar-divider"></div>
+                        <button class="toolbar-btn" data-command="bold" title="Negrito (strong)" aria-label="Negrito">
                             <i class="fas fa-bold"></i>
                         </button>
-                        <button class="toolbar-btn" data-command="italic" title="Itálico (em)">
+                        <button class="toolbar-btn" data-command="italic" title="Itálico (em)" aria-label="Itálico">
                             <i class="fas fa-italic"></i>
                         </button>
-                        <button class="toolbar-btn" data-command="underline" title="Sublinhado (u)">
+                        <button class="toolbar-btn" data-command="underline" title="Sublinhado (u)" aria-label="Sublinhado">
                             <i class="fas fa-underline"></i>
                         </button>
-                        <div class="w-px h-6 bg-gray-200 dark:bg-gray-600 mx-1"></div>
-                        <button class="toolbar-btn" data-command="ul" title="Lista não ordenada (ul)">
+                        <div class="toolbar-divider"></div>
+                        <button class="toolbar-btn" data-command="ul" title="Lista não ordenada (ul)" aria-label="Lista não ordenada">
                             <i class="fas fa-list-ul"></i>
                         </button>
-                        <button class="toolbar-btn" data-command="ol" title="Lista ordenada (ol)">
+                        <button class="toolbar-btn" data-command="ol" title="Lista ordenada (ol)" aria-label="Lista ordenada">
                             <i class="fas fa-list-ol"></i>
                         </button>
-                        <div class="w-px h-6 bg-gray-200 dark:bg-gray-600 mx-1"></div>
-                        <button class="toolbar-btn" data-command="link" title="Link (a)">
+                        <div class="toolbar-divider"></div>
+                        <button class="toolbar-btn" data-command="link" title="Link (a)" aria-label="Adicionar link">
                             <i class="fas fa-link"></i>
                         </button>
-                        <button class="toolbar-btn" data-command="image" title="Imagem (img)">
+                        <button class="toolbar-btn" data-command="image" title="Imagem (img)" aria-label="Adicionar imagem">
                             <i class="fas fa-image"></i>
                         </button>
-                        <button class="toolbar-btn" data-command="color" title="Texto colorido (span)">
+                        <button class="toolbar-btn" data-command="color" title="Texto colorido (span)" aria-label="Texto colorido">
                             <i class="fas fa-palette"></i>
                         </button>
                     </div>
@@ -148,28 +148,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderModuleForm() {
         elements.formContent.innerHTML = `
-            <div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm">
-                <h3 class="text-base font-semibold text-gray-900 dark:text-white mb-4">
-                    <i class="fas fa-folder-open mr-2 text-gray-600 dark:text-gray-300"></i>
-                    Novo Módulo
-                </h3>
+            <div class="form-card">
+                <div class="form-header">
+                    <i class="fas fa-folder-open text-blue-500"></i>
+                    <h3>Novo Módulo</h3>
+                </div>
                 <div class="space-y-4">
-                    <div>
-                        <label for="module-title" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Título</label>
-                        <input type="text" id="module-title" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400 focus:border-transparent transition-all">
+                    <div class="form-group">
+                        <label for="module-title">Título</label>
+                        <input type="text" id="module-title" class="form-control" placeholder="Título do módulo">
                     </div>
-                    <div>
-                        <label for="module-description" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Descrição</label>
-                        <input type="text" id="module-description" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400 focus:border-transparent transition-all">
+                    <div class="form-group">
+                        <label for="module-description">Descrição</label>
+                        <input type="text" id="module-description" class="form-control" placeholder="Descrição do módulo">
                     </div>
-                    <div>
-                        <label for="module-icon" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <div class="form-group">
+                        <label for="module-icon">
                             Ícone (SVG)
-                            <button type="button" class="ml-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200" id="icon-help">
-                                <i class="fas fa-question-circle text-xs"></i>
+                            <button type="button" id="icon-help" aria-label="Ajuda com ícone SVG">
+                                <i class="fas fa-question-circle text-gray-500 hover:text-gray-700"></i>
                             </button>
                         </label>
-                        <textarea id="module-icon" rows="6" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono text-sm focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400 focus:border-transparent transition-all" placeholder='<svg viewBox="0 0 24 24" fill="currentColor">\n  <!-- Seu SVG aqui -->\n</svg>'></textarea>
+                        <textarea id="module-icon" rows="6" class="form-control" placeholder='<svg viewBox="0 0 24 24" fill="currentColor" class="module-icon">\n  <!-- Seu SVG aqui -->\n</svg>'></textarea>
                     </div>
                 </div>
             </div>
@@ -183,11 +183,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const toolbar = document.querySelector('.editor-toolbar');
         const stats = document.querySelector('.editor-stats');
 
-        // Atualizar pré-visualização e estatísticas
+        // Atualizar pré-visualização e estatísticas com debounce
         editor.addEventListener('input', () => {
-            updateTopicPreview();
-            updateStats();
-            autoSave();
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                updateTopicPreview();
+                updateStats();
+                autoSave();
+            }, 300);
         });
 
         // Botões da toolbar
@@ -209,36 +212,46 @@ document.addEventListener('DOMContentLoaded', () => {
         const end = editor.selectionEnd;
         const selectedText = editor.value.substring(start, end);
         let replacement = '';
+        let cursorOffset = 0;
 
         switch (command) {
             case 'h2':
                 replacement = `\n<h2>${selectedText || 'Título Principal'}</h2>\n`;
+                cursorOffset = selectedText ? 0 : -13;
                 break;
             case 'h3':
                 replacement = `\n<h3>${selectedText || 'Subtítulo'}</h3>\n`;
+                cursorOffset = selectedText ? 0 : -11;
                 break;
             case 'p':
                 replacement = `\n<p>${selectedText || 'Parágrafo de texto...'}</p>\n`;
+                cursorOffset = selectedText ? 0 : -19;
                 break;
             case 'bold':
                 replacement = `<strong>${selectedText || 'texto em negrito'}</strong>`;
+                cursorOffset = selectedText ? 0 : -16;
                 break;
             case 'italic':
                 replacement = `<em>${selectedText || 'texto em itálico'}</em>`;
+                cursorOffset = selectedText ? 0 : -16;
                 break;
             case 'underline':
                 replacement = `<u>${selectedText || 'texto sublinhado'}</u>`;
+                cursorOffset = selectedText ? 0 : -17;
                 break;
             case 'ul':
                 replacement = `\n<ul>\n  <li>${selectedText || 'Item da lista'}</li>\n  <li>Item 2</li>\n</ul>\n`;
+                cursorOffset = selectedText ? 0 : -13;
                 break;
             case 'ol':
                 replacement = `\n<ol>\n  <li>${selectedText || 'Item 1'}</li>\n  <li>Item 2</li>\n</ol>\n`;
+                cursorOffset = selectedText ? 0 : -7;
                 break;
             case 'link':
                 const url = prompt('URL do link:', 'https://');
                 if (url) {
                     replacement = `<a href="${url}" target="_blank" rel="noopener">${selectedText || 'Texto do Link'}</a>`;
+                    cursorOffset = selectedText ? 0 : -12;
                 }
                 break;
             case 'image':
@@ -252,6 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const color = prompt('Cor do texto (nome ou código hexadecimal):', 'blue');
                 if (color) {
                     replacement = `<span style="color: ${color};">${selectedText || 'Texto colorido'}</span>`;
+                    cursorOffset = selectedText ? 0 : -15;
                 }
                 break;
         }
@@ -259,6 +273,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (replacement) {
             editor.value = editor.value.substring(0, start) + replacement + editor.value.substring(end);
             editor.dispatchEvent(new Event('input'));
+            
+            // Posicionar o cursor corretamente
+            const newCursorPos = start + replacement.length + cursorOffset;
+            editor.setSelectionRange(newCursorPos, newCursorPos);
             editor.focus();
         }
     }
@@ -272,21 +290,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const charCount = content.length;
         const wordCount = content.trim() ? content.trim().split(/\s+/).length : 0;
 
-        stats.textContent = `${wordCount} palavras | ${charCount} caracteres`;
+        stats.textContent = `${wordCount} ${wordCount === 1 ? 'palavra' : 'palavras'} | ${charCount} ${charCount === 1 ? 'caractere' : 'caracteres'}`;
     }
 
     function updateTopicPreview() {
         const title = document.getElementById('topic-title')?.value || 'Título do Tópico';
         const description = document.getElementById('topic-description')?.value || 'Descrição breve do tópico';
-        const content = document.getElementById('content-editor')?.value || '<p class="text-gray-500 dark:text-gray-400">Seu conteúdo aparecerá aqui...</p>';
+        const content = document.getElementById('content-editor')?.value || '<p>Seu conteúdo aparecerá aqui...</p>';
 
         elements.previewContent.innerHTML = `
             <article class="space-y-6">
-                <header class="border-b border-gray-200 dark:border-gray-700 pb-4">
-                    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">${title}</h1>
-                    <p class="text-lg text-gray-600 dark:text-gray-300 mt-2">${description}</p>
+                <header class="border-b border-gray-200 dark:border-gray-700 pb-6">
+                    <h1 class="text-2xl font-bold">${title}</h1>
+                    <p class="text-gray-600 dark:text-gray-400">${description}</p>
                 </header>
-                <div class="prose dark:prose-invert max-w-none">
+                <div class="prose-content">
                     ${content}
                 </div>
             </article>
@@ -298,17 +316,17 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const title = document.getElementById('module-title')?.value || 'Novo Módulo';
         const description = document.getElementById('module-description')?.value || 'Descrição do módulo';
-        const icon = document.getElementById('module-icon')?.value || '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="currentColor"/></svg>';
+        const icon = document.getElementById('module-icon')?.value || '<svg viewBox="0 0 24 24" fill="currentColor" class="module-icon"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="currentColor"/></svg>';
 
         elements.previewContent.innerHTML = `
-            <div class="p-5 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm">
-                <div class="flex items-start gap-4">
-                    <div class="w-12 h-12 flex items-center justify-center text-gray-800 dark:text-gray-200 bg-white dark:bg-gray-700 rounded-lg p-2 border border-gray-200 dark:border-gray-600">
+            <div class="p-6 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm">
+                <div class="flex items-start gap-5">
+                    <div class="w-14 h-14 flex items-center justify-center text-gray-800 dark:text-gray-200 bg-white dark:bg-gray-700 rounded-lg p-2 border border-gray-200 dark:border-gray-600">
                         ${icon}
                     </div>
-                    <div>
-                        <h3 class="font-semibold text-gray-900 dark:text-white text-lg">${title}</h3>
-                        <p class="text-gray-600 dark:text-gray-300 mt-1">${description}</p>
+                    <div class="space-y-2">
+                        <h3 class="text-xl font-bold">${title}</h3>
+                        <p class="text-gray-600 dark:text-gray-400">${description}</p>
                     </div>
                 </div>
             </div>
@@ -329,7 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const description = document.getElementById('topic-description').value;
         const content = document.getElementById('content-editor').value;
 
-        if (!title || !description || !content) {
+        if (!categoryId || !title || !description || !content) {
             showToast('Preencha todos os campos obrigatórios', 3000);
             return;
         }
@@ -362,7 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
     id: '${moduleId}',
     title: '${escapeSingleQuotes(title)}',
     description: '${escapeSingleQuotes(description)}',
-    icon: \`${icon || '<svg viewBox="0 0 24 24" fill="currentColor"></svg>'}\`,
+    icon: \`${icon || '<svg viewBox="0 0 24 24" fill="currentColor" class="module-icon"></svg>'}\`,
     topics: []
 }`;
 
@@ -376,31 +394,27 @@ document.addEventListener('DOMContentLoaded', () => {
     function showResult(code, instruction) {
         elements.output.value = code;
         elements.resultInstruction.textContent = instruction;
-        elements.modalOverlay.classList.add('opacity-100', 'pointer-events-auto');
-        document.querySelector('#modal-content').classList.remove('scale-95');
+        elements.modalOverlay.classList.add('active');
     }
 
     function closeModal() {
-        elements.modalOverlay.classList.remove('opacity-100', 'pointer-events-auto');
-        document.querySelector('#modal-content').classList.add('scale-95');
+        elements.modalOverlay.classList.remove('active');
     }
 
     function showTagsGuide() {
-        elements.tagsGuide.classList.add('opacity-100', 'pointer-events-auto');
-        document.querySelector('#tags-guide > div').classList.remove('scale-95');
+        elements.tagsGuide.classList.add('active');
     }
 
     function closeTagsGuide() {
-        elements.tagsGuide.classList.remove('opacity-100', 'pointer-events-auto');
-        document.querySelector('#tags-guide > div').classList.add('scale-95');
+        elements.tagsGuide.classList.remove('active');
     }
 
     function showToast(message, duration = 3000) {
         elements.toastMessage.textContent = message;
-        elements.toast.classList.add('translate-y-0');
+        elements.toast.classList.add('show');
         
         setTimeout(() => {
-            elements.toast.classList.remove('translate-y-0');
+            elements.toast.classList.remove('show');
         }, duration);
     }
 
@@ -474,6 +488,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 elements.modeTopic.classList.add('active');
                 elements.modeModule.classList.remove('active');
                 renderForm();
+                showToast('Modo tópico ativado');
             }
         });
 
@@ -483,6 +498,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 elements.modeModule.classList.add('active');
                 elements.modeTopic.classList.remove('active');
                 renderForm();
+                showToast('Modo módulo ativado');
             }
         });
 
