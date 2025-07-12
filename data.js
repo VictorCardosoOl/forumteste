@@ -28,6 +28,24 @@ const forumData = [
 <p>Mauris sed mattis dolor, quis commodo nisi. Maecenas tortor lectus, gravida in mi a, faucibus suscipit magna. Suspendisse potenti. Donec vitae aliquet justo, a ullamcorper massa. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer nec commodo risus, a posuere diam. Ut eget odio libero. Vivamus fringilla felis facilisis elit feugiat gravida. Nam eu scelerisque tortor, id ornare nisl. Aliquam iaculis rutrum ornare. Vestibulum euismod ligula nec purus volutpat, pharetra sollicitudin magna placerat. Ut maximus urna sed nibh semper pulvinar. Ut eu sem congue ipsum vestibulum blandit. Suspendisse eu leo sapien. Quisque rhoncus lacus et lacus imperdiet, sit amet egestas justo luctus.</p>
   `
       },
+      {
+  id: 'teste-2',
+  title: 'Teste 2',
+  description: 'Teste Victor 12/07',
+  content: `
+<h2>Teste de formatação</h2>
+<h3> Teste teste</h3>
+
+<p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet lacinia turpis. Vivamus sit amet ligula laoreet, egestas nisi et, porttitor purus. Praesent in eleifend purus, at viverra lorem. Aliquam erat volutpat. Vivamus finibus quam vel pellentesque lacinia. Duis vulputate hendrerit facilisis. Nunc id vehicula dui. Nullam euismod metus quis ex facilisis, id ultrices arcu ullamcorper. Integer fringilla id dolor sollicitudin ornare.</p>
+
+
+
+
+<img src="https://br.freepik.com/imagem-ia-gratis/uma-pintura-de-um-lago-de-montanha-com-uma-montanha-ao-fundo_40965130.htm#fromView=keyword&page=1&position=0&uuid=e61414eb-6409-4627-a776-297540886957&query=Wallpaper+Desktop" alt="imagem" class="content-image">
+
+<span style="color: red;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet lacinia turpis. Vivamus sit amet ligula laoreet, egestas nisi et, porttitor purus. Praesent in eleifend purus, at viverra lorem. Aliquam erat volutpat. Vivamus finibus quam vel pellentesque lacinia. Duis vulputate hendrerit facilisis. Nunc id vehicula dui. Nullam euismod metus quis ex facilisis, id ultrices arcu ullamcorper. Integer fringilla id dolor sollicitudin ornare.</span>
+  `
+},
     ]
 
   },
@@ -37,30 +55,7 @@ const forumData = [
     description: 'Modulo destinado a Testes',
     icon: ``,
     topics: [
-      {
-        id: 'batata',
-        title: 'Batata',
-        description: 'Batata 123',
-        content: `
-          <h2>Festa</h2>
-
-<p>Ao tentar criar um tópico do novo modulo o sistema apresenta o seguinte erro no console:
-creator.js:73 Uncaught TypeError: Cannot read properties of undefined (reading 'innerHTML')
-    at HTMLButtonElement.<anonymous> (creator.js:73:48)
-Alem disso poderia melhorar o editor de texto?
-Não há como informar se um texto é titulo, tipo de titulo, subtítulo, além disso não há como alterar a cor de uma palavra se for necessário e etc.</p>
-        `
-      },
-      {
-        id: 'teste',
-        title: 'Teste',
-        description: 'Teste Victor',
-        content: `
-          <h2>Teste</h2>
-
-<p>Certo chato eu não consigo selecionar o modulo do tópico, e ao selecionar o radio Criar novo modulo não me habilita lugar algum para incluir o nome do novo modulo.<img src="images/"D:\Fotos\wallpapers\windows-11-stock-grey-abstract-dark-background-1080x2340-8957.png"" alt="Descrição da imagem aqui"></p>
-        `
-      },
+     
     ]
   },
 
