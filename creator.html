@@ -4,68 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Studio Pro - Criador de Conteúdo</title>
+    
     <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
-    <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <style>
-        /* Regra essencial para garantir a rolagem da página */
-        body { overflow-y: auto !important; }
-        /* Estilo para imagens inseridas no conteúdo */
-        .content-image {
-            display: block;
-            margin: 1.5rem auto; /* Aumenta a margem vertical e centraliza horizontalmente */
-            max-width: 100%;
-            height: auto;
-            border-radius: 0.75rem; /* Bordas arredondadas */
-            box-shadow: 0 4px 15px -5px rgba(0,0,0,0.2); /* Sombra suave */
-        }
 
-        /* Estilos da interface (mantidos da versão anterior) */
-        .form-input {
-            background-color: var(--card-bg-color) !important; border: 1px solid var(--border-color) !important;
-            color: var(--text-color) !important; border-radius: 0.5rem; transition: all 0.2s;
-        }
-        .form-input:focus { --tw-ring-color: #4f46e5; border-color: #4f46e5 !important; }
-        .btn {
-            display: inline-flex; align-items: center; justify-content: center;
-            font-weight: 600; border-radius: 0.75rem; transition: all 0.2s;
-            padding: 0.65rem 1.25rem;
-        }
-        .btn-primary { background-color: #4f46e5; color: white; }
-        .btn-primary:hover { background-color: #4338ca; transform: translateY(-2px); box-shadow: 0 4px 15px -5px rgba(79, 70, 229, 0.4); }
-        .mode-span { transition: all 0.2s ease-in-out; }
-        .mode-span.active { background-color: var(--card-bg-color); color: var(--text-color); box-shadow: 0 2px 5px -2px rgba(0,0,0,0.1); }
-        .mode-span.inactive { background-color: transparent; color: var(--text-color-light); }
-        .editor-toolbar {
-            display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 0.5rem;
-            background-color: var(--card-bg-color); border: 1px solid var(--border-color);
-            border-bottom: none; border-radius: 0.5rem 0.5rem 0 0;
-        }
-        .toolbar-btn {
-            background-color: var(--hover-bg-color); border: 1px solid var(--border-color);
-            color: var(--text-color-light); font-size: 0.75rem; font-weight: 600;
-            padding: 0.35rem 0.7rem; border-radius: 0.375rem; cursor: pointer;
-        }
-        .toolbar-btn:hover { background-color: var(--bg-color); border-color: var(--hover-border-color); color: var(--text-color); }
-        
-        /* Estilos do Modal (mantidos) */
-        #modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.5); backdrop-filter: blur(8px);
-            z-index: 1000; display: flex; align-items: center; justify-content: center;
-            opacity: 0; transition: opacity 0.3s ease; pointer-events: none;
-        }
-        #modal-overlay.visible { opacity: 1; pointer-events: auto; }
-        #modal-content {
-            background-color: var(--card-bg-color); border: 1px solid var(--border-color);
-            border-radius: 1rem; padding: 2rem; width: 90%; max-width: 600px;
-            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.2);
-            transform: scale(0.95); transition: transform 0.3s ease;
-        }
-        #modal-overlay.visible #modal-content { transform: scale(1); }
-    </style>
+    <link rel="stylesheet" href="creator.css" />
 </head>
 <body class="min-h-screen">
 
@@ -74,17 +19,28 @@
             <h1 class="text-xl font-bold">Studio Pro</h1>
             <div class="flex items-center gap-4">
                 <div class="flex gap-1 p-1 rounded-xl bg-[var(--hover-bg-color)]">
-                    <label class="cursor-pointer"><input type="radio" name="mode" value="topic" class="sr-only" checked><span class="mode-span block text-sm font-semibold px-4 py-1.5 rounded-lg">Novo Tópico</span></label>
-                    <label class="cursor-pointer"><input type="radio" name="mode" value="module" class="sr-only"><span class="mode-span block text-sm font-semibold px-4 py-1.5 rounded-lg">Novo Módulo</span></label>
+                    <div>
+                        <input type="radio" name="mode" value="topic" id="mode-topic" class="sr-only" checked>
+                        <label for="mode-topic" class="cursor-pointer mode-span">Novo Tópico</label>
+                    </div>
+                    <div>
+                        <input type="radio" name="mode" value="module" id="mode-module" class="sr-only">
+                        <label for="mode-module" class="cursor-pointer mode-span">Novo Módulo</label>
+                    </div>
                 </div>
-                <button id="theme-toggle" class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-[var(--hover-bg-color)]"><div id="theme-icon-container" class="w-6 h-6"></div></button>
+                <button id="theme-toggle" class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-[var(--hover-bg-color)]" aria-label="Alternar tema de cores">
+                    <div id="theme-icon-container" class="w-6 h-6"></div>
+                </button>
             </div>
         </div>
     </header>
 
     <main class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-5 gap-12">
-        <div id="form-content" class="col-span-3 space-y-8">
-            </div>
+        
+        <section class="col-span-3">
+            <div id="form-content" class="space-y-8">
+                </div>
+        </section>
 
         <aside class="col-span-2">
             <div class="sticky top-28">
@@ -92,6 +48,19 @@
                 <p class="text-sm text-[var(--text-color-light)] mb-4">O resultado final do seu conteúdo.</p>
                 <div id="preview-content" class="p-4 rounded-xl bg-[var(--card-bg-color)] border border-[var(--border-color)] transition-all duration-300 min-h-[300px]">
                     </div>
+                
+                <div class="mt-6 p-4 rounded-xl bg-[var(--card-bg-color)] border border-[var(--border-color)]">
+                    <h3 class="text-base font-semibold mb-3">Guia Rápido de Tags</h3>
+                    <ul class="space-y-2 text-sm text-[var(--text-color-light)]">
+                        <li><code class="text-xs bg-[var(--hover-bg-color)] p-1 rounded">&lt;h2&gt;...&lt;/h2&gt;</code> - Título Principal</li>
+                        <li><code class="text-xs bg-[var(--hover-bg-color)] p-1 rounded">&lt;h3&gt;...&lt;/h3&gt;</code> - Subtítulo</li>
+                        <li><code class="text-xs bg-[var(--hover-bg-color)] p-1 rounded">&lt;p&gt;...&lt;/p&gt;</code> - Parágrafo</li>
+                        <li><code class="text-xs bg-[var(--hover-bg-color)] p-1 rounded">&lt;strong&gt;...&lt;/strong&gt;</code> - Negrito</li>
+                        <li><code class="text-xs bg-[var(--hover-bg-color)] p-1 rounded">&lt;i&gt;...&lt;/i&gt;</code> - Itálico</li>
+                        <li><code class="text-xs bg-[var(--hover-bg-color)] p-1 rounded">&lt;u&gt;...&lt;/u&gt;</code> - Sublinhado</li>
+                    </ul>
+                </div>
+                
                 <button id="generate-btn" class="btn btn-primary w-full mt-6">Gerar Código</button>
             </div>
         </aside>
@@ -101,7 +70,9 @@
         <div id="modal-content">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-bold">Código Gerado</h2>
-                <button id="close-modal-btn" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-[var(--hover-bg-color)]">&times;</button>
+                <button id="close-modal-btn" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-[var(--hover-bg-color)]" aria-label="Fechar modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <p id="result-instruction" class="text-sm text-[var(--text-color-light)] mb-4"></p>
             <div class="relative">

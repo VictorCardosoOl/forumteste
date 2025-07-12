@@ -30,30 +30,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function openModal() { elements.modalOverlay.classList.add('visible'); }
     function closeModal() { elements.modalOverlay.classList.remove('visible'); }
-
-    /**
-     * NOVO: Função para envolver o texto selecionado com tags ou estilos.
-     * Agora ela lida com casos mais complexos como links, imagens e cores.
-     */
+    
     function wrapSelectionWithTag(textarea, command, isBlock) {
         const start = textarea.selectionStart;
         const end = textarea.selectionEnd;
         const selectedText = textarea.value.substring(start, end);
         let replacement = '';
 
-        // Comandos que necessitam de input do usuário
         switch (command) {
             case 'a':
-                const url = prompt('Digite a URL do link:', 'https://');
+                const url = prompt('Digite a URL do link (ex: https://google.com):', 'https://');
                 if (!url) return;
                 replacement = `<a href="${url}" target="_blank">${selectedText || 'texto do link'}</a>`;
                 break;
             case 'img':
-                const imgUrl = prompt('Digite a URL da imagem:');
+                const imgUrl = prompt('Digite a URL da imagem (deve começar com http ou https):');
                 if (!imgUrl) return;
+                 // Validação simples para garantir que não é um caminho local
+                if (!imgUrl.startsWith('http')) {
+                    alert('URL inválida! A imagem precisa estar online (começar com http:// ou https://). Não é possível usar arquivos do seu computador.');
+                    return;
+                }
                 const altText = prompt('Digite o texto alternativo (descrição da imagem):', 'imagem');
-                // Adicionamos a classe 'content-image' para estilização automática
-                replacement = `\n<img src="${imgUrl}" alt="${altText}" class="content-image">\n`;
+                // CORREÇÃO: Removido o \n de dentro da tag. O espaçamento agora é controlado pelo prefix/suffix.
+                replacement = `<img src="${imgUrl}" alt="${altText}" class="content-image">`;
                 break;
             case 'color':
                 const color = prompt("Digite a cor (ex: 'red' ou '#FF0000'):");
@@ -66,33 +66,26 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'ul':
                 replacement = `<ul>\n  <li>${selectedText || 'Item 1'}</li>\n  <li>Item 2</li>\n</ul>`;
                 break;
-            // Comandos simples de tags
             default:
                 replacement = `<${command}>${selectedText}</${command}>`;
                 break;
         }
 
-        const prefix = isBlock ? '\n\n' : '';
-        const suffix = isBlock ? '\n\n' : '';
+        // CORREÇÃO: Reduzido o espaçamento de '\n\n' para '\n' para evitar a linha dupla.
+        // Isso adiciona uma única quebra de linha antes e depois de elementos de bloco.
+        const prefix = isBlock ? '\n' : '';
+        const suffix = isBlock ? '\n' : '';
+        
         textarea.value = textarea.value.substring(0, start) + prefix + replacement + suffix + textarea.value.substring(end);
         
-        // Dispara o evento 'input' para que a pré-visualização seja atualizada
         textarea.dispatchEvent(new Event('input', { bubbles: true }));
         textarea.focus();
     }
-    
-    // Função não precisa mais existir, a lógica foi movida para wrapSelectionWithTag
-    // function handleToolbarClick(event) { ... }
 
     function updateTopicPreview() {
         const title = document.getElementById('topic-title')?.value || 'Título do seu artigo';
         const description = document.getElementById('topic-description')?.value || 'Descrição curta sobre o que o artigo aborda.';
-        // Agora substituímos apenas o \n que NÃO está dentro de uma tag HTML para <br>
-        // Esta é uma simplificação. Para casos complexos, seria necessário um parser mais robusto.
-        // Mas para este uso, vamos apenas renderizar o HTML diretamente.
         const content = document.getElementById('content-editor')?.value || '<p>O conteúdo do seu artigo aparecerá aqui.</p>';
-        
-        // A pré-visualização agora renderiza o HTML diretamente, sem substituir \n por <br>
         elements.previewContent.innerHTML = `<div class="article-content"><h1>${title}</h1><p class="text-xl mt-4 opacity-80">${description}</p><hr class="my-6 opacity-20"><div>${content}</div></div>`;
     }
 
@@ -110,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ? forumData.map(cat => `<option value="${cat.id}">${cat.title}</option>`).join('')
                 : '';
             
-            // NOVO: A barra de ferramentas foi expandida com as novas opções
+            // MELHORIA: Botões com nomes mais descritivos para facilitar o entendimento.
             formHTML = `
                 <div class="p-6 rounded-xl bg-[var(--card-bg-color)] border border-[var(--border-color)]">
                     <h3 class="text-base font-semibold mb-4">Informações Básicas</h3>
@@ -123,12 +116,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="p-6 rounded-xl bg-[var(--card-bg-color)] border border-[var(--border-color)]">
                     <h3 class="text-base font-semibold mb-4">Conteúdo do Artigo</h3>
                     <div id="editor-toolbar" class="editor-toolbar">
-                        <button class="toolbar-btn" data-command="h2" data-block="true">H2</button>
-                        <button class="toolbar-btn" data-command="h3" data-block="true">H3</button>
-                        <button class="toolbar-btn" data-command="p" data-block="true">P</button>
-                        <button class="toolbar-btn" data-command="strong"><b>B</b></button>
-                        <button class="toolbar-btn" data-command="i"><i>I</i></button>
-                        <button class="toolbar-btn" data-command="u"><u>U</u></button>
+                        <button class="toolbar-btn" data-command="h2" data-block="true">Título</button>
+                        <button class="toolbar-btn" data-command="h3" data-block="true">Subtítulo</button>
+                        <button class="toolbar-btn" data-command="p" data-block="true">Parágrafo</button>
+                        <button class="toolbar-btn" data-command="strong"><b>Negrito</b></button>
+                        <button class="toolbar-btn" data-command="i"><i>Itálico</i></button>
+                        <button class="toolbar-btn" data-command="u"><u>Sublinhado</u></button>
                         <button class="toolbar-btn" data-command="ul" data-block="true">Lista</button>
                         <button class="toolbar-btn" data-command="a">Link</button>
                         <button class="toolbar-btn" data-command="img" data-block="true">Imagem</button>
@@ -143,7 +136,6 @@ document.addEventListener('DOMContentLoaded', () => {
             ['category-select', 'topic-title', 'topic-description', 'content-editor'].forEach(id => {
                 document.getElementById(id)?.addEventListener('input', updateTopicPreview);
             });
-            // NOVO: Adicionamos um único 'event listener' na toolbar que delega o evento
             document.getElementById('editor-toolbar')?.addEventListener('click', (event) => {
                 const button = event.target.closest('.toolbar-btn');
                 if (!button) return;
