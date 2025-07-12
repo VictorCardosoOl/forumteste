@@ -32,6 +32,23 @@ document.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
     checkAutoSave();
 
+    // Função para padronizar SVGs
+    function standardizeSVG(svgString) {
+        if (!svgString || !svgString.includes('<svg')) return svgString;
+        
+        // Adiciona classe module-icon se não existir
+        if (!svgString.includes('class="module-icon"')) {
+            svgString = svgString.replace('<svg', '<svg class="module-icon"');
+        }
+        
+        // Garante fill="currentColor" se não tiver fill definido
+        if (!svgString.includes('fill="')) {
+            svgString = svgString.replace('<svg', '<svg fill="currentColor"');
+        }
+        
+        return svgString;
+    }
+
     // Funções principais
     function initTheme() {
         const savedTheme = localStorage.getItem('theme');
@@ -46,7 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const isDark = !document.body.classList.contains('dark');
         document.body.classList.toggle('dark', isDark);
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        
         showToast(`Tema ${isDark ? 'escuro' : 'claro'} ativado`);
     }
 
@@ -170,12 +186,25 @@ document.addEventListener('DOMContentLoaded', () => {
                             </button>
                         </label>
                         <textarea id="module-icon" rows="6" class="form-control" placeholder='<svg viewBox="0 0 24 24" fill="currentColor" class="module-icon">\n  <!-- Seu SVG aqui -->\n</svg>'></textarea>
+                        <p class="text-xs text-gray-500 mt-1">Use SVG inline com viewBox="0 0 24 24" e fill="currentColor"</p>
                     </div>
                 </div>
             </div>
         `;
 
-        setupModuleForm();
+        // Adiciona ajuda para ícones SVG
+        document.getElementById('icon-help').addEventListener('click', () => {
+            alert(`Dicas para ícones SVG:
+1. Use viewBox="0 0 24 24" para tamanho consistente
+2. Sempre inclua class="module-icon"
+3. Use fill="currentColor" para herdar a cor do tema
+4. Mantenha o SVG simples e limpo`);
+        });
+
+        // Atualiza o preview quando o ícone é alterado
+        document.getElementById('module-icon').addEventListener('input', () => {
+            updateModulePreview();
+        });
     }
 
     function setupEditor() {
@@ -316,7 +345,13 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const title = document.getElementById('module-title')?.value || 'Novo Módulo';
         const description = document.getElementById('module-description')?.value || 'Descrição do módulo';
-        const icon = document.getElementById('module-icon')?.value || '<svg viewBox="0 0 24 24" fill="currentColor" class="module-icon"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="currentColor"/></svg>';
+        let icon = document.getElementById('module-icon')?.value || '';
+        
+        // Padroniza o SVG antes de exibir
+        icon = standardizeSVG(icon) || 
+               `<svg viewBox="0 0 24 24" fill="currentColor" class="module-icon">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                </svg>`;
 
         elements.previewContent.innerHTML = `
             <div class="p-6 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm">
@@ -367,12 +402,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function generateModuleCode() {
         const title = document.getElementById('module-title').value;
         const description = document.getElementById('module-description').value;
-        const icon = document.getElementById('module-icon').value;
+        let icon = document.getElementById('module-icon').value;
 
         if (!title || !description) {
             showToast('Preencha todos os campos obrigatórios', 3000);
             return;
         }
+
+        // Padroniza o SVG antes de gerar o código
+        icon = standardizeSVG(icon) || '<svg viewBox="0 0 24 24" fill="currentColor" class="module-icon"></svg>';
 
         const moduleId = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
@@ -380,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
     id: '${moduleId}',
     title: '${escapeSingleQuotes(title)}',
     description: '${escapeSingleQuotes(description)}',
-    icon: \`${icon || '<svg viewBox="0 0 24 24" fill="currentColor" class="module-icon"></svg>'}\`,
+    icon: \`${icon}\`,
     topics: []
 }`;
 
@@ -395,6 +433,15 @@ document.addEventListener('DOMContentLoaded', () => {
         elements.output.value = code;
         elements.resultInstruction.textContent = instruction;
         elements.modalOverlay.classList.add('active');
+        
+        // Destaca a parte do SVG no código gerado
+        setTimeout(() => {
+            const svgStart = elements.output.value.indexOf('<svg');
+            if (svgStart !== -1) {
+                const svgEnd = elements.output.value.indexOf('</svg>') + 6;
+                elements.output.setSelectionRange(svgStart, svgEnd);
+            }
+        }, 100);
     }
 
     function closeModal() {

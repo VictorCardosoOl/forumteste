@@ -58,28 +58,14 @@ const forumData = [
      
     ]
   },
-  {
+{
     id: 'refatorar',
     title: 'Refatorar',
     description: 'Modulo destinado a Testes',
     icon: `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 24 24">
     <path fill="currentColor" fill-rule="evenodd" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2s10 4.477 10 10Zm-16.54-.917a6.59 6.59 0 0 1 6.55-5.833a6.585 6.585 0 0 1 5.242 2.592a.75.75 0 0 1-1.192.911a5.085 5.085 0 0 0-4.05-2.003a5.09 5.09 0 0 0-5.037 4.333h.364a.75.75 0 0 1 .53 1.281l-1.169 1.167a.75.75 0 0 1-1.06 0L4.47 12.364a.75.75 0 0 1 .53-1.28h.46Zm12.902-.614a.75.75 0 0 0-1.06 0l-1.168 1.167a.75.75 0 0 0 .53 1.28h.363a5.09 5.09 0 0 1-5.037 4.334a5.084 5.084 0 0 1-4.037-1.986a.75.75 0 0 0-1.188.916a6.584 6.584 0 0 0 5.226 2.57a6.59 6.59 0 0 0 6.549-5.833H19a.75.75 0 0 0 .53-1.281l-1.168-1.167Z" clip-rule="evenodd"/>
 </svg>`,
-    topics: [{
-    id: 'teste-3-12-07',
-    title: 'Teste 3 12/07',
-    description: 'Teste',
-    content: `
-<h2>Título Principal</h2>
-
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet lacinia turpis. Vivamus sit amet ligula laoreet, egestas nisi et, porttitor purus. Praesent in eleifend purus, at viverra lorem. Aliquam erat volutpat. Vivamus finibus quam vel pellentesque lacinia. Duis vulputate hendrerit facilisis. Nunc id vehicula dui. Nullam euismod metus quis ex facilisis, id ultrices arcu ullamcorper. Integer fringilla id dolor sollicitudin ornare.</p>
-
-<p><span style="color: red;"><em><u>tLorem ipsum dolor sit amet, consectetur adipiscing elit</span></u></em>. Integer sit amet lacinia turpis. Vivamus sit amet ligula laoreet, egestas nisi et, porttitor purus. Praesent in eleifend purus, at viverra lorem. Aliquam erat volutpat. Vivamus finibus quam vel pellentesque lacinia. Duis vulputate hendrerit facilisis. Nunc id vehicula dui. Nullam euismod metus quis ex facilisis, id ultrices arcu ullamcorper. Integer fringilla id dolor sollicitudin ornare.</p>
-<img src="https://br.freepik.com/imagem-ia-gratis/uma-pintura-de-um-lago-de-montanha-com-uma-montanha-ao-fundo_40965130.htm#fromView=keyword&page=1&position=0&uuid=e61414eb-6409-4627-a776-297540886957&query=Wallpaper+Desktop" alt="Imagem" class="content-image" loading="lazy">
-
-<img src="https://wallpapers.com/images/hd/gon-freecss-bloody-face-03r8y6npn96sboad.webp" alt="Imagem" class="content-image" loading="lazy">`
-}]
-},
-
+    topics: []
+}
 
 ];

@@ -787,3 +787,74 @@ body {
 .space-y-6 > * + * {
     margin-top: 1.5rem;
 }
+/* Search Input */
+.search-input {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border-primary);
+    border-radius: var(--rounded-md);
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Highlight */
+.highlight {
+    background-color: rgba(255, 255, 0, 0.3);
+    padding: 0.1em 0.2em;
+    border-radius: 0.25em;
+}
+
+/* Stats Panel */
+.stats-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: var(--bg-tertiary);
+    border-top: 1px solid var(--border-primary);
+}
+
+.stat-card {
+    background-color: var(--bg-secondary);
+    padding: 0.75rem;
+    border-radius: var(--rounded-md);
+    border: 1px solid var(--border-primary);
+}
+
+.stat-card h4 {
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
+}
+
+.stat-card div {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.stat-card small {
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+}
+
+/* Template Selector */
+.template-selector {
+    margin-bottom: 1rem;
+}
+
+.template-btn {
+    padding: 0.5rem 1rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    background-color: var(--bg-tertiary);
+    border: 1px solid var(--border-primary);
+    border-radius: var(--rounded-sm);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.template-btn:hover {
+    background-color: var(--bg-secondary);
+}
