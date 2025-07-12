@@ -4,84 +4,201 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Studio Pro - Criador de Conteúdo</title>
-    
     <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-
-    <link rel="stylesheet" href="creator.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="creator.css">
 </head>
-<body class="min-h-screen">
-
-    <header class="sticky top-0 z-50 bg-[var(--bg-color)]/80 backdrop-blur-lg border-b border-[var(--border-color)]">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-            <h1 class="text-xl font-bold">Studio Pro</h1>
-            <div class="flex items-center gap-4">
-                <div class="flex gap-1 p-1 rounded-xl bg-[var(--hover-bg-color)]">
-                    <div>
-                        <input type="radio" name="mode" value="topic" id="mode-topic" class="sr-only" checked>
-                        <label for="mode-topic" class="cursor-pointer mode-span">Novo Tópico</label>
-                    </div>
-                    <div>
-                        <input type="radio" name="mode" value="module" id="mode-module" class="sr-only">
-                        <label for="mode-module" class="cursor-pointer mode-span">Novo Módulo</label>
-                    </div>
+<body class="min-h-screen bg-white dark:bg-gray-900 font-inter transition-colors duration-200">
+    <header class="sticky top-0 z-50 bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg border-b border-gray-100 dark:border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-800 dark:text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                Studio Pro
+            </h1>
+            <div class="flex items-center gap-3">
+                <div class="flex gap-1 p-1 rounded-lg bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                    <button id="mode-topic" class="mode-btn active">
+                        <i class="fas fa-file-alt mr-2"></i> Tópico
+                    </button>
+                    <button id="mode-module" class="mode-btn">
+                        <i class="fas fa-folder mr-2"></i> Módulo
+                    </button>
                 </div>
-                <button id="theme-toggle" class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-[var(--hover-bg-color)]" aria-label="Alternar tema de cores">
-                    <div id="theme-icon-container" class="w-6 h-6"></div>
+                <button id="theme-toggle" class="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                    <i class="fas fa-moon text-gray-700 dark:hidden"></i>
+                    <i class="fas fa-sun text-yellow-400 hidden dark:block"></i>
                 </button>
             </div>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-5 gap-12">
-        
-        <section class="col-span-3">
-            <div id="form-content" class="space-y-8">
-                </div>
+    <main class="max-w-7xl mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-5 gap-6">
+        <section class="lg:col-span-3 space-y-6">
+            <div id="form-content"></div>
         </section>
 
-        <aside class="col-span-2">
-            <div class="sticky top-28">
-                <h2 class="text-lg font-bold mb-1">Pré-visualização</h2>
-                <p class="text-sm text-[var(--text-color-light)] mb-4">O resultado final do seu conteúdo.</p>
-                <div id="preview-content" class="p-4 rounded-xl bg-[var(--card-bg-color)] border border-[var(--border-color)] transition-all duration-300 min-h-[300px]">
+        <aside class="lg:col-span-2 space-y-6">
+            <div class="sticky top-24 space-y-6">
+                <div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-bold text-gray-900 dark:text-white">Pré-visualização</h2>
+                        <button id="help-toggle" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </button>
                     </div>
-                
-                <div class="mt-6 p-4 rounded-xl bg-[var(--card-bg-color)] border border-[var(--border-color)]">
-                    <h3 class="text-base font-semibold mb-3">Guia Rápido de Tags</h3>
-                    <ul class="space-y-2 text-sm text-[var(--text-color-light)]">
-                        <li><code class="text-xs bg-[var(--hover-bg-color)] p-1 rounded">&lt;h2&gt;...&lt;/h2&gt;</code> - Título Principal</li>
-                        <li><code class="text-xs bg-[var(--hover-bg-color)] p-1 rounded">&lt;h3&gt;...&lt;/h3&gt;</code> - Subtítulo</li>
-                        <li><code class="text-xs bg-[var(--hover-bg-color)] p-1 rounded">&lt;p&gt;...&lt;/p&gt;</code> - Parágrafo</li>
-                        <li><code class="text-xs bg-[var(--hover-bg-color)] p-1 rounded">&lt;strong&gt;...&lt;/strong&gt;</code> - Negrito</li>
-                        <li><code class="text-xs bg-[var(--hover-bg-color)] p-1 rounded">&lt;i&gt;...&lt;/i&gt;</code> - Itálico</li>
-                        <li><code class="text-xs bg-[var(--hover-bg-color)] p-1 rounded">&lt;u&gt;...&lt;/u&gt;</code> - Sublinhado</li>
-                    </ul>
+                    <div id="preview-content" class="prose dark:prose-invert max-w-none"></div>
                 </div>
                 
-                <button id="generate-btn" class="btn btn-primary w-full mt-6">Gerar Código</button>
+                <div class="flex gap-3">
+                    <button id="clear-form-btn" class="btn-secondary flex-1">
+                        <i class="fas fa-trash-alt mr-2"></i> Limpar
+                    </button>
+                    <button id="generate-btn" class="btn-primary flex-1">
+                        <i class="fas fa-code mr-2"></i> Gerar Código
+                    </button>
+                </div>
             </div>
         </aside>
     </main>
 
-    <div id="modal-overlay">
-        <div id="modal-content">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold">Código Gerado</h2>
-                <button id="close-modal-btn" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-[var(--hover-bg-color)]" aria-label="Fechar modal">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <p id="result-instruction" class="text-sm text-[var(--text-color-light)] mb-4"></p>
-            <div class="relative">
-                <button id="copy-btn" class="absolute top-3 right-3 text-xs bg-[var(--bg-color)] px-2 py-1 rounded hover:bg-[var(--card-bg-color)]">Copiar</button>
-                <textarea id="output" readonly class="w-full h-48 font-mono text-sm p-4 rounded-lg form-input resize-none"></textarea>
+    <!-- Modal de Código Gerado -->
+    <div id="modal-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-200">
+        <div id="modal-content" class="bg-white dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-2xl transform scale-95 transition-transform duration-200 border border-gray-200 dark:border-gray-700">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white">Código Gerado</h2>
+                    <button id="close-modal-btn" class="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <p id="result-instruction" class="text-sm text-gray-500 dark:text-gray-400 mb-4"></p>
+                <div class="relative">
+                    <button id="copy-btn" class="absolute top-3 right-3 text-xs bg-white dark:bg-gray-700 px-2 py-1 rounded border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
+                        Copiar
+                    </button>
+                    <textarea id="output" readonly class="w-full h-64 font-mono text-sm p-4 rounded-lg bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 text-gray-900 dark:text-white resize-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400 focus:border-transparent"></textarea>
+                </div>
             </div>
         </div>
     </div>
     
+    <!-- Toast Notification -->
+    <div id="toast-notification" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 translate-y-20 bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-4 py-3 rounded-lg shadow-lg z-50 transition-transform duration-300 flex items-center">
+        <i class="fas fa-check-circle mr-2"></i>
+        <span id="toast-message"></span>
+    </div>
+
+    <!-- Guia de Tags (Pop-up) -->
+    <div id="tags-guide" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 opacity-0 pointer-events-none transition-opacity duration-200">
+        <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-gray-200 dark:border-gray-700 transform scale-95 transition-transform duration-200">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white">
+                        <i class="fas fa-code mr-2 text-gray-600 dark:text-gray-300"></i>
+                        Guia de Formatação
+                    </h2>
+                    <button id="close-tags-guide" class="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">Tags Básicas</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+                                <h4 class="font-medium text-gray-900 dark:text-white mb-2">
+                                    <code class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm">h2</code> Título Principal
+                                </h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Cria um título grande para seções importantes.</p>
+                                <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded border border-gray-200 dark:border-gray-600">
+                                    <code class="text-xs">&lt;h2&gt;Instalação do Sistema&lt;/h2&gt;</code>
+                                </div>
+                            </div>
+                            <div class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+                                <h4 class="font-medium text-gray-900 dark:text-white mb-2">
+                                    <code class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm">h3</code> Subtítulo
+                                </h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Cria um subtítulo para subseções.</p>
+                                <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded border border-gray-200 dark:border-gray-600">
+                                    <code class="text-xs">&lt;h3&gt;Requisitos Mínimos&lt;/h3&gt;</code>
+                                </div>
+                            </div>
+                            <div class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+                                <h4 class="font-medium text-gray-900 dark:text-white mb-2">
+                                    <code class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm">p</code> Parágrafo
+                                </h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Formata um bloco de texto como parágrafo.</p>
+                                <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded border border-gray-200 dark:border-gray-600">
+                                    <code class="text-xs">&lt;p&gt;Este é um parágrafo de exemplo.&lt;/p&gt;</code>
+                                </div>
+                            </div>
+                            <div class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+                                <h4 class="font-medium text-gray-900 dark:text-white mb-2">
+                                    <code class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm">strong</code> Negrito
+                                </h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Destaca texto em negrito.</p>
+                                <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded border border-gray-200 dark:border-gray-600">
+                                    <code class="text-xs">&lt;strong&gt;Texto importante&lt;/strong&gt;</code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3">Elementos Avançados</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+                                <h4 class="font-medium text-gray-900 dark:text-white mb-2">
+                                    <code class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm">ul</code> Lista
+                                </h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Cria uma lista não ordenada com marcadores.</p>
+                                <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded border border-gray-200 dark:border-gray-600">
+                                    <code class="text-xs block">&lt;ul&gt;</code>
+                                    <code class="text-xs block ml-4">&lt;li&gt;Item 1&lt;/li&gt;</code>
+                                    <code class="text-xs block ml-4">&lt;li&gt;Item 2&lt;/li&gt;</code>
+                                    <code class="text-xs block">&lt;/ul&gt;</code>
+                                </div>
+                            </div>
+                            <div class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+                                <h4 class="font-medium text-gray-900 dark:text-white mb-2">
+                                    <code class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm">a</code> Link
+                                </h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Adiciona um link clicável.</p>
+                                <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded border border-gray-200 dark:border-gray-600">
+                                    <code class="text-xs">&lt;a href="https://exemplo.com"&gt;Visite o site&lt;/a&gt;</code>
+                                </div>
+                            </div>
+                            <div class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+                                <h4 class="font-medium text-gray-900 dark:text-white mb-2">
+                                    <code class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm">img</code> Imagem
+                                </h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Insere uma imagem no conteúdo.</p>
+                                <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded border border-gray-200 dark:border-gray-600">
+                                    <code class="text-xs">&lt;img src="imagem.jpg" alt="Descrição"&gt;</code>
+                                </div>
+                            </div>
+                            <div class="p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+                                <h4 class="font-medium text-gray-900 dark:text-white mb-2">
+                                    <code class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm">span</code> Texto Colorido
+                                </h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">Permite adicionar cor ao texto.</p>
+                                <div class="bg-gray-50 dark:bg-gray-700 p-3 rounded border border-gray-200 dark:border-gray-600">
+                                    <code class="text-xs">&lt;span style="color: red;"&gt;Texto vermelho&lt;/span&gt;</code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="data.js"></script>
     <script src="creator.js"></script>
 </body>

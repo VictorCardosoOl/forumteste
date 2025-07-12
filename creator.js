@@ -1,214 +1,441 @@
-// COLE O CONTEÚDO INTEIRO ABAIXO NO SEU creator.js
-
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Referências aos Elementos Globais ---
+    // Elementos DOM
     const elements = {
-        modeRadios: document.querySelectorAll('input[name="mode"]'),
         formContent: document.getElementById('form-content'),
         previewContent: document.getElementById('preview-content'),
         generateBtn: document.getElementById('generate-btn'),
         themeToggle: document.getElementById('theme-toggle'),
-        themeIconContainer: document.getElementById('theme-icon-container'),
-        // Modal
         modalOverlay: document.getElementById('modal-overlay'),
-        modalContent: document.getElementById('modal-content'),
         closeModalBtn: document.getElementById('close-modal-btn'),
         output: document.getElementById('output'),
         copyBtn: document.getElementById('copy-btn'),
         resultInstruction: document.getElementById('result-instruction'),
+        clearFormBtn: document.getElementById('clear-form-btn'),
+        toast: document.getElementById('toast-notification'),
+        modeTopic: document.getElementById('mode-topic'),
+        modeModule: document.getElementById('mode-module')
     };
 
+    // Estado da aplicação
     let currentMode = 'topic';
-    const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
-    const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+    const autoSaveKey = 'studioProAutoSave';
+    let autoSaveInterval;
 
-    function setTheme(isDark) {
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        document.body.classList.toggle('dark-mode', isDark);
-        elements.themeIconContainer.innerHTML = isDark ? sunIcon : moonIcon;
-    }
+    // Inicialização
+    initTheme();
+    renderForm();
+    setupEventListeners();
+    checkAutoSave();
 
-    function openModal() { elements.modalOverlay.classList.add('visible'); }
-    function closeModal() { elements.modalOverlay.classList.remove('visible'); }
-    
-    function wrapSelectionWithTag(textarea, command, isBlock) {
-        const start = textarea.selectionStart;
-        const end = textarea.selectionEnd;
-        const selectedText = textarea.value.substring(start, end);
-        let replacement = '';
-
-        switch (command) {
-            case 'a':
-                const url = prompt('Digite a URL do link (ex: https://google.com):', 'https://');
-                if (!url) return;
-                replacement = `<a href="${url}" target="_blank">${selectedText || 'texto do link'}</a>`;
-                break;
-            case 'img':
-                const imgUrl = prompt('Digite a URL da imagem (deve começar com http ou https):');
-                if (!imgUrl) return;
-                 // Validação simples para garantir que não é um caminho local
-                if (!imgUrl.startsWith('http')) {
-                    alert('URL inválida! A imagem precisa estar online (começar com http:// ou https://). Não é possível usar arquivos do seu computador.');
-                    return;
-                }
-                const altText = prompt('Digite o texto alternativo (descrição da imagem):', 'imagem');
-                // CORREÇÃO: Removido o \n de dentro da tag. O espaçamento agora é controlado pelo prefix/suffix.
-                replacement = `<img src="${imgUrl}" alt="${altText}" class="content-image">`;
-                break;
-            case 'color':
-                const color = prompt("Digite a cor (ex: 'red' ou '#FF0000'):");
-                if (!color) return;
-                replacement = `<span style="color: ${color};">${selectedText || 'texto colorido'}</span>`;
-                break;
-            case 'justify':
-                 replacement = `<p style="text-align: justify;">${selectedText || 'Parágrafo justificado...'}</p>`;
-                 break;
-            case 'ul':
-                replacement = `<ul>\n  <li>${selectedText || 'Item 1'}</li>\n  <li>Item 2</li>\n</ul>`;
-                break;
-            default:
-                replacement = `<${command}>${selectedText}</${command}>`;
-                break;
-        }
-
-        // CORREÇÃO: Reduzido o espaçamento de '\n\n' para '\n' para evitar a linha dupla.
-        // Isso adiciona uma única quebra de linha antes e depois de elementos de bloco.
-        const prefix = isBlock ? '\n' : '';
-        const suffix = isBlock ? '\n' : '';
-        
-        textarea.value = textarea.value.substring(0, start) + prefix + replacement + suffix + textarea.value.substring(end);
-        
-        textarea.dispatchEvent(new Event('input', { bubbles: true }));
-        textarea.focus();
-    }
-
-    function updateTopicPreview() {
-        const title = document.getElementById('topic-title')?.value || 'Título do seu artigo';
-        const description = document.getElementById('topic-description')?.value || 'Descrição curta sobre o que o artigo aborda.';
-        const content = document.getElementById('content-editor')?.value || '<p>O conteúdo do seu artigo aparecerá aqui.</p>';
-        elements.previewContent.innerHTML = `<div class="article-content"><h1>${title}</h1><p class="text-xl mt-4 opacity-80">${description}</p><hr class="my-6 opacity-20"><div>${content}</div></div>`;
-    }
-
-    function updateModulePreview() {
-        const title = document.getElementById('module-title')?.value || 'Título do Módulo';
-        const description = document.getElementById('module-description')?.value || 'Descrição do que este módulo contém.';
-        const icon = document.getElementById('module-icon')?.value || '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>';
-        elements.previewContent.innerHTML = `<div class="card-link flex flex-1 gap-4 rounded-xl p-5 flex-col group"><div class="w-8 h-8 text-[var(--text-color)]">${icon}</div><div class="flex flex-col gap-1 mt-2"><h3 class="text-base font-semibold">${title}</h3><p class="text-sm font-normal">${description}</p></div></div>`;
+    // Funções principais
+    function initTheme() {
+        const isDark = localStorage.getItem('theme') === 'dark';
+        document.body.classList.toggle('dark', isDark);
     }
 
     function renderForm() {
-        let formHTML = '';
         if (currentMode === 'topic') {
-            const categories = (typeof forumData !== 'undefined' && Array.isArray(forumData)) 
-                ? forumData.map(cat => `<option value="${cat.id}">${cat.title}</option>`).join('')
-                : '';
-            
-            // MELHORIA: Botões com nomes mais descritivos para facilitar o entendimento.
-            formHTML = `
-                <div class="p-6 rounded-xl bg-[var(--card-bg-color)] border border-[var(--border-color)]">
-                    <h3 class="text-base font-semibold mb-4">Informações Básicas</h3>
-                    <div class="space-y-4">
-                        <div><label for="category-select" class="text-sm font-medium text-[var(--text-color-light)]">Módulo do Tópico</label><select id="category-select" class="mt-1 block w-full form-input">${categories}</select></div>
-                        <div><label for="topic-title" class="text-sm font-medium text-[var(--text-color-light)]">Título</label><input type="text" id="topic-title" class="mt-1 block w-full form-input"></div>
-                        <div><label for="topic-description" class="text-sm font-medium text-[var(--text-color-light)]">Descrição Curta</label><input type="text" id="topic-description" class="mt-1 block w-full form-input"></div>
-                    </div>
-                </div>
-                <div class="p-6 rounded-xl bg-[var(--card-bg-color)] border border-[var(--border-color)]">
-                    <h3 class="text-base font-semibold mb-4">Conteúdo do Artigo</h3>
-                    <div id="editor-toolbar" class="editor-toolbar">
-                        <button class="toolbar-btn" data-command="h2" data-block="true">Título</button>
-                        <button class="toolbar-btn" data-command="h3" data-block="true">Subtítulo</button>
-                        <button class="toolbar-btn" data-command="p" data-block="true">Parágrafo</button>
-                        <button class="toolbar-btn" data-command="strong"><b>Negrito</b></button>
-                        <button class="toolbar-btn" data-command="i"><i>Itálico</i></button>
-                        <button class="toolbar-btn" data-command="u"><u>Sublinhado</u></button>
-                        <button class="toolbar-btn" data-command="ul" data-block="true">Lista</button>
-                        <button class="toolbar-btn" data-command="a">Link</button>
-                        <button class="toolbar-btn" data-command="img" data-block="true">Imagem</button>
-                        <button class="toolbar-btn" data-command="justify" data-block="true">Justificar</button>
-                        <button class="toolbar-btn" data-command="color">Cor</button>
-                    </div>
-                    <textarea id="content-editor" rows="20" class="block w-full form-input font-mono text-sm" style="border-radius: 0 0 0.5rem 0.5rem;"></textarea>
-                </div>
-            `;
-            elements.formContent.innerHTML = formHTML;
-            updateTopicPreview();
-            ['category-select', 'topic-title', 'topic-description', 'content-editor'].forEach(id => {
-                document.getElementById(id)?.addEventListener('input', updateTopicPreview);
-            });
-            document.getElementById('editor-toolbar')?.addEventListener('click', (event) => {
-                const button = event.target.closest('.toolbar-btn');
-                if (!button) return;
-                const command = button.dataset.command;
-                const isBlock = button.dataset.block === 'true';
-                wrapSelectionWithTag(document.getElementById('content-editor'), command, isBlock);
-            });
-        } else { // mode === 'module'
-            formHTML = `
-                <div class="p-6 rounded-xl bg-[var(--card-bg-color)] border border-[var(--border-color)] space-y-4">
-                    <div><label for="module-title" class="text-sm font-medium text-[var(--text-color-light)]">Título do Módulo</label><input type="text" id="module-title" class="mt-1 block w-full form-input"></div>
-                    <div><label for="module-description" class="text-sm font-medium text-[var(--text-color-light)]">Descrição</label><input type="text" id="module-description" class="mt-1 block w-full form-input"></div>
-                    <div><label for="module-icon" class="text-sm font-medium text-[var(--text-color-light)]">Ícone (SVG Otimizado)</label><textarea id="module-icon" rows="10" class="mt-1 block w-full form-input font-mono text-sm"></textarea></div>
-                </div>
-            `;
-            elements.formContent.innerHTML = formHTML;
-            updateModulePreview();
-            ['module-title', 'module-description', 'module-icon'].forEach(id => {
-                document.getElementById(id)?.addEventListener('input', updateModulePreview);
-            });
-        }
-    }
-
-    function switchMode(mode) {
-        currentMode = mode;
-        document.querySelectorAll('.mode-span').forEach(span => {
-            span.classList.toggle('active', span.parentElement.querySelector('input').value === mode);
-            span.classList.toggle('inactive', span.parentElement.querySelector('input').value !== mode);
-        });
-        renderForm();
-    }
-
-    elements.generateBtn.addEventListener('click', () => {
-        let generatedCode = '', instructionText = '';
-        if (currentMode === 'topic') {
-            const categorySelect = document.getElementById('category-select');
-            const title = document.getElementById('topic-title').value.trim();
-            const description = document.getElementById('topic-description').value.trim();
-            const content = document.getElementById('content-editor').value.trim();
-            if (!categorySelect || categorySelect.selectedIndex < 0) { alert('Selecione um módulo.'); return; }
-            if (!title || !content) { alert('Título e Conteúdo são obrigatórios.'); return; }
-            const topicId = title.toLowerCase().replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-');
-            generatedCode = `{\n  id: '${topicId}',\n  title: '${title.replace(/'/g, "\\'")}',\n  description: '${description.replace(/'/g, "\\'")}',\n  content: \`\n${content.replace(/`/g, "\\`")}\n  \`\n},`;
-            const selectedModuleText = categorySelect.options[categorySelect.selectedIndex].text;
-            instructionText = `Copie e cole no array 'topics' do módulo "${selectedModuleText}" em data.js.`;
+            renderTopicForm();
         } else {
-            const title = document.getElementById('module-title').value.trim();
-            const description = document.getElementById('module-description').value.trim();
-            const icon = document.getElementById('module-icon').value.trim();
-            if (!title) { alert('O Título do Módulo é obrigatório.'); return; }
-            const moduleId = title.toLowerCase().replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '-');
-            generatedCode = `{\n  id: '${moduleId}',\n  title: '${title.replace(/'/g, "\\'")}',\n  description: '${description.replace(/'/g, "\\'")}',\n  icon: \`${icon.replace(/`/g, "\\`")}\`,\n  topics: []\n},`;
-            instructionText = `Copie este código e cole dentro do array principal 'forumData' em data.js.`;
+            renderModuleForm();
         }
-        
-        elements.output.value = generatedCode;
-        elements.resultInstruction.textContent = instructionText;
-        openModal();
-    });
+    }
 
-    // --- Listeners ---
-    elements.themeToggle.addEventListener('click', () => setTheme(!document.body.classList.contains('dark-mode')));
-    elements.modeRadios.forEach(radio => radio.addEventListener('change', (e) => switchMode(e.target.value)));
-    elements.closeModalBtn.addEventListener('click', closeModal);
-    elements.modalOverlay.addEventListener('click', (e) => { if (e.target === elements.modalOverlay) closeModal(); });
-    elements.copyBtn.addEventListener('click', () => {
-        navigator.clipboard.writeText(elements.output.value).then(() => {
-            elements.copyBtn.textContent = 'Copiado!';
-            setTimeout(() => { elements.copyBtn.textContent = 'Copiar'; }, 2000);
+    function renderTopicForm() {
+        const categories = forumData?.map(cat => 
+            `<option value="${cat.id}">${cat.title}</option>`
+        ).join('') || '';
+
+        elements.formContent.innerHTML = `
+            <div class="space-y-6">
+                <div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                    <h3 class="text-base font-semibold text-gray-900 dark:text-white mb-4">Informações do Tópico</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <label for="category-select" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Módulo</label>
+                            <select id="category-select" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                                ${categories}
+                            </select>
+                        </div>
+                        <div>
+                            <label for="topic-title" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Título</label>
+                            <input type="text" id="topic-title" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                        </div>
+                        <div>
+                            <label for="topic-description" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Descrição</label>
+                            <input type="text" id="topic-description" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="editor-wrapper">
+                    <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
+                        <h3 class="text-base font-semibold text-gray-900 dark:text-white">Conteúdo</h3>
+                        <div class="tooltip">
+                            <i class="fas fa-question-circle text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"></i>
+                            <span class="tooltip-text">Dica: Use os botões abaixo para formatar seu conteúdo</span>
+                        </div>
+                    </div>
+                    <div class="editor-toolbar">
+                        <button class="toolbar-btn" data-command="h2" title="Título"><i class="fas fa-heading"></i></button>
+                        <button class="toolbar-btn" data-command="h3" title="Subtítulo"><i class="fas fa-heading" style="font-size: 0.8em"></i></button>
+                        <button class="toolbar-btn" data-command="p" title="Parágrafo"><i class="fas fa-paragraph"></i></button>
+                        <div class="w-px h-6 bg-gray-200 dark:bg-gray-600 mx-1"></div>
+                        <button class="toolbar-btn" data-command="bold" title="Negrito"><i class="fas fa-bold"></i></button>
+                        <button class="toolbar-btn" data-command="italic" title="Itálico"><i class="fas fa-italic"></i></button>
+                        <button class="toolbar-btn" data-command="underline" title="Sublinhado"><i class="fas fa-underline"></i></button>
+                        <div class="w-px h-6 bg-gray-200 dark:bg-gray-600 mx-1"></div>
+                        <button class="toolbar-btn" data-command="ul" title="Lista"><i class="fas fa-list-ul"></i></button>
+                        <button class="toolbar-btn" data-command="ol" title="Lista numerada"><i class="fas fa-list-ol"></i></button>
+                        <div class="w-px h-6 bg-gray-200 dark:bg-gray-600 mx-1"></div>
+                        <button class="toolbar-btn" data-command="link" title="Link"><i class="fas fa-link"></i></button>
+                        <button class="toolbar-btn" data-command="image" title="Imagem"><i class="fas fa-image"></i></button>
+                    </div>
+                    <textarea id="content-editor" class="editor-content"></textarea>
+                    <div class="editor-stats">0 palavras | 0 caracteres</div>
+                </div>
+            </div>
+        `;
+
+        setupEditor();
+    }
+
+    function renderModuleForm() {
+        elements.formContent.innerHTML = `
+            <div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 space-y-4">
+                <h3 class="text-base font-semibold text-gray-900 dark:text-white mb-4">Novo Módulo</h3>
+                <div>
+                    <label for="module-title" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Título</label>
+                    <input type="text" id="module-title" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                </div>
+                <div>
+                    <label for="module-description" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Descrição</label>
+                    <input type="text" id="module-description" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                </div>
+                <div>
+                    <label for="module-icon" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Ícone (SVG)</label>
+                    <textarea id="module-icon" rows="6" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono text-sm"></textarea>
+                </div>
+            </div>
+        `;
+
+        setupModuleForm();
+    }
+
+    function setupEditor() {
+        const editor = document.getElementById('content-editor');
+        const toolbar = document.querySelector('.editor-toolbar');
+        const stats = document.querySelector('.editor-stats');
+
+        // Atualizar pré-visualização e estatísticas
+        editor.addEventListener('input', () => {
+            updateTopicPreview();
+            updateStats();
+            autoSave();
         });
-    });
 
-    // --- Inicialização ---
-    setTheme(localStorage.getItem('theme') === 'dark');
-    switchMode('topic');
+        // Botões da toolbar
+        toolbar.addEventListener('click', (e) => {
+            if (e.target.closest('[data-command]')) {
+                const btn = e.target.closest('[data-command]');
+                const command = btn.getAttribute('data-command');
+                formatText(command);
+            }
+        });
+
+        // Atualizar estatísticas inicialmente
+        updateStats();
+    }
+
+    function formatText(command) {
+        const editor = document.getElementById('content-editor');
+        const start = editor.selectionStart;
+        const end = editor.selectionEnd;
+        const selectedText = editor.value.substring(start, end);
+        let replacement = '';
+
+        switch (command) {
+            case 'h2':
+                replacement = `\n<h2>${selectedText || 'Título'}</h2>\n`;
+                break;
+            case 'h3':
+                replacement = `\n<h3>${selectedText || 'Subtítulo'}</h3>\n`;
+                break;
+            case 'p':
+                replacement = `\n<p>${selectedText || 'Parágrafo'}</p>\n`;
+                break;
+            case 'bold':
+                replacement = `<strong>${selectedText || 'texto em negrito'}</strong>`;
+                break;
+            case 'italic':
+                replacement = `<em>${selectedText || 'texto em itálico'}</em>`;
+                break;
+            case 'underline':
+                replacement = `<u>${selectedText || 'texto sublinhado'}</u>`;
+                break;
+            case 'ul':
+                replacement = `\n<ul>\n  <li>${selectedText || 'Item da lista'}</li>\n</ul>\n`;
+                break;
+            case 'ol':
+                replacement = `\n<ol>\n  <li>${selectedText || 'Item numerado'}</li>\n</ol>\n`;
+                break;
+            case 'link':
+                const url = prompt('URL do link:', 'https://');
+                if (url) {
+                    replacement = `<a href="${url}" target="_blank">${selectedText || 'Link'}</a>`;
+                }
+                break;
+            case 'image':
+                const imgUrl = prompt('URL da imagem:', 'https://');
+                if (imgUrl) {
+                    const altText = prompt('Texto alternativo:', 'Imagem');
+                    replacement = `<img src="${imgUrl}" alt="${altText}" class="content-image">`;
+                }
+                break;
+        }
+
+        if (replacement) {
+            editor.value = editor.value.substring(0, start) + replacement + editor.value.substring(end);
+            editor.dispatchEvent(new Event('input'));
+            editor.focus();
+        }
+    }
+
+    function updateStats() {
+        const editor = document.getElementById('content-editor');
+        const stats = document.querySelector('.editor-stats');
+        if (!editor || !stats) return;
+
+        const content = editor.value;
+        const charCount = content.length;
+        const wordCount = content.trim() ? content.trim().split(/\s+/).length : 0;
+
+        stats.textContent = `${wordCount} palavras | ${charCount} caracteres`;
+    }
+
+    function updateTopicPreview() {
+        const title = document.getElementById('topic-title')?.value || 'Título do Tópico';
+        const description = document.getElementById('topic-description')?.value || 'Descrição breve do tópico';
+        const content = document.getElementById('content-editor')?.value || '<p class="text-gray-500 dark:text-gray-400">Seu conteúdo aparecerá aqui...</p>';
+
+        elements.previewContent.innerHTML = `
+            <article class="space-y-4">
+                <h1 class="text-2xl font-bold">${title}</h1>
+                <p class="text-lg text-gray-600 dark:text-gray-300">${description}</p>
+                <hr class="border-gray-200 dark:border-gray-700">
+                <div class="prose dark:prose-invert max-w-none">${content}</div>
+            </article>
+        `;
+    }
+
+    function updateModulePreview() {
+        if (currentMode !== 'module') return;
+        
+        const title = document.getElementById('module-title')?.value || 'Novo Módulo';
+        const description = document.getElementById('module-description')?.value || 'Descrição do módulo';
+        const icon = document.getElementById('module-icon')?.value || '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="currentColor"/></svg>';
+
+        elements.previewContent.innerHTML = `
+            <div class="p-4 rounded-lg bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 flex items-center justify-center text-gray-800 dark:text-gray-200">
+                        ${icon}
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-gray-900 dark:text-white">${title}</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">${description}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    function generateCode() {
+        if (currentMode === 'topic') {
+            generateTopicCode();
+        } else {
+            generateModuleCode();
+        }
+    }
+
+    function generateTopicCode() {
+        const categoryId = document.getElementById('category-select').value;
+        const title = document.getElementById('topic-title').value;
+        const description = document.getElementById('topic-description').value;
+        const content = document.getElementById('content-editor').value;
+
+        if (!title || !description || !content) {
+            showToast('Preencha todos os campos obrigatórios', 3000);
+            return;
+        }
+
+        const topicId = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        
+        const code = `{
+    id: '${topicId}',
+    title: '${escapeSingleQuotes(title)}',
+    description: '${escapeSingleQuotes(description)}',
+    content: \`${content}\`
+}`;
+
+        showResult(code, 'Copie o código abaixo e cole no array "topics" do módulo correspondente no arquivo data.js');
+    }
+
+    function generateModuleCode() {
+        const title = document.getElementById('module-title').value;
+        const description = document.getElementById('module-description').value;
+        const icon = document.getElementById('module-icon').value;
+
+        if (!title || !description) {
+            showToast('Preencha todos os campos obrigatórios', 3000);
+            return;
+        }
+
+        const moduleId = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+        const code = `{
+    id: '${moduleId}',
+    title: '${escapeSingleQuotes(title)}',
+    description: '${escapeSingleQuotes(description)}',
+    icon: \`${icon || '<svg viewBox="0 0 24 24" fill="currentColor"></svg>'}\`,
+    topics: []
+}`;
+
+        showResult(code, 'Copie o código abaixo e cole no array forumData no arquivo data.js');
+    }
+
+    function escapeSingleQuotes(str) {
+        return str.replace(/'/g, "\\'");
+    }
+
+    function showResult(code, instruction) {
+        elements.output.value = code;
+        elements.resultInstruction.textContent = instruction;
+        elements.modalOverlay.classList.add('opacity-100', 'pointer-events-auto');
+        document.querySelector('#modal-content').classList.remove('scale-95');
+    }
+
+    function closeModal() {
+        elements.modalOverlay.classList.remove('opacity-100', 'pointer-events-auto');
+        document.querySelector('#modal-content').classList.add('scale-95');
+    }
+
+    function showToast(message, duration = 3000) {
+        elements.toast.textContent = message;
+        elements.toast.classList.add('translate-y-0');
+        
+        setTimeout(() => {
+            elements.toast.classList.remove('translate-y-0');
+        }, duration);
+    }
+
+    function autoSave() {
+        const data = {
+            mode: currentMode,
+            fields: {}
+        };
+
+        document.querySelectorAll('#form-content input, #form-content textarea, #form-content select').forEach(el => {
+            if (el.id) {
+                data.fields[el.id] = el.value;
+            }
+        });
+
+        localStorage.setItem(autoSaveKey, JSON.stringify(data));
+    }
+
+    function checkAutoSave() {
+        const savedData = localStorage.getItem(autoSaveKey);
+        if (!savedData) return;
+
+        try {
+            const data = JSON.parse(savedData);
+            if (confirm('Dados não salvos encontrados. Deseja restaurar?')) {
+                currentMode = data.mode;
+                renderForm();
+                
+                setTimeout(() => {
+                    Object.entries(data.fields).forEach(([id, value]) => {
+                        const el = document.getElementById(id);
+                        if (el) {
+                            el.value = value;
+                            el.dispatchEvent(new Event('input'));
+                        }
+                    });
+                    showToast('Dados restaurados com sucesso');
+                }, 100);
+            } else {
+                clearAutoSave();
+            }
+        } catch (e) {
+            console.error('Erro ao restaurar dados:', e);
+            clearAutoSave();
+        }
+    }
+
+    function clearAutoSave() {
+        localStorage.removeItem(autoSaveKey);
+    }
+
+    function clearForm() {
+        if (confirm('Tem certeza que deseja limpar todos os campos?')) {
+            document.querySelectorAll('#form-content input, #form-content textarea, #form-content select').forEach(el => {
+                el.value = '';
+                el.dispatchEvent(new Event('input'));
+            });
+            showToast('Formulário limpo');
+            clearAutoSave();
+        }
+    }
+
+    function setupEventListeners() {
+        // Toggle tema
+        elements.themeToggle.addEventListener('click', () => {
+            const isDark = document.body.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+
+        // Toggle modo (tópico/módulo)
+        elements.modeTopic.addEventListener('click', () => {
+            if (currentMode !== 'topic') {
+                currentMode = 'topic';
+                elements.modeTopic.classList.add('active');
+                elements.modeModule.classList.remove('active');
+                renderForm();
+            }
+        });
+
+        elements.modeModule.addEventListener('click', () => {
+            if (currentMode !== 'module') {
+                currentMode = 'module';
+                elements.modeModule.classList.add('active');
+                elements.modeTopic.classList.remove('active');
+                renderForm();
+            }
+        });
+
+        // Botões
+        elements.generateBtn.addEventListener('click', generateCode);
+        elements.clearFormBtn.addEventListener('click', clearForm);
+        elements.closeModalBtn.addEventListener('click', closeModal);
+        elements.modalOverlay.addEventListener('click', (e) => {
+            if (e.target === elements.modalOverlay) closeModal();
+        });
+        elements.copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(elements.output.value).then(() => {
+                elements.copyBtn.textContent = 'Copiado!';
+                setTimeout(() => {
+                    elements.copyBtn.textContent = 'Copiar';
+                }, 2000);
+            });
+        });
+
+        // Auto-save a cada 5 segundos
+        autoSaveInterval = setInterval(autoSave, 5000);
+    }
+
+    // Limpar intervalo ao sair da página
+    window.addEventListener('beforeunload', () => {
+        clearInterval(autoSaveInterval);
+    });
 });
