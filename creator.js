@@ -12,8 +12,12 @@ document.addEventListener('DOMContentLoaded', () => {
         resultInstruction: document.getElementById('result-instruction'),
         clearFormBtn: document.getElementById('clear-form-btn'),
         toast: document.getElementById('toast-notification'),
+        toastMessage: document.getElementById('toast-message'),
         modeTopic: document.getElementById('mode-topic'),
-        modeModule: document.getElementById('mode-module')
+        modeModule: document.getElementById('mode-module'),
+        helpToggle: document.getElementById('help-toggle'),
+        tagsGuide: document.getElementById('tags-guide'),
+        closeTagsGuide: document.getElementById('close-tags-guide')
     };
 
     // Estado da aplicação
@@ -29,8 +33,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Funções principais
     function initTheme() {
-        const isDark = localStorage.getItem('theme') === 'dark';
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const isDark = savedTheme ? savedTheme === 'dark' : prefersDark;
+        
         document.body.classList.toggle('dark', isDark);
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    }
+
+    function toggleTheme() {
+        const isDark = !document.body.classList.contains('dark');
+        document.body.classList.toggle('dark', isDark);
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        
+        showToast(`Tema ${isDark ? 'escuro' : 'claro'} ativado`);
     }
 
     function renderForm() {
@@ -48,50 +64,80 @@ document.addEventListener('DOMContentLoaded', () => {
 
         elements.formContent.innerHTML = `
             <div class="space-y-6">
-                <div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
-                    <h3 class="text-base font-semibold text-gray-900 dark:text-white mb-4">Informações do Tópico</h3>
+                <div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm">
+                    <h3 class="text-base font-semibold text-gray-900 dark:text-white mb-4">
+                        <i class="fas fa-info-circle mr-2 text-gray-600 dark:text-gray-300"></i>
+                        Informações do Tópico
+                    </h3>
                     <div class="space-y-4">
                         <div>
                             <label for="category-select" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Módulo</label>
-                            <select id="category-select" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                            <select id="category-select" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400 focus:border-transparent transition-all">
                                 ${categories}
                             </select>
                         </div>
                         <div>
                             <label for="topic-title" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Título</label>
-                            <input type="text" id="topic-title" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                            <input type="text" id="topic-title" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400 focus:border-transparent transition-all">
                         </div>
                         <div>
                             <label for="topic-description" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Descrição</label>
-                            <input type="text" id="topic-description" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
+                            <input type="text" id="topic-description" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400 focus:border-transparent transition-all">
                         </div>
                     </div>
                 </div>
 
                 <div class="editor-wrapper">
                     <div class="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-                        <h3 class="text-base font-semibold text-gray-900 dark:text-white">Conteúdo</h3>
-                        <div class="tooltip">
-                            <i class="fas fa-question-circle text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"></i>
-                            <span class="tooltip-text">Dica: Use os botões abaixo para formatar seu conteúdo</span>
+                        <h3 class="text-base font-semibold text-gray-900 dark:text-white">
+                            <i class="fas fa-edit mr-2 text-gray-600 dark:text-gray-300"></i>
+                            Conteúdo
+                        </h3>
+                        <div class="flex items-center gap-2">
+                            <button id="show-tags-guide" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors" title="Ajuda com formatação">
+                                <i class="fas fa-question-circle"></i>
+                            </button>
                         </div>
                     </div>
                     <div class="editor-toolbar">
-                        <button class="toolbar-btn" data-command="h2" title="Título"><i class="fas fa-heading"></i></button>
-                        <button class="toolbar-btn" data-command="h3" title="Subtítulo"><i class="fas fa-heading" style="font-size: 0.8em"></i></button>
-                        <button class="toolbar-btn" data-command="p" title="Parágrafo"><i class="fas fa-paragraph"></i></button>
+                        <button class="toolbar-btn" data-command="h2" title="Título Principal (h2)">
+                            <i class="fas fa-heading"></i>
+                        </button>
+                        <button class="toolbar-btn" data-command="h3" title="Subtítulo (h3)">
+                            <i class="fas fa-heading" style="font-size: 0.8em"></i>
+                        </button>
+                        <button class="toolbar-btn" data-command="p" title="Parágrafo (p)">
+                            <i class="fas fa-paragraph"></i>
+                        </button>
                         <div class="w-px h-6 bg-gray-200 dark:bg-gray-600 mx-1"></div>
-                        <button class="toolbar-btn" data-command="bold" title="Negrito"><i class="fas fa-bold"></i></button>
-                        <button class="toolbar-btn" data-command="italic" title="Itálico"><i class="fas fa-italic"></i></button>
-                        <button class="toolbar-btn" data-command="underline" title="Sublinhado"><i class="fas fa-underline"></i></button>
+                        <button class="toolbar-btn" data-command="bold" title="Negrito (strong)">
+                            <i class="fas fa-bold"></i>
+                        </button>
+                        <button class="toolbar-btn" data-command="italic" title="Itálico (em)">
+                            <i class="fas fa-italic"></i>
+                        </button>
+                        <button class="toolbar-btn" data-command="underline" title="Sublinhado (u)">
+                            <i class="fas fa-underline"></i>
+                        </button>
                         <div class="w-px h-6 bg-gray-200 dark:bg-gray-600 mx-1"></div>
-                        <button class="toolbar-btn" data-command="ul" title="Lista"><i class="fas fa-list-ul"></i></button>
-                        <button class="toolbar-btn" data-command="ol" title="Lista numerada"><i class="fas fa-list-ol"></i></button>
+                        <button class="toolbar-btn" data-command="ul" title="Lista não ordenada (ul)">
+                            <i class="fas fa-list-ul"></i>
+                        </button>
+                        <button class="toolbar-btn" data-command="ol" title="Lista ordenada (ol)">
+                            <i class="fas fa-list-ol"></i>
+                        </button>
                         <div class="w-px h-6 bg-gray-200 dark:bg-gray-600 mx-1"></div>
-                        <button class="toolbar-btn" data-command="link" title="Link"><i class="fas fa-link"></i></button>
-                        <button class="toolbar-btn" data-command="image" title="Imagem"><i class="fas fa-image"></i></button>
+                        <button class="toolbar-btn" data-command="link" title="Link (a)">
+                            <i class="fas fa-link"></i>
+                        </button>
+                        <button class="toolbar-btn" data-command="image" title="Imagem (img)">
+                            <i class="fas fa-image"></i>
+                        </button>
+                        <button class="toolbar-btn" data-command="color" title="Texto colorido (span)">
+                            <i class="fas fa-palette"></i>
+                        </button>
                     </div>
-                    <textarea id="content-editor" class="editor-content"></textarea>
+                    <textarea id="content-editor" class="editor-content" placeholder="Escreva seu conteúdo aqui..."></textarea>
                     <div class="editor-stats">0 palavras | 0 caracteres</div>
                 </div>
             </div>
@@ -102,19 +148,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderModuleForm() {
         elements.formContent.innerHTML = `
-            <div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 space-y-4">
-                <h3 class="text-base font-semibold text-gray-900 dark:text-white mb-4">Novo Módulo</h3>
-                <div>
-                    <label for="module-title" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Título</label>
-                    <input type="text" id="module-title" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
-                </div>
-                <div>
-                    <label for="module-description" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Descrição</label>
-                    <input type="text" id="module-description" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white">
-                </div>
-                <div>
-                    <label for="module-icon" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Ícone (SVG)</label>
-                    <textarea id="module-icon" rows="6" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono text-sm"></textarea>
+            <div class="p-5 rounded-xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm">
+                <h3 class="text-base font-semibold text-gray-900 dark:text-white mb-4">
+                    <i class="fas fa-folder-open mr-2 text-gray-600 dark:text-gray-300"></i>
+                    Novo Módulo
+                </h3>
+                <div class="space-y-4">
+                    <div>
+                        <label for="module-title" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Título</label>
+                        <input type="text" id="module-title" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400 focus:border-transparent transition-all">
+                    </div>
+                    <div>
+                        <label for="module-description" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Descrição</label>
+                        <input type="text" id="module-description" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400 focus:border-transparent transition-all">
+                    </div>
+                    <div>
+                        <label for="module-icon" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                            Ícone (SVG)
+                            <button type="button" class="ml-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200" id="icon-help">
+                                <i class="fas fa-question-circle text-xs"></i>
+                            </button>
+                        </label>
+                        <textarea id="module-icon" rows="6" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono text-sm focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400 focus:border-transparent transition-all" placeholder='<svg viewBox="0 0 24 24" fill="currentColor">\n  <!-- Seu SVG aqui -->\n</svg>'></textarea>
+                    </div>
                 </div>
             </div>
         `;
@@ -156,13 +212,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         switch (command) {
             case 'h2':
-                replacement = `\n<h2>${selectedText || 'Título'}</h2>\n`;
+                replacement = `\n<h2>${selectedText || 'Título Principal'}</h2>\n`;
                 break;
             case 'h3':
                 replacement = `\n<h3>${selectedText || 'Subtítulo'}</h3>\n`;
                 break;
             case 'p':
-                replacement = `\n<p>${selectedText || 'Parágrafo'}</p>\n`;
+                replacement = `\n<p>${selectedText || 'Parágrafo de texto...'}</p>\n`;
                 break;
             case 'bold':
                 replacement = `<strong>${selectedText || 'texto em negrito'}</strong>`;
@@ -174,22 +230,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 replacement = `<u>${selectedText || 'texto sublinhado'}</u>`;
                 break;
             case 'ul':
-                replacement = `\n<ul>\n  <li>${selectedText || 'Item da lista'}</li>\n</ul>\n`;
+                replacement = `\n<ul>\n  <li>${selectedText || 'Item da lista'}</li>\n  <li>Item 2</li>\n</ul>\n`;
                 break;
             case 'ol':
-                replacement = `\n<ol>\n  <li>${selectedText || 'Item numerado'}</li>\n</ol>\n`;
+                replacement = `\n<ol>\n  <li>${selectedText || 'Item 1'}</li>\n  <li>Item 2</li>\n</ol>\n`;
                 break;
             case 'link':
                 const url = prompt('URL do link:', 'https://');
                 if (url) {
-                    replacement = `<a href="${url}" target="_blank">${selectedText || 'Link'}</a>`;
+                    replacement = `<a href="${url}" target="_blank" rel="noopener">${selectedText || 'Texto do Link'}</a>`;
                 }
                 break;
             case 'image':
                 const imgUrl = prompt('URL da imagem:', 'https://');
                 if (imgUrl) {
-                    const altText = prompt('Texto alternativo:', 'Imagem');
-                    replacement = `<img src="${imgUrl}" alt="${altText}" class="content-image">`;
+                    const altText = prompt('Texto alternativo (descrição da imagem):', 'Imagem');
+                    replacement = `<img src="${imgUrl}" alt="${altText}" class="content-image" loading="lazy">`;
+                }
+                break;
+            case 'color':
+                const color = prompt('Cor do texto (nome ou código hexadecimal):', 'blue');
+                if (color) {
+                    replacement = `<span style="color: ${color};">${selectedText || 'Texto colorido'}</span>`;
                 }
                 break;
         }
@@ -219,11 +281,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const content = document.getElementById('content-editor')?.value || '<p class="text-gray-500 dark:text-gray-400">Seu conteúdo aparecerá aqui...</p>';
 
         elements.previewContent.innerHTML = `
-            <article class="space-y-4">
-                <h1 class="text-2xl font-bold">${title}</h1>
-                <p class="text-lg text-gray-600 dark:text-gray-300">${description}</p>
-                <hr class="border-gray-200 dark:border-gray-700">
-                <div class="prose dark:prose-invert max-w-none">${content}</div>
+            <article class="space-y-6">
+                <header class="border-b border-gray-200 dark:border-gray-700 pb-4">
+                    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">${title}</h1>
+                    <p class="text-lg text-gray-600 dark:text-gray-300 mt-2">${description}</p>
+                </header>
+                <div class="prose dark:prose-invert max-w-none">
+                    ${content}
+                </div>
             </article>
         `;
     }
@@ -236,14 +301,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const icon = document.getElementById('module-icon')?.value || '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="currentColor"/></svg>';
 
         elements.previewContent.innerHTML = `
-            <div class="p-4 rounded-lg bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600">
-                <div class="flex items-center gap-4">
-                    <div class="w-10 h-10 flex items-center justify-center text-gray-800 dark:text-gray-200">
+            <div class="p-5 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm">
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 flex items-center justify-center text-gray-800 dark:text-gray-200 bg-white dark:bg-gray-700 rounded-lg p-2 border border-gray-200 dark:border-gray-600">
                         ${icon}
                     </div>
                     <div>
-                        <h3 class="font-semibold text-gray-900 dark:text-white">${title}</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-300">${description}</p>
+                        <h3 class="font-semibold text-gray-900 dark:text-white text-lg">${title}</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mt-1">${description}</p>
                     </div>
                 </div>
             </div>
@@ -320,8 +385,18 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#modal-content').classList.add('scale-95');
     }
 
+    function showTagsGuide() {
+        elements.tagsGuide.classList.add('opacity-100', 'pointer-events-auto');
+        document.querySelector('#tags-guide > div').classList.remove('scale-95');
+    }
+
+    function closeTagsGuide() {
+        elements.tagsGuide.classList.remove('opacity-100', 'pointer-events-auto');
+        document.querySelector('#tags-guide > div').classList.add('scale-95');
+    }
+
     function showToast(message, duration = 3000) {
-        elements.toast.textContent = message;
+        elements.toastMessage.textContent = message;
         elements.toast.classList.add('translate-y-0');
         
         setTimeout(() => {
@@ -390,10 +465,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function setupEventListeners() {
         // Toggle tema
-        elements.themeToggle.addEventListener('click', () => {
-            const isDark = document.body.classList.toggle('dark');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        });
+        elements.themeToggle.addEventListener('click', toggleTheme);
 
         // Toggle modo (tópico/módulo)
         elements.modeTopic.addEventListener('click', () => {
@@ -428,6 +500,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     elements.copyBtn.textContent = 'Copiar';
                 }, 2000);
             });
+        });
+
+        // Guia de Tags
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('#show-tags-guide') || e.target.closest('#help-toggle')) {
+                showTagsGuide();
+            }
+        });
+        elements.closeTagsGuide.addEventListener('click', closeTagsGuide);
+        elements.tagsGuide.addEventListener('click', (e) => {
+            if (e.target === elements.tagsGuide) {
+                closeTagsGuide();
+            }
         });
 
         // Auto-save a cada 5 segundos
