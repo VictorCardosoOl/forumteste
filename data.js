@@ -11,8 +11,7 @@ const forumData = [
     id: 'instalando-programas-no-windows-com-o-terminal',
     title: 'Instalando Programas no Windows Com o Terminal',
     description: 'Artigo possui o objetivo de informar como funciona a instalação de programas através do terminal no sistema Windows.',
-    content: `
-<h2>TInstalando Programas no Windows Com o Terminal</h2>
+    content: `<h2>Instalando Programas no Windows Com o Terminal</h2>
 
 <p>Antigamente, instalar um programa no Windows significava abrir o navegador, procurar o site oficial, baixar um instalador e clicar em uma série de janelas de confirmação. Hoje, o Windows oferece uma ferramenta de linha de comando poderosa e integrada que transforma esse processo em uma única linha de código: o Winget.</p>
 
@@ -65,19 +64,13 @@ Este comando verifica todos os programas que você instalou via Winget (e muitos
 
 <h3><strong><em>winget upgrade --all</em></strong></h3>
 
-<p>Dentro disso há vários outros cômodas para listagem de programas e desinstalação para mais informações pesquise no Google.</p>
-
+<p>Dentro deste comando há vários outros cômodas para listagem de programas e desinstalação para mais informações <a href="https://learn.microsoft.com/pt-br/windows/package-manager/winget/upgrade" target="_blank" rel="noopener">acesse aqui</a>.</p>
+<br></br>
 <img src="/IMG/Terminal.png" alt="Imagem" class="content-image" loading="lazy">
-
-
-
-
 
 
 `
 },
-
-
 
 ]
 },
