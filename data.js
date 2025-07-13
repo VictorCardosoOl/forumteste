@@ -282,7 +282,208 @@ Este comando verifica todos os programas que você instalou via Winget (e muitos
     <path fill="currentColor" d="M54.669 11.225c1.662.25 3.093 1.629 3.405 3.28c1.244.04 2.263.943 3.237 1.718c.974.775 2.212 1.502 3.399 1.126l-.452-3.411c-.101-.763-.21-1.549-.599-2.213c-.556-.947-1.586-1.493-2.564-1.992c-1.162-.592-2.345-1.192-3.628-1.426c-1.283-.234-2.704-.054-3.708.778c-.477.396-.849 1.107-.495 1.616c.294.426.895.447 1.405.524zm12.328 1.04c1.027.093 1.96.858 2.253 1.846c.042.142.07.304-.005.433c-.1.172-.332.204-.53.197a2.234 2.234 0 0 1-.928-.219a1.8 1.8 0 0 1-.848-.916a1.799 1.799 0 0 1-.037-1.248m8.306 39.359c-1.124-.241-2.339-1.324-2.975-2.235c-.419-.601-.709-1.291-1.18-1.853c-.521-.621-1.233-1.05-1.951-1.426a22.272 22.272 0 0 0-10.159-2.522c-2.319-.014-5.814-.328-7.148-2.74c-.221-.399-.023-.886.068-1.334s-.065-1.06-.521-1.083c-.87-.044-1.072.994-2.168.867c-.792-.092-1.863-.68-2.131-1.464c-.244-.714.005-2.31.058-3.069c.098-1.404 5.544-1.316 6.529-1.234c-.185 1.072.898 2.747 2.097 1.772c1.039-.844-.248-3.176.657-4.342c1.181-1.524 2.697-3.045 4.029-4.475c.375-.403.752-.807 1.182-1.15c.939-.747 2.089-1.169 3.126-1.773c-2.026-3.134-5.699-5.134-9.43-5.135c-.288 0-.603.021-.815.216c-.279.256-.263.693-.223 1.069c.109 1.036.237 2.071.384 3.102l-3.19-1.267c-.789-.313-1.617-.656-2.131-1.332c-.513-.676-.546-1.793.158-2.266c.992-.667 2.498.38 3.478-.303c.59-.412.743-1.321 1.408-1.596c.595-.245 1.239.155 1.868.295c.628.14 1.517-.367 1.213-.935c-1.724-1.149-3.692-2.351-5.725-1.949c-1.023.202-1.925.797-2.922 1.102c-2.405.737-4.961-.276-7.271-1.272c-.352-.152-.716-.311-.975-.594c-.294-.321-.418-.763-.669-1.119c-.796-1.127-3.758-1.124-3.564-1.179c-.249-.021-.731.541-.98.519c-.218-.019-2.433 2.247-2.838 2.519c-1.357.914-2.885 1.289-4.538 1.777c-1.625.48-3.472 2.333-.943 2.458c2.072.102 5.087-.639 7.104-1.103c.372-.085.778-.177 1.121-.01c.336.163.517.528.66.873a14.35 14.35 0 0 1 .447 9.653c-.332 1.072-.796 2.204-.469 3.278c.472 1.548 2.42 2.356 2.711 3.948c.125.685-.085 1.431.199 2.066c.667 1.489 2.702.823 3.851.557c-.006.002.17 2.318.328 2.572c.558.895 2.018 1.123 2.938 1.38c3.393.949 6.378 2.392 9.436 4.136c.74.422 1.514.876 1.945 1.612c1.155 1.97-.758 4.302-1.005 6.572a4.567 4.567 0 0 0 1.194 3.569c.503.536 1.132.943 1.632 1.484c1.165 1.26 1.491 3.112 1.307 4.819c-.183 1.707-.811 3.328-1.337 4.962a42.947 42.947 0 0 0-1.9 9.421c-.083.953.429 1.201 1.283.939c1.217-.372.998-1.521 1.306-2.427c.885-2.61 3.701-4.935 6.102-6.072c1.067-.505 2.238-.888 3.066-1.729c1.168-1.186 1.424-3.054 2.596-4.237c.998-1.008 2.513-1.365 3.52-2.365c1.092-1.085 1.473-2.675 2.182-3.997c.534-.995 1.556-1.808 2.007-2.809c1.349-2.999-2.296-2.769-4.032-3.141z"/>
     <path fill="currentColor" d="M50 2.608C23.858 2.608 2.666 23.8 2.666 49.942c0 26.142 21.192 47.334 47.334 47.334s47.334-21.192 47.334-47.334C97.334 23.8 76.142 2.608 50 2.608zm15.784 87.679c-1.119-.443-2.351-.599-3.534-.375c-1.739.329-3.564 1.367-5.156.592c-1.577-.767-1.895-3.052-1.033-4.58c.862-1.528 2.527-2.416 4.176-3.013c-1.121-.907-2.838-.486-4 .369c-1.162.854-2.029 2.066-3.213 2.889c-1.184.823-2.944 1.15-3.99.157c-.035.819-.992 1.288-1.812 1.285c-.82-.003-1.633-.292-2.445-.183c-1.097.146-1.991 1.009-2.477 2.003c-.456.934-.612 1.98-.745 3.013C21.69 88.503 6.666 70.947 6.666 49.942C6.666 26.047 26.106 6.608 50 6.608c8.651 0 16.71 2.558 23.482 6.943c-.131.684-.179 1.373-.062 2.061c.268 1.584 1.702 3.093 3.288 2.832l.29-1.151c2.002.403 3.708 2.021 4.216 3.999a1.887 1.887 0 0 0-.819 1.864c2.434.457 4.002 2.957 4.414 5.399s-.023 4.94.005 7.417c.044 3.895 1.618 8.176 5.168 9.779c.987.446 2.165.624 3.167.286c.116 1.288.185 2.589.185 3.906c0 18.325-11.441 34.019-27.55 40.344z"/>
 </svg>`,
-    topics: []
+    topics: [{
+  id: 'tipos-de-redes-lan-wan-man',
+  title: 'Tipos de Redes: Entendendo LAN, WAN e MAN',
+  description: 'Descubra as diferenças fundamentais entre Redes Locais (LAN), Redes de Longa Distância (WAN) e Redes Metropolitanas (MAN) e como elas formam a internet.',
+  content: `
+    <h2>Tipos de Redes: Entendendo LAN, WAN e MAN</h2>
+    <p>O primeiro passo para entender a estrutura de redes é conhecer sua classificação por escala geográfica. Dependendo da distância que precisam cobrir, as redes são categorizadas em tipos diferentes, cada um com sua própria tecnologia e propósito. As três classificações fundamentais são LAN, WAN e MAN.</p>
+
+    <h3>1. LAN (Local Area Network / Rede Local)</h3>
+    <p>A LAN é a rede mais comum no nosso dia a dia. Ela conecta dispositivos dentro de uma área geograficamente limitada, como uma casa, um escritório, um prédio ou um campus universitário.</p>
+    <ul>
+        <li><strong>Escala:</strong> Pequena (de alguns metros a poucos quilômetros).</li>
+        <li><strong>Velocidade:</strong> Muito alta, pois a infraestrutura é privada e os cabos são curtos (ex: 1 Gbps ou mais).</li>
+        <li><strong>Tecnologia:</strong> Geralmente usa cabos Ethernet e switches para conectar os dispositivos e Access Points para conexões Wi-Fi.</li>
+        <li><strong>Custo e Gerenciamento:</strong> O custo de implementação e o gerenciamento são de responsabilidade do proprietário (você ou a empresa).</li>
+        <li><strong>Exemplo:</strong> A rede Wi-Fi da sua casa, que conecta seu computador, smartphone e smart TV, é uma LAN.</li>
+    </ul>
+
+    <h3>2. WAN (Wide Area Network / Rede de Longa Distância)</h3>
+    <p>A WAN conecta dispositivos em áreas geográficas extensas, como cidades, estados ou até mesmo países e continentes. Ela é, na prática, uma "rede de redes", conectando múltiplas LANs distantes.</p>
+    <ul>
+        <li><strong>Escala:</strong> Grande (de dezenas a milhares de quilômetros).</li>
+        <li><strong>Velocidade:</strong> Geralmente mais lenta que uma LAN, pois a distância é maior e a infraestrutura é compartilhada.</li>
+        <li><strong>Tecnologia:</strong> Utiliza infraestrutura de operadoras de telecomunicações, como fibra óptica, satélites e cabos submarinos.</li>
+        <li><strong>Custo e Gerenciamento:</strong> O custo é alto e geralmente pago como um serviço a um provedor de internet (ISP).</li>
+        <li><strong>Exemplo:</strong> A <strong>Internet</strong> é o maior e mais conhecido exemplo de uma WAN.</li>
+    </ul>
+
+    <h3>3. MAN (Metropolitan Area Network / Rede Metropolitana)</h3>
+    <p>A MAN é uma rede de porte intermediário, maior que uma LAN, mas menor que uma WAN. Tipicamente, ela cobre a área de uma cidade inteira.</p>
+    <ul>
+        <li><strong>Escala:</strong> Média (cobre uma cidade ou uma grande metrópole).</li>
+        <li><strong>Velocidade:</strong> Alta, geralmente baseada em fibra óptica.</li>
+        <li><strong>Propósito:</strong> Frequentemente usada por empresas para interligar suas filiais em diferentes bairros ou por provedores para oferecer internet de alta velocidade à população da cidade.</li>
+        <li><strong>Exemplo:</strong> Uma rede de fibra óptica que conecta todos os prédios de uma prefeitura ou universidade espalhados por uma cidade.</li>
+    </ul>
+
+    <h3>Conclusão</h3>
+    <p>Entender a diferença entre LAN, WAN e MAN é fundamental. Em resumo, você gerencia sua LAN, contrata o acesso a uma WAN (a internet) de um provedor que, por sua vez, pode usar uma MAN para distribuir o serviço pela sua cidade. Juntas, elas formam a complexa estrutura de conectividade global que usamos todos os dias.</p>
+  `
+},
+{
+  id: 'modelos-osi-tcp-ip-camadas-rede',
+  title: 'Modelos OSI e TCP/IP: As Camadas da Comunicação de Rede',
+  description: 'Um guia detalhado sobre os modelos OSI e TCP/IP, explicando a função de cada camada para desmistificar como os dados viajam pela rede.',
+  content: `
+    <h2>Modelos OSI e TCP/IP: As Camadas da Comunicação de Rede</h2>
+    <p>Para que dois computadores possam se comunicar em uma rede, eles precisam seguir um conjunto de regras e procedimentos. Os modelos de referência <strong>OSI</strong> e <strong>TCP/IP</strong> organizam essas regras em camadas, onde cada camada é responsável por uma parte específica do processo de comunicação. Entendê-los é como ter um mapa que mostra o caminho que os dados percorrem do seu navegador até um servidor do outro lado do mundo.</p>
+
+    <h3>O Modelo OSI (Open Systems Interconnection)</h3>
+    <p>O Modelo OSI é um modelo conceitual de 7 camadas criado para padronizar as funções de um sistema de telecomunicação. Embora não seja implementado na prática, ele é a principal ferramenta acadêmica para ensinar e entender o fluxo de rede.</p>
+    <ol>
+        <li><strong>Camada 7 - Aplicação:</strong> Interface direta com o usuário. Fornece os protocolos que os aplicativos usam, como HTTP (navegadores), SMTP (e-mail) e FTP (transferência de arquivos).</li>
+        <li><strong>Camada 6 - Apresentação:</strong> Traduz, comprime e criptografa os dados. Garante que os dados enviados pela camada de Aplicação de um sistema possam ser lidos pela camada de Aplicação de outro.</li>
+        <li><strong>Camada 5 - Sessão:</strong> Estabelece, gerencia e encerra as conexões (sessões) entre computadores. Controla o diálogo entre os dispositivos.</li>
+        <li><strong>Camada 4 - Transporte:</strong> Garante a entrega confiável e ordenada dos dados de ponta a ponta. É aqui que atuam os protocolos <strong>TCP</strong> (confiável, verifica erros) e <strong>UDP</strong> (rápido, sem verificação). Ela segmenta os dados em pacotes.</li>
+        <li><strong>Camada 3 - Rede:</strong> Responsável pelo endereçamento lógico (endereços IP) e pelo roteamento. Decide qual o melhor caminho para os pacotes de dados atravessarem a rede até o seu destino. Os roteadores operam nesta camada.</li>
+        <li><strong>Camada 2 - Enlace (Link de Dados):</strong> Lida com o endereçamento físico (endereços MAC) e controla como os dados são colocados e retirados de um meio físico específico. Os switches operam nesta camada.</li>
+        <li><strong>Camada 1 - Física:</strong> Define as especificações físicas da rede: cabos, conectores, voltagens, sinais de rádio (Wi-Fi). É a camada que transmite os bits (zeros e uns) brutos pelo meio físico.</li>
+    </ol>
+
+    <h3>O Modelo TCP/IP</h3>
+    <p>O TCP/IP é o modelo prático, que a internet realmente usa. Ele é mais simples, com apenas 4 camadas, que correspondem às funções do modelo OSI.</p>
+    <ul>
+        <li><strong>4. Aplicação:</strong> Corresponde às camadas de Aplicação, Apresentação e Sessão do OSI. Inclui protocolos como HTTP, SMTP, DNS.</li>
+        <li><strong>3. Transporte:</strong> Corresponde à camada de Transporte do OSI. Inclui os protocolos TCP e UDP.</li>
+        <li><strong>2. Internet:</strong> Corresponde à camada de Rede do OSI. É onde o protocolo IP opera para o endereçamento e roteamento.</li>
+        <li><strong>1. Acesso à Rede (ou Enlace):</strong> Corresponde às camadas de Enlace e Física do OSI. Lida com o hardware e a transmissão de bits.</li>
+    </ul>
+
+    <h3>Conclusão</h3>
+    <p>A comunicação em rede é um processo complexo, mas a abordagem em camadas dos modelos OSI e TCP/IP simplifica o entendimento. Pense no OSI como o modelo teórico completo para estudo e no TCP/IP como o modelo prático e enxuto que faz a internet funcionar. Cada camada resolve uma parte do problema, passando a solução para a camada seguinte, até que a comunicação seja concluída com sucesso.</p>
+  `
+},
+{
+  id: 'hardware-de-rede-roteadores-switches-hubs',
+  title: 'Hardware de Rede: Os Componentes Físicos Essenciais',
+  description: 'Conheça a função de roteadores, switches, hubs, access points e cabos, os blocos de construção fundamentais de qualquer rede de computadores.',
+  content: `
+    <h2>Hardware de Rede: Os Componentes Físicos Essenciais</h2>
+    <p>Uma rede não é apenas software e protocolos; ela depende de componentes físicos que transmitem, direcionam e gerenciam o fluxo de dados. Conhecer os principais equipamentos de hardware é essencial para montar e entender qualquer estrutura de rede, da sua casa a uma grande empresa.</p>
+
+    <h3>1. Roteador (Router)</h3>
+    <p>O roteador é o "cérebro" da rede quando se trata de conectar mundos diferentes. Sua principal função é conectar duas ou mais redes distintas (como a sua rede local - LAN - com a internet - WAN) e direcionar o tráfego entre elas.</p>
+    <ul>
+        <li><strong>Função Principal:</strong> Roteamento de pacotes entre redes diferentes.</li>
+        <li><strong>Camada OSI:</strong> Camada 3 (Rede).</li>
+        <li><strong>Como funciona:</strong> Ele lê o endereço IP de destino de um pacote de dados e, usando uma tabela de roteamento, decide qual o melhor caminho para enviá-lo. É o responsável por levar seus dados para fora da sua casa e trazê-los de volta.</li>
+    </ul>
+
+    <h3>2. Switch</h3>
+    <p>O switch é o principal dispositivo para conectar computadores <strong>dentro da mesma rede local (LAN)</strong>. Ele é um dispositivo inteligente que cria uma rede de comunicação eficiente.</p>
+    <ul>
+        <li><strong>Função Principal:</strong> Conectar dispositivos na mesma rede e encaminhar dados de forma inteligente.</li>
+        <li><strong>Camada OSI:</strong> Camada 2 (Enlace).</li>
+        <li><strong>Como funciona:</strong> Ele aprende o endereço MAC (endereço físico exclusivo) de cada dispositivo conectado a suas portas. Quando um dado chega, o switch o envia <em>apenas</em> para a porta do dispositivo de destino, e não para todas as portas, otimizando o tráfego e evitando colisões.</li>
+    </ul>
+    
+    <h3>3. Hub (Obsoleto)</h3>
+    <p>O Hub é uma versão mais antiga e "burra" do switch. Embora tenha a mesma aparência, seu funcionamento é muito ineficiente e hoje ele é considerado obsoleto.</p>
+    <ul>
+        <li><strong>Função Principal:</strong> Conectar dispositivos na mesma rede.</li>
+        <li><strong>Camada OSI:</strong> Camada 1 (Física).</li>
+        <li><strong>Como funciona:</strong> Quando um Hub recebe dados em uma porta, ele simplesmente retransmite (transmite em broadcast) esses dados para <strong>todas as outras portas</strong>. Isso causa congestionamento e colisões de dados, degradando a performance da rede.</li>
+    </ul>
+
+    <h3>4. Access Point (AP) / Ponto de Acesso</h3>
+    <p>O Access Point é o dispositivo que permite que equipamentos sem fio (Wi-Fi) se conectem a uma rede com fio.</p>
+    <ul>
+        <li><strong>Função Principal:</strong> Criar uma rede sem fio (WLAN - Wireless Local Area Network).</li>
+        <li><strong>Como funciona:</strong> Ele atua como uma ponte entre o mundo sem fio e a rede cabeada (LAN). Note que os "roteadores Wi-Fi" domésticos são, na verdade, dispositivos 3 em 1: um roteador, um switch (com 4-5 portas) e um Access Point.</li>
+    </ul>
+    
+    <h3>5. Cabos de Rede</h3>
+    <p>São o meio físico que transporta os sinais elétricos ou luminosos.</p>
+    <ul>
+        <li><strong>Cabo de Par Trançado (UTP - Ethernet):</strong> O cabo mais comum em redes locais (LANs), com conectores RJ-45. É usado para conectar computadores, switches e roteadores.</li>
+        <li><strong>Fibra Óptica:</strong> Usa pulsos de luz para transmitir dados, permitindo velocidades muito mais altas e distâncias muito maiores. É a espinha dorsal da internet e das redes metropolitanas (MAN/WAN).</li>
+    </ul>
+    <h3>Conclusão</h3>
+    <p>Em uma rede típica, um cabo conecta seu modem (que traduz o sinal da internet) a um roteador. O roteador cria sua rede local e se conecta (via cabo) a um switch. O switch, por sua vez, conecta os dispositivos com fio, enquanto o Access Point (muitas vezes dentro do roteador) conecta os dispositivos sem fio. Juntos, esses componentes formam o ecossistema físico da conectividade.</p>
+  `
+},
+{
+  id: 'enderecamento-ip-sub-redes-guia',
+  title: 'Endereçamento IP e Sub-redes: O CEP da Internet',
+  description: 'Aprenda o que são endereços IPv4 e IPv6, a diferença entre IPs públicos e privados, e como as sub-redes organizam e otimizam uma rede.',
+  content: `
+    <h2>Endereçamento IP e Sub-redes: O CEP da Internet</h2>
+    <p>Para que um computador possa enviar dados para outro em uma rede, ele precisa de um endereço único que o identifique, assim como uma casa precisa de um CEP e um número para receber uma carta. No mundo das redes, esse endereço é o <strong>Endereço IP (Internet Protocol)</strong>. Entender como ele funciona é crucial para compreender a comunicação na internet.</p>
+
+    <h3>IPv4 vs. IPv6</h3>
+    <p>Existem duas versões do protocolo IP em uso hoje:</p>
+    <ul>
+        <li><strong>IPv4:</strong> O formato mais antigo e ainda muito utilizado. É um endereço de 32 bits, representado por quatro números de 0 a 255, separados por pontos (ex: <code>192.168.1.10</code>). Ele permite cerca de 4,3 bilhões de endereços, um número que já se esgotou devido ao crescimento da internet.</li>
+        <li><strong>IPv6:</strong> A versão mais nova, criada para resolver a escassez do IPv4. É um endereço de 128 bits, representado por oito grupos de quatro dígitos hexadecimais (ex: <code>2001:0db8:85a3:0000:0000:8a2e:0370:7334</code>). O número de endereços IPv6 é astronomicamente grande, garantindo o futuro da internet.</li>
+    </ul>
+
+    <h3>IPs Públicos vs. Privados</h3>
+    <p>Os endereços IP são divididos em duas categorias principais:</p>
+    <ul>
+        <li><strong>IP Público:</strong> É um endereço único em toda a internet, atribuído pelo seu provedor (ISP). É o endereço que o mundo exterior "vê" quando você acessa um site. Nenhum outro dispositivo no mundo pode ter o mesmo IP público que o seu ao mesmo tempo.</li>
+        <li><strong>IP Privado:</strong> É um endereço usado apenas dentro da sua rede local (LAN). Existem faixas de IP reservadas para esse uso (como <code>192.168.x.x</code>, <code>10.x.x.x</code> e <code>172.16.x.x</code> a <code>172.31.x.x</code>). Seus dispositivos (celular, notebook) têm IPs privados, que podem ser iguais aos de dispositivos na casa do seu vizinho, pois eles não são visíveis na internet.</li>
+    </ul>
+    <p>O processo que permite que múltiplos dispositivos com IPs privados acessem a internet através de um único IP público é chamado de <strong>NAT (Network Address Translation)</strong>, uma função executada pelo seu roteador.</p>
+
+    <h3>Máscara de Sub-rede e o Conceito de Sub-redes</h3>
+    <p>Um endereço IP tem duas partes: uma que identifica a <strong>rede</strong> e outra que identifica o <strong>dispositivo (host)</strong> dentro dessa rede. A <strong>máscara de sub-rede</strong> é o que define onde essa divisão acontece.</p>
+    <ul>
+        <li><strong>Máscara de Sub-rede:</strong> Um endereço como <code>255.255.255.0</code> indica que os três primeiros conjuntos de números do IP identificam a rede, e o último identifica o host. Por exemplo, no IP <code>192.168.1.10</code> com a máscara <code>255.255.255.0</code>, a rede é <code>192.168.1</code> e o host é <code>10</code>.</li>
+        <li><strong>Sub-redes:</strong> É o processo de dividir uma rede grande em redes menores e mais gerenciáveis. Ao ajustar a máscara de sub-rede, um administrador pode criar múltiplos segmentos de rede lógicos dentro de uma mesma rede física. Isso melhora a organização, a segurança e a performance, pois reduz o tráfego de broadcast desnecessário.</li>
+    </ul>
+
+    <h3>Conclusão</h3>
+    <p>O endereçamento IP é o sistema de CEP que permite que os dados encontrem seu caminho pela vastidão da internet. Entender a diferença entre IPv4 e IPv6, público e privado, e o papel da máscara de sub-rede é fundamental para qualquer pessoa que queira configurar ou diagnosticar problemas em uma rede.</p>
+  `
+},
+{
+  id: 'topologias-de-rede-estrela-anel-malha',
+  title: 'Topologias de Rede: As Formas Como Conectamos Computadores',
+  description: 'Explore as principais topologias de rede (Estrela, Barramento, Anel e Malha), entendendo as vantagens e desvantagens de cada "desenho" de rede.',
+  content: `
+    <h2>Topologias de Rede: As Formas Como Conectamos Computadores</h2>
+    <p>A <strong>topologia de rede</strong> descreve como os computadores, cabos e outros componentes de uma rede estão arranjados e interligados. Esse "desenho" ou "mapa" da rede pode ser físico (como os cabos estão dispostos) ou lógico (como os dados fluem). A escolha da topologia afeta o custo, a performance e a confiabilidade da rede.</p>
+
+    <h3>1. Topologia em Estrela (Star)</h3>
+    <p>É a topologia mais comum em redes locais (LANs) hoje. Nela, todos os dispositivos são conectados a um ponto central, como um switch ou um hub.</p>
+    <ul>
+        <li><strong>Vantagens:</strong> Fácil de instalar e gerenciar. A falha de um cabo ou dispositivo não afeta o resto da rede. Adicionar novos dispositivos é simples.</li>
+        <li><strong>Desvantagens:</strong> Se o ponto central (o switch) falhar, a rede inteira para de funcionar. O custo pode ser maior devido à quantidade de cabos.</li>
+    </ul>
+
+    <h3>2. Topologia em Barramento (Bus)</h3>
+    <p>Uma topologia mais antiga onde todos os dispositivos compartilham um único cabo principal, chamado de barramento ou "backbone".</p>
+    <ul>
+        <li><strong>Vantagens:</strong> Custo baixo, pois usa menos cabos. Simples de implementar em redes pequenas.</li>
+        <li><strong>Desvantagens:</strong> É difícil de diagnosticar problemas. Uma falha no cabo principal derruba toda a rede. A performance degrada rapidamente à medida que mais dispositivos são adicionados, devido a colisões de dados. É considerada obsoleta para LANs modernas.</li>
+    </ul>
+
+    <h3>3. Topologia em Anel (Ring)</h3>
+    <p>Nesta topologia, os dispositivos são conectados em um círculo fechado. Os dados viajam em uma única direção, passando por cada dispositivo até chegar ao seu destino.</p>
+    <ul>
+        <li><strong>Vantagens:</strong> Evita colisões de dados, pois o fluxo é ordenado (geralmente através de um "token").</li>
+        <li><strong>Desvantagens:</strong> A falha de um único dispositivo ou cabo pode interromper todo o anel. A adição ou remoção de dispositivos pode ser complexa e exige que a rede seja desligada. Também é uma topologia em grande parte legada.</li>
+    </ul>
+
+    <h3>4. Topologia em Malha (Mesh)</h3>
+    <p>Na topologia em malha, os dispositivos são interconectados com múltiplos caminhos. Em uma malha total (full mesh), cada dispositivo está conectado diretamente a todos os outros.</p>
+    <ul>
+        <li><strong>Vantagens:</strong> Extremamente tolerante a falhas e robusta. Se um caminho falha, os dados podem ser redirecionados por outro. Ótima performance, pois as conexões são diretas.</li>
+        <li><strong>Desvantagens:</strong> Muito cara e complexa de implementar e gerenciar devido à enorme quantidade de cabos e conexões necessárias.</li>
+        <li><strong>Uso Principal:</strong> É o princípio por trás do funcionamento da espinha dorsal da internet. Os grandes roteadores da internet formam uma rede em malha para garantir que não haja um ponto único de falha.</li>
+    </ul>
+
+    <h3>5. Topologia Híbrida</h3>
+    <p>Como o nome sugere, é uma combinação de duas ou mais topologias diferentes. Por exemplo, uma empresa pode ter vários andares, cada um com uma rede em estrela, e conectar os switches centrais de cada andar em um barramento principal, criando uma topologia "estrela-barramento".</p>
+
+    <h3>Conclusão</h3>
+    <p>A escolha da topologia é uma decisão de design fundamental baseada nas necessidades de custo, escalabilidade, performance e confiabilidade. Enquanto a topologia em estrela domina as redes locais, é a resiliência da topologia em malha que garante a estabilidade da internet global.</p>
+  `
+}
+]
 },
 
 {
@@ -295,7 +496,249 @@ Este comando verifica todos os programas que você instalou via Winget (e muitos
         <path d="M5 5L3.5 6.5L5 8m4-3l1.5 1.5L9 8"/>
     </g>
 </svg>`,
-    topics: []
+    topics: [
+      {
+  id: 'linguagens-alto-baixo-nivel-guia-completo',
+  title: 'Linguagens de Alto Nível vs. Baixo Nível: O Guia Definitivo',
+  description: 'Entenda as diferenças fundamentais entre linguagens de programação de alto e baixo nível, da sintaxe e lógica à sua aplicação no mundo real.',
+  content: `
+    <h2>Linguagens de Alto Nível vs. Baixo Nível: O Guia Definitivo</h2>
+    <p>No mundo da programação, a comunicação com o computador é feita através de linguagens. Assim como os idiomas humanos, elas possuem diferentes níveis de complexidade e abstração. A principal distinção se dá entre linguagens de <strong>alto nível</strong> e <strong>baixo nível</strong>. Entender essa diferença é fundamental para qualquer desenvolvedor.</p>
+    <p>Imagine que você precisa dar instruções a um robô. Uma instrução de baixo nível seria: "Mova o motor A 30 graus, ative o sensor B, envie 5 volts para o pino 7". Já uma instrução de alto nível seria: "Pegue a caixa vermelha". Ambas atingem um objetivo, mas com níveis de detalhe e abstração completamente diferentes.</p>
+
+    <h3>O que são Linguagens de Baixo Nível?</h3>
+    <p>São linguagens muito próximas do hardware do computador. Elas oferecem pouca ou nenhuma abstração do conjunto de instruções da arquitetura do processador. O programador tem controle total sobre o hardware, como gerenciamento de memória e registradores da CPU.</p>
+    <h4>Características Principais:</h4>
+    <ul>
+        <li><strong>Performance Máxima:</strong> Por estarem próximas do hardware, são extremamente rápidas e eficientes.</li>
+        <li><strong>Controle Total:</strong> Permitem manipular diretamente a memória e componentes do hardware.</li>
+        <li><strong>Sintaxe Complexa:</strong> A sintaxe é difícil de ler e escrever, exigindo um conhecimento profundo da arquitetura do computador.</li>
+        <li><strong>Não Portátil:</strong> Um código escrito para uma arquitetura (ex: x86) não funcionará em outra (ex: ARM) sem ser reescrito.</li>
+    </ul>
+    <h4>Exemplos e Sintaxe:</h4>
+    <p><strong>Assembly (ASM)</strong> é o exemplo mais conhecido. Ele usa mnemônicos para representar as instruções de máquina (código binário).</p>
+    <p><em>Exemplo de sintaxe em Assembly (adicionando 5 e 10):</em></p>
+    <pre><code>
+section .data
+    valor1 db 5
+    valor2 db 10
+    soma db 0
+
+section .text
+    global _start
+
+_start:
+    mov al, [valor1]  ; Move o primeiro valor para o registrador AL
+    mov bl, [valor2]  ; Move o segundo valor para o registrador BL
+    add al, bl        ; Soma os valores (o resultado fica em AL)
+    mov [soma], al    ; Armazena o resultado na variável 'soma'
+
+    ; ... código para terminar o programa
+    </code></pre>
+
+    <h3>O que são Linguagens de Alto Nível?</h3>
+    <p>São linguagens mais próximas da linguagem humana e mais distantes do hardware. Elas usam um alto nível de abstração, permitindo que os desenvolvedores se concentrem na lógica do problema, e não nos detalhes da máquina. Um <strong>compilador</strong> ou <strong>interpretador</strong> traduz o código de alto nível para a linguagem de máquina que o computador entende.</p>
+    <h4>Características Principais:</h4>
+    <ul>
+        <li><strong>Fácil de Aprender e Usar:</strong> A sintaxe é mais simples, legível e intuitiva.</li>
+        <li><strong>Portabilidade:</strong> O mesmo código pode rodar em diferentes arquiteturas sem modificações significativas.</li>
+        <li><strong>Gerenciamento de Memória Automático:</strong> Conceitos como "Garbage Collection" liberam o desenvolvedor do gerenciamento manual de memória.</li>
+        <li><strong>Rico Ecossistema:</strong> Possuem vastas bibliotecas e frameworks que aceleram o desenvolvimento.</li>
+    </ul>
+    <h4>Exemplos e Sintaxe:</h4>
+    <p><strong>Python, JavaScript, Java, C#, Ruby</strong> e muitas outras. O mesmo problema de soma resolvido anteriormente fica trivial.</p>
+    <p><em>Exemplo de sintaxe em Python (adicionando 5 e 10):</em></p>
+    <pre><code>
+resultado = 5 + 10
+print(resultado)
+    </code></pre>
+    <p>Note como uma única linha em Python equivale a várias linhas complexas em Assembly.</p>
+
+    <h3>Tabela Comparativa Rápida</h3>
+    <table border="1" style="width:100%; border-collapse: collapse;">
+        <tr style="background-color:#f2f2f2;">
+            <th style="padding: 8px;">Característica</th>
+            <th style="padding: 8px;">Baixo Nível</th>
+            <th style="padding: 8px;">Alto Nível</th>
+        </tr>
+        <tr>
+            <td style="padding: 8px;"><strong>Abstração</strong></td>
+            <td style="padding: 8px;">Mínima</td>
+            <td style="padding: 8px;">Máxima</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px;"><strong>Performance</strong></td>
+            <td style="padding: 8px;">Muito Alta</td>
+            <td style="padding: 8px;">Alta (mas menor que baixo nível)</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px;"><strong>Portabilidade</strong></td>
+            <td style="padding: 8px;">Baixa</td>
+            <td style="padding: 8px;">Alta</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px;"><strong>Facilidade de Uso</strong></td>
+            <td style="padding: 8px;">Difícil</td>
+            <td style="padding: 8px;">Fácil</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px;"><strong>Casos de Uso</strong></td>
+            <td style="padding: 8px;">Sistemas operacionais, drivers, firmware.</td>
+            <td style="padding: 8px;">Aplicações web, ciência de dados, jogos.</td>
+        </tr>
+    </table>
+
+    <h3>Conclusão</h3>
+    <p>Não existe uma linguagem "melhor", mas sim a ferramenta certa para cada trabalho. Linguagens de baixo nível são essenciais para tarefas que exigem o máximo de performance e controle do hardware, enquanto as de alto nível dominam o desenvolvimento de aplicações modernas pela sua produtividade e facilidade de uso.</p>
+  `
+},
+{
+  id: 'fundamentos-logica-de-programacao-para-iniciantes',
+  title: 'Lógica de Programação: Os 5 Pilares para Começar a Programar',
+  description: 'Desvende os conceitos fundamentais da lógica de programação, o primeiro e mais importante passo para aprender qualquer linguagem e construir algoritmos.',
+  content: `
+    <h2>Lógica de Programação: A Base de Todo Código</h2>
+    <p>Antes de escrever uma única linha em Python, JavaScript ou qualquer outra linguagem, existe um passo fundamental e universal: a <strong>lógica de programação</strong>. Ela é a capacidade de organizar um pensamento de forma coerente e estruturada para resolver um problema. É, essencialmente, aprender a "pensar como um computador".</p>
+    <p>A melhor analogia é uma receita de bolo. A receita é o algoritmo: uma sequência finita e clara de passos (misture os ovos, adicione a farinha) que, se seguida corretamente, produz um resultado esperado (um bolo delicioso). A lógica de programação é a habilidade de criar essa receita para qualquer problema.</p>
+
+    <h3>Os 5 Pilares da Lógica de Programação</h3>
+    <p>Toda a complexidade da programação se baseia em alguns conceitos fundamentais. Dominá-los é o segredo para aprender qualquer linguagem.</p>
+    
+    <h4>1. Variáveis e Tipos de Dados</h4>
+    <p>Uma variável é um espaço na memória do computador que usamos para guardar um dado. Pense nela como uma caixa com uma etiqueta. A etiqueta é o nome da variável, e o conteúdo é o valor. Esses valores podem ser de diferentes tipos:</p>
+    <ul>
+        <li><strong>Inteiro (Integer):</strong> Números inteiros, como 10, -5, 1989.</li>
+        <li><strong>Texto (String):</strong> Sequências de caracteres, como "Olá, mundo!", "João".</li>
+        <li><strong>Real (Float):</strong> Números com casas decimais, como 3.14, -0.5.</li>
+        <li><strong>Booleano (Boolean):</strong> Apenas dois valores possíveis: <strong>Verdadeiro</strong> (True) ou <strong>Falso</strong> (False).</li>
+    </ul>
+
+    <h4>2. Operadores</h4>
+    <p>São símbolos que executam operações sobre as variáveis e valores.</p>
+    <ul>
+        <li><strong>Aritméticos:</strong> Soma (+), Subtração (-), Multiplicação (*), Divisão (/).</li>
+        <li><strong>Relacionais:</strong> Usados para comparações. Igual a (==), Diferente de (!=), Maior que (>), Menor que (<). O resultado é sempre um booleano (True ou False).</li>
+        <li><strong>Lógicos:</strong> Usados para combinar expressões booleanas. E (AND), OU (OR), NÃO (NOT).</li>
+    </ul>
+    
+    <h4>3. Estruturas Condicionais (Tomada de Decisão)</h4>
+    <p>Permitem que o programa siga caminhos diferentes dependendo de uma condição ser verdadeira ou falsa. É o pilar da tomada de decisões.</p>
+    <p>A estrutura básica é o <strong>SE (IF), SENÃO (ELSE)</strong>.</p>
+    <pre><code>
+SE (idade >= 18) ENTÃO
+    Escreva "Pode entrar."
+SENÃO
+    Escreva "Acesso negado."
+FIM SE
+    </code></pre>
+
+    <h4>4. Estruturas de Repetição (Loops)</h4>
+    <p>São usadas para executar o mesmo bloco de código várias vezes, evitando repetição manual.</p>
+    <ul>
+        <li><strong>PARA (FOR):</strong> Usado quando sabemos o número exato de repetições. Ex: "Repita 10 vezes".</li>
+        <li><strong>ENQUANTO (WHILE):</strong> Usado quando a repetição depende de uma condição. Ex: "Enquanto o jogador tiver vidas, continue o jogo".</li>
+    </ul>
+    <pre><code>
+// Exemplo com FOR
+PARA i DE 1 ATÉ 5 FAÇA
+    Escreva "Esta é a repetição número ", i
+FIM PARA
+    </code></pre>
+    
+    <h4>5. Sequência e Algoritmo</h4>
+    <p>Um algoritmo é simplesmente a sequência organizada de todos os passos anteriores (variáveis, condicionais, loops) para transformar uma entrada (input) em uma saída (output) desejada, resolvendo um problema.</p>
+
+    <h3>Como Praticar a Lógica?</h3>
+    <p>A lógica é uma habilidade que melhora com a prática, não apenas com a teoria.</p>
+    <ul>
+        <li><strong>Pseudocódigo:</strong> Escreva seus algoritmos em uma linguagem informal e estruturada, como nos exemplos acima (conhecido como "Portugol").</li>
+        <li><strong>Fluxogramas:</strong> Desenhe o fluxo do seu algoritmo usando formas geométricas para representar cada passo.</li>
+        <li><strong>Plataformas Online:</strong> Sites como Beecrowd (antigo URI), HackerRank e LeetCode oferecem milhares de desafios de lógica para resolver.</li>
+        <li><strong>Resolva Problemas Cotidianos:</strong> Pense em como você automatizaria tarefas simples: calcular a média de notas de uma turma, verificar se um número é par ou ímpar, etc.</li>
+    </ul>
+    
+    <h3>Conclusão</h3>
+    <p>Aprender lógica de programação é como aprender a gramática antes de escrever um romance. É a base universal que, uma vez sólida, permitirá que você construa qualquer solução, em qualquer linguagem de programação, com confiança e eficiência.</p>
+  `
+},
+{
+  id: 'algebra-booleana-para-desenvolvedores',
+  title: 'Álgebra Booleana para Devs: A Lógica por Trás do Código',
+  description: 'Descubra como os princípios da Álgebra Booleana (E, OU, NÃO) são a base para todas as decisões e controle de fluxo no desenvolvimento de software.',
+  content: `
+    <h2>Álgebra Booleana para Devs: A Lógica por Trás do Código</h2>
+    <p>Você já se perguntou como um computador, que entende apenas zeros e uns, consegue executar lógicas complexas, rodar jogos e validar formulários? A resposta está em um conceito matemático do século XIX: a <strong>Álgebra Booleana</strong>.</p>
+    <p>Desenvolvida por George Boole, ela é um sistema de lógica que lida com apenas dois valores: <strong>Verdadeiro (True)</strong> e <strong>Falso (False)</strong>. Para um desenvolvedor, entender a Álgebra Booleana não é apenas teoria; é a base de todo o controle de fluxo (<code>if</code>, <code>while</code>) e da tomada de decisões dentro de um programa.</p>
+
+    <h3>Os Operadores Fundamentais</h3>
+    <p>A Álgebra Booleana se baseia em três operadores lógicos principais.</p>
+
+    <h4>1. Operador AND (E / &&)</h4>
+    <p>A operação AND só resulta em <strong>Verdadeiro</strong> se <strong>TODAS</strong> as suas condições forem verdadeiras. Se pelo menos uma for falsa, o resultado todo é falso.</p>
+    <p><strong>Analogia:</strong> Para entrar em um show, você precisa ter um ingresso (Condição A) <strong>E</strong> ser maior de 18 anos (Condição B). Se uma dessas falhar, você não entra.</p>
+    <p><strong>Tabela Verdade (A && B):</strong></p>
+    <table border="1" style="width:50%; border-collapse: collapse; text-align:center;">
+        <tr style="background-color:#f2f2f2;"><th>A</th><th>B</th><th>Resultado</th></tr>
+        <tr><td>Falso</td><td>Falso</td><td><strong>Falso</strong></td></tr>
+        <tr><td>Falso</td><td>Verdadeiro</td><td><strong>Falso</strong></td></tr>
+        <tr><td>Verdadeiro</td><td>Falso</td><td><strong>Falso</strong></td></tr>
+        <tr><td>Verdadeiro</td><td>Verdadeiro</td><td><strong>Verdadeiro</strong></td></tr>
+    </table>
+    <p><strong>Exemplo em Código (JavaScript):</strong></p>
+    <pre><code>if (usuarioEstaLogado && usuarioTemPermissaoAdmin) {
+    // Mostra o painel de administrador
+}</code></pre>
+
+    <h4>2. Operador OR (OU / ||)</h4>
+    <p>A operação OR resulta em <strong>Verdadeiro</strong> se <strong>PELO MENOS UMA</strong> de suas condições for verdadeira. Ela só será falsa se todas as condições forem falsas.</p>
+    <p><strong>Analogia:</strong> Para ter desconto em uma loja, você precisa ser estudante (Condição A) <strong>OU</strong> possuir um cupom de desconto (Condição B). Apenas uma das condições já é suficiente.</p>
+    <p><strong>Tabela Verdade (A || B):</strong></p>
+    <table border="1" style="width:50%; border-collapse: collapse; text-align:center;">
+        <tr style="background-color:#f2f2f2;"><th>A</th><th>B</th><th>Resultado</th></tr>
+        <tr><td>Falso</td><td>Falso</td><td><strong>Falso</strong></td></tr>
+        <tr><td>Falso</td><td>Verdadeiro</td><td><strong>Verdadeiro</strong></td></tr>
+        <tr><td>Verdadeiro</td><td>Falso</td><td><strong>Verdadeiro</strong></td></tr>
+        <tr><td>Verdadeiro</td><td>Verdadeiro</td><td><strong>Verdadeiro</strong></td></tr>
+    </table>
+    <p><strong>Exemplo em Código (JavaScript):</strong></p>
+    <pre><code>if (diaSemana == "sabado" || diaSemana == "domingo") {
+    // É fim de semana!
+}</code></pre>
+
+    <h4>3. Operador NOT (NÃO / !)</h4>
+    <p>O operador NOT é o mais simples: ele <strong>inverte</strong> o valor booleano. O que é Verdadeiro vira Falso, e o que é Falso vira Verdadeiro.</p>
+    <p><strong>Analogia:</strong> Se a condição é "a porta está trancada", a condição <strong>NÃO</strong> "a porta está trancada" significa que a porta está aberta.</p>
+    <p><strong>Tabela Verdade (!A):</strong></p>
+    <table border="1" style="width:50%; border-collapse: collapse; text-align:center;">
+        <tr style="background-color:#f2f2f2;"><th>A</th><th>Resultado</th></tr>
+        <tr><td>Falso</td><td><strong>Verdadeiro</strong></td></tr>
+        <tr><td>Verdadeiro</td><td><strong>Falso</strong></td></tr>
+    </table>
+    <p><strong>Exemplo em Código (JavaScript):</strong></p>
+    <pre><code>if (!pedidoFoiEnviado) {
+    // Permite cancelar o pedido
+}</code></pre>
+
+    <h3>Aplicação Prática no Desenvolvimento</h3>
+    <p>A beleza da Álgebra Booleana está na combinação desses operadores para criar regras de negócio complexas de forma legível.</p>
+    <p><strong>Exemplo:</strong> Validar se um usuário pode comentar em um post.</p>
+    <pre><code>
+// O usuário pode comentar se:
+// (Ele estiver logado E seu email for verificado) OU se ele for um moderador.
+
+if ((usuarioLogado && emailVerificado) || usuarioEhModerador) {
+    // Permite o comentário
+} else {
+    // Bloqueia o comentário
+}
+    </code></pre>
+    <p>Essa única linha de código é uma aplicação direta e poderosa da Álgebra Booleana para controlar o comportamento de um software.</p>
+
+    <h3>Conclusão</h3>
+    <p>Toda vez que você escreve uma instrução <code>if</code>, valida um formulário ou filtra dados em uma consulta de banco de dados, você está usando os princípios da Álgebra Booleana. Dominar como os operadores AND, OR e NOT interagem não é apenas um exercício acadêmico, mas uma habilidade prática e diária que separa um código funcional de um código lógico, robusto e eficiente.</p>
+  `
+}
+    ]
 },
 {
     id: 'analise-de-dados',
