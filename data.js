@@ -168,7 +168,110 @@ Este comando verifica todos os programas que você instalou via Winget (e muitos
     <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 448H144"/>
     <path fill="currentColor" d="M32 304v48a32.09 32.09 0 0 0 32 32h384a32.09 32.09 0 0 0 32-32v-48Zm224 64a16 16 0 1 1 16-16a16 16 0 0 1-16 16Z"/>
 </svg>`,
-    topics: []
+    topics: [
+      {
+  id: 'guia-instalacao-sistemas-operacionais',
+  title: 'Guia Completo: Como Instalar um Sistema Operacional',
+  description: 'Aprenda o passo a passo para formatar seu computador e instalar um novo sistema operacional, seja Windows ou Linux, do zero.',
+  content: `
+    <h2>Guia Completo: Como Instalar um Sistema Operacional</h2>
+    <p>Formatar um computador e instalar um sistema operacional do zero pode parecer uma tarefa complexa, mas é o melhor caminho para resolver problemas de lentidão, remover vírus de forma definitiva ou simplesmente começar com um sistema limpo e rápido. Este guia mostra o processo de forma clara e objetiva.</p>
+
+    <h3>Antes de Começar: Preparação Essencial</h3>
+    <p>Antes de apagar tudo, a preparação é a chave para evitar dores de cabeça.</p>
+    <ul>
+        <li><strong>1. Backup de Dados (O PASSO MAIS IMPORTANTE):</strong> Você perderá todos os arquivos. Faça uma cópia de segurança de tudo o que for importante (documentos, fotos, vídeos, músicas) para um HD externo ou serviço de nuvem (Google Drive, OneDrive, Dropbox).</li>
+        <li><strong>2. Crie a Mídia de Instalação:</strong> Você precisará de um pen drive (mínimo de 8 GB).
+            <ul>
+                <li><strong>Para Windows:</strong> Use a ferramenta oficial da Microsoft, o <a href="https://www.microsoft.com/pt-br/software-download/windows11" target="_blank">Media Creation Tool</a>. Ela baixará o Windows e preparará o pen drive automaticamente.</li>
+                <li><strong>Para Linux:</strong> Baixe a imagem ISO da distribuição desejada (ex: Ubuntu, Mint) e use um programa como o <a href="https://rufus.ie/" target="_blank">Rufus</a> ou <a href="https://www.balena.io/etcher/" target="_blank">BalenaEtcher</a> para "queimar" a ISO no pen drive.</li>
+            </ul>
+        </li>
+        <li><strong>3. Chave do Produto (Windows):</strong> Se sua cópia do Windows não estiver atrelada a uma licença digital vinculada à sua conta Microsoft, tenha a chave do produto (Product Key) em mãos.</li>
+    </ul>
+
+    <h3>O Processo de Instalação Passo a Passo</h3>
+    <ol>
+      <li><strong>Acessar a BIOS/UEFI:</strong> Reinicie o computador e, assim que ele ligar, pressione repetidamente a tecla para acessar a BIOS/UEFI (geralmente <strong>F2, F12, DEL ou ESC</strong>). Procure pela seção "Boot" e mude a ordem de inicialização para que o "USB Drive" ou "Pen Drive" seja o primeiro da lista. Salve e saia.</li>
+      <li><strong>Iniciar pela Mídia de Instalação:</strong> O computador irá reiniciar e iniciar a partir do pen drive. Uma mensagem como "Pressione qualquer tecla para iniciar do USB" pode aparecer.</li>
+      <li><strong>Assistente de Instalação:</strong> A partir daqui, o processo é guiado.
+          <ul>
+              <li>Escolha o idioma, formato de hora/moeda e layout do teclado.</li>
+              <li>Quando perguntado sobre o tipo de instalação, escolha <strong>"Personalizada" ou "Avançada"</strong>.</li>
+              <li>Você verá uma lista de partições (discos). Aqui é a formatação de fato. Selecione a partição antiga do sistema, exclua-a e crie uma nova no "espaço não alocado". <strong>CUIDADO:</strong> Este passo apaga os dados da partição selecionada de forma irreversível.</li>
+              <li>Avance para o sistema começar a copiar os arquivos. O computador irá reiniciar algumas vezes.</li>
+          </ul>
+      </li>
+      <li><strong>Configuração Inicial:</strong> Após a instalação, o sistema pedirá para você criar uma conta de usuário, definir uma senha, configurar a rede Wi-Fi e ajustar as configurações de privacidade.</li>
+    </ol>
+    
+    <h3>Conclusão</h3>
+    <p>Parabéns! Você tem um sistema operacional limpo e pronto para ser configurado. O próximo passo é tão importante quanto a instalação: preparar o sistema para o uso diário, instalando drivers, atualizações e programas essenciais.</p>
+  `
+},
+
+{
+  id: 'cuidados-pos-formatacao-checklist',
+  title: 'Computador Formatado, e Agora? 7 Cuidados Essenciais',
+  description: 'Seu computador está limpo após a formatação. Siga este checklist de cuidados essenciais para garantir a segurança, desempenho e estabilidade do sistema.',
+  content: `
+    <h2>Computador Formatado, e Agora? 7 Cuidados Essenciais</h2>
+    <p>Instalar o sistema operacional é apenas metade da jornada. Agora você tem uma "tela em branco" que precisa ser preparada para o uso diário. Seguir este checklist garante que seu computador ficará seguro, estável e com ótimo desempenho desde o primeiro dia.</p>
+
+    <h3>O Checklist Pós-Formatação:</h3>
+    <ol>
+        <li>
+            <strong>Instalar Drivers Essenciais</strong>
+            <p>Drivers são "tradutores" que permitem que o sistema operacional se comunique com o hardware (placa de vídeo, som, rede). Sem eles, seu computador não funcionará corretamente.
+            <ul>
+                <li><strong>Windows:</strong> Vá em "Configurações > Windows Update" e clique em "Verificar se há atualizações". O Windows Update é excelente em encontrar a maioria dos drivers. Para placas de vídeo (NVIDIA, AMD, Intel), é altamente recomendável baixar o driver mais recente diretamente do site da fabricante.</li>
+                <li><strong>Linux:</strong> A maioria dos drivers já vem embutida no Kernel. Para placas de vídeo, a própria distribuição geralmente oferece uma ferramenta de "Drivers Adicionais" para instalar os drivers proprietários.</li>
+            </ul>
+            </p>
+        </li>
+        <li>
+            <strong>Atualizar o Sistema Operacional</strong>
+            <p>Mesmo que a imagem de instalação seja recente, sempre haverá atualizações de segurança e estabilidade esperando. Este é o passo mais crítico para proteger seu computador.
+            <ul>
+                <li><strong>Windows:</strong> Volte ao Windows Update e instale TODAS as atualizações disponíveis. Reinicie o computador sempre que solicitado.</li>
+                <li><strong>Linux:</strong> Abra o terminal e rode <code>sudo apt update && sudo apt upgrade</code> (para sistemas Debian/Ubuntu) ou o comando equivalente da sua distro.</li>
+            </ul>
+            </p>
+        </li>
+        <li>
+            <strong>Instalar um Programa de Segurança</strong>
+            <p>No Windows, o <strong>Microsoft Defender</strong>, que já vem integrado, oferece uma excelente proteção básica. Para a maioria dos usuários, ele é suficiente. Se preferir, instale um antivírus de sua confiança. No Linux, o foco maior é configurar o firewall, como o UFW (<code>sudo ufw enable</code>).</p>
+        </li>
+        <li>
+            <strong>Instalar Seus Programas Essenciais</strong>
+            <p>Agora é hora de instalar os programas que você usa no dia a dia. Pense em:
+            <ul>
+                <li><strong>Navegador:</strong> Google Chrome, Mozilla Firefox, Microsoft Edge.</li>
+                <li><strong>Suíte de Escritório:</strong> Microsoft Office, LibreOffice.</li>
+                <li><strong>Mídia:</strong> VLC Media Player, Spotify.</li>
+                <li><strong>Outros:</strong> 7-Zip (para compactar arquivos), Discord, Steam, etc.</li>
+            </ul>
+            Dica: No Windows, use o gerenciador de pacotes <code>winget</code> no terminal para instalar vários programas de uma vez!</p>
+        </li>
+        <li>
+            <strong>Restaurar Seus Arquivos Pessoais</strong>
+            <p>Pegue aquele backup que você fez antes de formatar e copie seus arquivos de volta para as pastas corretas (Documentos, Imagens, Músicas, etc.). Faça isso apenas depois de ter um antivírus ativo e o sistema atualizado.</p>
+        </li>
+        <li>
+            <strong>Configurar um Plano de Backup Contínuo</strong>
+            <p>Não espere o próximo desastre. Configure agora uma rotina de backup automático. Use o "Histórico de Arquivos" do Windows, sincronize suas pastas importantes com um serviço de nuvem (OneDrive, Google Drive) ou use um programa de backup para um HD externo.</p>
+        </li>
+         <li>
+            <strong>Personalizar o Sistema</strong>
+            <p>A parte divertida! Ajuste a resolução da tela, configure seu papel de parede, mude o tema para escuro, organize os ícones e configure as opções de energia para otimizar o desempenho ou a duração da bateria (em notebooks).</p>
+        </li>
+    </ol>
+
+    <h3>Conclusão</h3>
+    <p>Ao completar estes passos, você transforma um sistema recém-instalado em uma estação de trabalho (ou lazer) robusta, segura e totalmente sua. Cuidar do sistema desde o início economiza muito tempo e problemas no futuro.</p>
+  `
+}
+    ]
 },
 
 {
