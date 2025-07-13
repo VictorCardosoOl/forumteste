@@ -7,7 +7,79 @@ const forumData = [
     icon: `<svg class="module-icon" xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 16 16">
     <path fill="currentColor" fill-rule="evenodd" d="M2 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm2.22 1.97a.75.75 0 0 0 0 1.06l.97.97l-.97.97a.75.75 0 1 0 1.06 1.06l1.5-1.5a.75.75 0 0 0 0-1.06l-1.5-1.5a.75.75 0 0 0-1.06 0M8.75 8.5a.75.75 0 0 0 0 1.5h2.5a.75.75 0 0 0 0-1.5z" clip-rule="evenodd"/>
 </svg>`,
-    topics: []
+    topics: [{
+    id: 'instalando-programas-no-windows-com-o-terminal',
+    title: 'Instalando Programas no Windows Com o Terminal',
+    description: 'Artigo possui o objetivo de informar como funciona a instalação de programas através do terminal no sistema Windows.',
+    content: `
+<h2>TInstalando Programas no Windows Com o Terminal</h2>
+
+<p>Antigamente, instalar um programa no Windows significava abrir o navegador, procurar o site oficial, baixar um instalador e clicar em uma série de janelas de confirmação. Hoje, o Windows oferece uma ferramenta de linha de comando poderosa e integrada que transforma esse processo em uma única linha de código: o Winget.</p>
+
+<h3>O que é o Winget (Gerenciador de Pacotes do Windows)?</h3>
+
+<p>Pense no Winget como uma App Store para a sua linha de comando. É um "gerenciador de pacotes" oficial da Microsoft. Em vez de você ir atrás dos programas, você simplesmente pede ao Winget, e ele busca, baixa e instala a versão mais recente e segura para você.</p>
+
+<h3>Vantagens de usar o Winget:</h3>
+
+<p><strong>Velocidade</strong>: É muito mais rápido digitar um comando do que navegar por sites.</p>
+<p><strong>Segurança</strong>: Ele baixa os programas de fontes verificadas, reduzindo o risco de malware.</p>
+<p><strong>Automação</strong>: Você pode criar scripts para instalar todos os seus programas favoritos de uma só vez em um computador novo.</p>
+<p><strong>Atualizações em Massa</strong>: Com um único comando, você pode atualizar dezenas de aplicativos desatualizados.</p>
+
+
+<h3>Passo 1: Preparando o Ambiente</h3>
+
+<p>A maioria das versões modernas do Windows 10 e do Windows 11 já vem com o Winget pronto para uso. Para começar, você só precisa do Terminal do Windows.</p>
+
+<ol>
+  <li>Pressione a tecla Windows.</li>
+  <li>Digite Terminal.</li>
+<li>Clique com o botão direito sobre "Terminal" e selecione "Executar como administrador". Isso é importante para evitar problemas de permissão durante as instalações.
+</li>
+</ol>
+
+<p>Para garantir que o Winget está funcionando, digite o comando abaixo e pressione Enter:</p>
+
+<h3><strong><em>winget</em></strong></h3>
+
+<p>Se você vir uma lista de comandos disponíveis, está tudo pronto! Se receber um erro, talvez precise atualizar o "Instalador de Aplicativo" pela Microsoft Store. </p>
+
+<h3>Passo 2: Instalar um Programa (<em>install</em>)</h3>
+
+<p>Para instalação é necessário digitar certos comandos no Terminal, por exemplo:</p>
+
+<p>Sintaxe: winget install <ID_do_programa></p>
+
+<p>Exemplo: Vamos instalar o VLC, usando o ID que encontramos.</p>
+
+<h3><strong><em>winget install VideoLAN.VLC</em></strong></h3>
+
+<p>O Winget fará o download e iniciará a instalação silenciosamente. Você verá uma barra de progresso no terminal. Quando terminar, o programa estará instalado e pronto para usar, sem que você precise clicar em nada.</p>
+
+<h3>Passo 3: Atualizar Programas (<em>upgrade</em>)</h3>
+
+<p>Esta é uma das funções mais poderosas do Winget.</p>
+<p>O Superpoder: Para atualizar TODOS os programas de uma vez:
+Este comando verifica todos os programas que você instalou via Winget (e muitos outros já existentes) e atualiza todos que tiverem uma nova versão disponível.</p>
+
+<h3><strong><em>winget upgrade --all</em></strong></h3>
+
+<p>Dentro disso há vários outros cômodas para listagem de programas e desinstalação para mais informações pesquise no Google.</p>
+
+<img src="/IMG/Terminal.png" alt="Imagem" class="content-image" loading="lazy">
+
+
+
+
+
+
+`
+},
+
+
+
+]
 },
 
 
