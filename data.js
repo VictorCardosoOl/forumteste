@@ -1,71 +1,63 @@
 // Arquivo: data.js (CORRIGIDO)
 const forumData = [
   {
-    id: 'instalacao',
+    id: 'instala-o',
     title: 'Instalação',
-    description: 'Guias e passo-a-passos para instalação do sistema.',
-    icon: `<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor"></path></svg>`,
-    topics: [
-      {
-        id: 'instalacao-windows',
-        title: 'Instalando no Windows 10/11',
-        description: 'Passo a passo completo para o ambiente Windows.',
-        content: `<h2>Requisitos Mínimos</h2><p>O sistema requer Windows 10 ou superior, 8GB de RAM e 2GB de espaço em disco.</p>`
-      },
-      {
-        id: 'batata',
-        title: 'Batata',
-        description: 'Batata 123',
-        content: `
-<h2>Teste do Victor</h2>
-
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eget velit sagittis, molestie ante id, maximus nunc. Maecenas venenatis felis ipsum, ac varius eros luctus at. Vestibulum quis ipsum sed odio pretium bibendum. Vivamus eleifend sollicitudin finibus. Quisque facilisis mauris vitae magna maximus, non finibus augue luctus. In hac habitasse platea dictumst. Maecenas eget vestibulum velit, a volutpat augue. Donec tristique feugiat sapien a suscipit. Phasellus fringilla non dui nec auctor. Praesent nunc lacus, pharetra nec mauris ac, accumsan gravida justo. Maecenas mollis luctus ultricies. Integer ultrices nunc at sem lacinia consequat. Nam ipsum tortor, posuere eget diam et, sollicitudin placerat nisl. Ut a volutpat purus. Ut ut tincidunt metus, sit amet egestas sapien.</p>
-
-<p>Phasellus dictum neque id nulla ultrices, vitae luctus neque mollis. Aenean tempor, arcu sed ornare varius, eros nisi tincidunt metus, ut semper arcu odio ut mauris. Donec ut dolor ultricies, egestas justo ac, scelerisque felis. Maecenas et tempor elit. Suspendisse quis eros commodo, mollis urna nec, aliquam magna. Mauris suscipit accumsan vestibulum. Mauris tristique erat sed magna scelerisque malesuada. Proin elementum mattis est, ut iaculis magna sollicitudin in. In condimentum eget lorem et vestibulum. Donec pellentesque ex tortor, a pulvinar dolor dictum id. Sed porttitor mi non neque laoreet, et malesuada nibh vestibulum. Cras a orci tempus, ultrices nisl tempus, rhoncus lorem. Ut rhoncus, diam eget malesuada condimentum, arcu metus posuere libero, at consequat velit leo mattis metus. Donec cursus eros ac neque pellentesque, ut maximus mauris volutpat. Curabitur ultricies justo fermentum eleifend pretium.</p>
-
-<h3>Teste PT 1</h3>
-
-<p>Mauris sed mattis dolor, quis commodo nisi. Maecenas tortor lectus, gravida in mi a, faucibus suscipit magna. Suspendisse potenti. Donec vitae aliquet justo, a ullamcorper massa. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer nec commodo risus, a posuere diam. Ut eget odio libero. Vivamus fringilla felis facilisis elit feugiat gravida. Nam eu scelerisque tortor, id ornare nisl. Aliquam iaculis rutrum ornare. Vestibulum euismod ligula nec purus volutpat, pharetra sollicitudin magna placerat. Ut maximus urna sed nibh semper pulvinar. Ut eu sem congue ipsum vestibulum blandit. Suspendisse eu leo sapien. Quisque rhoncus lacus et lacus imperdiet, sit amet egestas justo luctus.</p>
-  `
-      },
-      {
-  id: 'teste-2',
-  title: 'Teste 2',
-  description: 'Teste Victor 12/07',
-  content: `
-<h2>Teste de formatação</h2>
-<h3> Teste teste</h3>
-
-<p style="text-align: justify;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet lacinia turpis. Vivamus sit amet ligula laoreet, egestas nisi et, porttitor purus. Praesent in eleifend purus, at viverra lorem. Aliquam erat volutpat. Vivamus finibus quam vel pellentesque lacinia. Duis vulputate hendrerit facilisis. Nunc id vehicula dui. Nullam euismod metus quis ex facilisis, id ultrices arcu ullamcorper. Integer fringilla id dolor sollicitudin ornare.</p>
-
-
-
-
-<img src="https://br.freepik.com/imagem-ia-gratis/uma-pintura-de-um-lago-de-montanha-com-uma-montanha-ao-fundo_40965130.htm#fromView=keyword&page=1&position=0&uuid=e61414eb-6409-4627-a776-297540886957&query=Wallpaper+Desktop" alt="imagem" class="content-image">
-
-<span style="color: red;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet lacinia turpis. Vivamus sit amet ligula laoreet, egestas nisi et, porttitor purus. Praesent in eleifend purus, at viverra lorem. Aliquam erat volutpat. Vivamus finibus quam vel pellentesque lacinia. Duis vulputate hendrerit facilisis. Nunc id vehicula dui. Nullam euismod metus quis ex facilisis, id ultrices arcu ullamcorper. Integer fringilla id dolor sollicitudin ornare.</span>
-  `
+    description: 'Modulo Instalação de Programas',
+    icon: `<svg class="module-icon" xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 16 16">
+    <path fill="currentColor" fill-rule="evenodd" d="M2 4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm2.22 1.97a.75.75 0 0 0 0 1.06l.97.97l-.97.97a.75.75 0 1 0 1.06 1.06l1.5-1.5a.75.75 0 0 0 0-1.06l-1.5-1.5a.75.75 0 0 0-1.06 0M8.75 8.5a.75.75 0 0 0 0 1.5h2.5a.75.75 0 0 0 0-1.5z" clip-rule="evenodd"/>
+</svg>`,
+    topics: []
 },
-    ]
 
-  },
-  {
-    id: 'teste',
-    title: 'Teste',
-    description: 'Modulo destinado a Testes',
-    icon: ``,
-    topics: [
-     
-    ]
-  },
+
 {
-    id: 'refatorar',
-    title: 'Refatorar',
-    description: 'Modulo destinado a Testes',
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 24 24">
-    <path fill="currentColor" fill-rule="evenodd" d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2s10 4.477 10 10Zm-16.54-.917a6.59 6.59 0 0 1 6.55-5.833a6.585 6.585 0 0 1 5.242 2.592a.75.75 0 0 1-1.192.911a5.085 5.085 0 0 0-4.05-2.003a5.09 5.09 0 0 0-5.037 4.333h.364a.75.75 0 0 1 .53 1.281l-1.169 1.167a.75.75 0 0 1-1.06 0L4.47 12.364a.75.75 0 0 1 .53-1.28h.46Zm12.902-.614a.75.75 0 0 0-1.06 0l-1.168 1.167a.75.75 0 0 0 .53 1.28h.363a5.09 5.09 0 0 1-5.037 4.334a5.084 5.084 0 0 1-4.037-1.986a.75.75 0 0 0-1.188.916a6.584 6.584 0 0 0 5.226 2.57a6.59 6.59 0 0 0 6.549-5.833H19a.75.75 0 0 0 .53-1.281l-1.168-1.167Z" clip-rule="evenodd"/>
+    id: 'formata-o-de-computadores',
+    title: 'Formatação de Computadores',
+    description: 'Modulo Visa Separar o Processo de Formatação',
+    icon: `<svg class="module-icon" xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 512 512">
+    <rect width="448" height="320" x="32" y="64" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="32" rx="32" ry="32"/>
+    <path fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="m304 448l-8-64h-80l-8 64h96z"/>
+    <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 448H144"/>
+    <path fill="currentColor" d="M32 304v48a32.09 32.09 0 0 0 32 32h384a32.09 32.09 0 0 0 32-32v-48Zm224 64a16 16 0 1 1 16-16a16 16 0 0 1-16 16Z"/>
+</svg>`,
+    topics: []
+},
+
+{
+    id: 'estrutura-de-redes',
+    title: 'Estrutura de Redes',
+    description: 'Modulo Com Intuito Fragmentar Estrutura de Redes',
+    icon: `<svg class="module-icon" xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 100 100">
+    <path fill="currentColor" d="M54.669 11.225c1.662.25 3.093 1.629 3.405 3.28c1.244.04 2.263.943 3.237 1.718c.974.775 2.212 1.502 3.399 1.126l-.452-3.411c-.101-.763-.21-1.549-.599-2.213c-.556-.947-1.586-1.493-2.564-1.992c-1.162-.592-2.345-1.192-3.628-1.426c-1.283-.234-2.704-.054-3.708.778c-.477.396-.849 1.107-.495 1.616c.294.426.895.447 1.405.524zm12.328 1.04c1.027.093 1.96.858 2.253 1.846c.042.142.07.304-.005.433c-.1.172-.332.204-.53.197a2.234 2.234 0 0 1-.928-.219a1.8 1.8 0 0 1-.848-.916a1.799 1.799 0 0 1-.037-1.248m8.306 39.359c-1.124-.241-2.339-1.324-2.975-2.235c-.419-.601-.709-1.291-1.18-1.853c-.521-.621-1.233-1.05-1.951-1.426a22.272 22.272 0 0 0-10.159-2.522c-2.319-.014-5.814-.328-7.148-2.74c-.221-.399-.023-.886.068-1.334s-.065-1.06-.521-1.083c-.87-.044-1.072.994-2.168.867c-.792-.092-1.863-.68-2.131-1.464c-.244-.714.005-2.31.058-3.069c.098-1.404 5.544-1.316 6.529-1.234c-.185 1.072.898 2.747 2.097 1.772c1.039-.844-.248-3.176.657-4.342c1.181-1.524 2.697-3.045 4.029-4.475c.375-.403.752-.807 1.182-1.15c.939-.747 2.089-1.169 3.126-1.773c-2.026-3.134-5.699-5.134-9.43-5.135c-.288 0-.603.021-.815.216c-.279.256-.263.693-.223 1.069c.109 1.036.237 2.071.384 3.102l-3.19-1.267c-.789-.313-1.617-.656-2.131-1.332c-.513-.676-.546-1.793.158-2.266c.992-.667 2.498.38 3.478-.303c.59-.412.743-1.321 1.408-1.596c.595-.245 1.239.155 1.868.295c.628.14 1.517-.367 1.213-.935c-1.724-1.149-3.692-2.351-5.725-1.949c-1.023.202-1.925.797-2.922 1.102c-2.405.737-4.961-.276-7.271-1.272c-.352-.152-.716-.311-.975-.594c-.294-.321-.418-.763-.669-1.119c-.796-1.127-3.758-1.124-3.564-1.179c-.249-.021-.731.541-.98.519c-.218-.019-2.433 2.247-2.838 2.519c-1.357.914-2.885 1.289-4.538 1.777c-1.625.48-3.472 2.333-.943 2.458c2.072.102 5.087-.639 7.104-1.103c.372-.085.778-.177 1.121-.01c.336.163.517.528.66.873a14.35 14.35 0 0 1 .447 9.653c-.332 1.072-.796 2.204-.469 3.278c.472 1.548 2.42 2.356 2.711 3.948c.125.685-.085 1.431.199 2.066c.667 1.489 2.702.823 3.851.557c-.006.002.17 2.318.328 2.572c.558.895 2.018 1.123 2.938 1.38c3.393.949 6.378 2.392 9.436 4.136c.74.422 1.514.876 1.945 1.612c1.155 1.97-.758 4.302-1.005 6.572a4.567 4.567 0 0 0 1.194 3.569c.503.536 1.132.943 1.632 1.484c1.165 1.26 1.491 3.112 1.307 4.819c-.183 1.707-.811 3.328-1.337 4.962a42.947 42.947 0 0 0-1.9 9.421c-.083.953.429 1.201 1.283.939c1.217-.372.998-1.521 1.306-2.427c.885-2.61 3.701-4.935 6.102-6.072c1.067-.505 2.238-.888 3.066-1.729c1.168-1.186 1.424-3.054 2.596-4.237c.998-1.008 2.513-1.365 3.52-2.365c1.092-1.085 1.473-2.675 2.182-3.997c.534-.995 1.556-1.808 2.007-2.809c1.349-2.999-2.296-2.769-4.032-3.141z"/>
+    <path fill="currentColor" d="M50 2.608C23.858 2.608 2.666 23.8 2.666 49.942c0 26.142 21.192 47.334 47.334 47.334s47.334-21.192 47.334-47.334C97.334 23.8 76.142 2.608 50 2.608zm15.784 87.679c-1.119-.443-2.351-.599-3.534-.375c-1.739.329-3.564 1.367-5.156.592c-1.577-.767-1.895-3.052-1.033-4.58c.862-1.528 2.527-2.416 4.176-3.013c-1.121-.907-2.838-.486-4 .369c-1.162.854-2.029 2.066-3.213 2.889c-1.184.823-2.944 1.15-3.99.157c-.035.819-.992 1.288-1.812 1.285c-.82-.003-1.633-.292-2.445-.183c-1.097.146-1.991 1.009-2.477 2.003c-.456.934-.612 1.98-.745 3.013C21.69 88.503 6.666 70.947 6.666 49.942C6.666 26.047 26.106 6.608 50 6.608c8.651 0 16.71 2.558 23.482 6.943c-.131.684-.179 1.373-.062 2.061c.268 1.584 1.702 3.093 3.288 2.832l.29-1.151c2.002.403 3.708 2.021 4.216 3.999a1.887 1.887 0 0 0-.819 1.864c2.434.457 4.002 2.957 4.414 5.399s-.023 4.94.005 7.417c.044 3.895 1.618 8.176 5.168 9.779c.987.446 2.165.624 3.167.286c.116 1.288.185 2.589.185 3.906c0 18.325-11.441 34.019-27.55 40.344z"/>
+</svg>`,
+    topics: []
+},
+
+{
+    id: 'programa-o',
+    title: 'Programação',
+    description: 'Modulo Visa Orientar Sobre Programação',
+    icon: `<svg class="module-icon" xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 14 14">
+    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M13.5 10.5v-8A.5.5 0 0 0 13 2H1c-.265 0-.5.235-.5.5v8c0 .265.235.5.5.5h12c.265 0 .5-.235.5-.5M6 11l-1 2.5M8 11l1 2.5m-5 0h6"/>
+        <path d="M5 5L3.5 6.5L5 8m4-3l1.5 1.5L9 8"/>
+    </g>
+</svg>`,
+    topics: []
+},
+{
+    id: 'analise-de-dados',
+    title: 'Analise de Dados',
+    description: 'Visa Explicar as Estruturas De Data Centers',
+    icon: `<svg class="module-icon" xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 14 14">
+    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M7 5.5c3.59 0 6.5-1.12 6.5-2.5S10.59.5 7 .5S.5 1.62.5 3S3.41 5.5 7 5.5"/>
+        <path d="M.5 3v8c0 1.38 2.91 2.5 6.5 2.5s6.5-1.12 6.5-2.5V3"/>
+        <path d="M13.5 7c0 1.38-2.91 2.5-6.5 2.5S.5 8.38.5 7"/>
+    </g>
 </svg>`,
     topics: []
 }
-
 ];
