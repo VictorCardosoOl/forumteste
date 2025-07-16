@@ -9,4 +9,4 @@ Gerenciamento de módulos: Capacidade de editar módulos existentes
 Paginação
 melhorar o sistema de pesquisa para que ao pesquisar eu possa selecionar se quero direcionar a pesquisa a um unico modulo ou pesquisar em todos os modulos. 
 
-Alem disso eu gostaria de dentro de um modulo cirar uma epsecie de agrupamento, por exemplo, no futuro irei criar um modulo de resolução, como a resolução sera referente a todos os problrmeas que aparecem nos outros modulos do sistema, seria intetressante ter uma forma de 
+Alem disso eu gostaria de dentro de um modulo cirar uma epsecie de agrupamento, por exemplo, no futuro irei criar um modulo de resolução, como a resolução sera referente a todos os problrmeas que aparecem nos outros modulos do sistema, seria intetressante ter uma forma de agurpar os artigos que estaram dentro do modulo de resuloção em grupos como "sondagens" "erros nos cadastros" seria legal ter uma linha divisoria para agurpar esses artigos sem prejudicar a visualização dos itens  
