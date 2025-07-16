@@ -1,3 +1,12 @@
 Chat estou desenvolvendo um faq para meus funcionários, esse faq tem como objetivo melhorar o nível de conhecimento da minha equipe, o foco dele é ser intuitivo e rápido, como não posso fazer uma hospedagem em nuvem do backend eu estou desenvolvendo o fórum em duas estruturas, a primeira é o frontend onde o usuário consegue pesquisar por artigos e palavras relacionadas justamente para deixar a retirada de duvidas, mais rápida, os dados dos artigos estão estruturado em o data.js e com base nisso criei um gerador de data, onde vou escrever o artigo e o modulo e ele vai criar um trecho do data especifico para em seguida eu editar o data.js inserido as informações. 
 
 Com base nisso desenvolvi 2 projetos, o creator que cria os modulos e artigos e a base de conhecimento que visualiza os artigos criado e inclusos no data.js, poderia analisar meu proejto por favor, anexei os itens acima.
+
+
+
+Pontos a melhorar:
+Gerenciamento de módulos: Capacidade de editar módulos existentes
+Paginação
+melhorar o sistema de pesquisa para que ao pesquisar eu possa selecionar se quero direcionar a pesquisa a um unico modulo ou pesquisar em todos os modulos. 
+
+Alem disso eu gostaria de dentro de um modulo cirar uma epsecie de agrupamento, por exemplo, no futuro irei criar um modulo de resolução, como a resolução sera referente a todos os problrmeas que aparecem nos outros modulos do sistema, seria intetressante ter uma forma de 
