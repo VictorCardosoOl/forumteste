@@ -104,7 +104,6 @@ mark {
   color: var(--text-color);
   transition: all 0.3s ease;
   height: 3rem; 
-  /* O padding-left será controlado por JavaScript */
 }
 #footer-search input:focus {
   outline: none;
@@ -251,18 +250,23 @@ pre code { color: var(--text-color-light); }
     transition: all 0.2s;
     color: var(--text-color-light);
 }
-/* CORREÇÃO DE CLIQUE: O clique agora atravessa o ícone e atinge o botão */
-.theme-toggle-btn svg {
-    pointer-events: none;
-}
 .theme-toggle-btn:hover {
     background-color: var(--hover-bg-color);
     color: var(--text-color);
 }
+/* ==================================================================== */
+/* AQUI ESTÁ A NOVA LÓGICA DE CSS PARA MOSTRAR/ESCONDER O ÍCONE */
+/* ==================================================================== */
+.theme-toggle-btn .sun-icon { display: none; }
+.theme-toggle-btn .moon-icon { display: block; }
+
+body.dark-mode .theme-toggle-btn .sun-icon { display: block; }
+body.dark-mode .theme-toggle-btn .moon-icon { display: none; }
+
 
 .article-group { margin-bottom: 2rem; }
 .article-group-title {
-  font-size: 1.25rem; font-weight: 600;
+  font-size: 1.5rem; font-weight: 600;
   color: var(--text-color); margin-bottom: 1rem;
   padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color);
 }
