@@ -27,8 +27,9 @@
             </div>
             
             <div class="flex flex-col gap-2">
-                <button id="theme-toggle" class="flex items-center gap-3 w-full px-3 py-2 rounded-lg group">
-                    <div id="theme-icon-container" class="w-6 h-6 flex items-center justify-center"></div>
+                <button id="theme-toggle" class="theme-toggle-btn">
+                    <div id="theme-icon-container" class="w-6 h-6 flex items-center justify-center">
+                        </div>
                     <p class="text-sm font-medium">Alternar Tema</p>
                 </button>
                 <p class="text-xs px-3 mt-2 opacity-50">© 2024 Victor Cardoso</p>
@@ -44,15 +45,14 @@
     </div>
 
     <footer id="footer-search">
-      <div class="max-w-4xl mx-auto px-4 py-3">
+      <div class="max-w-4xl mx-auto px-4 py-3 flex flex-col gap-3">
+         <div id="search-filters-container" class="search-filters-container">
+            </div>
          <div class="relative">
            <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
               <svg class="h-5 w-5 opacity-50" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>
            </div>
-           <input id="search-input" onkeyup="handleSearch(event)" placeholder="Pesquisar em todo o fórum" type="search" class="w-full h-12 pl-14 pr-5 text-base rounded-full" />
-           <div id="search-options" class="absolute right-3 top-3 hidden">
-             <button id="search-scope-toggle" class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-md">Todos os módulos</button>
-           </div>
+           <input id="search-input" onkeyup="handleSearch(event)" onfocus="toggleSearchFilters(true)" onblur="toggleSearchFilters(false)" placeholder="Pesquisar..." type="search" class="w-full h-12 pl-14 pr-5 text-base rounded-full" />
          </div>
       </div>
     </footer>

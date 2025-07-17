@@ -22,4 +22,6 @@ POde refatorar meu codigo completo adiconando as suas melhorias e as minhas por 
 - Gerenciamento de módulos: Capacidade de editar módulos existentes, criando uma pagina por exemplo adimimistradora;
 
 
-Chat o scroll lateral não funcinou, antes o site estava mais bonito, gostaria de remover a estrutura da navegação horizontal, alem disso eu gostaria que melhorasse a tela inical do site de forma que seja facil a visualização dos modulos, por fim se possivel gostaria tambem que melhorasse a barra de pesquisa, acredito que ao inves de ter apenas dois filtros um de busca no modulo de acesso e outro para o geral, seria mais util se pudessimos pesquisar para qualquer modulo independete do que esta sendo acessado no momento, por fim gostaria que o desing do filtro de modulos da barra de busca fosse igual a identidade visual do site, outro ponto de melhoria é a questão de alteração de tema que precisava ser mais bonito, poderia ser apenas um icone sem o nome alterar tema que ao clicar mudasse o tema.
+Okay chat em tese funcionou porem foram não gostei de algumas alterações:
+1 - ao digitar % e selecionar um modulo do filtro, deve ser exibido todos os artigos do filtro;
+2 - O desing da barra de pesquisa, não gostei, eu gostava como estava antes, onde ela tinha um efeito de glass e os dados apresentadoa passavam por tras dela com uma leve distorcida
