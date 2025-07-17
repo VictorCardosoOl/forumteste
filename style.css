@@ -5,25 +5,29 @@
   --text-color: #111111;
   --text-color-light: #555555;
   --border-color: #eeeeee;
-  --hover-bg-color: #f5f5f5;
+  --hover-bg-color: #f0f0f0; 
   --hover-border-color: #dddddd;
-  --glass-bg: rgba(255, 255, 255, 0.65);
-  --glass-border: rgba(0, 0, 0, 0.08);
-  --glass-shadow: rgba(0,0,0,0.05);
+  --glass-bg: rgba(255, 255, 255, 0.5);
+  --glass-border: rgba(0, 0, 0, 0.07);
+  --glass-shadow: rgba(0, 0, 0, 0.05);
+  --mark-bg-color: rgba(255, 229, 102, 0.8);
+  --mark-text-color: #333;
 }
 
 /* Definição de variáveis para o tema escuro */
 body.dark-mode {
   --bg-color: #000000;
   --card-bg-color: #111111;
-  --text-color: #ffffff;
-  --text-color-light: #bbbbbb;
-  --border-color: #222222;
-  --hover-bg-color: #1a1a1a;
+  --text-color: #f5f5f5; 
+  --text-color-light: #a0a0a0; 
+  --border-color: #2a2a2a;
+  --hover-bg-color: #1c1c1c;
   --hover-border-color: #444444;
-  --glass-bg: rgba(26, 26, 26, 0.65);
+  --glass-bg: rgba(28, 28, 28, 0.65);
   --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-shadow: rgba(0,0,0,0.3);
+  --glass-shadow: rgba(0, 0, 0, 0.3);
+  --mark-bg-color: rgba(255, 229, 102, 0.5);
+  --mark-text-color: #fff;
 }
 
 body {
@@ -37,10 +41,16 @@ body {
 }
 
 #page-container { height: 100vh; }
-aside { border-color: var(--border-color); }
+aside { background-color: var(--bg-color); border-color: var(--border-color); transition: background-color 0.3s ease; }
 h1, h2, h3 { color: var(--text-color); font-weight: 600; }
-p, span, a { color: var(--text-color-light); }
-a:hover p, a:hover h3, a:hover h2 { color: var(--text-color); }
+p, span, a, div { color: var(--text-color-light); }
+a:hover p, a:hover h3, a:hover h2, a:hover span { color: var(--text-color); }
+mark {
+    background-color: var(--mark-bg-color);
+    color: var(--mark-text-color);
+    padding: 2px 4px;
+    border-radius: 4px;
+}
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(15px); }
@@ -52,16 +62,11 @@ a:hover p, a:hover h3, a:hover h2 { color: var(--text-color); }
 
 #app-container {
   flex-grow: 1;
-  height: 100vh;
-  overflow-y: auto;
-  padding-bottom: 120px;
+  height: 100%; 
+  overflow: hidden; 
 }
 #content-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  min-height: 100%;
-  width: 100%;
+  padding-bottom: 120px;
 }
 #app {
   max-width: 1024px;
@@ -70,15 +75,13 @@ a:hover p, a:hover h3, a:hover h2 { color: var(--text-color); }
   padding: 2.5rem;
 }
 
-/* ESTILO REFINADO: Grade de módulos com mais respiro */
 .module-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.25rem; /* Aumentado o espaçamento */
+    gap: 1.25rem;
     margin-top: 2.5rem;
 }
 
-/* RODAPÉ: Estilo "Glassmorphism" restaurado */
 #footer-search {
   position: fixed;
   bottom: 0;
@@ -89,8 +92,8 @@ a:hover p, a:hover h3, a:hover h2 { color: var(--text-color); }
 }
 #footer-search > div {
   background-color: var(--glass-bg);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
   border-top: 1px solid var(--glass-border);
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
@@ -100,6 +103,8 @@ a:hover p, a:hover h3, a:hover h2 { color: var(--text-color); }
   border: 1px solid var(--border-color);
   color: var(--text-color);
   transition: all 0.3s ease;
+  height: 3rem; 
+  /* O padding-left será controlado por JavaScript */
 }
 #footer-search input:focus {
   outline: none;
@@ -108,24 +113,30 @@ a:hover p, a:hover h3, a:hover h2 { color: var(--text-color); }
 }
 #footer-search input::placeholder { color: var(--text-color-light); }
 
-/* NOVO: Botão de Filtro dentro da barra de busca */
 .search-filter-button {
     position: absolute;
-    left: 4px;
-    top: 4px;
-    bottom: 4px;
+    left: 6px;
+    top: 6px;
+    bottom: 6px;
     display: flex;
     align-items: center;
-    gap: 0.3rem;
-    padding: 0 0.75rem;
+    gap: 0.5rem;
+    padding: 0 1rem;
     background-color: var(--card-bg-color);
-    border: 1px solid var(--border-color);
+    border: 1px solid transparent; 
     border-radius: 999px;
     font-size: 0.8rem;
     font-weight: 500;
     color: var(--text-color);
     cursor: pointer;
     transition: all 0.2s ease;
+    max-width: 125px; 
+}
+.search-filter-button span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--text-color);
 }
 .search-filter-button:hover {
     border-color: var(--hover-border-color);
@@ -135,9 +146,9 @@ a:hover p, a:hover h3, a:hover h2 { color: var(--text-color); }
     width: 1rem;
     height: 1rem;
     opacity: 0.6;
+    flex-shrink: 0; 
 }
 
-/* NOVO: Menu Pop-up para filtros */
 .search-filter-menu {
     position: absolute;
     bottom: calc(100% + 10px);
@@ -165,6 +176,7 @@ a:hover p, a:hover h3, a:hover h2 { color: var(--text-color); }
     border-radius: 0.5rem;
     border: 1px solid var(--border-color);
     background-color: var(--bg-color);
+    color: var(--text-color);
     margin-bottom: 0.5rem;
 }
 .filter-menu-input:focus { outline: none; border-color: var(--hover-border-color); }
@@ -183,9 +195,10 @@ a:hover p, a:hover h3, a:hover h2 { color: var(--text-color); }
 }
 .filter-menu-item:hover { background-color: var(--hover-bg-color); }
 .filter-menu-item.active { background-color: var(--hover-bg-color); font-weight: 600; }
-.filter-menu-item .item-icon { width: 1.25rem; height: 1.25rem; opacity: 0.5; }
+.filter-menu-item.active span, .filter-menu-item.active svg { color: var(--text-color); }
+.filter-menu-item .item-icon { width: 1.25rem; height: 1.25rem; opacity: 0.5; color: var(--text-color-light); }
+.filter-menu-item span { color: var(--text-color-light); }
 
-/* ESTILO REFINADO: Cartões com transição mais suave */
 .card-link {
   border: 1px solid var(--border-color);
   background-color: var(--card-bg-color);
@@ -198,11 +211,14 @@ a:hover p, a:hover h3, a:hover h2 { color: var(--text-color); }
   box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
 body.dark-mode .card-link:hover { box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+.card-link h3 { color: var(--text-color); }
+.card-link p { color: var(--text-color-light); }
+.card-link .module-icon { color: var(--text-color-light); }
+.card-link:hover .module-icon { color: var(--text-color); }
 
-/* ESTILO REFINADO: Conteúdo do artigo */
+.article-content { color: var(--text-color-light); }
 .article-content h1 { font-size: 2.75rem; line-height: 1.2; font-weight: 700; color: var(--text-color); }
 .article-content h2 { font-size: 1.75rem; font-weight: 600; margin-top: 3rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color); color: var(--text-color); }
-.article-content p, .article-content ul { font-size: 1rem; line-height: 1.8; }
 .article-content a { color: var(--text-color); text-decoration: underline; font-weight: 500; }
 pre {
   background-color: var(--hover-bg-color);
@@ -210,7 +226,9 @@ pre {
   border-radius: 0.75rem;
   padding: 20px;
   position: relative;
+  color: var(--text-color-light);
 }
+pre code { color: var(--text-color-light); }
 
 .copy-button {
   position: absolute; top: 12px; right: 12px;
@@ -225,14 +243,17 @@ pre {
   border-color: var(--hover-border-color); color: var(--text-color);
 }
 
-/* RODAPÉ DA SIDEBAR: Estilo do botão de tema restaurado e refinado */
 .theme-toggle-btn {
     width: 36px; height: 36px;
     display: flex; align-items: center; justify-content: center;
     border-radius: 0.5rem;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: all 0.2s;
     color: var(--text-color-light);
+}
+/* CORREÇÃO DE CLIQUE: O clique agora atravessa o ícone e atinge o botão */
+.theme-toggle-btn svg {
+    pointer-events: none;
 }
 .theme-toggle-btn:hover {
     background-color: var(--hover-bg-color);
@@ -244,4 +265,13 @@ pre {
   font-size: 1.25rem; font-weight: 600;
   color: var(--text-color); margin-bottom: 1rem;
   padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color);
+}
+.sidebar-nav-link p {
+    color: var(--text-color-light);
+}
+.sidebar-nav-link:hover p, .sidebar-nav-link:hover .module-icon {
+    color: var(--text-color);
+}
+.sidebar-nav-link .module-icon {
+    color: var(--text-color-light);
 }
