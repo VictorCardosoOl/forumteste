@@ -4,8 +4,7 @@ Com base nisso desenvolvi 2 projetos, o creator que cria os modulos e artigos e 
 
 Chat focando apenas nos codigos do faq que vou anexar novamente e refatore ele incluindo os seguintes pontos de melhorias por favor, anexei um print para que possa me falar uma forma de organizar o codigo que fique melhor de se localizar:
 
-Pontos a melhorar:
-- Deixar o codigo mais profissional e robusto sem a inclusão de uma api;
+Chat junto com as sua sugestões eu gostaria de introduzir essas:
 
 - Paginação, ao acrescentar itens e superlotar o viwerpoint do usuario, mudar o scroll da barra da direção vertical para horizontal, se possivel utilizar o locomotive scroll;
 
@@ -13,6 +12,14 @@ Pontos a melhorar:
 
 - Alem disso eu gostaria de dentro de um modulo cirar uma epsecie de agrupamento, por exemplo, no futuro irei criar um modulo de resolução, como a resolução sera referente a todos os problrmeas que aparecem nos outros modulos do sistema, seria intetressante ter uma forma de agurpar os artigos que estaram dentro do modulo de resuloção em grupos como "sondagens" "erros nos cadastros" seria legal ter uma linha divisoria para agurpar esses artigos sem prejudicar a visualização dos itens  
 
+POde refatorar meu codigo completo adiconando as suas melhorias e as minhas por favor?
+
+
+- Deixar o codigo mais profissional e robusto sem a inclusão de uma api;
+
 - Orgnizar o codigo de forma mais proficional dela.
 
 - Gerenciamento de módulos: Capacidade de editar módulos existentes, criando uma pagina por exemplo adimimistradora;
+
+
+Chat o scroll lateral não funcinou, antes o site estava mais bonito, gostaria de remover a estrutura da navegação horizontal, alem disso eu gostaria que melhorasse a tela inical do site de forma que seja facil a visualização dos modulos, por fim se possivel gostaria tambem que melhorasse a barra de pesquisa, acredito que ao inves de ter apenas dois filtros um de busca no modulo de acesso e outro para o geral, seria mais util se pudessimos pesquisar para qualquer modulo independete do que esta sendo acessado no momento, por fim gostaria que o desing do filtro de modulos da barra de busca fosse igual a identidade visual do site, outro ponto de melhoria é a questão de alteração de tema que precisava ser mais bonito, poderia ser apenas um icone sem o nome alterar tema que ao clicar mudasse o tema.

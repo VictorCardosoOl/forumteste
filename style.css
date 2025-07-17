@@ -308,3 +308,73 @@ svg:not([class]) {
   height: auto;
   fill: currentColor;
 }
+
+/* Variáveis de tema e estilos base permanecem os mesmos */
+
+/* Novo estilo para grupos de artigos */
+.article-group {
+  margin-bottom: 2rem;
+}
+
+.article-group-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Estilo para scroll horizontal */
+.horizontal-scroll {
+  display: flex;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-color) var(--bg-color);
+}
+
+.horizontal-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.horizontal-scroll::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+.horizontal-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--border-color);
+  border-radius: 3px;
+}
+
+.horizontal-scroll-item {
+  flex: 0 0 auto;
+  width: 250px;
+  margin-right: 1rem;
+}
+
+/* Ajustes para Locomotive Scroll */
+[data-scroll-container] {
+  height: 100%;
+}
+
+/* Estilo para opções de busca */
+#search-options {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.search-scope-btn {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  background-color: var(--hover-bg-color);
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.search-scope-btn.active {
+  background-color: var(--text-color);
+  color: var(--bg-color);
+}

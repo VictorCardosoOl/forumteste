@@ -6,13 +6,13 @@
     <title>Fórum de Suporte - Victor Cardoso</title>
     
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css">
     <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body>
-    
     <div id="page-container">
       <div class="flex flex-1">
         <aside class="w-56 flex-col justify-between p-4 border-r hidden md:flex">
@@ -35,8 +35,8 @@
             </div>
         </aside>
 
-        <main id="app-container" class="flex-1 overflow-y-auto">
-            <div id="content-wrapper">
+        <main id="app-container" class="flex-1 overflow-hidden">
+            <div id="content-wrapper" data-scroll-container>
                 <div id="app" class="flex flex-col"></div>
             </div>
         </main>
@@ -50,10 +50,15 @@
               <svg class="h-5 w-5 opacity-50" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>
            </div>
            <input id="search-input" onkeyup="handleSearch(event)" placeholder="Pesquisar em todo o fórum" type="search" class="w-full h-12 pl-14 pr-5 text-base rounded-full" />
+           <div id="search-options" class="absolute right-3 top-3 hidden">
+             <button id="search-scope-toggle" class="text-sm bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded-md">Todos os módulos</button>
+           </div>
          </div>
       </div>
     </footer>
     
-    <script src="data.js"></script> <script src="script.js"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>
