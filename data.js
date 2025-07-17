@@ -265,16 +265,3 @@ HAVING COUNT(*) > 1</code></pre>
   },
 ];
 
-// Adicionando dados de exemplo para a funcionalidade de busca
-const searchExamples = [
-  "Como instalar programas no Windows?",
-  "Erro durante instalação",
-  "Configurar rede doméstica",
-  "Diferença entre LAN e WAN",
-  "O que é um switch de rede?",
-  "Como formatar meu computador?",
-  "Passos após formatação",
-  "Lógica de programação básica",
-  "Resolver cadastro duplicado",
-  "Problemas com sondagem de dados"
-];
