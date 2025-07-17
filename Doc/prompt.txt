@@ -24,4 +24,7 @@ POde refatorar meu codigo completo adiconando as suas melhorias e as minhas por 
 
 Okay chat em tese funcionou porem foram não gostei de algumas alterações:
 1 - ao digitar % e selecionar um modulo do filtro, deve ser exibido todos os artigos do filtro;
-2 - O desing da barra de pesquisa, não gostei, eu gostava como estava antes, onde ela tinha um efeito de glass e os dados apresentadoa passavam por tras dela com uma leve distorcida
+2 - O desing da barra de pesquisa, não gostei, eu gostava como estava antes, onde ela tinha um efeito de glass e os dados apresentadoa passavam por tras dela com uma leve efeito de borrado um blu, alem disso o filtro deveria ficar dentro dela, por exemplo onde tem a lupa ao clicar deveria ser aberto um menu minimalista que seguisse a identidade visual do site que funcionasse como uma lista dos modulos, incluindo a funcionalidade de ao digitar a as primeiras letras do nome do modulo já fosse possivel selecionar ele para facilitar o funcionamento.
+3- não gostei do destaque na barra latera ao acessar os modulos, uma vez que eu cliquei nele e a minha primeira tela identifica isso, se torna desnecessario esse destaque, pode retirar por favor
+4- o copyrith que estava no canto inferior direito e icone de tema escuro sumiram, gostaria que reestabelecesse como estavamantes;
+5- por fim pode melhorar a identidade visual do sipe por favor, não altera a paleta de cores preta e branca, porem acredito que voc]~e consiga deixar o desing mais bonito.

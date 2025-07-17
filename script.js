@@ -1,57 +1,55 @@
-// Constantes globais
+// --- Constantes Globais ---
 const app = document.getElementById('app');
 const sidebarNav = document.getElementById('sidebar-nav');
 const searchInput = document.getElementById('search-input');
-const searchFiltersContainer = document.getElementById('search-filters-container');
 const themeToggleBtn = document.getElementById('theme-toggle');
-const themeIconContainer = document.getElementById('theme-icon-container');
+
+// Elementos do novo menu de busca
+const filterButton = document.getElementById('search-filter-button');
+const filterMenu = document.getElementById('search-filter-menu');
+const filterMenuInput = document.getElementById('filter-menu-input');
+const filterMenuList = document.getElementById('filter-menu-list');
+
+// --- Variáveis de Estado ---
 let currentCategory = null;
 let scrollInstance = null;
 let searchScope = 'all'; // 'all' ou o id de uma categoria
 
-// Ícones de Sol e Lua para o botão de tema
-const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
-const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+// --- Ícones ---
+const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`;
+const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+const searchIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><path fill="currentColor" d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>`;
 
-// Função para disparar animação de transição
+// --- Funções Auxiliares ---
 function triggerAnimation() {
   app.classList.remove('animate-in');
   void app.offsetWidth;
   app.classList.add('animate-in');
 }
 
-// Inicializa e atualiza o Locomotive Scroll
 function initSmoothScroll() {
   if (scrollInstance) scrollInstance.destroy();
-  scrollInstance = new LocomotiveScroll({
-    el: document.querySelector('[data-scroll-container]'),
-    smooth: true,
-  });
-}
-function updateScroll() {
-  if (scrollInstance) {
-    setTimeout(() => scrollInstance.update(), 50);
-  }
+  scrollInstance = new LocomotiveScroll({ el: document.querySelector('[data-scroll-container]'), smooth: true });
 }
 
-/**
- * Renderiza a página inicial com os módulos em uma grade
- */
+function updateScroll() {
+  setTimeout(() => scrollInstance?.update(), 50);
+}
+
+// --- Funções de Renderização ---
 function renderCategories() {
   currentCategory = null;
   triggerAnimation();
-  
   app.innerHTML = `
     <div class="text-center">
       <h1 class="text-4xl font-bold">Base de Conhecimento</h1>
-      <p class="mt-2 text-lg max-w-2xl mx-auto">Navegue pelos módulos para encontrar guias, soluções e respostas para suas dúvidas.</p>
+      <p class="mt-2 text-lg max-w-2xl mx-auto">Navegue pelos módulos para encontrar guias, soluções e respostas.</p>
     </div>
     <div class="module-grid">
       ${forumData.map(category => `
-        <a onclick="renderTopics('${category.id}')" 
-           class="card-link flex cursor-pointer flex-1 gap-4 rounded-xl p-5 flex-col group">
-          <div class="w-7 h-7">${category.icon}</div>
-          <div class="flex flex-col gap-1 mt-2">
+        <a onclick="renderTopics('${category.id}')" class="card-link flex cursor-pointer flex-col gap-4 rounded-xl p-5 group">
+          <div class="w-8 h-8">${category.icon}</div>
+          <div class="flex flex-col gap-1 mt-1">
             <h3 class="text-base font-semibold">${category.title}</h3>
             <p class="text-sm font-normal">${category.description}</p>
           </div>
@@ -59,21 +57,16 @@ function renderCategories() {
       `).join('')}
     </div>
   `;
-  
   updateScroll();
   renderSidebar();
 }
 
-/**
- * Renderiza os tópicos de uma categoria com agrupamento
- */
 function renderTopics(categoryId) {
   currentCategory = categoryId;
   const category = forumData.find(c => c.id === categoryId);
-  if (!category) { renderCategories(); return; }
+  if (!category) return renderCategories();
 
   triggerAnimation();
-  
   const groups = category.topics.reduce((acc, topic) => {
     const groupName = topic.group || 'Geral';
     if (!acc[groupName]) acc[groupName] = [];
@@ -84,7 +77,7 @@ function renderTopics(categoryId) {
   const topicsHTML = Object.entries(groups).map(([groupName, topics]) => `
     <div class="article-group">
       <h3 class="article-group-title">${groupName}</h3>
-      <div class="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-4">
+      <div class="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4">
         ${topics.map(topic => `
           <a onclick="renderArticle('${category.id}', '${topic.id}')" class="card-link flex cursor-pointer flex-col gap-3 rounded-xl p-5 group">
             <h3 class="text-base font-semibold">${topic.title}</h3>
@@ -102,26 +95,19 @@ function renderTopics(categoryId) {
       <span class="font-semibold">${category.title}</span>
     </div>
     <div class="mt-4"><h1 class="text-4xl font-bold">${category.title}</h1></div>
-    <div class="mt-8">
-      ${category.topics.length === 0 ? `<p class="opacity-70">Nenhum artigo encontrado.</p>` : topicsHTML}
-    </div>
-  `;
+    <div class="mt-8">${category.topics.length === 0 ? `<p class="opacity-70">Nenhum artigo encontrado.</p>` : topicsHTML}</div>`;
   
   updateScroll();
   renderSidebar();
 }
 
-/**
- * Renderiza um artigo completo
- */
 function renderArticle(categoryId, topicId) {
   const category = forumData.find(c => c.id === categoryId);
-  const topic = category ? category.topics.find(t => t.id === topicId) : null;
-  if (!topic) { renderCategories(); return; }
+  const topic = category?.topics.find(t => t.id === topicId);
+  if (!topic) return renderCategories();
 
   currentCategory = categoryId;
   triggerAnimation();
-  
   app.innerHTML = `
     <div class="flex flex-wrap items-center gap-2 text-sm font-medium">
       <a onclick="renderCategories()" class="cursor-pointer opacity-70 hover:opacity-100">Início</a>
@@ -137,31 +123,38 @@ function renderArticle(categoryId, topicId) {
         <div>${topic.content}</div>
     </div>
   `;
-  
   addCopyButtons();
   updateScroll();
   renderSidebar();
 }
 
-/**
- * Sistema de busca
- */
+// --- Lógica de Busca (Totalmente Refatorada) ---
+
 function handleSearch(event) {
   const query = event.target.value.trim();
-  if (event.key === 'Enter' && query) {
+  if (event.key === 'Enter') {
     performSearch(query);
-  }
-  if (!query) {
-    if (currentCategory) {
-      renderTopics(currentCategory);
-    } else {
-      renderCategories();
-    }
+  } else if (!query) {
+    // Limpa a busca se o campo estiver vazio
+    if (currentCategory) renderTopics(currentCategory);
+    else renderCategories();
   }
 }
 
-function performSearch(query = searchInput.value.trim()) {
-  if (!query) return;
+function performSearch(query) {
+  // LÓGICA ESPECIAL: Se a busca for por "%", mostra todos os artigos do escopo
+  if (query === '%') {
+    if (searchScope === 'all') {
+      // Se o escopo for "todos", não faz sentido, então volta para a home
+      renderCategories();
+    } else {
+      // Se for um módulo específico, renderiza todos os tópicos dele
+      renderTopics(searchScope);
+    }
+    return;
+  }
+  
+  if (!query || query.length < 1) return;
 
   const lowerCaseQuery = query.toLowerCase();
   const searchPool = searchScope === 'all' 
@@ -206,53 +199,60 @@ function renderSearchResults(results, query) {
   updateScroll();
 }
 
-/**
- * NOVO: Filtros de Busca
- */
-function renderSearchFilters() {
-    const filters = [
-        { id: 'all', title: 'Todos' },
-        ...forumData.map(c => ({ id: c.id, title: c.title }))
-    ];
+// --- Funções do Novo Menu de Filtro ---
+
+function toggleFilterMenu(forceState) {
+    const isVisible = filterMenu.classList.contains('visible');
+    filterMenu.classList.toggle('visible', forceState !== undefined ? forceState : !isVisible);
+}
+
+function renderFilterMenuItems(filterText = '') {
+    const lowerFilterText = filterText.toLowerCase();
+    const allModules = [{ id: 'all', title: 'Todos os Módulos', icon: searchIcon }, ...forumData];
     
-    searchFiltersContainer.innerHTML = filters.map(filter => `
-        <button class="filter-btn ${searchScope === filter.id ? 'active' : ''}" onclick="setSearchScope('${filter.id}', this)">
-            ${filter.title}
-        </button>
+    const filteredModules = allModules.filter(module => module.title.toLowerCase().includes(lowerFilterText));
+
+    filterMenuList.innerHTML = filteredModules.map(module => `
+        <div class="filter-menu-item ${searchScope === module.id ? 'active' : ''}" onclick="setSearchScope('${module.id}')">
+            <div class="item-icon">${module.icon}</div>
+            <span>${module.title}</span>
+        </div>
     `).join('');
 }
 
-function setSearchScope(scopeId, element) {
+function setSearchScope(scopeId) {
     searchScope = scopeId;
-    // Atualiza a classe 'active' em todos os botões
-    document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-    element.classList.add('active');
-    // Se já houver uma pesquisa, executa novamente com o novo escopo
-    if (searchInput.value.trim()) {
-        performSearch();
-    }
-}
+    const selectedModule = forumData.find(m => m.id === scopeId);
 
-function toggleSearchFilters(isVisible) {
-    if (isVisible) {
-        searchFiltersContainer.classList.add('visible');
+    if (selectedModule) {
+        filterButton.innerHTML = `${selectedModule.icon} <span>${selectedModule.title}</span>`;
     } else {
-        // Pequeno delay para permitir o clique em um filtro antes de esconder
-        setTimeout(() => {
-            if (document.activeElement !== searchInput) {
-                searchFiltersContainer.classList.remove('visible');
-            }
-        }, 200);
+        filterButton.innerHTML = `${searchIcon} <span>Todos</span>`;
+    }
+
+    renderFilterMenuItems(filterMenuInput.value); // Re-renderiza para mostrar o item ativo
+    toggleFilterMenu(false); // Esconde o menu
+    searchInput.focus(); // Foca no input principal
+    
+    // Se houver uma busca ativa, refaz com o novo escopo
+    if(searchInput.value.trim()) {
+        performSearch(searchInput.value.trim());
     }
 }
 
+// --- Funções da Interface ---
 
-/**
- * Outras Funções
- */
+function renderSidebar() {
+  sidebarNav.innerHTML = forumData.map(category => `
+    <a onclick="renderTopics('${category.id}')" class="flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer group">
+      <div class="w-6 h-6 flex-shrink-0 opacity-50 group-hover:opacity-100 transition-opacity">${category.icon || ''}</div>
+      <p class="text-sm font-medium leading-normal opacity-70 group-hover:opacity-100 transition-opacity">${category.title}</p>
+    </a>
+  `).join('');
+}
+
 function addCopyButtons() {
-  document.querySelectorAll('pre').forEach(pre => {
-    if (pre.querySelector('.copy-button')) return;
+  document.querySelectorAll('pre:not(:has(.copy-button))').forEach(pre => {
     const button = document.createElement('button');
     button.className = 'copy-button';
     button.textContent = 'Copiar';
@@ -267,37 +267,35 @@ function addCopyButtons() {
   });
 }
 
-function renderSidebar() {
-  sidebarNav.innerHTML = forumData.map(category => `
-    <a onclick="renderTopics('${category.id}')" class="flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer group ${currentCategory === category.id ? 'bg-gray-100 dark:bg-gray-800' : ''}">
-      <div class="w-6 h-6 flex-shrink-0 opacity-50 group-hover:opacity-100 transition-opacity">${category.icon || ''}</div>
-      <p class="text-sm font-medium leading-normal opacity-70 group-hover:opacity-100 transition-opacity">${category.title}</p>
-    </a>
-  `).join('');
-}
-
-/**
- * NOVO: Sistema de tema claro/escuro aprimorado
- */
 function setTheme(isDark) {
     document.body.classList.toggle('dark-mode', isDark);
-    themeIconContainer.innerHTML = isDark ? sunIcon : moonIcon;
+    themeToggleBtn.innerHTML = isDark ? sunIcon : moonIcon;
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
 }
 
-// Inicialização
+// --- Inicialização ---
 document.addEventListener('DOMContentLoaded', () => {
   initSmoothScroll();
   renderCategories();
-  renderSearchFilters();
   
-  // Configura o botão de alternar tema
-  themeToggleBtn.addEventListener('click', () => {
-    const isDark = !document.body.classList.contains('dark-mode');
-    setTheme(isDark);
+  // Configuração inicial do botão de filtro e menu
+  setSearchScope('all');
+  renderFilterMenuItems();
+  
+  // Event Listeners
+  filterButton.addEventListener('click', (e) => {
+      e.stopPropagation(); // Impede que o clique feche o menu imediatamente
+      toggleFilterMenu();
   });
-  
-  // Define o tema inicial com base no localStorage ou preferência do sistema
+  filterMenuInput.addEventListener('keyup', () => renderFilterMenuItems(filterMenuInput.value));
+  document.addEventListener('click', (e) => {
+      if (!filterMenu.contains(e.target) && !filterButton.contains(e.target)) {
+          toggleFilterMenu(false);
+      }
+  });
+
+  // Configuração do Tema
+  themeToggleBtn.addEventListener('click', () => setTheme(!document.body.classList.contains('dark-mode')));
   const savedTheme = localStorage.getItem('theme');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   setTheme(savedTheme ? savedTheme === 'dark' : prefersDark);

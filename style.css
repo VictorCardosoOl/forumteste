@@ -1,13 +1,12 @@
 /* Definição de variáveis de cor para o tema claro (padrão) */
 :root {
-  --bg-color: #ffffff;
+  --bg-color: #f9f9f9;
   --card-bg-color: #ffffff;
-  --text-color: #000000;
+  --text-color: #111111;
   --text-color-light: #555555;
-  --border-color: #f0f0f0;
+  --border-color: #eeeeee;
   --hover-bg-color: #f5f5f5;
   --hover-border-color: #dddddd;
-  /* Cores do efeito de vidro */
   --glass-bg: rgba(255, 255, 255, 0.65);
   --glass-border: rgba(0, 0, 0, 0.08);
   --glass-shadow: rgba(0,0,0,0.05);
@@ -16,13 +15,12 @@
 /* Definição de variáveis para o tema escuro */
 body.dark-mode {
   --bg-color: #000000;
-  --card-bg-color: #000000;
+  --card-bg-color: #111111;
   --text-color: #ffffff;
   --text-color-light: #bbbbbb;
   --border-color: #222222;
   --hover-bg-color: #1a1a1a;
   --hover-border-color: #444444;
-  /* Cores do efeito de vidro no modo escuro */
   --glass-bg: rgba(26, 26, 26, 0.65);
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-shadow: rgba(0,0,0,0.3);
@@ -38,10 +36,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-#page-container {
-  height: 100vh;
-}
-
+#page-container { height: 100vh; }
 aside { border-color: var(--border-color); }
 h1, h2, h3 { color: var(--text-color); font-weight: 600; }
 p, span, a { color: var(--text-color-light); }
@@ -59,7 +54,7 @@ a:hover p, a:hover h3, a:hover h2 { color: var(--text-color); }
   flex-grow: 1;
   height: 100vh;
   overflow-y: auto;
-  padding-bottom: 160px; /* Aumentado para dar espaço aos filtros */
+  padding-bottom: 120px;
 }
 #content-wrapper {
   display: flex;
@@ -75,31 +70,33 @@ a:hover p, a:hover h3, a:hover h2 { color: var(--text-color); }
   padding: 2.5rem;
 }
 
-/* NOVO: Estilo para a grade de módulos na página inicial */
+/* ESTILO REFINADO: Grade de módulos com mais respiro */
 .module-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1rem;
+    gap: 1.25rem; /* Aumentado o espaçamento */
     margin-top: 2.5rem;
 }
 
-/* Rodapé com posicionamento fixo e efeito "Material Glass" */
+/* RODAPÉ: Estilo "Glassmorphism" restaurado */
 #footer-search {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 100;
+  z-index: 50;
   padding-bottom: env(safe-area-inset-bottom);
+}
+#footer-search > div {
   background-color: var(--glass-bg);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border-top: 1px solid var(--glass-border);
-  box-shadow: 0 -8px 32px 0 var(--glass-shadow);
-  transition: all 0.3s ease;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
 }
 #footer-search input {
-  background-color: transparent;
+  background-color: var(--hover-bg-color);
   border: 1px solid var(--border-color);
   color: var(--text-color);
   transition: all 0.3s ease;
@@ -107,60 +104,88 @@ a:hover p, a:hover h3, a:hover h2 { color: var(--text-color); }
 #footer-search input:focus {
   outline: none;
   border-color: var(--hover-border-color);
-  box-shadow: 0 2px 10px 0 var(--glass-shadow);
+  box-shadow: 0 0 0 3px var(--glass-border);
 }
 #footer-search input::placeholder { color: var(--text-color-light); }
-#footer-search svg { color: var(--text-color-light); }
 
-/* NOVO: Estilos para os filtros de busca */
-.search-filters-container {
-  display: flex;
-  gap: 0.5rem;
-  overflow-x: auto;
-  padding: 0.25rem 0;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
-  transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
-  max-height: 0;
-  opacity: 0;
-  visibility: hidden;
-}
-.search-filters-container.visible {
-  max-height: 60px; /* Altura suficiente para os botões */
-  opacity: 1;
-  visibility: visible;
-}
-.search-filters-container::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
-}
-.filter-btn {
-  font-size: 0.8rem;
-  padding: 0.35rem 0.75rem;
-  border-radius: 999px; /* Formato de pílula */
-  background-color: var(--hover-bg-color);
-  border: 1px solid var(--border-color);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.filter-btn:hover {
-    border-color: var(--hover-border-color);
+/* NOVO: Botão de Filtro dentro da barra de busca */
+.search-filter-button {
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0 0.75rem;
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 500;
     color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
-.filter-btn.active {
-  background-color: var(--text-color);
-  color: var(--bg-color);
-  border-color: var(--text-color);
-  font-weight: 500;
+.search-filter-button:hover {
+    border-color: var(--hover-border-color);
+    background-color: var(--hover-bg-color);
 }
-body.dark-mode .filter-btn.active {
-    background-color: var(--text-color);
-    color: var(--bg-color);
-    border-color: var(--text-color);
+.search-filter-button svg {
+    width: 1rem;
+    height: 1rem;
+    opacity: 0.6;
 }
 
-/* Estilos de Conteúdo Aprimorados */
+/* NOVO: Menu Pop-up para filtros */
+.search-filter-menu {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 0;
+    width: 300px;
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
+    box-shadow: 0 8px 32px 0 var(--glass-shadow);
+    padding: 0.5rem;
+    z-index: 100;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.search-filter-menu.visible {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+}
+.filter-menu-input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    margin-bottom: 0.5rem;
+}
+.filter-menu-input:focus { outline: none; border-color: var(--hover-border-color); }
+.filter-menu-list {
+    max-height: 200px;
+    overflow-y: auto;
+}
+.filter-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.filter-menu-item:hover { background-color: var(--hover-bg-color); }
+.filter-menu-item.active { background-color: var(--hover-bg-color); font-weight: 600; }
+.filter-menu-item .item-icon { width: 1.25rem; height: 1.25rem; opacity: 0.5; }
+
+/* ESTILO REFINADO: Cartões com transição mais suave */
 .card-link {
   border: 1px solid var(--border-color);
   background-color: var(--card-bg-color);
@@ -170,17 +195,15 @@ body.dark-mode .filter-btn.active {
 .card-link:hover {
   border-color: var(--hover-border-color);
   transform: translateY(-4px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.04);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
-body.dark-mode .card-link:hover { box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+body.dark-mode .card-link:hover { box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
 
-.article-content { color: var(--text-color-light); }
+/* ESTILO REFINADO: Conteúdo do artigo */
 .article-content h1 { font-size: 2.75rem; line-height: 1.2; font-weight: 700; color: var(--text-color); }
 .article-content h2 { font-size: 1.75rem; font-weight: 600; margin-top: 3rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color); color: var(--text-color); }
-.article-content h3 { font-size: 1.25rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; color: var(--text-color); }
 .article-content p, .article-content ul { font-size: 1rem; line-height: 1.8; }
 .article-content a { color: var(--text-color); text-decoration: underline; font-weight: 500; }
-.article-content strong { color: var(--text-color); font-weight: 600; }
 pre {
   background-color: var(--hover-bg-color);
   border: 1px solid var(--border-color);
@@ -190,57 +213,35 @@ pre {
 }
 
 .copy-button {
-  position: absolute;
-  top: 12px;
-  right: 12px;
+  position: absolute; top: 12px; right: 12px;
   background-color: var(--card-bg-color);
   color: var(--text-color-light);
   border: 1px solid var(--border-color);
-  border-radius: 6px;
-  padding: 5px 12px;
-  font-size: 12px;
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  border-radius: 6px; padding: 5px 12px; font-size: 12px;
+  font-weight: 500; cursor: pointer; transition: all 0.2s ease;
 }
 .copy-button:hover {
   background-color: var(--hover-bg-color);
-  border-color: var(--hover-border-color);
-  color: var(--text-color);
+  border-color: var(--hover-border-color); color: var(--text-color);
 }
 
-/* NOVO: Estilo para o botão de tema */
+/* RODAPÉ DA SIDEBAR: Estilo do botão de tema restaurado e refinado */
 .theme-toggle-btn {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    width: 100%;
-    padding: 0.5rem 0.75rem;
+    width: 36px; height: 36px;
+    display: flex; align-items: center; justify-content: center;
     border-radius: 0.5rem;
     cursor: pointer;
     transition: background-color 0.2s;
+    color: var(--text-color-light);
 }
 .theme-toggle-btn:hover {
     background-color: var(--hover-bg-color);
-}
-.theme-toggle-btn p {
-    font-size: 0.875rem;
-    font-weight: 500;
-    line-height: normal;
-    opacity: 0.7;
-    transition: opacity 0.2s;
-}
-.theme-toggle-btn:hover p {
-    opacity: 1;
+    color: var(--text-color);
 }
 
 .article-group { margin-bottom: 2rem; }
 .article-group-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--text-color);
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border-color);
+  font-size: 1.25rem; font-weight: 600;
+  color: var(--text-color); margin-bottom: 1rem;
+  padding-bottom: 0.5rem; border-bottom: 1px solid var(--border-color);
 }
