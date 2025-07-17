@@ -3,9 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fórum de Suporte - Victor Cardoso</title>
-    
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <title>Base de Conhecimento</title>
+
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="images/icon-192x192.png"> <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css">
     <link rel="stylesheet" href="style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -13,51 +18,58 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body>
+    <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
     <div id="page-container">
-      <div class="flex flex-1">
-        <aside class="w-56 flex-col justify-between p-4 border-r hidden md:flex">
-            <div class="flex flex-col gap-4">
-              <div onclick="renderCategories()" class="flex items-center gap-3 cursor-pointer mb-4 px-3 h-10">
-                <div class="size-5">
+      <aside id="sidebar" class="sidebar">
+          <div class="flex flex-col gap-4 h-full">
+            <div class="sidebar-header">
+              <div onclick="renderCategories()" class="flex items-center gap-3 cursor-pointer h-10">
+                <div class="size-6">
                   <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor"></path></svg>
                 </div>
                 <h2 class="text-lg font-bold tracking-tight">Victor Cardoso</h2>
               </div>
-              <div id="sidebar-nav" class="flex flex-col gap-1"></div>
             </div>
-            
-            <div class="flex flex-col gap-2">
-                <button id="theme-toggle" class="theme-toggle-btn">
-                    </button>
-                <p class="text-xs px-3 mt-2 opacity-50">© 2024 Victor Cardoso</p>
+            <div id="sidebar-nav" class="flex flex-col gap-1 flex-1 overflow-y-auto"></div>
+            <div class="sidebar-footer">
+                <button id="theme-toggle" class="theme-toggle-btn" aria-label="Alternar Tema">
+                    <span class="sun-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    </span>
+                    <span class="moon-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </span>
+                </button>
+                <p class="text-xs opacity-50">© 2024 Victor Cardoso</p>
             </div>
-        </aside>
+          </div>
+      </aside>
 
-        <main id="app-container" class="flex-1 overflow-hidden">
-            <div id="content-wrapper" data-scroll-container>
-                <div id="app" class="flex flex-col"></div>
-            </div>
-        </main>
-      </div>
+      <main id="app-container" class="main-content">
+        <button id="menu-toggle" class="menu-toggle-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+
+        <div id="content-wrapper" data-scroll-container>
+            <div id="app" class="app-content"></div>
+        </div>
+      </main>
     </div>
 
     <footer id="footer-search">
       <div class="max-w-4xl mx-auto px-4 py-3">
          <div class="relative">
-           <button id="search-filter-button" class="search-filter-button">
-              </button>
-           
+           <button id="search-filter-button" class="search-filter-button"></button>
            <input id="search-input" onkeyup="handleSearch(event)" placeholder="Pesquisar artigos..." type="search" class="w-full h-12 pl-14 pr-24 text-base rounded-full" />
-
            <div id="search-filter-menu" class="search-filter-menu">
               <input type="text" id="filter-menu-input" placeholder="Filtrar módulos..." class="filter-menu-input">
-              <div id="filter-menu-list" class="filter-menu-list">
-                 </div>
+              <div id="filter-menu-list" class="filter-menu-list"></div>
            </div>
          </div>
       </div>
     </footer>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
     <script src="data.js"></script>
     <script src="script.js"></script>
