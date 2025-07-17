@@ -1,0 +1,48 @@
+Claro, preparei dois resumos detalhados e separados. Cada um serve como uma introdução completa ao seu respectivo componente, explicando o propósito, o funcionamento e a interação entre eles, ideal para apresentar o projeto.
+
+---
+
+### Introdução 1: O Sistema de FAQ (A Interface do Funcionário)
+
+#### Propósito e Criação
+O sistema de FAQ é a interface principal do projeto, criada com o objetivo de ser uma base de conhecimento centralizada, rápida e intuitiva para os funcionários de uma equipe. Seu propósito é elevar o nível de conhecimento técnico do time, permitindo que eles encontrem respostas para dúvidas e guias de processos de forma autônoma, otimizando o tempo e a eficiência. A interface foi desenvolvida para ser visualmente limpa e funcional, funcionando inteiramente no navegador sem a necessidade de um back-end.
+
+#### Como Funciona
+A aplicação funciona como uma *Single Page Application (SPA)*, onde todo o conteúdo é carregado e exibido dinamicamente na página `index.html`. A lógica principal reside no arquivo `script.js`, que realiza as seguintes ações:
+
+* **Fonte de Dados:** Lê todas as informações sobre módulos e artigos diretamente do arquivo `data.js`, que atua como um banco de dados local.
+* **Renderização Dinâmica:** Com base na navegação do usuário, o JavaScript desenha a tela correspondente:
+    * A página inicial exibe os "Módulos" (categorias) em formato de cartões clicáveis.
+    * Ao clicar em um módulo, a página exibe a lista de "Tópicos" (artigos) daquela categoria.
+    * Ao selecionar um tópico, o conteúdo completo do artigo é exibido, com formatação rica (títulos, listas, imagens, etc.).
+* **Busca Poderosa:** Uma barra de pesquisa, localizada em um rodapé fixo, permite que o funcionário busque por qualquer termo. A busca é realizada em todo o conteúdo do `data.js` (títulos, descrições e corpo dos artigos) e os resultados são exibidos de forma clara.
+* **Recursos Adicionais:** A interface conta com um botão para alternar entre tema claro e escuro e uma funcionalidade para copiar blocos de código com um único clique, facilitando a utilização de comandos e scripts.
+
+#### Interação
+A interação do Sistema de FAQ com o Creator é **passiva e unidirecional**. Ele não envia informações para o Creator; seu único papel é **consumir e exibir os dados** que estão no arquivo `data.js`. Qualquer alteração, adição ou remoção de conteúdo feita nesse arquivo (através do fluxo de trabalho do Creator) será refletida imediatamente na interface do FAQ na próxima vez que o usuário interagir com a página.
+
+---
+
+### Introdução 2: O Creator (A Ferramenta do Administrador)
+
+#### Propósito e Criação
+O Creator é uma ferramenta administrativa separada (`creator.html`), construída para resolver o desafio de adicionar e formatar conteúdo de maneira segura e padronizada no arquivo `data.js`. Seu propósito é permitir que um administrador ou criador de conteúdo gere os "snippets" de código dos artigos sem precisar escrever o objeto JavaScript manualmente, minimizando erros de sintaxe e garantindo a consistência da base de dados.
+
+#### Como Funciona
+O Creator é uma aplicação de produtividade completa, também funcional inteiramente no navegador, cujas principais características são:
+
+* **Dois Modos de Criação:** A ferramenta permite criar dois tipos de conteúdo distintos:
+    1.  **Módulo:** Para criar uma nova categoria principal, solicitando título, descrição e um ícone em formato SVG.
+    2.  **Tópico:** Para criar um novo artigo dentro de um módulo existente, com campos para título, descrição e o corpo do conteúdo.
+* **Editor com Pré-visualização:** Para a criação de artigos, a ferramenta oferece um editor de texto com uma barra de ferramentas que auxilia na formatação do conteúdo (títulos, negrito, listas, links, etc.). Ao lado do editor, uma área de pré-visualização em tempo real mostra exatamente como o artigo final será exibido para o funcionário.
+* **Geração de Código:** Sua função principal é o botão "Gerar Código". Ao ser acionado, ele pega todas as informações inseridas nos formulários e as converte em uma string de texto que é um objeto JavaScript perfeitamente formatado, pronto para ser inserido no arquivo `data.js`.
+* **Auto-Save:** Para evitar perda de trabalho, tudo o que é digitado nos formulários é salvo automaticamente no `localStorage` do navegador.
+
+#### Interação e o Fluxo de Trabalho
+A interação do Creator com o Sistema de FAQ é a **parte ativa e manual do processo**. Ele é o ponto de origem de todo o conteúdo. O fluxo de trabalho que conecta as duas partes é:
+1.  O administrador **usa o Creator (`creator.html`)** para escrever e formatar um novo artigo.
+2.  Ele **gera e copia** o snippet de código do objeto JavaScript fornecido pela ferramenta.
+3.  Ele então **abre o arquivo `data.js` e cola** esse snippet no local apropriado (dentro do array `topics` de um módulo, por exemplo).
+4.  Ao salvar a alteração no `data.js`, o **Sistema de FAQ (`index.html`)** passa a ter acesso ao novo conteúdo, que se torna imediatamente disponível para todos os funcionários.
+
+Dessa forma, o Creator atua como uma interface de "escrita" que alimenta o "banco de dados" (`data.js`), que por sua vez é lido pela interface de "leitura" (o FAQ).

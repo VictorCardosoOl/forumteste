@@ -2,12 +2,17 @@ Chat estou desenvolvendo um faq para meus funcionários, esse faq tem como objet
 
 Com base nisso desenvolvi 2 projetos, o creator que cria os modulos e artigos e a base de conhecimento que visualiza os artigos criado e inclusos no data.js, poderia analisar meu proejto por favor, anexei os itens acima.
 
-
+Chat focando apenas nos codigos do faq que vou anexar novamente e refatore ele incluindo os seguintes pontos de melhorias por favor, anexei um print para que possa me falar uma forma de organizar o codigo que fique melhor de se localizar:
 
 Pontos a melhorar:
-Gerenciamento de módulos: Capacidade de editar módulos existentes
-Paginação, ao acrescentar itens mudar o scroll da barra da direção horizontal para vertical 
-melhorar o sistema de pesquisa para que ao pesquisar eu possa selecionar se quero direcionar a pesquisa a um unico modulo ou pesquisar em todos os modulos. 
+- Deixar o codigo mais profissional e robusto sem a inclusão de uma api;
 
-Alem disso eu gostaria de dentro de um modulo cirar uma epsecie de agrupamento, por exemplo, no futuro irei criar um modulo de resolução, como a resolução sera referente a todos os problrmeas que aparecem nos outros modulos do sistema, seria intetressante ter uma forma de agurpar os artigos que estaram dentro do modulo de resuloção em grupos como "sondagens" "erros nos cadastros" seria legal ter uma linha divisoria para agurpar esses artigos sem prejudicar a visualização dos itens  
+- Paginação, ao acrescentar itens e superlotar o viwerpoint do usuario, mudar o scroll da barra da direção vertical para horizontal, se possivel utilizar o locomotive scroll;
 
+- melhorar o sistema de pesquisa para que ao pesquisar eu possa selecionar se quero direcionar a pesquisa a um unico modulo ou pesquisar em todos os modulos. 
+
+- Alem disso eu gostaria de dentro de um modulo cirar uma epsecie de agrupamento, por exemplo, no futuro irei criar um modulo de resolução, como a resolução sera referente a todos os problrmeas que aparecem nos outros modulos do sistema, seria intetressante ter uma forma de agurpar os artigos que estaram dentro do modulo de resuloção em grupos como "sondagens" "erros nos cadastros" seria legal ter uma linha divisoria para agurpar esses artigos sem prejudicar a visualização dos itens  
+
+- Orgnizar o codigo de forma mais proficional dela.
+
+- Gerenciamento de módulos: Capacidade de editar módulos existentes, criando uma pagina por exemplo adimimistradora;
