@@ -6,8 +6,8 @@ window.renderTopics = renderTopics;
 window.renderArticle = renderArticle;
 window.handleSearch = handleSearch;
 window.setSearchScope = setSearchScope;
-
-
+// NOVO: Exporta a função de scroll para grupos
+window.scrollToGroup = scrollToGroup;
 
 
 // --- Constantes Globais ---
@@ -37,7 +37,6 @@ function triggerAnimation() {
   app.classList.add('animate-in');
 }
 
-// CORREÇÃO DE ANIMAÇÃO/RELOAD: A instância de scroll é criada apenas uma vez.
 function initSmoothScroll() {
   if (!scrollInstance) {
     scrollInstance = new LocomotiveScroll({ 
@@ -50,13 +49,11 @@ function initSmoothScroll() {
 function updateScroll() {
   setTimeout(() => {
     scrollInstance?.update();
-  }, 150); // Aumentado o delay para garantir a renderização completa
+  }, 150);
 }
 
-// CORREÇÃO DE SOBREPOSIÇÃO: Nova função para ajustar dinamicamente o padding
 function updateSearchInputPadding() {
     const buttonWidth = filterButton.offsetWidth;
-    // Adiciona 10px de margem para o texto não ficar colado no botão
     searchInput.style.paddingLeft = `${buttonWidth + 10}px`;
 }
 
@@ -85,6 +82,9 @@ function renderCategories() {
   renderSidebar();
 }
 
+// ===================================================================
+// ATUALIZADO: Função renderTopics com o filtro de grupos
+// ===================================================================
 function renderTopics(categoryId) {
   currentCategory = categoryId;
   const category = forumData.find(c => c.id === categoryId);
@@ -98,8 +98,10 @@ function renderTopics(categoryId) {
     return acc;
   }, {});
   
+  const groupNames = Object.keys(groups);
+
   const topicsHTML = Object.entries(groups).map(([groupName, topics]) => `
-    <div class="article-group">
+    <div class="article-group" id="group-${groupName.replace(/\s+/g, '-').toLowerCase()}">
       <h3 class="article-group-title">${groupName}</h3>
       <div class="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4">
         ${topics.map(topic => `
@@ -118,7 +120,26 @@ function renderTopics(categoryId) {
       <span class="opacity-50">/</span>
       <span class="font-semibold">${category.title}</span>
     </div>
-    <div class="mt-4"><h1 class="text-4xl font-bold">${category.title}</h1></div>
+
+    <div class="flex justify-between items-start mt-4">
+      <h1 class="text-4xl font-bold">${category.title}</h1>
+      
+      ${groupNames.length > 1 ? `
+        <div class="relative group-filter-container">
+          <button class="group-filter-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          <div class="group-filter-menu">
+            <div class="font-semibold text-xs px-3 py-2 opacity-60">GRUPOS</div>
+            ${groupNames.map(name => `<a onclick="scrollToGroup('${name.replace(/\s+/g, '-').toLowerCase()}')" class="group-filter-item">${name}</a>`).join('')}
+          </div>
+        </div>
+      ` : ''}
+    </div>
     <div class="mt-8">${category.topics.length === 0 ? `<p class="opacity-70">Nenhum artigo encontrado.</p>` : topicsHTML}</div>`;
   
   updateScroll();
@@ -152,7 +173,7 @@ function renderArticle(categoryId, topicId) {
   renderSidebar();
 }
 
-// --- Lógica de Busca (sem alterações) ---
+// --- Lógica de Busca ---
 function handleSearch(event) {
   const query = event.target.value.trim();
   if (event.key === 'Enter') {
@@ -231,7 +252,7 @@ function setSearchScope(scopeId) {
     renderFilterMenuItems(filterMenuInput.value);
     toggleFilterMenu(false);
     searchInput.focus();
-    updateSearchInputPadding(); // <-- Chamada da nova função aqui
+    updateSearchInputPadding();
     if(searchInput.value.trim()) {
         performSearch(searchInput.value.trim());
     }
@@ -264,6 +285,19 @@ function setTheme(isDark) {
     document.body.classList.toggle('dark-mode', isDark);
     themeToggleBtn.innerHTML = isDark ? sunIcon : moonIcon;
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
+}
+
+// ===================================================================
+// NOVO: Função para scroll suave até um grupo de artigos
+// ===================================================================
+function scrollToGroup(groupId) {
+  const element = document.getElementById(`group-${groupId}`);
+  if (element && scrollInstance) {
+    scrollInstance.scrollTo(element, {
+      offset: -20, // Um pequeno espaço extra acima do título
+      duration: 600,
+    });
+  }
 }
 
 // --- Inicialização ---

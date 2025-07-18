@@ -1,8 +1,7 @@
 /*
  * ===================================================================
- * STYLE.CSS - REESCRITA COMPLETA E DEFINITIVA
+ * STYLE.CSS - VERSÃO 2.1 COM MELHORIAS DE DESIGN E NOVAS FUNCIONALIDADES
  * Projeto Base de Conhecimento
- * Versão 2.0: Completa, Responsiva e Refinada
  * ===================================================================
  */
 
@@ -25,7 +24,8 @@
   --sidebar-width: 256px;
   --radius: 1rem;
   --transition-speed: 0.25s;
-  --font-family: 'Poppins', sans-serif;
+  /* ATUALIZADO: Nova fonte */
+  --font-family: 'Inter', sans-serif;
 }
 
 body.dark-mode {
@@ -58,12 +58,16 @@ body {
   transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* ATUALIZADO: Ajuste de espaçamento para a fonte */
+  letter-spacing: -0.01em;
 }
 
+/* ATUALIZADO: Estilos de título refinados */
 h1,
 h2,
 h3 {
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: -0.025em;
   color: var(--text-color);
 }
 
@@ -87,17 +91,16 @@ a {
   overflow: hidden;
 }
 
-
-
 #content-wrapper {
   height: 100%;
 }
 
+/* ATUALIZADO: Maior espaçamento interno */
 #app {
   max-width: 1280px;
   width: 100%;
   margin: 0 auto;
-  padding: 2.5rem;
+  padding: 4rem;
   padding-bottom: 150px;
 }
 
@@ -155,25 +158,33 @@ a {
  *******************************************************************/
 
 /* Grid e Cards */
+/* ATUALIZADO: Espaçamento do grid e margem superior */
 .module-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin-top: 2.5rem;
+  gap: 1.75rem;
+  margin-top: 4rem;
 }
 
+/* ATUALIZADO: Estilo e transição do cartão */
 .card-link {
   border: 1px solid var(--border-color);
   background-color: var(--card-bg-color);
-  transition: all var(--transition-speed) ease-out;
+  transition: all var(--transition-speed) cubic-bezier(0.25, 1, 0.5, 1);
   border-radius: var(--radius);
-  padding: 1.25rem;
+  padding: 1.5rem;
 }
 
+/* ATUALIZADO: Efeito de hover refinado */
 .card-link:hover {
   border-color: var(--hover-border-color);
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px var(--shadow-color);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 15px 35px var(--shadow-color);
+}
+
+body.dark-mode .card-link:hover {
+  border-color: var(--hover-border-color);
+  background-color: var(--hover-bg-color);
 }
 
 .card-link:hover p,
@@ -374,13 +385,16 @@ body.dark-mode .theme-toggle-btn .moon-icon {
 
 /* 7. CONTEÚDO DOS ARTIGOS
  *******************************************************************/
+/* ATUALIZADO: Estilos dos títulos de artigo */
 .article-content h1 {
-  font-size: 2.75rem;
+  font-size: 3rem;
+  font-weight: 800;
 }
 
 .article-content h2 {
-  font-size: 1.75rem;
-  margin-top:   1rem;
+  font-size: 1.5rem;
+  margin-top: 3rem;
+  padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -396,9 +410,13 @@ body.dark-mode .theme-toggle-btn .moon-icon {
   border-top: none;
 }
 
+/* ATUALIZADO: Estilo do título do grupo de artigos */
 .article-group-title {
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
   margin-bottom: 1.5rem;
 }
 
@@ -419,12 +437,77 @@ pre {
   cursor: pointer;
 }
 
+/* ===================================================================
+ * NOVO: Estilos para o filtro de grupos
+ * =================================================================== */
+.group-filter-container {
+  position: relative;
+}
+
+.group-filter-btn {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  cursor: pointer;
+  color: var(--text-color-light);
+  border: 1px solid var(--border-color);
+  background-color: var(--card-bg-color);
+  transition: all var(--transition-speed) ease;
+}
+
+.group-filter-btn:hover {
+  border-color: var(--hover-border-color);
+  background-color: var(--hover-bg-color);
+  color: var(--text-color);
+}
+
+.group-filter-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 240px;
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 30px var(--shadow-color);
+  padding: 0.5rem;
+  z-index: 100;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.group-filter-container:hover .group-filter-menu {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.group-filter-item {
+  display: block;
+  padding: 0.6rem 0.75rem;
+  font-size: 0.9rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  color: var(--text-color-light);
+  transition: all 0.2s ease;
+}
+
+.group-filter-item:hover {
+  background-color: var(--hover-bg-color);
+  color: var(--text-color);
+}
+
+
 /* 8. RESPONSIVIDADE
  *******************************************************************/
 @media (max-width: 1024px) {
   #page-container {
     grid-template-columns: 0 1fr;
-    /* Esconde a sidebar */
   }
 
   .sidebar {
@@ -435,11 +518,11 @@ pre {
 
   #footer-search {
     left: 0;
-    /* Alinha o rodapé à tela */
   }
 }
 
 @media (max-width: 768px) {
+  /* ATUALIZADO: Ajuste do padding para telas menores */
   #app {
     padding: 1.5rem;
     padding-bottom: 120px;
@@ -449,8 +532,9 @@ pre {
     padding: 1rem 1.5rem;
   }
 
+  /* ATUALIZADO: Ajuste dos títulos para telas menores */
   .article-content h1 {
-    font-size: 2rem;
+    font-size: 2.25rem;
   }
 
   .article-content h2 {
