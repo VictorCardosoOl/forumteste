@@ -87,11 +87,7 @@ a {
   overflow: hidden;
 }
 
-#app-container {
-  height: 100vh;
-  overflow: hidden;
-  /* Locomotive Scroll atua aqui */
-}
+
 
 #content-wrapper {
   height: 100%;
