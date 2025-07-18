@@ -1,3 +1,15 @@
+import { forumData } from './data/index.js';
+
+// Exporte as funções para o escopo global
+window.renderCategories = renderCategories;
+window.renderTopics = renderTopics;
+window.renderArticle = renderArticle;
+window.handleSearch = handleSearch;
+window.setSearchScope = setSearchScope;
+
+
+
+
 // --- Constantes Globais ---
 const app = document.getElementById('app');
 const sidebarNav = document.getElementById('sidebar-nav');

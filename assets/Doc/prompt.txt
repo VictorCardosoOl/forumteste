@@ -29,3 +29,4 @@ Okay chat em tese funcionou porem foram não gostei de algumas alterações:
 4- o copyrith que estava no canto inferior direito e icone de tema escuro sumiram, gostaria que reestabelecesse como estavamantes;
 5- por fim pode melhorar a identidade visual do sipe por favor, não altera a paleta de cores preta e branca, porem acredito que voce consiga deixar o desing mais bonito.
 
+Chat analise meu codigo atual, esta ocorrendo algum erro pois os artigos não estão sendo exibidos.
