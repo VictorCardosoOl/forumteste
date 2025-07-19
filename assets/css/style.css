@@ -4,7 +4,7 @@
  * Projeto Base de Conhecimento
  * ===================================================================
  */
- @import url(locomotive.css);
+ 
 
 /* 1. VARIÁVEIS GLOBAIS
  *******************************************************************/
@@ -41,6 +41,7 @@ body.dark-mode {
   --glass-border: rgba(255, 255, 255, 0.1);
   --shadow-color: rgba(0, 0, 0, 0.2);
 }
+
 
 /* 2. ESTILOS DE BASE E RESET
  *******************************************************************/
@@ -83,14 +84,8 @@ a {
   color: inherit;
 }
 
-html {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
 
-html::-webkit-scrollbar {
-  display: none;
-}
+
 
 /* 3. LAYOUT PRINCIPAL COM GRID
  *******************************************************************/
@@ -550,4 +545,14 @@ pre {
   .article-content h2 {
     font-size: 1.5rem;
   }
+}
+
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  margin: 2rem auto;
+  display: block;
+  box-shadow: 0 8px 24px var(--shadow-color);
+  transition: transform var(--transition-speed) ease;
 }
