@@ -4,6 +4,7 @@
  * Projeto Base de Conhecimento
  * ===================================================================
  */
+ @import url(locomotive.css);
 
 /* 1. VARIÁVEIS GLOBAIS
  *******************************************************************/
@@ -80,6 +81,15 @@ div {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
 }
 
 /* 3. LAYOUT PRINCIPAL COM GRID
