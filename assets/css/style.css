@@ -1,623 +1,188 @@
 /*
  * ===================================================================
- * STYLE.CSS - VERSÃO REFINADA (FLUIDEZ E ELEGÂNCIA)
+ * STYLE.CSS - VERSÃO ELEGÂNCIA APRIMORADA
  * ===================================================================
  */
 
 /* 1. VARIÁVEIS GLOBAIS
  *******************************************************************/
 :root {
-  /* Cores (Modo Claro) */
-  --bg-color: #f8f9fa;
-  /* Um branco um pouco mais suave */
+  /* Cores (Modo Claro) - Tons mais suaves e profissionais */
+  --bg-color: #fbfbfb;
   --card-bg-color: #ffffff;
-  --text-color: #161618;
-  /* Um preto menos intenso */
-  --text-color-light: #52525b;
-  --border-color: #f1f1f1;
-  --hover-bg-color: #f8f8f8;
-  --hover-border-color: #e4e4e7;
-  --shadow-color: rgba(0, 0, 0, 0.05);
-  --shadow-color-hover: rgba(0, 0, 0, 0.1);
+  --text-color: #1a1a1a;
+  --text-color-light: #5a5a5a;
+  --border-color: #eaeaea;
+  --hover-bg-color: #f6f6f6;
+  --hover-border-color: #dcdcdc;
+  --shadow-color: rgba(0, 0, 0, 0.04);
+  --shadow-color-hover: rgba(0, 0, 0, 0.08);
 
-  /* Variáveis para o Efeito Glass (MAIS TRANSPARENTE) */
-  --glass-bg: rgba(255, 255, 255, 0.15);
-  /* Mais transparente */
-  --glass-border: rgba(255, 255, 255, 0.25);
-  --glass-outer-border-color: rgba(0, 0, 0, 0.1);
-  /* Borda fina escura */
-  --glass-text-color: #18181b;
-  --glass-placeholder-color: rgba(0, 0, 0, 0.45);
-  --glass-button-bg: rgba(0, 0, 0, 0.04);
-  --glass-button-hover-bg: rgba(0, 0, 0, 0.08);
+  /* Variáveis para o Efeito Glass - Sutis e refinadas */
+  --glass-bg: rgba(255, 255, 255, 0.3);
+  --glass-border: rgba(200, 200, 200, 0.3);
+  --glass-outer-border-color: rgba(0, 0, 0, 0.08);
+  --glass-text-color: var(--text-color);
+  --glass-placeholder-color: rgba(0, 0, 0, 0.4);
+  --glass-button-bg: rgba(0, 0, 0, 0.03);
+  --glass-button-hover-bg: rgba(0, 0, 0, 0.06);
 
-  /* Métricas e Animações (SENSAÇÃO 120Hz) */
+  /* Métricas, Tipografia e Animações */
   --sidebar-width: 220px;
-  --radius: 1rem;
-  --transition-fast: 0.2s;
+  --radius: 0.875rem; /* Um raio ligeiramente mais subtil */
+  --transition-fast: 0.25s;
   --transition-medium: 0.4s;
   --transition-slow: 0.6s;
-  /* Curva de Bézier para uma transição suave e rápida */
   --transition-curve: cubic-bezier(0.4, 0, 0.2, 1);
   --font-family: 'Inter', sans-serif;
+  --font-weight-body: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
 }
 
 body.dark-mode {
-  /* Cores (Modo Escuro) */
-  --bg-color: #0a0a0a;
-  --card-bg-color: #111111;
-  --text-color: #f5f5f5;
-  --text-color-light: #a1a1aa;
-  --border-color: #27272a;
-  --hover-bg-color: #1c1c1c;
-  --hover-border-color: #3f3f46;
-  --shadow-color: rgba(0, 0, 0, 0.15);
-  --shadow-color-hover: rgba(0, 0, 0, 0.25);
+  /* Cores (Modo Escuro) - Tons mais suaves */
+  --bg-color: #0d0d0d;
+  --card-bg-color: #131313;
+  --text-color: #f0f0f0;
+  --text-color-light: #a0a0a0;
+  --border-color: #2a2a2a;
+  --hover-bg-color: #1a1a1a;
+  --hover-border-color: #3a3a3a;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --shadow-color-hover: rgba(0, 0, 0, 0.3);
 
-  /* Variáveis para o Efeito Glass (MAIS TRANSPARENTE) */
-  --glass-bg: rgba(30, 30, 30, 0.2);
-  /* Mais transparente */
+  /* Variáveis para o Efeito Glass (Modo Escuro) */
+  --glass-bg: rgba(25, 25, 25, 0.3);
   --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-outer-border-color: rgba(255, 255, 255, 0.15);
-  /* Borda fina clara */
-  --glass-text-color: #f0f0f0;
-  --glass-placeholder-color: rgba(255, 255, 255, 0.5);
-  --glass-button-bg: rgba(255, 255, 255, 0.08);
-  --glass-button-hover-bg: rgba(255, 255, 255, 0.15);
+  --glass-outer-border-color: rgba(255, 255, 255, 0.1);
+  --glass-text-color: var(--text-color);
+  --glass-placeholder-color: rgba(255, 255, 255, 0.4);
+  --glass-button-bg: rgba(255, 255, 255, 0.06);
+  --glass-button-hover-bg: rgba(255, 255, 255, 0.12);
 }
 
-/* 2. ESTILOS DE BASE E RESET */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* 2. ESTILOS DE BASE E TIPOGRAFIA REFINADA */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background-color: var(--bg-color); color: var(--text-color); font-family: var(--font-family); font-weight: var(--font-weight-body); line-height: 1.6; transition: background-color var(--transition-medium) var(--transition-curve), color var(--transition-medium) var(--transition-curve); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+h1, h2, h3 { font-weight: var(--font-weight-bold); letter-spacing: -0.03em; color: var(--text-color); }
+p, span, div { color: var(--text-color-light); }
+a { text-decoration: none; color: inherit; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+#app.animate-in { animation: fadeIn var(--transition-slow) var(--transition-curve) forwards; }
+
+/* 3. LAYOUT E SIDEBAR COM INDICADOR ELEGANTE */
+#page-container { display: grid; grid-template-columns: var(--sidebar-width) 1fr; height: 100vh; overflow: hidden; }
+#content-wrapper { height: 100%; }
+#app { max-width: 1280px; width: 100%; margin: 0 auto; padding: 4rem; padding-bottom: 150px; }
+
+.sidebar { display: flex; flex-direction: column; height: 100vh; background-color: var(--bg-color); border-right: 1px solid var(--border-color); transition: all var(--transition-medium) var(--transition-curve); }
+.sidebar-header { padding: 1.5rem; flex-shrink: 0; }
+.sidebar-nav { flex-grow: 1; overflow-y: auto; padding: 0 0.75rem; }
+.sidebar-footer { padding: 1rem 1.5rem; display: flex; align-items: center; flex-shrink: 0; }
+
+.sidebar-nav-link { display: flex; align-items: center; gap: 0.75rem; padding: 0.8rem 1rem; border-radius: 0.5rem; transition: background-color var(--transition-fast) var(--transition-curve), color var(--transition-fast) var(--transition-curve); position: relative; }
+.sidebar-nav-link p, .sidebar-nav-link .module-icon { transition: color var(--transition-fast) var(--transition-curve); font-weight: var(--font-weight-medium); }
+.sidebar-nav-link:hover { background-color: var(--hover-bg-color); }
+.sidebar-nav-link:hover p, .sidebar-nav-link:hover .module-icon, .sidebar-nav-link.active p, .sidebar-nav-link.active .module-icon { color: var(--text-color); }
+
+/* Indicador de item ativo na sidebar - barra lateral sutil */
+.sidebar-nav-link::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 50%;
+  width: 3px;
+  background-color: var(--text-color);
+  border-radius: 0 3px 3px 0;
+  transform: translateY(-50%) scaleY(0);
+  opacity: 0;
+  transition: transform var(--transition-fast) var(--transition-curve), opacity var(--transition-fast) var(--transition-curve);
 }
+.sidebar-nav-link.active::before { transform: translateY(-50%) scaleY(1); opacity: 1; }
+.sidebar-nav-link.active { background-color: transparent; } /* Remove o fundo da classe active para focar no indicador */
+.sidebar-nav-link.active:hover { background-color: var(--hover-bg-color); }
 
-body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  font-family: var(--font-family);
-  transition: background-color var(--transition-medium) var(--transition-curve), color var(--transition-medium) var(--transition-curve);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  letter-spacing: -0.01em;
-}
 
-h1,
-h2,
-h3 {
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  color: var(--text-color);
-}
+/* 4. COMPONENTES E CARDS COM HOVER REFINADO */
+.module-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.75rem; margin-top: 4rem; }
+.card-link { border: 1px solid var(--border-color); background-color: var(--card-bg-color); transition: all var(--transition-medium) var(--transition-curve); border-radius: var(--radius); padding: 1.75rem; box-shadow: 0 4px 20px var(--shadow-color); }
+.card-link:hover { border-color: var(--hover-border-color); transform: translateY(-6px) scale(1.01); box-shadow: 0 10px 25px var(--shadow-color-hover); }
+.card-link .module-icon { transition: transform var(--transition-medium) var(--transition-curve); }
+.card-link:hover .module-icon { transform: scale(1.1) rotate(-3deg); }
 
-p,
-span,
-div {
-  color: var(--text-color-light);
-}
+.theme-toggle-btn { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 0.5rem; cursor: pointer; transition: all var(--transition-fast) var(--transition-curve); color: var(--text-color-light); }
+.theme-toggle-btn:hover { background-color: var(--hover-bg-color); color: var(--text-color); transform: scale(1.1) rotate(5deg); }
+.theme-toggle-btn .sun-icon, .theme-toggle-btn .moon-icon { display: none; }
+body:not(.dark-mode) .theme-toggle-btn .moon-icon { display: block; }
+body.dark-mode .theme-toggle-btn .sun-icon { display: block; }
 
-a {
-  text-decoration: none;
-  color: inherit;
-}
-
-/* Animação de entrada mais suave */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-#app.animate-in {
-  animation: fadeIn var(--transition-slow) var(--transition-curve) forwards;
-}
-
-/* 3. LAYOUT E SIDEBAR */
-#page-container {
-  display: grid;
-  grid-template-columns: var(--sidebar-width) 1fr;
-  height: 100vh;
-  overflow: hidden;
-}
-
-#content-wrapper {
-  height: 100%;
-}
-
-#app {
-  max-width: 1280px;
-  width: 100%;
-  margin: 0 auto;
-  padding: 4rem;
-  padding-bottom: 150px;
-}
-
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  background-color: var(--bg-color);
-  border-right: 1px solid var(--border-color);
-  transition: all var(--transition-medium) var(--transition-curve);
-}
-
-.sidebar-header {
-  padding: 1.5rem;
-  flex-shrink: 0;
-}
-
-.sidebar-nav {
-  flex-grow: 1;
-  overflow-y: auto;
-  padding: 0 0.5rem;
-}
-
-.sidebar-footer {
-  padding: 1rem 1.5rem;
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-.sidebar-nav-link {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
-  transition: background-color var(--transition-fast) var(--transition-curve), color var(--transition-fast) var(--transition-curve);
-  position: relative;
-}
-
-.sidebar-nav-link p,
-.sidebar-nav-link .module-icon {
-  transition: color var(--transition-fast) var(--transition-curve);
-}
-
-.sidebar-nav-link:hover p,
-.sidebar-nav-link:hover .module-icon,
-.sidebar-nav-link.active p,
-.sidebar-nav-link.active .module-icon {
-  color: var(--text-color);
-}
-
-.sidebar-nav-link:hover {
-  background-color: var(--hover-bg-color);
-}
-
-/* Destaque para o item ativo na sidebar */
-.sidebar-nav-link.active {
-  background-color: var(--hover-bg-color);
-}
-
-/* 4. COMPONENTES GERAIS E CARDS ELEGANTES */
-.module-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.75rem;
-  margin-top: 4rem;
-}
-
-.card-link {
-  border: 1px solid var(--border-color);
-  background-color: var(--card-bg-color);
-  transition: all var(--transition-medium) var(--transition-curve);
-  border-radius: var(--radius);
-  padding: 1.5rem;
-  box-shadow: 0 4px 15px var(--shadow-color);
-}
-
-.card-link:hover {
-  border-color: var(--hover-border-color);
-  transform: translateY(-8px);
-  box-shadow: 0 12px 25px var(--shadow-color-hover);
-}
-
-body.dark-mode .card-link:hover {
-  background-color: var(--hover-bg-color);
-}
-
-.card-link h3 {
-  font-size: 1.1rem;
-}
-
-.card-link .module-icon {
-  width: 2rem;
-  height: 2rem;
-  transition: transform var(--transition-medium) var(--transition-curve);
-}
-
-.card-link:hover .module-icon {
-  transform: scale(1.1);
-}
-
-.theme-toggle-btn {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: .5rem;
-  cursor: pointer;
-  transition: all var(--transition-fast) var(--transition-curve);
-  color: var(--text-color-light);
-}
-
-.theme-toggle-btn:hover {
-  background-color: var(--hover-bg-color);
-  color: var(--text-color);
-  transform: scale(1.1);
-}
-
-.theme-toggle-btn .sun-icon,
-.theme-toggle-btn .moon-icon {
-  display: none;
-}
-
-body:not(.dark-mode) .theme-toggle-btn .moon-icon {
-  display: block;
-}
-
-body.dark-mode .theme-toggle-btn .sun-icon {
-  display: block;
-}
-
-/* 5. RODAPÉ DE BUSCA COM EFEITO "AURA"
- *******************************************************************/
-#footer-search {
-  position: fixed;
-  bottom: 0;
-  z-index: 50;
-  left: var(--sidebar-width);
-  right: 0;
-  transition: left var(--transition-medium) var(--transition-curve);
-}
-
-#footer-search .max-w-4xl {
-  padding: 0.75rem 2rem;
-}
-
+/* 5. RODAPÉ DE BUSCA - EFEITO AURA MAIS SUTIL */
+#footer-search { position: fixed; bottom: 0; z-index: 50; left: var(--sidebar-width); right: 0; transition: left var(--transition-medium) var(--transition-curve); }
+#footer-search .max-w-4xl { padding: 0.75rem 2rem; }
 #footer-search .relative {
   background-color: var(--glass-bg);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  backdrop-filter: blur(28px) saturate(150%);
+  -webkit-backdrop-filter: blur(28px) saturate(150%);
   border: 1px solid var(--glass-border);
   border-radius: 999px;
-  /* Borda interna fina para melhor contraste */
-  box-shadow: inset 0 0 0 1px var(--glass-outer-border-color), 0 8px 32px var(--shadow-color);
+  box-shadow: inset 0 0 0 1px var(--glass-outer-border-color), 0 8px 40px var(--shadow-color);
   transition: all var(--transition-medium) var(--transition-curve);
   position: relative;
 }
-
-/* Efeito de Aura Interativa */
 #footer-search .relative::before {
   content: '';
   position: absolute;
-  top: -10px;
-  right: -10px;
-  bottom: -10px;
-  left: -10px;
+  top: -15px; right: -15px; bottom: -15px; left: -15px;
   border-radius: inherit;
-  /* Segue o mesmo raio da borda */
-  background: radial-gradient(circle, rgba(0, 0, 0, 0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(120, 120, 255, 0.12) 0%, transparent 80%);
   opacity: 0;
   transition: opacity var(--transition-medium) var(--transition-curve);
   z-index: -1;
   pointer-events: none;
 }
+#footer-search .relative:hover::before { opacity: 1; }
+body.dark-mode #footer-search .relative::before { background: radial-gradient(circle, rgba(140, 140, 255, 0.1) 0%, transparent 80%); }
 
-#footer-search .relative:hover::before {
-  opacity: 1;
-}
+#search-input { background-color: transparent !important; border: none !important; outline: none !important; color: var(--glass-text-color); transition: all var(--transition-medium) var(--transition-curve); }
+#search-input::placeholder { color: var(--glass-placeholder-color); opacity: 1; font-weight: var(--font-weight-body); }
+#search-input::-webkit-search-cancel-button { display: none; }
 
-body.dark-mode #footer-search .relative::before {
-  background: radial-gradient(circle, rgba(120, 120, 255, 0.1) 0%, transparent 70%);
-}
+#search-filter-button { position: absolute; left: 6px; top: 6px; bottom: 6px; display: flex; align-items: center; gap: .5rem; padding: 0 1rem; background-color: var(--glass-button-bg); border-radius: 999px; font-size: .8rem; font-weight: var(--font-weight-medium); color: var(--glass-text-color); cursor: pointer; transition: all var(--transition-fast) var(--transition-curve); border: 1px solid transparent; }
+#search-filter-button:hover { background-color: var(--glass-button-hover-bg); transform: scale(1.02); }
+#search-filter-button span, #search-filter-button svg { color: var(--glass-text-color) !important; transition: transform var(--transition-fast) var(--transition-curve); }
 
-#search-input {
-  background-color: transparent !important;
-  border: none !important;
-  outline: none !important;
-  color: var(--glass-text-color);
-  transition: all var(--transition-medium) var(--transition-curve);
-}
+/* 6. MENU DE FILTRO SEM BARRA DE ROLAGEM */
+.search-filter-menu { position: absolute; bottom: calc(100% + 10px); left: 0; width: 280px; background-color: var(--card-bg-color); border: 1px solid var(--border-color); border-radius: var(--radius); box-shadow: 0 12px 40px var(--shadow-color); padding: 0.5rem; z-index: 100; visibility: hidden; opacity: 0; transform: translateY(10px); transition: all var(--transition-medium) var(--transition-curve); }
+.search-filter-menu.visible { visibility: visible; opacity: 1; transform: translateY(0); }
+.filter-menu-input-wrapper { position: relative; margin-bottom: 0.5rem; }
+.filter-menu-input-wrapper svg { position: absolute; left: 0.875rem; top: 50%; transform: translateY(-50%); width: 0.875rem; height: 0.875rem; color: var(--text-color-light); pointer-events: none; }
+#filter-menu-input { width: 100%; height: 2.5rem; padding: 0.5rem 0.75rem 0.5rem 2.25rem; border-radius: 999px; border: 1px solid var(--border-color); background-color: var(--bg-color); color: var(--text-color); font-size: 0.875rem; transition: all var(--transition-fast) var(--transition-curve); }
+#filter-menu-input:focus { outline: none; border-color: var(--text-color); background-color: var(--card-bg-color); }
+.filter-menu-list { max-height: 200px; overflow-y: auto; scrollbar-width: none; }
+.filter-menu-list::-webkit-scrollbar { display: none; }
+.filter-menu-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem; border-radius: 0.5rem; cursor: pointer; transition: background-color var(--transition-fast) var(--transition-curve); }
+.filter-menu-item span { font-size: 0.875rem; font-weight: var(--font-weight-medium); }
+.filter-menu-item:hover, .filter-menu-item.active { background-color: var(--hover-bg-color); }
+.filter-menu-item.active span, .filter-menu-item.active svg { color: var(--text-color); }
+.filter-menu-item .item-icon { width: 1.25rem; height: 1.25rem; opacity: 0.5; color: var(--text-color-light); }
 
-#search-input::placeholder {
-  color: var(--glass-placeholder-color);
-  opacity: 1;
-}
-
-#search-input::-webkit-search-cancel-button {
-  display: none;
-}
-
-#search-filter-button {
-  position: absolute;
-  left: 6px;
-  top: 6px;
-  bottom: 6px;
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-  padding: 0 1rem;
-  background-color: var(--glass-button-bg);
-  border-radius: 999px;
-  font-size: .8rem;
-  font-weight: 500;
-  color: var(--glass-text-color);
-  cursor: pointer;
-  transition: all var(--transition-fast) var(--transition-curve);
-  border: 1px solid transparent;
-}
-
-#search-filter-button:hover {
-  background-color: var(--glass-button-hover-bg);
-  transform: scale(1.02);
-}
-
-#search-filter-button span,
-#search-filter-button svg {
-  color: var(--glass-text-color) !important;
-  transition: transform var(--transition-fast) var(--transition-curve);
-}
-
-#search-filter-button:hover svg {
-  transform: rotate(-5deg);
-}
-
-/* 6. MENU DE FILTRO SEM BARRA DE ROLAGEM
- *******************************************************************/
-.search-filter-menu {
-  position: absolute;
-  bottom: calc(100% + 10px);
-  left: 0;
-  width: 280px;
-  background-color: var(--card-bg-color);
-  border: 1px solid var(--border-color);
-  border-radius: 0.875rem;
-  box-shadow: 0 12px 40px var(--shadow-color);
-  padding: 0.5rem;
-  z-index: 100;
-  visibility: hidden;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all var(--transition-medium) var(--transition-curve);
-}
-
-.search-filter-menu.visible {
-  visibility: visible;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.filter-menu-input-wrapper {
-  position: relative;
-  margin-bottom: 0.5rem;
-}
-
-.filter-menu-input-wrapper svg {
-  position: absolute;
-  left: 0.875rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 0.875rem;
-  height: 0.875rem;
-  color: var(--text-color-light);
-  pointer-events: none;
-}
-
-#filter-menu-input {
-  width: 100%;
-  height: 2.5rem;
-  padding: 0.5rem 0.75rem 0.5rem 2.25rem;
-  border-radius: 999px;
-  border: 1px solid var(--border-color);
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  font-size: 0.875rem;
-  transition: all var(--transition-fast) var(--transition-curve);
-}
-
-#filter-menu-input:focus {
-  outline: none;
-  border-color: var(--text-color);
-  background-color: var(--card-bg-color);
-}
-
-/* Oculta a barra de rolagem */
-.filter-menu-list {
-  max-height: 200px;
-  overflow-y: auto;
-  scrollbar-width: none;
-  /* Firefox */
-}
-
-.filter-menu-list::-webkit-scrollbar {
-  display: none;
-  /* Chrome, Safari, and Opera */
-}
-
-.filter-menu-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  transition: background-color var(--transition-fast) var(--transition-curve);
-}
-
-.filter-menu-item span {
-  font-size: 0.875rem;
-}
-
-.filter-menu-item:hover,
-.filter-menu-item.active {
-  background-color: var(--hover-bg-color);
-}
-
-.filter-menu-item.active span,
-.filter-menu-item.active svg {
-  color: var(--text-color);
-}
-
-.filter-menu-item .item-icon {
-  width: 1.25rem;
-  height: 1.25rem;
-  opacity: 0.5;
-  color: var(--text-color-light);
-}
-
-/* 7. CONTEÚDO E RESPONSIVIDADE */
-.article-content h1 {
-  font-size: 3rem;
-  font-weight: 800;
-}
-
-.article-content h2 {
-  font-size: 1.5rem;
-  margin-top: 3rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--border-color);
-}
-
-@media (max-width: 1024px) {
-  #page-container {
-    grid-template-columns: 0 1fr;
-  }
-
-  .sidebar {
-    transform: translateX(-100%);
-  }
-
-  #footer-search {
-    left: 0;
-  }
-}
-
-@media (max-width: 768px) {
-  #app {
-    padding: 1.5rem;
-    padding-bottom: 120px;
-  }
-
-  #footer-search .max-w-4xl {
-    padding: 0.5rem 1rem;
-  }
-
-  .article-content h1 {
-    font-size: 2.25rem;
-  }
-}
-
-/* O resto do CSS de responsividade e conteúdo pode ser mantido como estava */
-.article-group {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--border-color);
-}
-
-#floating-group-filter {
-  position: fixed;
-  top: 2rem;
-  right: 2.5rem;
-  z-index: 40;
-}
-
-#floating-group-filter .group-filter-btn {
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  cursor: pointer;
-  color: var(--text-color-light);
-  border: 1px solid var(--border-color);
-  background-color: var(--card-bg-color);
-  transition: all var(--transition-medium) var(--transition-curve);
-}
-
-#floating-group-filter .group-filter-menu {
-  position: absolute;
-  top: calc(100% + 8px);
-  right: 0;
-  width: 240px;
-  background-color: var(--card-bg-color);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  box-shadow: 0 10px 30px var(--shadow-color);
-  padding: 0.5rem;
-  z-index: 100;
-  visibility: hidden;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all var(--transition-fast) var(--transition-curve);
-}
-
-#floating-group-filter .group-filter-menu.visible {
-  visibility: visible;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-#floating-group-filter .group-filter-item {
-  display: block;
-  padding: 0.6rem 0.75rem;
-  font-size: 0.9rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  color: var(--text-color-light);
-  transition: all var(--transition-fast) var(--transition-curve);
-}
-
-#floating-group-filter .group-filter-item:hover {
-  background-color: var(--hover-bg-color);
-  color: var(--text-color);
-}
-
-.group-filter-container {
-  position: relative;
-}
-
-.group-filter-btn:hover {
-  border-color: var(--hover-border-color);
-  background-color: var(--hover-bg-color);
-  color: var(--text-color);
-}
-
-.article-content img {
-  max-width: 100%;
-  height: auto;
-  border-radius: var(--radius);
-  margin: 2rem auto;
-  display: block;
-  box-shadow: 0 8px 24px var(--shadow-color);
-  transition: transform var(--transition-slow) ease;
-}
-
-pre {
-  position: relative;
-}
-
-.copy-button {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background-color: var(--card-bg-color);
-  color: var(--text-color-light);
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  padding: 5px 12px;
-  font-size: 12px;
-  cursor: pointer;
-}
+/* 7. CONTEÚDO E RESPONSIVIDADE (Mantidos) */
+.article-content h1 { font-size: 3rem; font-weight: var(--font-weight-bold); line-height: 1.2; }
+.article-content h2 { font-size: 1.5rem; margin-top: 3rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border-color); }
+@media (max-width: 1024px) { #page-container { grid-template-columns: 0 1fr; } .sidebar { transform: translateX(-100%); } #footer-search { left: 0; } }
+@media (max-width: 768px) { #app { padding: 1.5rem; padding-bottom: 120px; } #footer-search .max-w-4xl { padding: 0.5rem 1rem; } .article-content h1 { font-size: 2.25rem; } }
+.article-group { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-color); }
+#floating-group-filter { position: fixed; top: 2rem; right: 2.5rem; z-index: 40; }
+#floating-group-filter .group-filter-btn { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 999px; cursor: pointer; color: var(--text-color-light); border: 1px solid var(--border-color); background-color: var(--card-bg-color); transition: all var(--transition-medium) var(--transition-curve); }
+#floating-group-filter .group-filter-menu { position: absolute; top: calc(100% + 8px); right: 0; width: 240px; background-color: var(--card-bg-color); border: 1px solid var(--border-color); border-radius: var(--radius); box-shadow: 0 10px 30px var(--shadow-color); padding: 0.5rem; z-index: 100; visibility: hidden; opacity: 0; transform: translateY(10px); transition: all var(--transition-fast) var(--transition-curve); }
+#floating-group-filter .group-filter-menu.visible { visibility: visible; opacity: 1; transform: translateY(0); }
+#floating-group-filter .group-filter-item { display: block; padding: 0.6rem 0.75rem; font-size: 0.9rem; border-radius: 0.5rem; cursor: pointer; color: var(--text-color-light); transition: all var(--transition-fast) var(--transition-curve); }
+#floating-group-filter .group-filter-item:hover { background-color: var(--hover-bg-color); color: var(--text-color); }
+.group-filter-container { position: relative; }
+.group-filter-btn:hover { border-color: var(--hover-border-color); background-color: var(--hover-bg-color); color: var(--text-color); }
+.article-content img { max-width: 100%; height: auto; border-radius: var(--radius); margin: 2rem auto; display: block; box-shadow: 0 8px 24px var(--shadow-color); transition: transform var(--transition-slow) ease; }
+pre { position: relative; }
+.copy-button { position: absolute; top: 12px; right: 12px; background-color: var(--card-bg-color); color: var(--text-color-light); border: 1px solid var(--border-color); border-radius: 6px; padding: 5px 12px; font-size: 12px; cursor: pointer; }
