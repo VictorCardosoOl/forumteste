@@ -1,60 +1,55 @@
-/* ==============================================
-   VARIÁVEIS GLOBAIS E ESTILOS BASE
-   ============================================== */
+/*
+ * ===================================================================
+ * STYLE.CSS - VERSÃO 5.0 | SOLUÇÃO FINAL COM CSS À PROVA DE CONFLITOS
+ * ===================================================================
+ */
+
+/* 1. VARIÁVEIS GLOBAIS
+ *******************************************************************/
 :root {
   /* Cores (Modo Claro) */
-  --color-bg: #ffffff;
-  --color-card-bg: #ffffff;
-  --color-text: #111111;
-  --color-text-light: #555555;
-  --color-border: #f0f0f0;
-  --color-hover-bg: #f5f5f5;
-  --color-hover-border: #dddddd;
-  --color-shadow: rgba(0, 0, 0, 0.07);
-  
-  /* Efeito Glass (Modo Claro) */
-  --glass-bg: rgba(255, 255, 255, 0.2);
-  --glass-border: rgba(255, 255, 255, 0.3);
-  --glass-text: #ffffff;
-  --glass-placeholder: rgba(255, 255, 255, 0.75);
-  
+  --bg-color: #ffffff;
+  --card-bg-color: #ffffff;
+  --text-color: #111111;
+  --text-color-light: #555555;
+  --border-color: #f0f0f0;
+  --hover-bg-color: #f5f5f5;
+  --hover-border-color: #dddddd;
+  --shadow-color: rgba(0, 0, 0, 0.07);
+
+  /* ATUALIZAÇÃO FINAL: Variáveis ajustadas para o efeito "Frosted Glass" MAIS TRANSPARENTE */
+  --glass-bg: rgba(255, 255, 255, 0.15);
+  /* AINDA MAIS transparente */
+  --glass-border: rgba(255, 255, 255, 0.25);
+  /* Borda branca sutil */
+  --glass-text-color: #333;
+  --glass-placeholder-color: rgba(0, 0, 0, 0.4);
+
   /* Métricas */
   --sidebar-width: 220px;
-  --radius-base: 1rem;
-  --radius-full: 999px;
+  --radius: 1rem;
   --transition-speed: 0.25s;
   --font-family: 'Inter', sans-serif;
-  --font-family-heading: 'Poppins', sans-serif;
-  
-  /* Espaçamentos */
-  --space-xs: 0.25rem;
-  --space-sm: 0.5rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 2rem;
-  --space-2xl: 3rem;
-  --space-3xl: 4rem;
 }
 
-/* Modo Escuro */
 body.dark-mode {
-  --color-bg: #000000;
-  --color-card-bg: #111111;
-  --color-text: #f5f5f5;
-  --color-text-light: #a0a0a0;
-  --color-border: #2a2a2a;
-  --color-hover-bg: #1c1c1c;
-  --color-hover-border: #444444;
-  --color-shadow: rgba(0, 0, 0, 0.2);
-  
-  /* Efeito Glass (Modo Escuro) */
-  --glass-bg: rgba(40, 40, 40, 0.3);
+  --bg-color: #000000;
+  --card-bg-color: #111111;
+  --text-color: #f5f5f5;
+  --text-color-light: #a0a0a0;
+  --border-color: #2a2a2a;
+  --hover-bg-color: #1c1c1c;
+  --hover-border-color: #444444;
+  --shadow-color: rgba(0, 0, 0, 0.2);
+
+  /* ATUALIZAÇÃO FINAL: Variáveis "Frosted Glass" MAIS TRANSPARENTES para o modo escuro */
+  --glass-bg: rgba(40, 40, 40, 0.2);
   --glass-border: rgba(255, 255, 255, 0.15);
-  --glass-text: rgba(255, 255, 255, 0.9);
-  --glass-placeholder: rgba(255, 255, 255, 0.6);
+  --glass-text-color: #f0f0f0;
+  --glass-placeholder-color: rgba(255, 255, 255, 0.5);
 }
 
-/* Reset e Estilos Base */
+/* 2. ESTILOS DE BASE E RESET (Mantido) */
 *,
 *::before,
 *::after {
@@ -64,21 +59,27 @@ body.dark-mode {
 }
 
 body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
+  background-color: var(--bg-color);
+  color: var(--text-color);
   font-family: var(--font-family);
-  transition: background-color var(--transition-speed) ease, 
-              color var(--transition-speed) ease;
+  transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  line-height: 1.5;
+  letter-spacing: -0.01em;
 }
 
-h1, h2, h3, h4 {
-  font-family: var(--font-family-heading);
+h1,
+h2,
+h3 {
   font-weight: 700;
-  color: var(--color-text);
-  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: var(--text-color);
+}
+
+p,
+span,
+div {
+  color: var(--text-color-light);
 }
 
 a {
@@ -86,19 +87,12 @@ a {
   color: inherit;
 }
 
-/* ==============================================
-   LAYOUT PRINCIPAL
-   ============================================== */
+/* 3. LAYOUT PRINCIPAL (Mantido) */
 #page-container {
   display: grid;
   grid-template-columns: var(--sidebar-width) 1fr;
-  min-height: 100vh;
-}
-
-.main-content {
-  position: relative;
-  overflow-y: auto;
   height: 100vh;
+  overflow: hidden;
 }
 
 #content-wrapper {
@@ -109,282 +103,246 @@ a {
   max-width: 1280px;
   width: 100%;
   margin: 0 auto;
-  padding: var(--space-3xl);
+  padding: 4rem;
   padding-bottom: 150px;
 }
 
-/* ==============================================
-   ANIMAÇÕES
-   ============================================== */
 @keyframes fadeIn {
   from {
     opacity: 0;
     transform: translateY(15px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-.app-content.animate-in {
+#app.animate-in {
   animation: fadeIn 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
-/* ==============================================
-   SIDEBAR
-   ============================================== */
+/* 4. SIDEBAR (Mantido) */
 .sidebar {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background-color: var(--color-bg);
-  border-right: 1px solid var(--color-border);
+  background-color: var(--bg-color);
+  border-right: 1px solid var(--border-color);
   transition: all var(--transition-speed) ease;
 }
 
-.sidebar__inner {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: var(--space-md) 0;
-}
-
-.sidebar__header {
-  padding: 0 var(--space-lg);
-  margin-bottom: var(--space-lg);
-}
-
-.sidebar__logo {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  cursor: pointer;
-}
-
-.sidebar__logo-icon {
-  width: 24px;
-  height: 24px;
-  color: currentColor;
-}
-
-.sidebar__logo-text {
-  font-size: 1.125rem;
-  font-weight: 700;
-}
-
-.sidebar__nav {
-  flex: 1;
-  overflow-y: auto;
-  padding: 0 var(--space-sm);
-}
-
-.sidebar__nav-link {
-  display: flex;
-  align-items: center;
-  gap: var(--space-md);
-  padding: var(--space-sm) var(--space-md);
-  margin: var(--space-xs) 0;
-  border-radius: var(--radius-base);
-  transition: all var(--transition-speed) ease;
-}
-
-.sidebar__nav-link:hover {
-  background-color: var(--color-hover-bg);
-}
-
-.sidebar__nav-icon {
-  width: 24px;
-  height: 24px;
+.sidebar-header {
+  padding: 1.5rem;
   flex-shrink: 0;
 }
 
-.sidebar__footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-md);
-  padding: 0 var(--space-lg);
-  margin-top: var(--space-md);
+.sidebar-nav {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 0 0.5rem;
 }
 
-.theme-toggle {
+.sidebar-footer {
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.sidebar-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sidebar-nav-link:hover p,
+.sidebar-nav-link:hover .module-icon {
+  color: var(--text-color);
+}
+
+.sidebar-nav-link:hover {
+  background-color: var(--hover-bg-color);
+}
+
+/* 5. COMPONENTES GERAIS (Mantido) */
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.75rem;
+  margin-top: 4rem;
+}
+
+.card-link {
+  border: 1px solid var(--border-color);
+  background-color: var(--card-bg-color);
+  transition: all var(--transition-speed) cubic-bezier(0.25, 1, 0.5, 1);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+.card-link:hover {
+  border-color: var(--hover-border-color);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 15px 35px var(--shadow-color);
+}
+
+body.dark-mode .card-link:hover {
+  border-color: var(--hover-border-color);
+  background-color: var(--hover-bg-color);
+}
+
+.card-link:hover p,
+.card-link:hover h3 {
+  color: var(--text-color);
+}
+
+.card-link h3 {
+  font-size: 1.1rem;
+}
+
+.card-link .module-icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.theme-toggle-btn {
   width: 36px;
   height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-base);
+  border-radius: .5rem;
   cursor: pointer;
-  transition: all var(--transition-speed) ease;
-  color: var(--color-text-light);
-  background-color: transparent;
-  border: none;
+  transition: all .2s;
+  color: var(--text-color-light);
 }
 
-.theme-toggle:hover {
-  background-color: var(--color-hover-bg);
-  color: var(--color-text);
+.theme-toggle-btn:hover {
+  background-color: var(--hover-bg-color);
+  color: var(--text-color);
 }
 
-.theme-toggle__icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.theme-toggle .moon-icon {
-  display: block;
-}
-
-.theme-toggle .sun-icon {
+.theme-toggle-btn .sun-icon {
   display: none;
 }
 
-body.dark-mode .theme-toggle .moon-icon {
-  display: none;
-}
-
-body.dark-mode .theme-toggle .sun-icon {
+.theme-toggle-btn .moon-icon {
   display: block;
 }
 
-.sidebar__copyright {
-  font-size: 0.75rem;
-  color: var(--color-text-light);
+body.dark-mode .theme-toggle-btn .sun-icon {
+  display: block;
 }
 
-/* ==============================================
-   COMPONENTES DE CARD
-   ============================================== */
-.module-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: var(--space-lg);
-  margin-top: var(--space-2xl);
+body.dark-mode .theme-toggle-btn .moon-icon {
+  display: none;
 }
 
-.card-link {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-  padding: var(--space-lg);
-  border: 1px solid var(--color-border);
-  background-color: var(--color-card-bg);
-  border-radius: var(--radius-base);
-  transition: all var(--transition-speed) cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.card-link:hover {
-  border-color: var(--color-hover-border);
-  transform: translateY(-6px);
-  box-shadow: 0 15px 35px var(--color-shadow);
-}
-
-.card-link__icon {
-  width: 32px;
-  height: 32px;
-}
-
-.card-link__title {
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-.card-link__description {
-  font-size: 0.875rem;
-  color: var(--color-text-light);
-}
-
-/* ==============================================
-   BARRA DE PESQUISA (GLASS EFFECT)
-   ============================================== */
-.search-bar {
+/* 6. RODAPÉ DE BUSCA (REATORAÇÃO FINAL "FROSTED GLASS")
+ *******************************************************************/
+#footer-search {
   position: fixed;
   bottom: 0;
+  z-index: 50;
   left: var(--sidebar-width);
   right: 0;
-  z-index: 50;
-  padding: var(--space-md);
   transition: left var(--transition-speed) ease;
 }
 
-.search-bar__container {
+.footer-content-wrapper {
   max-width: 1280px;
   margin: 0 auto;
+  padding: 0.75rem 2.5rem;
 }
 
-.search-bar__wrapper {
-  position: relative;
-  background-color: var(--glass-bg);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-full);
-  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2);
-  overflow: hidden;
+/* ATUALIZAÇÃO FINAL: Seletores de alta prioridade para o container do efeito */
+footer#footer-search .relative {
+  background-color: var(--glass-bg) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid var(--glass-border) !important;
+  border-radius: 999px !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15) !important;
 }
 
-.search-bar__input {
-  width: 100%;
-  height: 56px;
-  padding: 0 var(--space-lg) 0 4.5rem;
-  background-color: transparent;
-  border: none;
-  outline: none;
-  color: var(--glass-text);
-  font-size: 1rem;
-  font-weight: 500;
+/* ATUALIZAÇÃO FINAL: Seletores de alta prioridade para o input */
+footer#footer-search .search-input-field {
+  background-color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  color: var(--glass-text-color) !important;
+  transition: all var(--transition-speed) ease;
+  height: 3rem !important;
 }
 
-.search-bar__input::placeholder {
-  color: var(--glass-placeholder);
-  font-weight: 400;
+footer#footer-search .search-input-field::placeholder {
+  color: var(--glass-placeholder-color) !important;
+  opacity: 1;
 }
 
-.search-bar__filter-button {
+/* ATUALIZAÇÃO FINAL: Seletores de alta prioridade para o botão de filtro */
+footer#footer-search .search-filter-button {
   position: absolute;
   left: 6px;
   top: 6px;
   bottom: 6px;
   display: flex;
   align-items: center;
-  gap: var(--space-xs);
-  padding: 0 var(--space-md);
-  background-color: rgba(255, 255, 255, 0.15);
-  border-radius: var(--radius-full);
-  font-size: 0.875rem;
+  gap: .5rem;
+  padding: 0 1rem;
+  background-color: rgba(0, 0, 0, 0.05);
+  border-radius: 999px;
+  font-size: .8rem;
   font-weight: 500;
-  color: var(--glass-text);
+  color: var(--glass-text-color);
   cursor: pointer;
-  transition: all var(--transition-speed) ease;
-  border: none;
+  transition: all .2s ease;
+  border: 1px solid transparent;
 }
 
-.search-bar__filter-button:hover {
-  background-color: rgba(255, 255, 255, 0.25);
+body.dark-mode footer#footer-search .search-filter-button {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* ==============================================
-   MENU DE FILTRO (GLASS EFFECT)
-   ============================================== */
+footer#footer-search .search-filter-button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  border-color: var(--glass-border);
+}
+
+body.dark-mode footer#footer-search .search-filter-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+footer#footer-search .search-filter-button span {
+  color: var(--glass-text-color) !important;
+}
+
+footer#footer-search .search-filter-button svg {
+  color: var(--glass-text-color) !important;
+  opacity: 0.7;
+}
+
+/* MENU DE FILTRO (Mantido) */
 .search-filter-menu {
   position: absolute;
   bottom: calc(100% + 10px);
   left: 0;
   width: 280px;
-  background-color: var(--glass-bg);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-base);
-  box-shadow: 0 12px 40px rgba(31, 38, 135, 0.2);
-  padding: var(--space-sm);
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 0.875rem;
+  box-shadow: 0 12px 40px var(--shadow-color);
+  padding: 0.5rem;
   z-index: 100;
   visibility: hidden;
   opacity: 0;
   transform: translateY(10px);
-  transition: all var(--transition-speed) cubic-bezier(0.25, 1, 0.5, 1);
+  transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .search-filter-menu.visible {
@@ -393,178 +351,169 @@ body.dark-mode .theme-toggle .sun-icon {
   transform: translateY(0);
 }
 
-.search-filter-menu__input-wrapper {
+.filter-menu-input-wrapper {
   position: relative;
-  margin-bottom: var(--space-sm);
-  background-color: rgba(255, 255, 255, 0.15);
-  border-radius: var(--radius-full);
+  margin-bottom: 0.5rem;
 }
 
-.search-filter-menu__input {
+.filter-menu-input-wrapper svg {
+  position: absolute;
+  left: 0.875rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0.875rem;
+  height: 0.875rem;
+  color: var(--text-color-light);
+  pointer-events: none;
+}
+
+.filter-menu-input {
   width: 100%;
   height: 2.25rem;
-  padding: 0 var(--space-sm) 0 2.25rem;
-  background-color: transparent;
-  border: none;
-  outline: none;
-  color: var(--glass-text);
+  padding: 0.5rem 0.75rem 0.5rem 2.25rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-color);
+  color: var(--text-color);
   font-size: 0.875rem;
+  transition: all 0.2s ease;
 }
 
-.search-filter-menu__list {
+.filter-menu-input:focus {
+  outline: none;
+  border-color: var(--text-color);
+}
+
+.filter-menu-list {
   max-height: 200px;
   overflow-y: auto;
 }
 
-.search-filter-menu__item {
+.filter-menu-item {
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
-  padding: var(--space-sm);
-  border-radius: var(--radius-base);
+  gap: 0.75rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
   cursor: pointer;
-  transition: background-color var(--transition-speed) ease;
-  color: var(--glass-text);
+  transition: background-color 0.2s;
 }
 
-.search-filter-menu__item:hover,
-.search-filter-menu__item.active {
-  background-color: rgba(255, 255, 255, 0.1);
+.filter-menu-item span {
+  font-size: 0.875rem;
 }
 
-.search-filter-menu__item-icon {
-  width: 20px;
-  height: 20px;
-  opacity: 0.8;
+.filter-menu-item:hover,
+.filter-menu-item.active {
+  background-color: var(--hover-bg-color);
 }
 
-/* ==============================================
-   CONTEÚDO DE ARTIGOS
-   ============================================== */
+.filter-menu-item.active span,
+.filter-menu-item.active svg {
+  color: var(--text-color);
+}
+
+.filter-menu-item .item-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  opacity: 0.5;
+  color: var(--text-color-light);
+}
+
+/* 7. CONTEÚDO E BOTÃO FLUTUANTE (Mantido) */
 .article-content h1 {
   font-size: 3rem;
   font-weight: 800;
-  margin-bottom: var(--space-md);
 }
 
 .article-content h2 {
   font-size: 1.5rem;
-  margin-top: var(--space-xl);
-  padding-bottom: var(--space-sm);
-  border-bottom: 1px solid var(--color-border);
-}
-
-.article-content hr {
-  margin: var(--space-xl) 0;
-  border: none;
-  border-top: 1px solid var(--color-border);
-  opacity: 0.2;
+  margin-top: 3rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .article-group {
-  margin-top: var(--space-md);
-  padding-top: var(--space-md);
-  border-top: 1px solid var(--color-border);
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
 }
 
-.article-group__title {
-  font-size: 1.25rem;
-  margin-bottom: var(--space-md);
-}
-
-/* ==============================================
-   BOTÃO FLUTUANTE DE FILTRO
-   ============================================== */
-.floating-group-filter {
+#floating-group-filter {
   position: fixed;
-  top: var(--space-lg);
-  right: var(--space-xl);
+  top: 2rem;
+  right: 2.5rem;
   z-index: 40;
 }
 
-.group-filter-btn {
+#floating-group-filter .group-filter-btn {
   width: 44px;
   height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius-full);
+  border-radius: 999px;
   cursor: pointer;
-  color: var(--color-text-light);
-  border: 1px solid var(--color-border);
-  background-color: var(--color-card-bg);
+  color: var(--text-color-light);
+  border: 1px solid var(--border-color);
+  background-color: var(--card-bg-color);
   transition: all var(--transition-speed) ease;
 }
 
-.group-filter-btn:hover {
-  border-color: var(--color-hover-border);
-  background-color: var(--color-hover-bg);
-  color: var(--color-text);
-}
-
-.group-filter-menu {
+#floating-group-filter .group-filter-menu {
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
   width: 240px;
-  background-color: var(--color-card-bg);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-base);
-  box-shadow: 0 10px 30px var(--color-shadow);
-  padding: var(--space-sm);
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 30px var(--shadow-color);
+  padding: 0.5rem;
   z-index: 100;
   visibility: hidden;
   opacity: 0;
   transform: translateY(10px);
-  transition: all var(--transition-speed) cubic-bezier(0.25, 1, 0.5, 1);
+  transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.group-filter-menu.visible {
+#floating-group-filter .group-filter-menu.visible {
   visibility: visible;
   opacity: 1;
   transform: translateY(0);
 }
 
-.group-filter-item {
+#floating-group-filter .group-filter-item {
   display: block;
-  padding: var(--space-sm) var(--space-md);
+  padding: 0.6rem 0.75rem;
   font-size: 0.9rem;
-  border-radius: var(--radius-base);
+  border-radius: 0.5rem;
   cursor: pointer;
-  color: var(--color-text-light);
-  transition: all var(--transition-speed) ease;
+  color: var(--text-color-light);
+  transition: all 0.2s ease;
+}
+
+#floating-group-filter .group-filter-item:hover {
+  background-color: var(--hover-bg-color);
+  color: var(--text-color);
+}
+
+.group-filter-container {
+  position: relative;
+}
+
+.group-filter-btn:hover {
+  border-color: var(--hover-border-color);
+  background-color: var(--hover-bg-color);
+  color: var(--text-color);
 }
 
 .group-filter-item:hover {
-  background-color: var(--color-hover-bg);
-  color: var(--color-text);
+  background-color: var(--hover-bg-color);
+  color: var(--text-color);
 }
 
-/* ==============================================
-   BOTÃO DE COPIAR CÓDIGO
-   ============================================== */
-.copy-button {
-  position: absolute;
-  top: var(--space-sm);
-  right: var(--space-sm);
-  background-color: var(--color-card-bg);
-  color: var(--color-text-light);
-  border: 1px solid var(--color-border);
-  border-radius: 6px;
-  padding: var(--space-xs) var(--space-sm);
-  font-size: 0.75rem;
-  cursor: pointer;
-  transition: all var(--transition-speed) ease;
-}
-
-.copy-button:hover {
-  background-color: var(--color-hover-bg);
-  color: var(--color-text);
-}
-
-/* ==============================================
-   RESPONSIVIDADE
-   ============================================== */
+/* 8. RESPONSIVIDADE (Mantido) */
 @media (max-width: 1024px) {
   #page-container {
     grid-template-columns: 0 1fr;
@@ -572,24 +521,27 @@ body.dark-mode .theme-toggle .sun-icon {
 
   .sidebar {
     transform: translateX(-100%);
-    position: fixed;
-    z-index: 100;
-    width: var(--sidebar-width);
+    padding: 0;
+    border: none;
   }
 
-  .search-bar {
+  #footer-search {
     left: 0;
   }
 
-  .floating-group-filter {
-    right: var(--space-lg);
+  #floating-group-filter {
+    right: 1.5rem;
   }
 }
 
 @media (max-width: 768px) {
   #app {
-    padding: var(--space-xl);
+    padding: 1.5rem;
     padding-bottom: 120px;
+  }
+
+  .footer-content-wrapper {
+    padding: 1rem 1.5rem;
   }
 
   .article-content h1 {
@@ -597,10 +549,33 @@ body.dark-mode .theme-toggle .sun-icon {
   }
 
   .article-content h2 {
-    font-size: 1.25rem;
+    font-size: 1.5rem;
   }
+}
 
-  .module-grid {
-    grid-template-columns: 1fr;
-  }
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  margin: 2rem auto;
+  display: block;
+  box-shadow: 0 8px 24px var(--shadow-color);
+  transition: transform var(--transition-speed) ease;
+}
+
+pre {
+  position: relative;
+}
+
+.copy-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: var(--card-bg-color);
+  color: var(--text-color-light);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 12px;
+  cursor: pointer;
 }
