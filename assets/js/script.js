@@ -197,7 +197,21 @@ function renderFilterMenuItems(filterText = '') { const lowerFilterText = filter
 function setSearchScope(scopeId) { searchScope = scopeId; const selectedModule = forumData.find(m => m.id === scopeId); if (selectedModule) { filterButton.innerHTML = `${selectedModule.icon} <span>${selectedModule.title}</span>`; } else { filterButton.innerHTML = `${searchIcon} <span>Todos</span>`; } renderFilterMenuItems(filterMenuInput.value); toggleFilterMenu(false); searchInput.focus(); updateSearchInputPadding(); if (searchInput.value.trim()) { performSearch(searchInput.value.trim()); } }
 
 // --- Funções da Interface ---
-function renderSidebar() { sidebarNav.innerHTML = forumData.map(category => `<a onclick="renderTopics('${category.id}')" class="sidebar-nav-link flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer group"><div class="w-6 h-6 flex-shrink-0 module-icon">${category.icon || ''}</div><p class="text-sm font-medium leading-normal">${category.title}</p></a>`).join(''); }
+// Dentro de assets/js/script.js
+
+function renderSidebar() {
+  sidebarNav.innerHTML = forumData.map(category => `
+    <a 
+      onclick="renderTopics('${category.id}')" 
+      class="sidebar-nav-link flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer group ${currentCategory === category.id ? 'active' : ''}"
+      data-category-id="${category.id}"
+    >
+      <div class="w-6 h-6 flex-shrink-0 module-icon">${category.icon || ''}</div>
+      <p class="text-sm font-medium leading-normal">${category.title}</p>
+    </a>
+  `).join('');
+}
+
 function addCopyButtons() { document.querySelectorAll('pre:not(:has(.copy-button))').forEach(pre => { const button = document.createElement('button'); button.className = 'copy-button'; button.textContent = 'Copiar'; button.onclick = () => { const code = pre.querySelector('code')?.textContent || pre.textContent; navigator.clipboard.writeText(code).then(() => { button.textContent = 'Copiado!'; setTimeout(() => button.textContent = 'Copiar', 2000); }); }; pre.appendChild(button); }); }
 
 // ATUALIZAÇÃO: A função setTheme agora controla apenas a classe e o ícone.
