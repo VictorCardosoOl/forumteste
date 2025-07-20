@@ -1,6 +1,6 @@
 /*
  * ===================================================================
- * STYLE.CSS - VERSÃO 5.0 | SOLUÇÃO FINAL COM CSS À PROVA DE CONFLITOS
+ * STYLE.CSS - VERSÃO CORRIGIDA
  * ===================================================================
  */
 
@@ -17,13 +17,13 @@
   --hover-border-color: #dddddd;
   --shadow-color: rgba(0, 0, 0, 0.07);
 
-  /* ATUALIZAÇÃO FINAL: Variáveis ajustadas para o efeito "Frosted Glass" MAIS TRANSPARENTE */
-  --glass-bg: rgba(255, 255, 255, 0.15);
-  /* AINDA MAIS transparente */
-  --glass-border: rgba(255, 255, 255, 0.25);
-  /* Borda branca sutil */
-  --glass-text-color: #333;
-  --glass-placeholder-color: rgba(0, 0, 0, 0.4);
+  /* Variáveis para o Efeito Glass (Modo Claro) */
+  --glass-bg: rgba(255, 255, 255, 0.25);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --glass-text-color: #111111;
+  --glass-placeholder-color: rgba(0, 0, 0, 0.45);
+  --glass-button-bg: rgba(0, 0, 0, 0.05);
+  --glass-button-hover-bg: rgba(0, 0, 0, 0.1);
 
   /* Métricas */
   --sidebar-width: 220px;
@@ -33,6 +33,7 @@
 }
 
 body.dark-mode {
+  /* Cores (Modo Escuro) */
   --bg-color: #000000;
   --card-bg-color: #111111;
   --text-color: #f5f5f5;
@@ -42,14 +43,16 @@ body.dark-mode {
   --hover-border-color: #444444;
   --shadow-color: rgba(0, 0, 0, 0.2);
 
-  /* ATUALIZAÇÃO FINAL: Variáveis "Frosted Glass" MAIS TRANSPARENTES para o modo escuro */
-  --glass-bg: rgba(40, 40, 40, 0.2);
-  --glass-border: rgba(255, 255, 255, 0.15);
+  /* Variáveis para o Efeito Glass (Modo Escuro) */
+  --glass-bg: rgba(30, 30, 30, 0.3);
+  --glass-border: rgba(255, 255, 255, 0.1);
   --glass-text-color: #f0f0f0;
   --glass-placeholder-color: rgba(255, 255, 255, 0.5);
+  --glass-button-bg: rgba(255, 255, 255, 0.1);
+  --glass-button-hover-bg: rgba(255, 255, 255, 0.2);
 }
 
-/* 2. ESTILOS DE BASE E RESET (Mantido) */
+/* 2. ESTILOS DE BASE E RESET */
 *,
 *::before,
 *::after {
@@ -87,7 +90,7 @@ a {
   color: inherit;
 }
 
-/* 3. LAYOUT PRINCIPAL (Mantido) */
+/* 3. LAYOUT PRINCIPAL */
 #page-container {
   display: grid;
   grid-template-columns: var(--sidebar-width) 1fr;
@@ -123,7 +126,7 @@ a {
   animation: fadeIn 0.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
-/* 4. SIDEBAR (Mantido) */
+/* 4. SIDEBAR */
 .sidebar {
   display: flex;
   flex-direction: column;
@@ -169,7 +172,7 @@ a {
   background-color: var(--hover-bg-color);
 }
 
-/* 5. COMPONENTES GERAIS (Mantido) */
+/* 5. COMPONENTES GERAIS */
 .module-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -243,7 +246,7 @@ body.dark-mode .theme-toggle-btn .moon-icon {
   display: none;
 }
 
-/* 6. RODAPÉ DE BUSCA (REATORAÇÃO FINAL "FROSTED GLASS")
+/* 6. RODAPÉ DE BUSCA (ESTILO "GLASS" CORRIGIDO)
  *******************************************************************/
 #footer-search {
   position: fixed;
@@ -254,39 +257,44 @@ body.dark-mode .theme-toggle-btn .moon-icon {
   transition: left var(--transition-speed) ease;
 }
 
-.footer-content-wrapper {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0.75rem 2.5rem;
+#footer-search .max-w-4xl {
+  padding: 0.75rem 2rem;
 }
 
-/* ATUALIZAÇÃO FINAL: Seletores de alta prioridade para o container do efeito */
-footer#footer-search .relative {
-  background-color: var(--glass-bg) !important;
-  backdrop-filter: blur(24px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
-  border: 1px solid var(--glass-border) !important;
-  border-radius: 999px !important;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15) !important;
+/* Container que recebe o efeito de vidro */
+#footer-search .relative {
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  /* Totalmente arredondado */
+  box-shadow: 0 8px 32px var(--shadow-color);
+  transition: all var(--transition-speed) ease;
 }
 
-/* ATUALIZAÇÃO FINAL: Seletores de alta prioridade para o input */
-footer#footer-search .search-input-field {
+/* Input principal de busca */
+#search-input {
   background-color: transparent !important;
+  /* Tailwind pode interferir, então garantimos a transparência */
   border: none !important;
   outline: none !important;
-  color: var(--glass-text-color) !important;
+  color: var(--glass-text-color);
   transition: all var(--transition-speed) ease;
-  height: 3rem !important;
 }
 
-footer#footer-search .search-input-field::placeholder {
-  color: var(--glass-placeholder-color) !important;
+#search-input::placeholder {
+  color: var(--glass-placeholder-color);
   opacity: 1;
 }
 
-/* ATUALIZAÇÃO FINAL: Seletores de alta prioridade para o botão de filtro */
-footer#footer-search .search-filter-button {
+/* Remove o ícone de 'x' padrão do input de busca */
+#search-input::-webkit-search-cancel-button {
+  display: none;
+}
+
+/* Botão de filtro principal */
+#search-filter-button {
   position: absolute;
   left: 6px;
   top: 6px;
@@ -295,7 +303,7 @@ footer#footer-search .search-filter-button {
   align-items: center;
   gap: .5rem;
   padding: 0 1rem;
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: var(--glass-button-bg);
   border-radius: 999px;
   font-size: .8rem;
   font-weight: 500;
@@ -305,29 +313,18 @@ footer#footer-search .search-filter-button {
   border: 1px solid transparent;
 }
 
-body.dark-mode footer#footer-search .search-filter-button {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-footer#footer-search .search-filter-button:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+#search-filter-button:hover {
+  background-color: var(--glass-button-hover-bg);
   border-color: var(--glass-border);
 }
 
-body.dark-mode footer#footer-search .search-filter-button:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-footer#footer-search .search-filter-button span {
+#search-filter-button span,
+#search-filter-button svg {
   color: var(--glass-text-color) !important;
 }
 
-footer#footer-search .search-filter-button svg {
-  color: var(--glass-text-color) !important;
-  opacity: 0.7;
-}
-
-/* MENU DE FILTRO (Mantido) */
+/* 7. MENU DE FILTRO (DESIGN CORRIGIDO)
+ *******************************************************************/
 .search-filter-menu {
   position: absolute;
   bottom: calc(100% + 10px);
@@ -351,11 +348,13 @@ footer#footer-search .search-filter-button svg {
   transform: translateY(0);
 }
 
+/* Wrapper do input de filtro para posicionar o ícone */
 .filter-menu-input-wrapper {
   position: relative;
   margin-bottom: 0.5rem;
 }
 
+/* Ícone dentro do input de filtro */
 .filter-menu-input-wrapper svg {
   position: absolute;
   left: 0.875rem;
@@ -365,13 +364,17 @@ footer#footer-search .search-filter-button svg {
   height: 0.875rem;
   color: var(--text-color-light);
   pointer-events: none;
+  /* Impede que o ícone seja clicável */
 }
 
-.filter-menu-input {
+/* Input de filtro com design corrigido */
+#filter-menu-input {
   width: 100%;
-  height: 2.25rem;
+  height: 2.5rem;
   padding: 0.5rem 0.75rem 0.5rem 2.25rem;
+  /* Aumenta o padding esquerdo para dar espaço ao ícone */
   border-radius: 999px;
+  /* Deixa o input arredondado */
   border: 1px solid var(--border-color);
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -379,7 +382,7 @@ footer#footer-search .search-filter-button svg {
   transition: all 0.2s ease;
 }
 
-.filter-menu-input:focus {
+#filter-menu-input:focus {
   outline: none;
   border-color: var(--text-color);
 }
@@ -420,7 +423,7 @@ footer#footer-search .search-filter-button svg {
   color: var(--text-color-light);
 }
 
-/* 7. CONTEÚDO E BOTÃO FLUTUANTE (Mantido) */
+/* 8. CONTEÚDO E RESPONSIVIDADE (SEM ALTERAÇÕES SIGNIFICATIVAS) */
 .article-content h1 {
   font-size: 3rem;
   font-weight: 800;
@@ -513,7 +516,6 @@ footer#footer-search .search-filter-button svg {
   color: var(--text-color);
 }
 
-/* 8. RESPONSIVIDADE (Mantido) */
 @media (max-width: 1024px) {
   #page-container {
     grid-template-columns: 0 1fr;
@@ -540,8 +542,8 @@ footer#footer-search .search-filter-button svg {
     padding-bottom: 120px;
   }
 
-  .footer-content-wrapper {
-    padding: 1rem 1.5rem;
+  #footer-search .max-w-4xl {
+    padding: 0.5rem 1rem;
   }
 
   .article-content h1 {

@@ -28,24 +28,7 @@ let currentCategory = null;
 let scrollInstance = null;
 let searchScope = 'all';
 
-// ADIÇÃO: Função central para forçar o estilo "Glass"
-function applyGlassEffect() {
-  const isDark = document.body.classList.contains('dark-mode');
-  const searchContainer = document.querySelector('#footer-search .relative');
-
-  if (searchContainer) {
-    const glassBg = isDark ? 'rgba(40, 40, 40, 0.35)' : 'rgba(255, 255, 255, 0.2)';
-    const glassBorder = isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.3)';
-    
-    Object.assign(searchContainer.style, {
-      backgroundColor: glassBg,
-      backdropFilter: 'blur(24px)',
-      webkitBackdropFilter: 'blur(24px)',
-      border: `1px solid ${glassBorder}`,
-      boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.15)',
-    });
-  }
-}
+// REMOVIDO: A função applyGlassEffect foi removida. O CSS irá cuidar disso.
 
 // --- Funções Auxiliares ---
 function triggerAnimation() { app.classList.remove('animate-in'); void app.offsetWidth; app.classList.add('animate-in'); }
@@ -188,7 +171,6 @@ function renderArticle(categoryId, topicId) {
 // --- Lógica de Busca ---
 function handleSearch(event) { if (event.key === 'Enter') { performSearch(event.target.value.trim()); } else if (!event.target.value.trim() && document.activeElement === searchInput) { if (currentCategory) renderTopics(currentCategory); else renderCategories(); } }
 
-// ATUALIZAÇÃO: Função de busca aprimorada
 function performSearch(query) {
   if (query === '%') { if (searchScope === 'all') { renderCategories(); } else { renderTopics(searchScope); } return; }
   if (!query) return;
@@ -218,12 +200,12 @@ function setSearchScope(scopeId) { searchScope = scopeId; const selectedModule =
 function renderSidebar() { sidebarNav.innerHTML = forumData.map(category => `<a onclick="renderTopics('${category.id}')" class="sidebar-nav-link flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer group"><div class="w-6 h-6 flex-shrink-0 module-icon">${category.icon || ''}</div><p class="text-sm font-medium leading-normal">${category.title}</p></a>`).join(''); }
 function addCopyButtons() { document.querySelectorAll('pre:not(:has(.copy-button))').forEach(pre => { const button = document.createElement('button'); button.className = 'copy-button'; button.textContent = 'Copiar'; button.onclick = () => { const code = pre.querySelector('code')?.textContent || pre.textContent; navigator.clipboard.writeText(code).then(() => { button.textContent = 'Copiado!'; setTimeout(() => button.textContent = 'Copiar', 2000); }); }; pre.appendChild(button); }); }
 
-// ATUALIZAÇÃO: A função setTheme agora também chama a applyGlassEffect
+// ATUALIZAÇÃO: A função setTheme agora controla apenas a classe e o ícone.
 function setTheme(isDark) {
     document.body.classList.toggle('dark-mode', isDark);
     themeToggleBtn.innerHTML = isDark ? sunIcon : moonIcon;
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    applyGlassEffect(); // Garante que o efeito de vidro mude junto com o tema
+    // REMOVIDO: A chamada a applyGlassEffect() foi removida.
 }
 function scrollToGroup(groupId) { const element = document.getElementById(`group-${groupId}`); if (element && scrollInstance) { scrollInstance.scrollTo(element, { offset: -20, duration: 600 }); } }
 
@@ -250,5 +232,5 @@ document.addEventListener('DOMContentLoaded', () => {
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   setTheme(savedTheme ? savedTheme === 'dark' : prefersDark);
   
-  applyGlassEffect(); // Chama a função para aplicar o efeito assim que a página carrega
+  // REMOVIDO: A chamada a applyGlassEffect() foi removida daqui também.
 });
