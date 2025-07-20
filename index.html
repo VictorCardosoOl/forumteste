@@ -1,49 +1,59 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Base de Conhecimento</title>
-
+  
+  <!-- Meta Tags -->
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="description" content="Base de conhecimento com artigos e guias organizados por categorias">
+  
+  <!-- Favicon e Manifest -->
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="images/icon-192x192.png">
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  
+  <!-- Fontes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css">
-  <link rel="stylesheet" href="/assets/css/style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/style.css">
+  
+  <!-- Tailwind (usando apenas os plugins necessários) -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 </head>
 
-<body>
+<body class="knowledge-base">
+  <!-- Overlay da Sidebar -->
   <div id="sidebar-overlay" class="sidebar-overlay"></div>
 
   <div id="page-container">
+    <!-- Sidebar -->
     <aside id="sidebar" class="sidebar">
-      <div class="flex flex-col gap-4 h-full">
-        <div class="sidebar-header">
-          <div onclick="renderCategories()" class="flex items-center gap-3 cursor-pointer h-10">
-            <div class="size-6">
+      <div class="sidebar__inner">
+        <div class="sidebar__header">
+          <div class="sidebar__logo" onclick="renderCategories()">
+            <div class="sidebar__logo-icon">
               <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z"
-                  fill="currentColor"></path>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor"></path>
               </svg>
             </div>
-            <h2 class="text-lg font-bold tracking-tight">Victor Cardoso</h2>
+            <h2 class="sidebar__logo-text">Victor Cardoso</h2>
           </div>
         </div>
-        <div id="sidebar-nav" class="flex flex-col gap-1 flex-1 overflow-y-auto"></div>
-        <div class="sidebar-footer">
-          <button id="theme-toggle" class="theme-toggle-btn" aria-label="Alternar Tema">
-            <span class="sun-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        
+        <nav id="sidebar-nav" class="sidebar__nav"></nav>
+        
+        <div class="sidebar__footer">
+          <button id="theme-toggle" class="theme-toggle" aria-label="Alternar Tema" aria-pressed="false">
+            <span class="theme-toggle__icon sun-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="5"></circle>
                 <line x1="12" y1="1" x2="12" y2="3"></line>
                 <line x1="12" y1="21" x2="12" y2="23"></line>
@@ -55,18 +65,18 @@
                 <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
               </svg>
             </span>
-            <span class="moon-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <span class="theme-toggle__icon moon-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
               </svg>
             </span>
           </button>
-          <p class="text-xs opacity-50">© 2024 Victor Cardoso</p>
+          <p class="sidebar__copyright">© 2024 Victor Cardoso</p>
         </div>
       </div>
     </aside>
 
+    <!-- Conteúdo Principal -->
     <main id="app-container" class="main-content">
       <div id="content-wrapper" data-scroll-container>
         <div id="app" class="app-content"></div>
@@ -74,23 +84,26 @@
     </main>
   </div>
 
-  <footer id="footer-search">
-    <div class="max-w-4xl mx-auto px-4 py-3">
-      <div class="relative">
-        <button id="search-filter-button" class="search-filter-button"></button>
-        <input id="search-input" onkeyup="handleSearch(event)" placeholder="Pesquisar artigos..." type="search"
-          class="w-full h-12 pl-14 pr-24 text-base rounded-full" />
+  <!-- Barra de Pesquisa -->
+  <footer id="search-bar" class="search-bar">
+    <div class="search-bar__container">
+      <div class="search-bar__wrapper">
+        <button id="search-filter-button" class="search-bar__filter-button"></button>
+        <input id="search-input" onkeyup="handleSearch(event)" placeholder="Pesquisar artigos..." type="search" class="search-bar__input" aria-label="Pesquisar artigos"/>
+        
         <div id="search-filter-menu" class="search-filter-menu">
-          <input type="text" id="filter-menu-input" placeholder="Filtrar módulos..." class="filter-menu-input">
-          <div id="filter-menu-list" class="filter-menu-list"></div>
+          <div class="search-filter-menu__input-wrapper">
+            <input type="text" id="filter-menu-input" placeholder="Filtrar módulos..." class="search-filter-menu__input" aria-label="Filtrar módulos">
+          </div>
+          <div id="filter-menu-list" class="search-filter-menu__list"></div>
         </div>
       </div>
     </div>
   </footer>
   
-<script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
   <script type="module" src="assets/js/data/index.js"></script>
-   <script type="module" src="assets/js/script.js"></script>
+  <script type="module" src="assets/js/script.js"></script>
 </body>
-
 </html>
