@@ -33,7 +33,7 @@ let searchScope = 'all';
 // --- Funções Auxiliares ---
 function triggerAnimation() { app.classList.remove('animate-in'); void app.offsetWidth; app.classList.add('animate-in'); }
 function initSmoothScroll() { if (scrollInstance) scrollInstance.destroy(); scrollInstance = new LocomotiveScroll({ el: document.querySelector('#content-wrapper'), smooth: true }); }
-function updateScroll() { setTimeout(() => scrollInstance?.update(), 150); }
+function updateScroll() { setTimeout(() => scrollInstance?.update(), 50); }
 function updateSearchInputPadding() { const buttonWidth = filterButton.offsetWidth; searchInput.style.paddingLeft = `${buttonWidth + 10}px`; }
 
 // Lógica do botão flutuante (já correta da versão anterior)

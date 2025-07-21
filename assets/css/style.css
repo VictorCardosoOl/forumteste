@@ -249,9 +249,6 @@ a {
   transition: transform var(--transition-medium) var(--transition-curve);
 }
 
-.card-link:hover .module-icon {
-  transform: scale(1.1) rotate(-3deg);
-}
 
 .theme-toggle-btn {
   width: 36px;
