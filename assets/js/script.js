@@ -216,10 +216,10 @@ function addCopyButtons() { document.querySelectorAll('pre:not(:has(.copy-button
 
 // ATUALIZAÇÃO: A função setTheme agora controla apenas a classe e o ícone.
 function setTheme(isDark) {
-    document.body.classList.toggle('dark-mode', isDark);
-    themeToggleBtn.innerHTML = isDark ? sunIcon : moonIcon;
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-    // REMOVIDO: A chamada a applyGlassEffect() foi removida.
+  document.body.classList.toggle('dark-mode', isDark);
+  themeToggleBtn.innerHTML = isDark ? sunIcon : moonIcon;
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  // REMOVIDO: A chamada a applyGlassEffect() foi removida.
 }
 function scrollToGroup(groupId) { const element = document.getElementById(`group-${groupId}`); if (element && scrollInstance) { scrollInstance.scrollTo(element, { offset: -20, duration: 600 }); } }
 
@@ -245,6 +245,39 @@ document.addEventListener('DOMContentLoaded', () => {
   const savedTheme = localStorage.getItem('theme');
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   setTheme(savedTheme ? savedTheme === 'dark' : prefersDark);
-  
-  // REMOVIDO: A chamada a applyGlassEffect() foi removida daqui também.
+
+  // No final do DOMContentLoaded, adicione:
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const sidebar = document.getElementById('sidebar');
+  const mobileMenuOverlay = document.createElement('div');
+  mobileMenuOverlay.id = 'mobile-menu-overlay';
+  document.body.appendChild(mobileMenuOverlay);
+
+  // Controle do menu mobile
+  mobileMenuButton.addEventListener('click', () => {
+    sidebar.classList.toggle('visible');
+  });
+
+  mobileMenuOverlay.addEventListener('click', () => {
+    sidebar.classList.remove('visible');
+  });
+
+  // Fechar menu ao clicar em um link
+  document.querySelectorAll('.sidebar-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth < 1024) {
+        sidebar.classList.remove('visible');
+      }
+    });
+  });
+
+  // Atualizar padding do footer quando a sidebar é aberta/fechada
+  const observer = new MutationObserver(() => {
+    updateScroll();
+  });
+
+  observer.observe(sidebar, {
+    attributes: true,
+    attributeFilter: ['class']
+  });
 });

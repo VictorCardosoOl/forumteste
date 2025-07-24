@@ -621,3 +621,145 @@ pre {
   font-size: 12px;
   cursor: pointer;
 }
+
+/* 8. MELHORIAS DE RESPONSIVIDADE */
+@media (max-width: 1024px) {
+  #page-container {
+    grid-template-columns: 0 1fr;
+    position: relative;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    transform: translateX(-100%);
+    z-index: 1000;
+    transition: transform 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .sidebar.visible {
+    transform: translateX(0);
+  }
+
+  #footer-search {
+    left: 0;
+  }
+
+  #mobile-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .sidebar.visible ~ #mobile-menu-overlay {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
+
+@media (max-width: 768px) {
+  #app {
+    padding: 1.5rem;
+    padding-bottom: 120px;
+  }
+
+  .module-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .article-content h1 {
+    font-size: 2rem;
+  }
+
+  #footer-search .max-w-4xl {
+    padding: 0.5rem 1rem;
+  }
+
+  #search-input {
+    font-size: 0.9rem;
+    padding-left: 50px !important;
+  }
+
+  #search-filter-button {
+    padding: 0 0.5rem;
+    font-size: 0.7rem;
+  }
+
+  #search-filter-button span {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  #app {
+    padding: 1rem;
+    padding-bottom: 100px;
+  }
+
+  .article-content h1 {
+    font-size: 1.75rem;
+  }
+
+  .card-link {
+    padding: 1.25rem;
+  }
+
+  #floating-group-filter {
+    top: 1rem;
+    right: 1rem;
+  }
+}
+
+/* No media query de 768px */
+#footer-search {
+  padding: 0 1rem;
+}
+
+#footer-search .relative {
+  max-width: 100%;
+}
+
+/* No media query de 480px */
+#footer-search {
+  padding: 0 0.5rem;
+}
+
+#search-input {
+  height: 44px;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  #floating-group-filter .group-filter-btn {
+    width: 36px;
+    height: 36px;
+  }
+  
+  #floating-group-filter {
+    right: 1rem;
+    top: 1rem;
+  }
+}
+
+.article-content {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.article-content pre, 
+.article-content table {
+  max-width: 100%;
+  overflow-x: auto;
+  display: block;
+}

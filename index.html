@@ -22,6 +22,10 @@
 </head>
 
 <body>
+
+    <!-- Adicione isso no header do sidebar (index.html) -->
+    
+
   <div id="sidebar-overlay" class="sidebar-overlay"></div>
 
   <div id="page-container">
@@ -87,10 +91,26 @@
       </div>
     </div>
   </footer>
-  
-<script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
+
+  <div class="sidebar-header">
+      <div class="flex items-center justify-between w-full">
+        <div onclick="renderCategories()" class="flex items-center gap-3 cursor-pointer h-10">
+          <!-- Ícone e título existentes -->
+        </div>
+        <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg hover:bg-hover-bg-color">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
   <script type="module" src="assets/js/data/index.js"></script>
-   <script type="module" src="assets/js/script.js"></script>
+  <script type="module" src="assets/js/script.js"></script>
 </body>
 
 </html>
