@@ -24,14 +24,24 @@ const sunIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" 
 const moonIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
 const searchIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><path fill="currentColor" d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>`;
 
-// --- Variáveis de Estado ---
-let currentCategory = null;
-let scrollInstance = null;
-let searchScope = 'all';
-let currentArticleIndex = 0;
-let currentGroupArticles = [];
+// --- Variáveis de Estado Centralizadas ---
+const state = {
+  currentCategory: null,
+  scrollInstance: null,
+  searchScope: 'all',
+  currentArticleIndex: 0,
+  currentGroupArticles: [],
+};
 
 // --- Funções Auxiliares ---
+function debounce(func, delay) {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(this, args), delay);
+  };
+}
+
 function triggerAnimation() { 
   app.classList.remove('animate-in'); 
   void app.offsetWidth; 
@@ -39,15 +49,15 @@ function triggerAnimation() {
 }
 
 function initSmoothScroll() { 
-  if (scrollInstance) scrollInstance.destroy(); 
-  scrollInstance = new LocomotiveScroll({ 
+  if (state.scrollInstance) state.scrollInstance.destroy(); 
+  state.scrollInstance = new LocomotiveScroll({ 
     el: document.querySelector('#content-wrapper'), 
     smooth: true 
   }); 
 }
 
 function updateScroll() { 
-  setTimeout(() => scrollInstance?.update(), 50); 
+  setTimeout(() => state.scrollInstance?.update(), 50); 
 }
 
 function updateSearchInputPadding() { 
@@ -56,19 +66,24 @@ function updateSearchInputPadding() {
 }
 
 function highlightMatches(text, query) {
+  if (!query) return text;
   const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
   return text.replace(regex, '<mark>$1</mark>');
 }
 
 function clearSearchResults() {
-  document.getElementById('search-suggestions').classList.remove('visible');
+  document.getElementById('search-suggestions')?.classList.remove('visible');
 }
 
-// --- Gerenciamento do Botão Flutuante ---
+// --- Gerenciamento de Botões Flutuantes ---
 function manageFloatingButton(action) {
-  const existingButton = document.getElementById('floating-group-filter');
-  if (existingButton) { existingButton.remove(); }
-  if (action === 'create') {
+  const existingFloatingButton = document.getElementById('floating-group-filter');
+  if (existingFloatingButton) existingFloatingButton.remove();
+  
+  const existingNavButtons = document.querySelectorAll('.article-navigation');
+  existingNavButtons.forEach(btn => btn.remove());
+
+  if (action === 'create_group_filter') {
     const buttonInApp = app.querySelector('.group-filter-container');
     if (buttonInApp) {
       const floatingButton = buttonInApp.cloneNode(true);
@@ -79,12 +94,24 @@ function manageFloatingButton(action) {
       floatingButton.addEventListener('mouseleave', () => menu.classList.remove('visible'));
       buttonInApp.style.display = 'none';
     }
+  } else if (action === 'create_article_nav') {
+    const prevButton = document.createElement('button');
+    prevButton.className = 'article-navigation prev-button';
+    prevButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>`;
+    prevButton.onclick = () => navigateArticle(-1);
+    document.body.appendChild(prevButton);
+
+    const nextButton = document.createElement('button');
+    nextButton.className = 'article-navigation next-button';
+    nextButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>`;
+    nextButton.onclick = () => navigateArticle(1);
+    document.body.appendChild(nextButton);
   }
 }
 
 // --- Funções de Renderização ---
 function renderCategories() {
-  currentCategory = null;
+  state.currentCategory = null;
   manageFloatingButton('destroy');
   triggerAnimation();
   app.innerHTML = `
@@ -109,10 +136,11 @@ function renderCategories() {
 }
 
 function renderTopics(categoryId) {
-  currentCategory = categoryId;
+  state.currentCategory = categoryId;
   const category = forumData.find(c => c.id === categoryId);
   if (!category) return renderCategories();
 
+  manageFloatingButton('destroy');
   triggerAnimation();
   const groups = category.topics.reduce((acc, topic) => {
     const groupName = topic.group || 'Geral';
@@ -165,7 +193,7 @@ function renderTopics(categoryId) {
 
   updateScroll();
   renderSidebar();
-  manageFloatingButton('create');
+  manageFloatingButton('create_group_filter');
 }
 
 function renderArticle(categoryId, topicId) {
@@ -173,11 +201,10 @@ function renderArticle(categoryId, topicId) {
   const topic = category?.topics.find(t => t.id === topicId);
   if (!topic) return renderCategories();
 
-  currentCategory = categoryId;
-  manageFloatingButton('destroy');
+  state.currentCategory = categoryId;
+  manageFloatingButton('create_article_nav');
   triggerAnimation();
   
-  // Atualiza a navegação
   updateArticleNavigation(category, topicId);
   
   app.innerHTML = `
@@ -189,18 +216,6 @@ function renderArticle(categoryId, topicId) {
       <span class="font-semibold">${topic.title}</span>
     </div>
     <div class="article-content mt-8 relative">
-      <div class="article-navigation">
-        <button class="nav-button prev-button" onclick="navigateArticle(-1)">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M15 18l-6-6 6-6"/>
-          </svg>
-        </button>
-        <button class="nav-button next-button" onclick="navigateArticle(1)">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 18l6-6-6-6"/>
-          </svg>
-        </button>
-      </div>
       <h1>${topic.title}</h1>
       ${topic.description ? `<p class="text-xl mt-4 opacity-80">${topic.description}</p>` : ''}
       <hr class="my-8 opacity-20">
@@ -213,7 +228,6 @@ function renderArticle(categoryId, topicId) {
 }
 
 function updateArticleNavigation(category, topicId) {
-  // Organiza os artigos por grupo para navegação
   const groups = category.topics.reduce((acc, topic) => {
     const groupName = topic.group || 'Geral';
     if (!acc[groupName]) acc[groupName] = [];
@@ -221,48 +235,45 @@ function updateArticleNavigation(category, topicId) {
     return acc;
   }, {});
 
-  // Encontra o grupo atual e índice do artigo
-  for (const [groupName, articles] of Object.entries(groups)) {
+  for (const articles of Object.values(groups)) {
     const index = articles.findIndex(t => t.id === topicId);
     if (index !== -1) {
-      currentGroupArticles = articles;
-      currentArticleIndex = index;
+      state.currentGroupArticles = articles;
+      state.currentArticleIndex = index;
       break;
     }
   }
 }
 
 function navigateArticle(direction) {
-  const newIndex = currentArticleIndex + direction;
-  if (newIndex >= 0 && newIndex < currentGroupArticles.length) {
-    const topic = currentGroupArticles[newIndex];
-    renderArticle(currentCategory, topic.id);
+  const newIndex = state.currentArticleIndex + direction;
+  if (newIndex >= 0 && newIndex < state.currentGroupArticles.length) {
+    const topic = state.currentGroupArticles[newIndex];
+    renderArticle(state.currentCategory, topic.id);
   }
 }
 
 // --- Lógica de Busca ---
-function handleSearch(event) {
-  const query = event.target.value.trim();
+function handleSearch(query) {
   if (query.length > 0) {
     performSearch(query);
-    showSearchSuggestions(query);
   } else {
-    clearSearchResults();
-    if (currentCategory) renderTopics(currentCategory);
-    else renderCategories();
+    if (state.currentCategory) {
+      renderTopics(state.currentCategory);
+    } else {
+      renderCategories();
+    }
   }
 }
 
 function performSearch(query) {
-  if (query === '%') {
-    if (searchScope === 'all') { renderCategories(); } 
-    else { renderTopics(searchScope); } 
-    return;
-  }
-  
   if (!query) return;
+
   const lowerCaseQuery = query.toLowerCase();
-  const searchPool = searchScope === 'all' ? forumData : forumData.filter(c => c.id === searchScope);
+  const searchPool = state.searchScope === 'all' 
+    ? forumData 
+    : forumData.filter(c => c.id === state.searchScope);
+  
   const results = [];
   
   searchPool.forEach(category => {
@@ -278,49 +289,15 @@ function performSearch(query) {
   renderSearchResults(results, query);
 }
 
-function showSearchSuggestions(query) {
-  const lowerCaseQuery = query.toLowerCase();
-  const searchPool = searchScope === 'all' ? forumData : forumData.filter(c => c.id === searchScope);
-  
-  const suggestions = [];
-  searchPool.forEach(category => {
-    category.topics.forEach(topic => {
-      if (topic.title.toLowerCase().includes(lowerCaseQuery)) {
-        suggestions.push({
-          title: topic.title,
-          categoryId: category.id,
-          topicId: topic.id,
-          categoryTitle: category.title
-        });
-      }
-    });
-  });
-
-  const suggestionsContainer = document.getElementById('search-suggestions');
-  if (suggestions.length > 0) {
-    suggestionsContainer.innerHTML = suggestions.slice(0, 5).map(item => `
-      <div class="search-suggestion-item" 
-           onclick="renderArticle('${item.categoryId}', '${item.topicId}')">
-        <span>${item.categoryTitle}</span>
-        <p>${highlightMatches(item.title, query)}</p>
-      </div>
-    `).join('');
-    suggestionsContainer.classList.add('visible');
-  } else {
-    suggestionsContainer.classList.remove('visible');
-  }
-}
-
 function renderSearchResults(results, query) {
   triggerAnimation();
   manageFloatingButton('destroy');
-  const queryRegex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
   
   const resultsHTML = results.map(item => `
     <a onclick="renderArticle('${item.categoryId}', '${item.id}')" class="card-link block cursor-pointer p-5 rounded-xl group">
-      <p class="text-sm font-semibold opacity-60 group-hover:opacity-100">${item.categoryTitle.replace(queryRegex, `<mark>$1</mark>`)}</p>
-      <h3 class="text-lg font-semibold mt-1">${item.title.replace(queryRegex, `<mark>$1</mark>`)}</h3>
-      <p class="text-sm mt-2 opacity-70">${(item.content.replace(/<[^>]*>/g, '').substring(0, 150) + '...').replace(queryRegex, `<mark>$1</mark>`)}</p>
+      <p class="text-sm font-semibold opacity-60 group-hover:opacity-100">${highlightMatches(item.categoryTitle, query)}</p>
+      <h3 class="text-lg font-semibold mt-1">${highlightMatches(item.title, query)}</h3>
+      <p class="text-sm mt-2 opacity-70">${highlightMatches(item.content.replace(/<[^>]*>/g, '').substring(0, 150) + '...', query)}</p>
     </a>
   `).join('');
   
@@ -349,7 +326,7 @@ function renderFilterMenuItems(filterText = '') {
   const allModules = [{ id: 'all', title: 'Todos os Módulos', icon: searchIcon }, ...forumData]; 
   const filteredModules = allModules.filter(module => module.title.toLowerCase().includes(lowerFilterText)); 
   filterMenuList.innerHTML = filteredModules.map(module => `
-    <div class="filter-menu-item ${searchScope === module.id ? 'active' : ''}" onclick="setSearchScope('${module.id}')">
+    <div class="filter-menu-item ${state.searchScope === module.id ? 'active' : ''}" onclick="setSearchScope('${module.id}')">
       <div class="item-icon">${module.icon}</div>
       <span>${module.title}</span>
     </div>
@@ -357,7 +334,7 @@ function renderFilterMenuItems(filterText = '') {
 }
 
 function setSearchScope(scopeId) { 
-  searchScope = scopeId; 
+  state.searchScope = scopeId; 
   const selectedModule = forumData.find(m => m.id === scopeId); 
   if (selectedModule) { 
     filterButton.innerHTML = `${selectedModule.icon} <span>${selectedModule.title}</span>`; 
@@ -378,7 +355,7 @@ function renderSidebar() {
   sidebarNav.innerHTML = forumData.map(category => `
     <a 
       onclick="renderTopics('${category.id}')" 
-      class="sidebar-nav-link flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer group ${currentCategory === category.id ? 'active' : ''}"
+      class="sidebar-nav-link flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer group ${state.currentCategory === category.id ? 'active' : ''}"
       data-category-id="${category.id}"
     >
       <div class="w-6 h-6 flex-shrink-0 module-icon">${category.icon || ''}</div>
@@ -411,8 +388,8 @@ function setTheme(isDark) {
 
 function scrollToGroup(groupId) { 
   const element = document.getElementById(`group-${groupId}`); 
-  if (element && scrollInstance) { 
-    scrollInstance.scrollTo(element, { offset: -20, duration: 600 }); 
+  if (element && state.scrollInstance) { 
+    state.scrollInstance.scrollTo(element, { offset: -20, duration: 600 }); 
   } 
 }
 
@@ -439,7 +416,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   setTheme(savedTheme ? savedTheme === 'dark' : prefersDark);
 
-  // Configuração do menu mobile
   const mobileMenuButton = document.getElementById('mobile-menu-button');
   const sidebar = document.getElementById('sidebar');
   const mobileMenuOverlay = document.createElement('div');
@@ -448,31 +424,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
   mobileMenuButton.addEventListener('click', () => {
     sidebar.classList.toggle('visible');
+    mobileMenuOverlay.classList.toggle('visible');
   });
 
   mobileMenuOverlay.addEventListener('click', () => {
     sidebar.classList.remove('visible');
+    mobileMenuOverlay.classList.remove('visible');
   });
 
-  // Fechar menu ao clicar em um link
-  document.querySelectorAll('.sidebar-nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      if (window.innerWidth < 1024) {
-        sidebar.classList.remove('visible');
-      }
-    });
+  sidebarNav.addEventListener('click', (e) => {
+    if (e.target.closest('.sidebar-nav-link') && window.innerWidth < 1024) {
+      sidebar.classList.remove('visible');
+      mobileMenuOverlay.classList.remove('visible');
+    }
   });
 
-  // Atualizar padding do footer quando a sidebar é aberta/fechada
-  const observer = new MutationObserver(() => {
-    updateScroll();
+  // --- LÓGICA DE BUSCA COM DEBOUNCING ---
+  const debouncedSearch = debounce((query) => {
+    handleSearch(query);
+  }, 250); // Atraso de 250ms
+
+  // Remova onkeyup="handleSearch(event)" do seu input no HTML
+  searchInput.addEventListener('input', (e) => {
+    debouncedSearch(e.target.value.trim());
   });
 
-  observer.observe(sidebar, {
-    attributes: true,
-    attributeFilter: ['class']
-  });
+  // --- NAVEGAÇÃO POR TECLADO ---
+  document.addEventListener('keydown', (e) => {
+    // Verifica se um artigo está sendo exibido (pela presença dos botões de navegação)
+    const isArticleView = document.querySelector('.article-navigation');
+    if (!isArticleView) return;
 
-  // Configuração da busca incremental
-  searchInput.addEventListener('input', (e) => handleSearch(e));
+    if (e.key === 'ArrowLeft') {
+      navigateArticle(-1);
+    } else if (e.key === 'ArrowRight') {
+      navigateArticle(1);
+    }
+  });
 });
