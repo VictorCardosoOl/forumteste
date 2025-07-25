@@ -763,3 +763,91 @@ pre {
   overflow-x: auto;
   display: block;
 }
+
+/* 9. NAVEGAÇÃO DE ARTIGOS (ESTILO FIXO E CENTRALIZADO) */
+
+.article-view {
+  /* Apenas para garantir que seja um contexto de posicionamento se necessário no futuro */
+  position: relative;
+}
+
+/* O container não é mais necessário para o posicionamento, mas o mantemos na estrutura */
+.article-navigation {
+  /* Este container não precisa de estilos de posicionamento direto */
+}
+
+/* Estilo base para ambos os botões */
+.nav-button {
+  position: fixed; /* Chave para manter os botões fixos na tela */
+  top: 50%; /* Posiciona o topo do botão no meio da tela */
+  transform: translateY(-50%); /* Ajusta o botão para que seu centro fique no meio */
+  z-index: 100; /* Garante que os botões fiquem acima do conteúdo */
+
+  /* Estilo visual */
+  width: 44px;
+  height: 44px;
+  background-color: var(--card-bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 50%; /* Deixa o botão redondo */
+  box-shadow: 0 4px 12px var(--shadow-color);
+  
+  /* Centraliza o ícone dentro do botão */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  cursor: pointer;
+  opacity: 0.5;
+  transition: all var(--transition-fast) var(--transition-curve);
+}
+
+.nav-button:hover {
+  opacity: 1;
+  transform: translateY(-50%) scale(1.1); /* Efeito de zoom no hover */
+  border-color: var(--hover-border-color);
+  box-shadow: 0 8px 20px var(--shadow-color-hover);
+}
+
+/* Aumenta o tamanho do ícone de seta */
+.nav-button span {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+/* Posicionamento específico para cada botão */
+.prev-button {
+  /* Posição à esquerda, considerando a largura da sidebar */
+  left: calc(var(--sidebar-width) + 2rem);
+}
+
+.next-button {
+  /* Posição à direita */
+  right: 2rem;
+}
+
+/* Ajuste de responsividade para telas menores onde a sidebar some */
+@media (max-width: 1024px) {
+  .prev-button {
+    /* Em telas menores, a posição é relativa à borda da tela */
+    left: 1.5rem;
+  }
+  .next-button {
+    right: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Reduz o tamanho e o espaçamento em telas muito pequenas */
+  .nav-button {
+    width: 38px;
+    height: 38px;
+    opacity: 0.7; /* Mais visível em mobile */
+  }
+  .prev-button {
+    left: 0.75rem;
+  }
+  .next-button {
+    right: 0.75rem;
+  }
+}
