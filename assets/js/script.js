@@ -7,6 +7,7 @@ window.renderArticle = renderArticle;
 window.handleSearch = handleSearch;
 window.setSearchScope = setSearchScope;
 window.scrollToGroup = scrollToGroup;
+window.navigateArticle = navigateArticle;
 
 // --- Constantes Globais ---
 const app = document.getElementById('app');
@@ -27,16 +28,43 @@ const searchIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256
 let currentCategory = null;
 let scrollInstance = null;
 let searchScope = 'all';
-
-// REMOVIDO: A função applyGlassEffect foi removida. O CSS irá cuidar disso.
+let currentArticleIndex = 0;
+let currentGroupArticles = [];
 
 // --- Funções Auxiliares ---
-function triggerAnimation() { app.classList.remove('animate-in'); void app.offsetWidth; app.classList.add('animate-in'); }
-function initSmoothScroll() { if (scrollInstance) scrollInstance.destroy(); scrollInstance = new LocomotiveScroll({ el: document.querySelector('#content-wrapper'), smooth: true }); }
-function updateScroll() { setTimeout(() => scrollInstance?.update(), 50); }
-function updateSearchInputPadding() { const buttonWidth = filterButton.offsetWidth; searchInput.style.paddingLeft = `${buttonWidth + 10}px`; }
+function triggerAnimation() { 
+  app.classList.remove('animate-in'); 
+  void app.offsetWidth; 
+  app.classList.add('animate-in'); 
+}
 
-// Lógica do botão flutuante (já correta da versão anterior)
+function initSmoothScroll() { 
+  if (scrollInstance) scrollInstance.destroy(); 
+  scrollInstance = new LocomotiveScroll({ 
+    el: document.querySelector('#content-wrapper'), 
+    smooth: true 
+  }); 
+}
+
+function updateScroll() { 
+  setTimeout(() => scrollInstance?.update(), 50); 
+}
+
+function updateSearchInputPadding() { 
+  const buttonWidth = filterButton.offsetWidth; 
+  searchInput.style.paddingLeft = `${buttonWidth + 10}px`; 
+}
+
+function highlightMatches(text, query) {
+  const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+  return text.replace(regex, '<mark>$1</mark>');
+}
+
+function clearSearchResults() {
+  document.getElementById('search-suggestions').classList.remove('visible');
+}
+
+// --- Gerenciamento do Botão Flutuante ---
 function manageFloatingButton(action) {
   const existingButton = document.getElementById('floating-group-filter');
   if (existingButton) { existingButton.remove(); }
@@ -148,6 +176,10 @@ function renderArticle(categoryId, topicId) {
   currentCategory = categoryId;
   manageFloatingButton('destroy');
   triggerAnimation();
+  
+  // Atualiza a navegação
+  updateArticleNavigation(category, topicId);
+  
   app.innerHTML = `
     <div class="flex flex-wrap items-center gap-2 text-sm font-medium">
       <a onclick="renderCategories()" class="cursor-pointer opacity-70 hover:opacity-100">Início</a>
@@ -156,11 +188,23 @@ function renderArticle(categoryId, topicId) {
       <span class="opacity-50">/</span>
       <span class="font-semibold">${topic.title}</span>
     </div>
-    <div class="article-content mt-8">
-        <h1>${topic.title}</h1>
-        ${topic.description ? `<p class="text-xl mt-4 opacity-80">${topic.description}</p>` : ''}
-        <hr class="my-8 opacity-20">
-        <div>${topic.content}</div>
+    <div class="article-content mt-8 relative">
+      <div class="article-navigation">
+        <button class="nav-button prev-button" onclick="navigateArticle(-1)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </button>
+        <button class="nav-button next-button" onclick="navigateArticle(1)">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+        </button>
+      </div>
+      <h1>${topic.title}</h1>
+      ${topic.description ? `<p class="text-xl mt-4 opacity-80">${topic.description}</p>` : ''}
+      <hr class="my-8 opacity-20">
+      <div>${topic.content}</div>
     </div>
   `;
   addCopyButtons();
@@ -168,15 +212,59 @@ function renderArticle(categoryId, topicId) {
   renderSidebar();
 }
 
+function updateArticleNavigation(category, topicId) {
+  // Organiza os artigos por grupo para navegação
+  const groups = category.topics.reduce((acc, topic) => {
+    const groupName = topic.group || 'Geral';
+    if (!acc[groupName]) acc[groupName] = [];
+    acc[groupName].push(topic);
+    return acc;
+  }, {});
+
+  // Encontra o grupo atual e índice do artigo
+  for (const [groupName, articles] of Object.entries(groups)) {
+    const index = articles.findIndex(t => t.id === topicId);
+    if (index !== -1) {
+      currentGroupArticles = articles;
+      currentArticleIndex = index;
+      break;
+    }
+  }
+}
+
+function navigateArticle(direction) {
+  const newIndex = currentArticleIndex + direction;
+  if (newIndex >= 0 && newIndex < currentGroupArticles.length) {
+    const topic = currentGroupArticles[newIndex];
+    renderArticle(currentCategory, topic.id);
+  }
+}
+
 // --- Lógica de Busca ---
-function handleSearch(event) { if (event.key === 'Enter') { performSearch(event.target.value.trim()); } else if (!event.target.value.trim() && document.activeElement === searchInput) { if (currentCategory) renderTopics(currentCategory); else renderCategories(); } }
+function handleSearch(event) {
+  const query = event.target.value.trim();
+  if (query.length > 0) {
+    performSearch(query);
+    showSearchSuggestions(query);
+  } else {
+    clearSearchResults();
+    if (currentCategory) renderTopics(currentCategory);
+    else renderCategories();
+  }
+}
 
 function performSearch(query) {
-  if (query === '%') { if (searchScope === 'all') { renderCategories(); } else { renderTopics(searchScope); } return; }
+  if (query === '%') {
+    if (searchScope === 'all') { renderCategories(); } 
+    else { renderTopics(searchScope); } 
+    return;
+  }
+  
   if (!query) return;
   const lowerCaseQuery = query.toLowerCase();
   const searchPool = searchScope === 'all' ? forumData : forumData.filter(c => c.id === searchScope);
   const results = [];
+  
   searchPool.forEach(category => {
     category.topics.forEach(topic => {
       const contentText = topic.content.replace(/<[^>]*>/g, ' ');
@@ -186,19 +274,106 @@ function performSearch(query) {
       }
     });
   });
+  
   renderSearchResults(results, query);
 }
 
-function renderSearchResults(results, query) { triggerAnimation(); manageFloatingButton('destroy'); const queryRegex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi'); const resultsHTML = results.map(item => `<a onclick="renderArticle('${item.categoryId}', '${item.id}')" class="card-link block cursor-pointer p-5 rounded-xl group"><p class="text-sm font-semibold opacity-60 group-hover:opacity-100">${item.categoryTitle.replace(queryRegex, `<mark>$1</mark>`)}</p><h3 class="text-lg font-semibold mt-1">${item.title.replace(queryRegex, `<mark>$1</mark>`)}</h3><p class="text-sm mt-2 opacity-70">${(item.content.replace(/<[^>]*>/g, '').substring(0, 150) + '...').replace(queryRegex, `<mark>$1</mark>`)}</p></a>`).join(''); app.innerHTML = `<div><h1 class="text-3xl font-bold mb-4">Resultados para: <span class="opacity-70">"${query}"</span></h1><p class="text-sm opacity-70 mb-6">${results.length} resultado(s) encontrado(s).</p>${results.length === 0 ? `<p class="opacity-70">Nenhum resultado. Tente uma busca diferente ou altere o filtro de módulo.</p>` : `<div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">${resultsHTML}</div>`}</div>`; updateScroll(); }
+function showSearchSuggestions(query) {
+  const lowerCaseQuery = query.toLowerCase();
+  const searchPool = searchScope === 'all' ? forumData : forumData.filter(c => c.id === searchScope);
+  
+  const suggestions = [];
+  searchPool.forEach(category => {
+    category.topics.forEach(topic => {
+      if (topic.title.toLowerCase().includes(lowerCaseQuery)) {
+        suggestions.push({
+          title: topic.title,
+          categoryId: category.id,
+          topicId: topic.id,
+          categoryTitle: category.title
+        });
+      }
+    });
+  });
+
+  const suggestionsContainer = document.getElementById('search-suggestions');
+  if (suggestions.length > 0) {
+    suggestionsContainer.innerHTML = suggestions.slice(0, 5).map(item => `
+      <div class="search-suggestion-item" 
+           onclick="renderArticle('${item.categoryId}', '${item.topicId}')">
+        <span>${item.categoryTitle}</span>
+        <p>${highlightMatches(item.title, query)}</p>
+      </div>
+    `).join('');
+    suggestionsContainer.classList.add('visible');
+  } else {
+    suggestionsContainer.classList.remove('visible');
+  }
+}
+
+function renderSearchResults(results, query) {
+  triggerAnimation();
+  manageFloatingButton('destroy');
+  const queryRegex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+  
+  const resultsHTML = results.map(item => `
+    <a onclick="renderArticle('${item.categoryId}', '${item.id}')" class="card-link block cursor-pointer p-5 rounded-xl group">
+      <p class="text-sm font-semibold opacity-60 group-hover:opacity-100">${item.categoryTitle.replace(queryRegex, `<mark>$1</mark>`)}</p>
+      <h3 class="text-lg font-semibold mt-1">${item.title.replace(queryRegex, `<mark>$1</mark>`)}</h3>
+      <p class="text-sm mt-2 opacity-70">${(item.content.replace(/<[^>]*>/g, '').substring(0, 150) + '...').replace(queryRegex, `<mark>$1</mark>`)}</p>
+    </a>
+  `).join('');
+  
+  app.innerHTML = `
+    <div>
+      <h1 class="text-3xl font-bold mb-4">Resultados para: <span class="opacity-70">"${query}"</span></h1>
+      <p class="text-sm opacity-70 mb-6">${results.length} resultado(s) encontrado(s).</p>
+      ${results.length === 0 ? `
+        <p class="opacity-70">Nenhum resultado. Tente uma busca diferente ou altere o filtro de módulo.</p>
+      ` : `
+        <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4">${resultsHTML}</div>
+      `}
+    </div>`;
+  
+  updateScroll();
+}
 
 // --- Funções do Menu de Filtro ---
-function toggleFilterMenu(forceState) { const isVisible = filterMenu.classList.contains('visible'); filterMenu.classList.toggle('visible', forceState !== undefined ? forceState : !isVisible); }
-function renderFilterMenuItems(filterText = '') { const lowerFilterText = filterText.toLowerCase(); const allModules = [{ id: 'all', title: 'Todos os Módulos', icon: searchIcon }, ...forumData]; const filteredModules = allModules.filter(module => module.title.toLowerCase().includes(lowerFilterText)); filterMenuList.innerHTML = filteredModules.map(module => `<div class="filter-menu-item ${searchScope === module.id ? 'active' : ''}" onclick="setSearchScope('${module.id}')"><div class="item-icon">${module.icon}</div><span>${module.title}</span></div>`).join(''); }
-function setSearchScope(scopeId) { searchScope = scopeId; const selectedModule = forumData.find(m => m.id === scopeId); if (selectedModule) { filterButton.innerHTML = `${selectedModule.icon} <span>${selectedModule.title}</span>`; } else { filterButton.innerHTML = `${searchIcon} <span>Todos</span>`; } renderFilterMenuItems(filterMenuInput.value); toggleFilterMenu(false); searchInput.focus(); updateSearchInputPadding(); if (searchInput.value.trim()) { performSearch(searchInput.value.trim()); } }
+function toggleFilterMenu(forceState) { 
+  const isVisible = filterMenu.classList.contains('visible'); 
+  filterMenu.classList.toggle('visible', forceState !== undefined ? forceState : !isVisible); 
+}
+
+function renderFilterMenuItems(filterText = '') { 
+  const lowerFilterText = filterText.toLowerCase(); 
+  const allModules = [{ id: 'all', title: 'Todos os Módulos', icon: searchIcon }, ...forumData]; 
+  const filteredModules = allModules.filter(module => module.title.toLowerCase().includes(lowerFilterText)); 
+  filterMenuList.innerHTML = filteredModules.map(module => `
+    <div class="filter-menu-item ${searchScope === module.id ? 'active' : ''}" onclick="setSearchScope('${module.id}')">
+      <div class="item-icon">${module.icon}</div>
+      <span>${module.title}</span>
+    </div>
+  `).join(''); 
+}
+
+function setSearchScope(scopeId) { 
+  searchScope = scopeId; 
+  const selectedModule = forumData.find(m => m.id === scopeId); 
+  if (selectedModule) { 
+    filterButton.innerHTML = `${selectedModule.icon} <span>${selectedModule.title}</span>`; 
+  } else { 
+    filterButton.innerHTML = `${searchIcon} <span>Todos</span>`; 
+  } 
+  renderFilterMenuItems(filterMenuInput.value); 
+  toggleFilterMenu(false); 
+  searchInput.focus(); 
+  updateSearchInputPadding(); 
+  if (searchInput.value.trim()) { 
+    performSearch(searchInput.value.trim()); 
+  } 
+}
 
 // --- Funções da Interface ---
-// Dentro de assets/js/script.js
-
 function renderSidebar() {
   sidebarNav.innerHTML = forumData.map(category => `
     <a 
@@ -212,16 +387,34 @@ function renderSidebar() {
   `).join('');
 }
 
-function addCopyButtons() { document.querySelectorAll('pre:not(:has(.copy-button))').forEach(pre => { const button = document.createElement('button'); button.className = 'copy-button'; button.textContent = 'Copiar'; button.onclick = () => { const code = pre.querySelector('code')?.textContent || pre.textContent; navigator.clipboard.writeText(code).then(() => { button.textContent = 'Copiado!'; setTimeout(() => button.textContent = 'Copiar', 2000); }); }; pre.appendChild(button); }); }
+function addCopyButtons() { 
+  document.querySelectorAll('pre:not(:has(.copy-button))').forEach(pre => { 
+    const button = document.createElement('button'); 
+    button.className = 'copy-button'; 
+    button.textContent = 'Copiar'; 
+    button.onclick = () => { 
+      const code = pre.querySelector('code')?.textContent || pre.textContent; 
+      navigator.clipboard.writeText(code).then(() => { 
+        button.textContent = 'Copiado!'; 
+        setTimeout(() => button.textContent = 'Copiar', 2000); 
+      }); 
+    }; 
+    pre.appendChild(button); 
+  }); 
+}
 
-// ATUALIZAÇÃO: A função setTheme agora controla apenas a classe e o ícone.
 function setTheme(isDark) {
   document.body.classList.toggle('dark-mode', isDark);
   themeToggleBtn.innerHTML = isDark ? sunIcon : moonIcon;
   localStorage.setItem('theme', isDark ? 'dark' : 'light');
-  // REMOVIDO: A chamada a applyGlassEffect() foi removida.
 }
-function scrollToGroup(groupId) { const element = document.getElementById(`group-${groupId}`); if (element && scrollInstance) { scrollInstance.scrollTo(element, { offset: -20, duration: 600 }); } }
+
+function scrollToGroup(groupId) { 
+  const element = document.getElementById(`group-${groupId}`); 
+  if (element && scrollInstance) { 
+    scrollInstance.scrollTo(element, { offset: -20, duration: 600 }); 
+  } 
+}
 
 // --- Inicialização ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -238,7 +431,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderFilterMenuItems();
 
   filterButton.addEventListener('click', (e) => { e.stopPropagation(); toggleFilterMenu(); });
-  filterMenuInput.addEventListener('keyup', () => renderFilterMenuItems(filterMenuInput.value));
+  filterMenuInput.addEventListener('input', () => renderFilterMenuItems(filterMenuInput.value));
   document.addEventListener('click', (e) => { if (!filterMenu.contains(e.target) && !filterButton.contains(e.target)) { toggleFilterMenu(false); } });
 
   themeToggleBtn.addEventListener('click', () => setTheme(!document.body.classList.contains('dark-mode')));
@@ -246,14 +439,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   setTheme(savedTheme ? savedTheme === 'dark' : prefersDark);
 
-  // No final do DOMContentLoaded, adicione:
+  // Configuração do menu mobile
   const mobileMenuButton = document.getElementById('mobile-menu-button');
   const sidebar = document.getElementById('sidebar');
   const mobileMenuOverlay = document.createElement('div');
   mobileMenuOverlay.id = 'mobile-menu-overlay';
   document.body.appendChild(mobileMenuOverlay);
 
-  // Controle do menu mobile
   mobileMenuButton.addEventListener('click', () => {
     sidebar.classList.toggle('visible');
   });
@@ -280,4 +472,7 @@ document.addEventListener('DOMContentLoaded', () => {
     attributes: true,
     attributeFilter: ['class']
   });
+
+  // Configuração da busca incremental
+  searchInput.addEventListener('input', (e) => handleSearch(e));
 });
