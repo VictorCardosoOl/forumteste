@@ -1,4 +1,4 @@
-/* Em sidebar.css */
+/* Em assets/css/sidebar.css */
 
 .sidebar {
     display: flex;
@@ -28,6 +28,11 @@
     padding: 1rem;
     flex-shrink: 0;
     overflow: hidden;
+    /* ALTERAÇÃO: Garante que o rodapé seja um container flex */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: justify-content var(--transition-medium) var(--transition-curve);
 }
 
 .sidebar-nav-link {
@@ -44,7 +49,10 @@
 .sidebar-nav-link p {
     white-space: nowrap;
     font-weight: var(--font-weight-medium);
-    transition: opacity var(--transition-fast) var(--transition-curve);
+    /* ALTERAÇÃO: Adiciona width e margin à transição para um colapso suave */
+    transition: opacity var(--transition-fast) ease-out,
+                width var(--transition-medium) var(--transition-curve),
+                margin var(--transition-medium) var(--transition-curve);
 }
 
 .sidebar-nav-link:hover {
@@ -97,37 +105,42 @@ body.sidebar-estado-expandido .sidebar {
     width: var(--sidebar-width);
 }
 
-/* --- ESTADO 2: RECOLHIDO (Fixo) --- */
-body.sidebar-estado-recolhido #page-container {
-    grid-template-columns: 68px 1fr;
-}
-body.sidebar-estado-recolhido .sidebar {
-    width: 68px;
-}
-body.sidebar-estado-recolhido .sidebar-header h2,
-body.sidebar-estado-recolhido .sidebar-nav p,
-body.sidebar-estado-recolhido .sidebar-footer p {
-    opacity: 0;
-    visibility: hidden;
-}
-body.sidebar-estado-recolhido .sidebar-nav-link {
-    justify-content: center;
-}
-
-/* --- ESTADO 3: FLUTUANTE --- */
+/* --- ESTADO 2: RECOLHIDO (Fixo) & ESTADO 3: FLUTUANTE --- */
+/* Agrupamos as regras comuns para os dois estados recolhidos */
+body.sidebar-estado-recolhido #page-container,
 body.sidebar-estado-flutuante #page-container {
     grid-template-columns: 68px 1fr;
 }
+
+body.sidebar-estado-recolhido .sidebar,
 body.sidebar-estado-flutuante .sidebar {
     width: 68px;
 }
+
+body.sidebar-estado-recolhido .sidebar-header h2,
+body.sidebar-estado-recolhido .sidebar-footer p,
 body.sidebar-estado-flutuante .sidebar-header h2,
-body.sidebar-estado-flutuante .sidebar-nav p,
 body.sidebar-estado-flutuante .sidebar-footer p {
     opacity: 0;
-    visibility: hidden;
+    width: 0; /* ALTERAÇÃO: Faz o texto colapsar */
 }
+
+body.sidebar-estado-recolhido .sidebar-nav-link,
 body.sidebar-estado-flutuante .sidebar-nav-link {
+    justify-content: center;
+}
+
+/* ALTERAÇÃO: Regra específica para o parágrafo dentro do link */
+body.sidebar-estado-recolhido .sidebar-nav-link p,
+body.sidebar-estado-flutuante .sidebar-nav-link p {
+    opacity: 0;
+    width: 0; /* Faz o texto do link colapsar para não ocupar espaço */
+    margin: 0; /* Remove qualquer margem que possa afetar o alinhamento */
+}
+
+/* ALTERAÇÃO: Centraliza o conteúdo do rodapé */
+body.sidebar-estado-recolhido .sidebar-footer,
+body.sidebar-estado-flutuante .sidebar-footer {
     justify-content: center;
 }
 
@@ -138,15 +151,25 @@ body.sidebar-estado-flutuante .sidebar:hover {
 }
 
 body.sidebar-estado-flutuante .sidebar:hover .sidebar-header h2,
-body.sidebar-estado-flutuante .sidebar:hover .sidebar-nav p,
 body.sidebar-estado-flutuante .sidebar:hover .sidebar-footer p {
     opacity: 1;
-    visibility: visible;
-    transition-delay: 0.15s; /* Delay para texto aparecer suavemente */
+    width: auto; /* Devolve a largura do texto */
 }
+
+body.sidebar-estado-flutuante .sidebar:hover .sidebar-nav-link p {
+    opacity: 1;
+    width: auto; /* Devolve a largura do texto */
+    margin-left: 0.75rem; /* Devolve o gap/espaçamento original */
+}
+
 body.sidebar-estado-flutuante .sidebar:hover .sidebar-nav-link {
     justify-content: flex-start;
 }
+
+body.sidebar-estado-flutuante .sidebar:hover .sidebar-footer {
+    justify-content: space-between;
+}
+
 
 /* --- TOOLTIP PARA OS ÍCONES --- */
 .tooltip {
