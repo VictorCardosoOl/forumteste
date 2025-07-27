@@ -157,3 +157,78 @@ body.sidebar-recolhida .sidebar:not(:hover) .sidebar-nav-link:hover .tooltip {
 .sidebar-nav-link.active:hover {
   background-color: var(--hover-bg-color);
 }
+
+/* Adicione estas regras ao final do arquivo sidebar.css */
+
+/* Transições suaves para a sidebar e o conteúdo principal */
+#page-container, .sidebar, #footer-search {
+  transition: all var(--transition-medium) var(--transition-curve);
+}
+
+/* --- ESTADO RECOLHIDO --- */
+body.sidebar-recolhida #page-container {
+  grid-template-columns: 60px 1fr; /* Largura da sidebar apenas com ícones */
+}
+
+body.sidebar-recolhida .sidebar-header h2,
+body.sidebar-recolhida .sidebar-nav p,
+body.sidebar-recolhida .sidebar-footer p {
+  opacity: 0;
+  display: none; /* Esconde os textos */
+}
+
+body.sidebar-recolhida .sidebar-nav-link {
+  justify-content: center; /* Centraliza os ícones */
+}
+
+body.sidebar-recolhida #footer-search {
+  left: 60px; /* Alinha o rodapé com a sidebar recolhida */
+}
+
+/* Rotação do ícone de toggle */
+body.sidebar-recolhida #sidebar-toggle svg {
+    transform: rotate(180deg);
+}
+
+/* --- LÓGICA DE HOVER NO MODO RECOLHIDO (FLUTUANTE) --- */
+body.sidebar-recolhida .sidebar:hover {
+    width: var(--sidebar-width); /* Expande no hover */
+    box-shadow: 4px 0px 20px var(--shadow-color);
+    z-index: 1001; /* Garante que a sidebar flutuante fique por cima */
+}
+
+body.sidebar-recolhida .sidebar:hover .sidebar-header h2,
+body.sidebar-recolhida .sidebar:hover .sidebar-nav p,
+body.sidebar-recolhida .sidebar:hover .sidebar-footer p {
+  opacity: 1;
+  display: block; /* Mostra os textos ao expandir */
+}
+
+body.sidebar-recolhida .sidebar:hover .sidebar-nav-link {
+  justify-content: flex-start; /* Alinha o ícone e texto à esquerda */
+}
+
+/* --- TOOLTIP PARA OS ÍCONES --- */
+.tooltip {
+    position: absolute;
+    left: 70px; /* Posição à direita do ícone */
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--card-bg-color);
+    color: var(--text-color);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    z-index: 1002;
+    pointer-events: none; /* Para não interferir com o mouse */
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+/* Mostra o tooltip apenas quando a sidebar está recolhida E não está em hover */
+body.sidebar-recolhida .sidebar:not(:hover) .sidebar-nav-link:hover .tooltip {
+    opacity: 1;
+}

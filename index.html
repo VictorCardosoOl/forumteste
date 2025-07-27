@@ -23,8 +23,8 @@
 
 <body>
 
-    <!-- Adicione isso no header do sidebar (index.html) -->
-    
+  <!-- Adicione isso no header do sidebar (index.html) -->
+
 
   <div id="sidebar-overlay" class="sidebar-overlay"></div>
 
@@ -69,6 +69,7 @@
           <p class="text-xs opacity-50">© 2024 Victor Cardoso</p>
         </div>
       </div>
+      
     </aside>
 
     <main id="app-container" class="main-content">
@@ -93,27 +94,20 @@
   </footer>
 
   <div class="sidebar-header">
-      <div class="flex items-center justify-between w-full">
-        <div onclick="renderCategories()" class="flex items-center gap-3 cursor-pointer h-10">
-          <!-- Ícone e título existentes -->
-        </div>
-        <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg hover:bg-hover-bg-color">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
-        </button>
-        <button id="sidebar-toggle" class="theme-toggle-btn" aria-label="Recolher Barra Lateral">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-            <line x1="9" y1="3" x2="9" y2="21"></line>
-            <line x1="15" y1="9" x2="9" y2="15"></line>
-        </svg>
-    </button>
+    <div class="flex items-center justify-between w-full">
+      <div onclick="renderCategories()" class="flex items-center gap-3 cursor-pointer h-10">
+        <!-- Ícone e título existentes -->
       </div>
+      <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg hover:bg-hover-bg-color">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
     </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
   <script type="module" src="assets/js/data/index.js"></script>
