@@ -2,7 +2,9 @@ import { forumData } from './data/index.js';
 import { initSidebar } from './sidebar.js';
 import Fuse from 'https://cdn.jsdelivr.net/npm/fuse.js@6.6.2/dist/fuse.esm.js';
 
-// Exporte as funções para o escopo global
+/**
+ * Exporta funções para o escopo global, permitindo acesso via HTML
+ */
 window.renderCategories = renderCategories;
 window.renderTopics = renderTopics;
 window.renderArticle = renderArticle;
@@ -10,8 +12,9 @@ window.handleSearch = handleSearch;
 window.setSearchScope = setSearchScope;
 window.scrollToGroup = scrollToGroup;
 window.navigateArticle = navigateArticle;
+window.renderArticlesByTag = renderArticlesByTag;
 
-// Constantes Globais
+// Elementos DOM constantes
 const app = document.getElementById('app');
 const sidebarNav = document.getElementById('sidebar-nav');
 const searchInput = document.getElementById('search-input');
@@ -22,14 +25,14 @@ const filterMenuInput = document.getElementById('filter-menu-input');
 const filterMenuList = document.getElementById('filter-menu-list');
 const sidebar = document.getElementById('sidebar');
 
-// Ícones
+// Ícones SVG usados na interface
 const icons = {
   sun: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>`,
   moon: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`,
-  search: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><path fill="currentColor" d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>`
+  search: `<svg xmlns="http://www.w2000/svg" viewBox="0 0 256 256"><path fill="currentColor" d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>`
 };
 
-// Configuração da busca fuzzy
+// Configuração do Fuse.js para busca fuzzy
 const searchOptions = {
   keys: [
     { name: 'title', weight: 0.6 },
@@ -44,7 +47,7 @@ const searchOptions = {
   shouldSort: true
 };
 
-// Estado da aplicação
+// Estado global da aplicação
 const state = {
   currentCategory: null,
   scrollInstance: null,
@@ -54,7 +57,16 @@ const state = {
   fuseInstance: null
 };
 
-// Funções Auxiliares
+/**
+ * Funções Auxiliares
+ */
+
+/**
+ * Debounce para limitar a frequência de chamadas a funções
+ * @param {Function} func - Função a ser chamada
+ * @param {number} delay - Tempo de espera em ms
+ * @returns {Function} Função debounced
+ */
 function debounce(func, delay) {
   let timeout;
   return function(...args) {
@@ -63,12 +75,18 @@ function debounce(func, delay) {
   };
 }
 
+/**
+ * Dispara animação de transição entre páginas
+ */
 function triggerAnimation() {
   app.classList.remove('animate-in');
-  void app.offsetWidth;
+  void app.offsetWidth; // Força repaint
   app.classList.add('animate-in');
 }
 
+/**
+ * Inicializa scroll suave com Locomotive Scroll
+ */
 function initSmoothScroll() {
   if (state.scrollInstance) state.scrollInstance.destroy();
   state.scrollInstance = new LocomotiveScroll({
@@ -77,15 +95,27 @@ function initSmoothScroll() {
   });
 }
 
+/**
+ * Atualiza a instância de scroll
+ */
 function updateScroll() {
   setTimeout(() => state.scrollInstance?.update(), 50);
 }
 
+/**
+ * Ajusta o padding do input de busca baseado no tamanho do botão de filtro
+ */
 function updateSearchInputPadding() {
   const buttonWidth = filterButton.offsetWidth;
   searchInput.style.paddingLeft = `${buttonWidth + 10}px`;
 }
 
+/**
+ * Destaca partes do texto que correspondem aos índices de busca
+ * @param {string} text - Texto original
+ * @param {Array} indices - Array de índices [start, end] para destacar
+ * @returns {string} Texto com highlights
+ */
 function highlightMatchesWithIndices(text, indices) {
   if (!indices || indices.length === 0) return text;
   
@@ -102,6 +132,12 @@ function highlightMatchesWithIndices(text, indices) {
   return highlightedText;
 }
 
+/**
+ * Destaca correspondências de busca no texto
+ * @param {string} text - Texto original
+ * @param {string} query - Termo de busca
+ * @returns {string} Texto com highlights
+ */
 function highlightMatches(text, query) {
   if (!query || !text) return text;
   
@@ -112,7 +148,10 @@ function highlightMatches(text, query) {
   return text.replace(regex, '<mark>$1</mark>');
 }
 
-// Gerenciamento de Botões Flutuantes
+/**
+ * Gerencia botões flutuantes (filtro de grupo e navegação de artigos)
+ * @param {string} action - Ação a ser executada ('create_group_filter', 'create_article_nav' ou 'destroy')
+ */
 function manageFloatingButton(action) {
   const existingFloatingButton = document.getElementById('floating-group-filter');
   if (existingFloatingButton) existingFloatingButton.remove();
@@ -132,12 +171,14 @@ function manageFloatingButton(action) {
       buttonInApp.style.display = 'none';
     }
   } else if (action === 'create_article_nav') {
+    // Botão de navegação anterior
     const prevButton = document.createElement('button');
     prevButton.className = 'article-navigation prev-button';
     prevButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>`;
     prevButton.onclick = () => navigateArticle(-1);
     document.body.appendChild(prevButton);
 
+    // Botão de navegação próximo
     const nextButton = document.createElement('button');
     nextButton.className = 'article-navigation next-button';
     nextButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>`;
@@ -146,7 +187,13 @@ function manageFloatingButton(action) {
   }
 }
 
-// Funções de Renderização
+/**
+ * Funções de Renderização
+ */
+
+/**
+ * Renderiza a lista de categorias (página inicial)
+ */
 function renderCategories() {
   state.currentCategory = null;
   manageFloatingButton('destroy');
@@ -174,6 +221,10 @@ function renderCategories() {
   renderSidebar();
 }
 
+/**
+ * Renderiza os tópicos de uma categoria específica
+ * @param {string} categoryId - ID da categoria
+ */
 function renderTopics(categoryId) {
   state.currentCategory = categoryId;
   const category = forumData.find(c => c.id === categoryId);
@@ -182,6 +233,7 @@ function renderTopics(categoryId) {
   manageFloatingButton('destroy');
   triggerAnimation();
   
+  // Agrupa tópicos por grupo
   const groups = category.topics.reduce((acc, topic) => {
     const groupName = topic.group || 'Geral';
     if (!acc[groupName]) acc[groupName] = [];
@@ -191,6 +243,7 @@ function renderTopics(categoryId) {
 
   const groupNames = Object.keys(groups);
 
+  // HTML dos grupos de tópicos
   const topicsHTML = Object.entries(groups).map(([groupName, topics]) => `
     <div class="article-group" id="group-${groupName.replace(/\s+/g, '-').toLowerCase()}">
       <h3 class="article-group-title">${groupName}</h3>
@@ -199,13 +252,13 @@ function renderTopics(categoryId) {
           <a onclick="renderArticle('${category.id}', '${topic.id}')" class="card-link flex cursor-pointer flex-col gap-3 rounded-xl p-5 group">
             <h3 class="text-base font-semibold">${topic.title}</h3>
             <p class="text-sm font-normal">${topic.description || ''}</p>
-            ${topic.tags ? `<div class="mt-2 flex flex-wrap gap-2">${topic.tags.slice(0, 3).map(tag => `<span class="text-xs px-2 py-1 rounded-full bg-opacity-20 bg-primary">${tag}</span>`).join('')}</div>` : ''}
           </a>
         `).join('')}
       </div>
     </div>
   `).join('');
 
+  // Links para navegação entre grupos
   const groupLinksHTML = groupNames.map(name =>
     `<a onclick="scrollToGroup('${name.replace(/\s+/g, '-').toLowerCase()}'); this.closest('.group-filter-menu').classList.remove('visible');" 
        class="group-filter-item">${name}</a>`
@@ -238,6 +291,11 @@ function renderTopics(categoryId) {
   manageFloatingButton('create_group_filter');
 }
 
+/**
+ * Renderiza um artigo completo
+ * @param {string} categoryId - ID da categoria
+ * @param {string} topicId - ID do tópico
+ */
 function renderArticle(categoryId, topicId) {
   const category = forumData.find(c => c.id === categoryId);
   const topic = category?.topics.find(t => t.id === topicId);
@@ -261,19 +319,31 @@ function renderArticle(categoryId, topicId) {
     <div class="article-content mt-8 relative">
       <h1>${topic.title}</h1>
       ${topic.description ? `<p class="text-xl mt-4 opacity-80">${topic.description}</p>` : ''}
+      
+      ${topic.tags ? `
+        <div class="mt-6 flex flex-wrap gap-2">
+          ${topic.tags.map(tag => `
+            <span onclick="renderArticlesByTag('${tag}')" 
+                  class="text-xs px-2 py-1 rounded-full bg-opacity-20 bg-primary cursor-pointer hover:bg-opacity-30">
+              ${tag}
+            </span>
+          `).join('')}
+        </div>
+      ` : ''}
+      
       <hr class="my-8 opacity-20">
       <div>${topic.content}</div>
       
       ${relatedArticles.length > 0 ? `
       <div class="mt-12">
-        <h2 class="text-2xl font-bold mb-4">Veja Também</h2>
-        <div class="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4">
+        <h2 class="text-2xl font-bold mb-6">Recomendados para você</h2>
+        <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6">
           ${relatedArticles.map(article => `
             <a onclick="renderArticle('${article.categoryId}', '${article.id}')" 
-               class="card-link flex cursor-pointer flex-col gap-3 rounded-xl p-5 group">
-              <h3 class="text-base font-semibold">${article.title}</h3>
-              <p class="text-sm font-normal">${article.description || ''}</p>
-              ${article.tags ? `<div class="mt-2 flex flex-wrap gap-2">${article.tags.slice(0, 3).map(tag => `<span class="text-xs px-2 py-1 rounded-full bg-opacity-20 bg-primary">${tag}</span>`).join('')}</div>` : ''}
+               class="card-link flex cursor-pointer flex-col gap-3 rounded-xl p-6 group hover:border-primary transition-all">
+              <h3 class="text-lg font-semibold">${article.title}</h3>
+              <p class="text-sm font-normal opacity-80">${article.description || ''}</p>
+              <p class="text-xs mt-2 opacity-60">${article.categoryTitle}</p>
             </a>
           `).join('')}
         </div>
@@ -287,6 +357,59 @@ function renderArticle(categoryId, topicId) {
   renderSidebar();
 }
 
+/**
+ * Renderiza artigos por tag
+ * @param {string} tag - Tag para filtrar os artigos
+ */
+function renderArticlesByTag(tag) {
+  triggerAnimation();
+  manageFloatingButton('destroy');
+
+  const articlesWithTag = [];
+  
+  // Encontra todos os artigos com a tag especificada
+  forumData.forEach(category => {
+    category.topics.forEach(topic => {
+      if (topic.tags && topic.tags.includes(tag)) {
+        articlesWithTag.push({
+          ...topic,
+          categoryId: category.id,
+          categoryTitle: category.title
+        });
+      }
+    });
+  });
+
+  app.innerHTML = `
+    <div class="flex flex-wrap items-center gap-2 text-sm font-medium">
+      <a onclick="renderCategories()" class="cursor-pointer opacity-70 hover:opacity-100">Início</a>
+      <span class="opacity-50">/</span>
+      <span class="font-semibold">Artigos com a tag: ${tag}</span>
+    </div>
+    <div class="mt-8">
+      <h1 class="text-3xl font-bold mb-6">Artigos marcados com "${tag}"</h1>
+      <div class="grid grid-cols-[repeat(auto-fill,minmax(280px,1fr))] gap-4">
+        ${articlesWithTag.map(article => `
+          <a onclick="renderArticle('${article.categoryId}', '${article.id}')" 
+             class="card-link flex cursor-pointer flex-col gap-3 rounded-xl p-5 group">
+            <h3 class="text-base font-semibold">${article.title}</h3>
+            <p class="text-sm font-normal">${article.description || ''}</p>
+            <p class="text-xs mt-2 opacity-60">${article.categoryTitle}</p>
+          </a>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  updateScroll();
+}
+
+/**
+ * Obtém artigos relacionados ao tópico atual
+ * @param {Object} currentTopic - Tópico atual
+ * @param {string} currentCategoryId - ID da categoria atual
+ * @returns {Array} Array de artigos relacionados
+ */
 function getRelatedArticles(currentTopic, currentCategoryId) {
   // 1. Verifica se há sugestões manuais
   if (currentTopic.manualSuggestions && currentTopic.manualSuggestions.length > 0) {
@@ -306,7 +429,7 @@ function getRelatedArticles(currentTopic, currentCategoryId) {
       }
     }
     
-    return manualSuggestions.slice(0, 4);
+    return manualSuggestions.slice(0, 3); // Retorna apenas 3 sugestões manuais
   }
 
   // 2. Gera automaticamente por tags
@@ -315,6 +438,7 @@ function getRelatedArticles(currentTopic, currentCategoryId) {
   const relatedArticles = [];
   const currentTags = currentTopic.tags;
 
+  // Procura artigos com tags em comum
   for (const category of forumData) {
     for (const topic of category.topics) {
       if (topic.id === currentTopic.id || !topic.tags || topic.tags.length === 0) continue;
@@ -333,10 +457,34 @@ function getRelatedArticles(currentTopic, currentCategoryId) {
     }
   }
 
+  // Ordena por relevância
   relatedArticles.sort((a, b) => b.relevanceScore - a.relevanceScore);
-  return relatedArticles.slice(0, 4);
+  
+  // Se não houver artigos relacionados por tags, retorna aleatórios da mesma categoria
+  if (relatedArticles.length === 0) {
+    const sameCategory = forumData.find(c => c.id === currentCategoryId);
+    if (sameCategory) {
+      return sameCategory.topics
+        .filter(t => t.id !== currentTopic.id)
+        .sort(() => 0.5 - Math.random())
+        .slice(0, 3)
+        .map(topic => ({
+          ...topic,
+          categoryId: currentCategoryId,
+          categoryTitle: sameCategory.title
+        }));
+    }
+    return [];
+  }
+
+  return relatedArticles.slice(0, 3); // Retorna apenas 3 artigos relacionados
 }
 
+/**
+ * Atualiza a navegação entre artigos
+ * @param {Object} category - Categoria atual
+ * @param {string} topicId - ID do tópico atual
+ */
 function updateArticleNavigation(category, topicId) {
   const allModuleArticles = category.topics;
   const currentIndex = allModuleArticles.findIndex(t => t.id === topicId);
@@ -346,6 +494,10 @@ function updateArticleNavigation(category, topicId) {
   }
 }
 
+/**
+ * Navega entre artigos na mesma categoria/grupo
+ * @param {number} direction - Direção da navegação (1 para próximo, -1 para anterior)
+ */
 function navigateArticle(direction) {
   const newIndex = state.currentArticleIndex + direction;
   if (newIndex >= 0 && newIndex < state.currentGroupArticles.length) {
@@ -354,20 +506,27 @@ function navigateArticle(direction) {
   }
 }
 
-// Lógica de Busca Inteligente
+/**
+ * Funções de Busca
+ */
+
+/**
+ * Inicializa o Fuse.js para busca fuzzy
+ */
 function initializeFuse() {
   const searchPool = forumData.flatMap(category => 
     category.topics.map(topic => ({
       ...topic,
       categoryId: category.id,
       categoryTitle: category.title,
-      contentText: topic.content.replace(/<[^>]*>/g, ' ')
+      contentText: topic.content.replace(/<[^>]*>/g, ' ') // Remove tags HTML para busca
     }))
   );
   
   state.fuseInstance = new Fuse(searchPool, searchOptions);
 }
 
+// Debounce para a função de busca
 const debouncedSearch = debounce((query) => {
   if (query.length > 0) {
     performSearch(query);
@@ -380,10 +539,18 @@ const debouncedSearch = debounce((query) => {
   }
 }, 250);
 
+/**
+ * Manipula a entrada de busca
+ * @param {string} query - Termo de busca
+ */
 function handleSearch(query) {
   debouncedSearch(query.trim());
 }
 
+/**
+ * Executa a busca e renderiza os resultados
+ * @param {string} query - Termo de busca
+ */
 function performSearch(query) {
   if (!query || query.length < 2) {
     if (state.currentCategory) {
@@ -394,7 +561,7 @@ function performSearch(query) {
     return;
   }
 
-  // Se não tiver uma instância Fuse, inicializa
+  // Inicializa Fuse.js se necessário
   if (!state.fuseInstance) {
     initializeFuse();
   }
@@ -411,7 +578,7 @@ function performSearch(query) {
     results = tempFuse.search(query);
   }
 
-  // Mapeia os resultados para o formato esperado
+  // Formata os resultados
   const formattedResults = results.map(result => ({
     ...result.item,
     matches: result.matches
@@ -420,17 +587,22 @@ function performSearch(query) {
   renderSearchResults(formattedResults, query);
 }
 
+/**
+ * Renderiza os resultados da busca
+ * @param {Array} results - Resultados da busca
+ * @param {string} query - Termo de busca
+ */
 function renderSearchResults(results, query) {
   triggerAnimation();
   manageFloatingButton('destroy');
 
   const resultsHTML = results.map(item => {
-    // Encontrar o melhor match para destacar no título
+    // Encontra o melhor match para destacar no título
     const titleMatch = item.matches.find(m => m.key === 'title') || 
                       item.matches.find(m => m.key === 'description') || 
                       item.matches[0];
     
-    // Extrair trecho do conteúdo mais relevante
+    // Extrai trecho do conteúdo mais relevante
     const contentMatch = item.matches.find(m => m.key === 'contentText');
     let contentSnippet = '';
     
@@ -440,7 +612,7 @@ function renderSearchResults(results, query) {
       const end = Math.min(item.contentText.length, firstMatch[1] + 20);
       contentSnippet = item.contentText.substring(start, end);
       
-      // Destacar correspondências no snippet
+      // Destaca correspondências no snippet
       contentMatch.indices.forEach(([startIdx, endIdx]) => {
         const matchedText = contentSnippet.substring(
           Math.max(0, startIdx - start),
@@ -496,12 +668,23 @@ function renderSearchResults(results, query) {
   updateScroll();
 }
 
-// Funções do Menu de Filtro
+/**
+ * Funções do Menu de Filtro
+ */
+
+/**
+ * Alterna a visibilidade do menu de filtro
+ * @param {boolean} forceState - Força um estado específico (opcional)
+ */
 function toggleFilterMenu(forceState) {
   const isVisible = filterMenu.classList.contains('visible');
   filterMenu.classList.toggle('visible', forceState !== undefined ? forceState : !isVisible);
 }
 
+/**
+ * Renderiza os itens do menu de filtro
+ * @param {string} filterText - Texto para filtrar os itens (opcional)
+ */
 function renderFilterMenuItems(filterText = '') {
   const lowerFilterText = filterText.toLowerCase();
   const allModules = [{ id: 'all', title: 'Todos os Módulos', icon: icons.search }, ...forumData];
@@ -516,6 +699,10 @@ function renderFilterMenuItems(filterText = '') {
   `).join('');
 }
 
+/**
+ * Define o escopo da busca
+ * @param {string} scopeId - ID do escopo ('all' ou ID da categoria)
+ */
 function setSearchScope(scopeId) {
   state.searchScope = scopeId;
   const selectedModule = forumData.find(m => m.id === scopeId);
@@ -536,7 +723,13 @@ function setSearchScope(scopeId) {
   }
 }
 
-// Funções da Interface
+/**
+ * Funções da Interface
+ */
+
+/**
+ * Renderiza a sidebar com as categorias
+ */
 function renderSidebar() {
   sidebarNav.innerHTML = forumData.map(category => `
     <a onclick="renderTopics('${category.id}')" 
@@ -549,6 +742,9 @@ function renderSidebar() {
   `).join('');
 }
 
+/**
+ * Adiciona botões de copiar em blocos de código
+ */
 function addCopyButtons() {
   document.querySelectorAll('pre:not(:has(.copy-button))').forEach(pre => {
     const button = document.createElement('button');
@@ -565,6 +761,10 @@ function addCopyButtons() {
   });
 }
 
+/**
+ * Define o tema (claro/escuro)
+ * @param {boolean} isDark - Se true, aplica tema escuro
+ */
 function setTheme(isDark) {
   const sunIconElement = themeToggleBtn.querySelector('.sun-icon');
   const moonIconElement = themeToggleBtn.querySelector('.moon-icon');
@@ -579,6 +779,10 @@ function setTheme(isDark) {
   localStorage.setItem('theme', isDark ? 'dark' : 'light');
 }
 
+/**
+ * Rola a página até um grupo específico
+ * @param {string} groupId - ID do grupo
+ */
 function scrollToGroup(groupId) {
   const element = document.getElementById(`group-${groupId}`);
   if (element && state.scrollInstance) {
@@ -586,7 +790,9 @@ function scrollToGroup(groupId) {
   }
 }
 
-// Inicialização
+/**
+ * Inicialização da aplicação
+ */
 document.addEventListener('DOMContentLoaded', () => {
   initSmoothScroll();
   initSidebar({
