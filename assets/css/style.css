@@ -1,11 +1,5 @@
-/*
- * ===================================================================
- * STYLE.CSS - VERSÃO ELEGÂNCIA APRIMORADA
- * ===================================================================
- */
+@import url(sidebar.css);
 
-/* 1. VARIÁVEIS GLOBAIS
- *******************************************************************/
 :root {
   /* Cores (Modo Claro) - Tons mais suaves e profissionais */
   --bg-color: #fbfbfb;
@@ -138,88 +132,7 @@ a {
   padding-bottom: 150px;
 }
 
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  background-color: var(--bg-color);
-  border-right: 1px solid var(--border-color);
-  transition: all var(--transition-medium) var(--transition-curve);
-}
 
-.sidebar-header {
-  padding: 1.5rem;
-  flex-shrink: 0;
-}
-
-.sidebar-nav {
-  flex-grow: 1;
-  overflow-y: auto;
-  padding: 0 0.75rem;
-}
-
-.sidebar-footer {
-  padding: 1rem 1.5rem;
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-.sidebar-nav-link {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.8rem 1rem;
-  border-radius: 0.5rem;
-  transition: background-color var(--transition-fast) var(--transition-curve), color var(--transition-fast) var(--transition-curve);
-  position: relative;
-}
-
-.sidebar-nav-link p,
-.sidebar-nav-link .module-icon {
-  transition: color var(--transition-fast) var(--transition-curve);
-  font-weight: var(--font-weight-medium);
-}
-
-.sidebar-nav-link:hover {
-  background-color: var(--hover-bg-color);
-}
-
-.sidebar-nav-link:hover p,
-.sidebar-nav-link:hover .module-icon,
-.sidebar-nav-link.active p,
-.sidebar-nav-link.active .module-icon {
-  color: var(--text-color);
-}
-
-/* Indicador de item ativo na sidebar - barra lateral sutil */
-.sidebar-nav-link::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  height: 50%;
-  width: 3px;
-  background-color: var(--text-color);
-  border-radius: 0 3px 3px 0;
-  transform: translateY(-50%) scaleY(0);
-  opacity: 0;
-  transition: transform var(--transition-fast) var(--transition-curve), opacity var(--transition-fast) var(--transition-curve);
-}
-
-.sidebar-nav-link.active::before {
-  transform: translateY(-50%) scaleY(1);
-  opacity: 1;
-}
-
-.sidebar-nav-link.active {
-  background-color: transparent;
-}
-
-/* Remove o fundo da classe active para focar no indicador */
-.sidebar-nav-link.active:hover {
-  background-color: var(--hover-bg-color);
-}
 
 
 /* 4. COMPONENTES E CARDS COM HOVER REFINADO */
