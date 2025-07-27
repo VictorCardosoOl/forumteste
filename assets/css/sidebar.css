@@ -1,72 +1,117 @@
-/* ===================================================================
- * SIDEBAR.CSS - VERSÃO DE DESIGN PREMIUM
- * =================================================================== */
-
-/* --- CONCEITO 3: PROFUNDIDADE E MATERIALIDADE --- */
-/* Adicionamos variáveis para a nova curva de animação e o gradiente */
+/* VERSÃO "SIGNATURE" CORRIGIDA */
 :root {
     --easing-curve: cubic-bezier(0.2, 0.8, 0.2, 1);
-    /* Curva suave para todas as animações */
-    --bg-color-gradient: linear-gradient(180deg, var(--bg-color) 0%, var(--card-bg-color) 100%);
+    --bg-color-gradient-light: linear-gradient(180deg, #fdfdfd 0%, #f8f8f8 100%);
+    --bg-color-gradient-dark: linear-gradient(180deg, #151515 0%, #101010 100%)
 }
 
 .sidebar {
     display: flex;
     flex-direction: column;
     height: 100vh;
-    /* O fundo agora é um gradiente sutil */
-    background-image: var(--bg-color-gradient);
-    /* Uma sombra interna fina cria um efeito de painel separado */
+    background-image: var(--bg-color-gradient-light);
     box-shadow: inset -1px 0 0 var(--border-color);
-    transition: width 0.5s var(--easing-curve);
+    transition: width .5s var(--easing-curve), transform .4s var(--easing-curve);
     position: relative;
-    z-index: 1000;
+    z-index: 1000
+}
+
+body.dark-mode .sidebar {
+    background-image: var(--bg-color-gradient-dark)
+}
+
+.sidebar-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0 .75rem
 }
 
 .sidebar-header {
-    padding: 1.5rem;
-    flex-shrink: 0;
-    overflow: hidden;
+    padding: 1.5rem .75rem;
+    flex-shrink: 0
 }
 
-.sidebar-nav {
+.sidebar-main {
     flex-grow: 1;
-    overflow-y: auto;
-    padding: 0 0.75rem;
-}
-
-.sidebar-footer {
-    padding: 1rem;
-    flex-shrink: 0;
     overflow: hidden;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column
 }
 
-.sidebar-footer .footer-actions {
+.sidebar-divider {
+    height: 1px;
+    border: 0;
+    background-image: linear-gradient(to right, transparent, var(--border-color), transparent);
+    margin: .5rem 0
+}
+
+.nav-section-header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 0.25rem;
+    padding: .75rem;
+    cursor: pointer;
+    border-radius: .5rem
 }
 
-/* --- LINKS DE NAVEGAÇÃO REFINADOS --- */
+.nav-section-header:hover {
+    background-color: var(--hover-bg-color)
+}
+
+.nav-section-header .title {
+    font-size: .8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--text-color-light)
+}
+
+.nav-section-header .chevron {
+    color: var(--text-color-light);
+    transition: transform .4s var(--easing-curve)
+}
+
+.nav-section.collapsed .chevron {
+    transform: rotate(-90deg)
+}
+
+#sidebar-nav {
+    max-height: 500px;
+    overflow: hidden;
+    transition: max-height .5s var(--easing-curve), opacity .3s ease-out;
+    padding-left: .5rem
+}
+
+.nav-section.collapsed #sidebar-nav {
+    max-height: 0;
+    opacity: 0
+}
+
 .sidebar-nav-link {
     display: flex;
     align-items: center;
-    padding: 0.75rem 1.25rem;
-    border-radius: 0.625rem;
+    padding: .75rem .875rem;
+    border-radius: .5rem;
     position: relative;
-    overflow: hidden;
     color: var(--text-color-light);
-    transition: color 0.3s var(--easing-curve), background-color 0.3s var(--easing-curve);
+    transition: all .3s var(--easing-curve);
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInSlideUp .5s var(--easing-curve) forwards
 }
 
-/* --- CONCEITO 2: INDICADOR ATIVO COM ANIMAÇÃO ENERGÉTICA --- */
+@keyframes fadeInSlideUp {
+    to {
+        opacity: 1;
+        transform: translateY(0)
+    }
+}
+
 .sidebar-nav-link::before {
     content: '';
     position: absolute;
-    left: 0;
+    left: -.75rem;
     top: 50%;
     transform: translateY(-50%) scaleY(0);
     transform-origin: center;
@@ -75,144 +120,174 @@
     background-color: var(--text-color);
     border-radius: 99px;
     opacity: 0;
-    /* A transição agora usa a nova curva de animação */
-    transition: all 0.5s var(--easing-curve);
+    transition: all .5s var(--easing-curve)
 }
 
 .sidebar-nav-link.active::before {
     transform: translateY(-50%) scaleY(1);
-    opacity: 1;
+    opacity: 1
 }
 
 .sidebar-nav-link.active {
     color: var(--text-color);
-    background-color: var(--hover-bg-color);
+    background-color: var(--hover-bg-color)
 }
 
-/* --- CONCEITO 1: ANIMAÇÃO DE TEXTO COREOGRAFADA --- */
 .sidebar-nav-link p {
     white-space: nowrap;
     font-weight: 500;
-    font-size: 0.9rem;
-    /* O texto começa levemente deslocado e invisível */
-    opacity: 0;
-    transform: translateX(-15px);
-    /* A transição agora é mais sofisticada */
-    transition: opacity 0.4s var(--easing-curve),
-        transform 0.4s var(--easing-curve),
-        width 0.5s var(--easing-curve);
+    font-size: .9rem
 }
 
-/* O texto aparece quando a sidebar está expandida */
-body.sidebar-estado-expandido .sidebar-nav-link p,
-body.sidebar-estado-flutuante .sidebar:hover .sidebar-nav-link p {
-    opacity: 1;
-    transform: translateX(0);
-    width: auto;
-}
-
-/* --- CONCEITO 4: MICRO-INTERAÇÕES RESPONSIVAS --- */
 .sidebar-nav-link .module-icon {
-    transition: transform 0.4s var(--easing-curve);
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    margin-right: .75rem;
+    transition: transform .4s var(--easing-curve)
 }
 
 .sidebar-nav-link:hover .module-icon {
-    transform: scale(1.15);
-    /* Ícone "salta" um pouco no hover */
+    transform: scale(1.15)
 }
 
 .sidebar-nav-link:hover:not(.active) {
-    color: var(--text-color);
+    color: var(--text-color)
 }
 
+.sidebar-footer {
+    padding: 1rem .75rem;
+    flex-shrink: 0
+}
 
-/* --- ÍCONES DE CONTROLE DO RODAPÉ --- */
-.sidebar-toggle-btn {
+.profile-section {
+    padding: .75rem;
+    border-radius: .75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 4px 20px var(--shadow-color)
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    overflow: hidden
+}
+
+.profile-info .avatar {
     width: 36px;
     height: 36px;
+    border-radius: 50%;
+    background-color: var(--text-color);
+    color: var(--bg-color);
     display: grid;
     place-items: center;
-    border-radius: 0.5rem;
+    font-weight: 600;
+    flex-shrink: 0
+}
+
+.profile-info .name {
+    font-weight: 600;
+    color: var(--text-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+}
+
+.footer-actions {
+    display: flex;
+    align-items: center
+}
+
+.sidebar-toggle-btn {
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    border-radius: .5rem;
     cursor: pointer;
     color: var(--text-color-light);
     position: relative;
-    transition: all 0.3s var(--easing-curve);
+    transition: all .3s var(--easing-curve)
 }
 
 .sidebar-toggle-btn:hover {
-    background-color: var(--hover-bg-color);
-    color: var(--text-color);
-    transform: scale(1.1);
+    background-color: var(--glass-button-hover-bg);
+    color: var(--text-color)
 }
 
 .sidebar-toggle-btn svg {
     grid-area: 1 / 1;
     opacity: 0;
-    transform: scale(0.8) rotate(-15deg);
-    transition: opacity 0.4s var(--easing-curve), transform 0.4s var(--easing-curve);
+    transform: scale(.8) rotate(-15deg);
+    transition: opacity .4s var(--easing-curve), transform .4s var(--easing-curve)
 }
 
 body.sidebar-estado-expandido .sidebar-toggle-btn .icon-collapse,
 body.sidebar-estado-recolhido .sidebar-toggle-btn .icon-float,
 body.sidebar-estado-flutuante .sidebar-toggle-btn .icon-expand {
     opacity: 1;
-    transform: scale(1) rotate(0deg);
+    transform: scale(1) rotate(0)
 }
 
-/* --- ESTADOS RECOLHIDOS (regras consolidadas) --- */
 body:not(.sidebar-estado-expandido) {
-    --sidebar-current-width: 68px;
+    --sidebar-current-width: 68px
 }
 
 body.sidebar-estado-expandido {
-    --sidebar-current-width: var(--sidebar-width);
+    --sidebar-current-width: var(--sidebar-width)
 }
 
 #page-container {
     grid-template-columns: var(--sidebar-current-width) 1fr;
-    transition: grid-template-columns 0.5s var(--easing-curve);
+    transition: grid-template-columns .5s var(--easing-curve)
 }
 
 .sidebar {
-    width: var(--sidebar-current-width);
+    width: var(--sidebar-current-width)
 }
 
-/* Esconde elementos nos estados recolhidos */
 body:not(.sidebar-estado-expandido) .sidebar-header h2,
-body:not(.sidebar-estado-expandido) .sidebar-footer p,
+body:not(.sidebar-estado-expandido) .sidebar-footer .profile-info,
 body:not(.sidebar-estado-expandido) .sidebar-nav-link p {
     opacity: 0;
     width: 0;
     pointer-events: none;
+    white-space: nowrap
 }
 
 body:not(.sidebar-estado-expandido) .sidebar-nav-link,
-body:not(.sidebar-estado-expandido) .sidebar-footer {
-    justify-content: center;
+body:not(.sidebar-estado-expandido) .profile-section {
+    justify-content: center
 }
 
-/* --- HOVER NO MODO FLUTUANTE --- */
 body.sidebar-estado-flutuante .sidebar:hover {
     width: var(--sidebar-width);
-    box-shadow: 4px 0px 30px -5px var(--shadow-color);
+    box-shadow: 4px 0 30px -5px var(--shadow-color)
 }
 
 body.sidebar-estado-flutuante .sidebar:hover .sidebar-header h2,
-body.sidebar-estado-flutuante .sidebar:hover .sidebar-footer p {
+body.sidebar-estado-flutuante .sidebar:hover .sidebar-footer .profile-info,
+body.sidebar-estado-flutuante .sidebar:hover .sidebar-nav-link p {
     opacity: 1;
     width: auto;
-    pointer-events: auto;
+    pointer-events: auto
 }
 
 body.sidebar-estado-flutuante .sidebar:hover .sidebar-nav-link {
-    justify-content: flex-start;
+    justify-content: flex-start
 }
 
-body.sidebar-estado-flutuante .sidebar:hover .sidebar-footer {
-    justify-content: space-between;
+body.sidebar-estado-flutuante .sidebar:hover .profile-section {
+    justify-content: space-between
 }
 
-/* --- TOOLTIP (sem alterações) --- */
 .tooltip {
     position: absolute;
     left: 75px;
@@ -222,16 +297,16 @@ body.sidebar-estado-flutuante .sidebar:hover .sidebar-footer {
     color: var(--text-color);
     padding: 6px 12px;
     border-radius: 6px;
-    font-size: 0.8rem;
+    font-size: .8rem;
     font-weight: 500;
     white-space: nowrap;
     box-shadow: 0 4px 12px var(--shadow-color);
     z-index: 1002;
     pointer-events: none;
     opacity: 0;
-    transition: opacity 0.2s ease-in-out;
+    transition: opacity .2s ease-in-out
 }
 
 body:not(.sidebar-estado-expandido) .sidebar:not(:hover) .sidebar-nav-link:hover .tooltip {
-    opacity: 1;
+    opacity: 1
 }
