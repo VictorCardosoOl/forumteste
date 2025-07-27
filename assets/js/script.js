@@ -228,20 +228,18 @@ function renderArticle(categoryId, topicId) {
 }
 
 function updateArticleNavigation(category, topicId) {
-  const groups = category.topics.reduce((acc, topic) => {
-    const groupName = topic.group || 'Geral';
-    if (!acc[groupName]) acc[groupName] = [];
-    acc[groupName].push(topic);
-    return acc;
-  }, {});
+  // A lista de navegação agora é a lista completa de tópicos do módulo.
+  const allModuleArticles = category.topics;
 
-  for (const articles of Object.values(groups)) {
-    const index = articles.findIndex(t => t.id === topicId);
-    if (index !== -1) {
-      state.currentGroupArticles = articles;
-      state.currentArticleIndex = index;
-      break;
-    }
+  // Encontramos o índice do artigo atual dentro da lista completa.
+  const currentIndex = allModuleArticles.findIndex(t => t.id === topicId);
+
+  // Verificamos se o artigo foi encontrado (o que sempre deve acontecer).
+  if (currentIndex !== -1) {
+    // Atualizamos o estado com a lista completa e o índice correto.
+    // O nome da variável de estado continua o mesmo por consistência.
+    state.currentGroupArticles = allModuleArticles;
+    state.currentArticleIndex = currentIndex;
   }
 }
 
