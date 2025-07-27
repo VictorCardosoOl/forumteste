@@ -115,7 +115,9 @@ a {
 /* 3. LAYOUT E SIDEBAR COM INDICADOR ELEGANTE */
 #page-container {
   display: grid;
-  grid-template-columns: var(--sidebar-width) 1fr;
+  /* A linha 'grid-template-columns' foi removida. */
+  /* Agora, o controle do layout é feito exclusivamente */
+  /* pelas classes de estado no arquivo sidebar.css. */
   height: 100vh;
   overflow: hidden;
 }
