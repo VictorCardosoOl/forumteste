@@ -7,7 +7,7 @@
     background-color: var(--bg-color);
     border-right: 1px solid var(--border-color);
     transition: width var(--transition-medium) var(--transition-curve),
-                min-width var(--transition-medium) var(--transition-curve);
+        min-width var(--transition-medium) var(--transition-curve);
     position: relative;
     z-index: 1000;
 }
@@ -28,18 +28,25 @@
     padding: 1rem;
     flex-shrink: 0;
     overflow: hidden;
-    /* ALTERAÇÃO: Garante que o rodapé seja um container flex */
     display: flex;
     align-items: center;
     justify-content: space-between;
     transition: justify-content var(--transition-medium) var(--transition-curve);
 }
 
+/* ALTERAÇÃO: Adicionado um container para os botões do rodapé para melhor controle de espaçamento */
+.sidebar-footer .footer-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    /* Adiciona um pequeno espaçamento entre os botões */
+}
+
 .sidebar-nav-link {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.8rem 1rem;
+    /* ALTERAÇÃO: Ajustado o padding para dar mais espaço ao texto */
+    padding: 0.75rem 0.875rem;
     border-radius: 0.5rem;
     transition: background-color var(--transition-fast) var(--transition-curve);
     position: relative;
@@ -49,10 +56,11 @@
 .sidebar-nav-link p {
     white-space: nowrap;
     font-weight: var(--font-weight-medium);
-    /* ALTERAÇÃO: Adiciona width e margin à transição para um colapso suave */
+    /* ALTERAÇÃO: Reduzido levemente o tamanho da fonte para acomodar textos longos */
+    font-size: 0.9rem;
     transition: opacity var(--transition-fast) ease-out,
-                width var(--transition-medium) var(--transition-curve),
-                margin var(--transition-medium) var(--transition-curve);
+        width var(--transition-medium) var(--transition-curve),
+        margin var(--transition-medium) var(--transition-curve);
 }
 
 .sidebar-nav-link:hover {
@@ -68,7 +76,6 @@
  * 10. ESTILOS DA SIDEBAR INTELIGENTE
  * =================================================================== */
 
-/* --- BOTÃO DE CONTROLE E ÍCONES --- */
 .sidebar-toggle-btn {
     width: 36px;
     height: 36px;
@@ -86,27 +93,32 @@
     color: var(--text-color);
 }
 
-/* Esconde todos os ícones por padrão */
 .sidebar-toggle-btn svg {
     display: none;
 }
 
-/* Mostra o ícone correto baseado no estado do body */
-body.sidebar-estado-expandido .sidebar-toggle-btn .icon-collapse { display: block; }
-body.sidebar-estado-recolhido .sidebar-toggle-btn .icon-float { display: block; }
-body.sidebar-estado-flutuante .sidebar-toggle-btn .icon-expand { display: block; }
+body.sidebar-estado-expandido .sidebar-toggle-btn .icon-collapse {
+    display: block;
+}
 
+body.sidebar-estado-recolhido .sidebar-toggle-btn .icon-float {
+    display: block;
+}
+
+body.sidebar-estado-flutuante .sidebar-toggle-btn .icon-expand {
+    display: block;
+}
 
 /* --- ESTADO 1: EXPANDIDO (Default) --- */
 body.sidebar-estado-expandido #page-container {
     grid-template-columns: var(--sidebar-width) 1fr;
 }
+
 body.sidebar-estado-expandido .sidebar {
     width: var(--sidebar-width);
 }
 
-/* --- ESTADO 2: RECOLHIDO (Fixo) & ESTADO 3: FLUTUANTE --- */
-/* Agrupamos as regras comuns para os dois estados recolhidos */
+/* --- ESTADOS RECOLHIDOS (Fixo e Flutuante) --- */
 body.sidebar-estado-recolhido #page-container,
 body.sidebar-estado-flutuante #page-container {
     grid-template-columns: 68px 1fr;
@@ -122,7 +134,7 @@ body.sidebar-estado-recolhido .sidebar-footer p,
 body.sidebar-estado-flutuante .sidebar-header h2,
 body.sidebar-estado-flutuante .sidebar-footer p {
     opacity: 0;
-    width: 0; /* ALTERAÇÃO: Faz o texto colapsar */
+    width: 0;
 }
 
 body.sidebar-estado-recolhido .sidebar-nav-link,
@@ -130,15 +142,13 @@ body.sidebar-estado-flutuante .sidebar-nav-link {
     justify-content: center;
 }
 
-/* ALTERAÇÃO: Regra específica para o parágrafo dentro do link */
 body.sidebar-estado-recolhido .sidebar-nav-link p,
 body.sidebar-estado-flutuante .sidebar-nav-link p {
     opacity: 0;
-    width: 0; /* Faz o texto do link colapsar para não ocupar espaço */
-    margin: 0; /* Remove qualquer margem que possa afetar o alinhamento */
+    width: 0;
+    margin: 0;
 }
 
-/* ALTERAÇÃO: Centraliza o conteúdo do rodapé */
 body.sidebar-estado-recolhido .sidebar-footer,
 body.sidebar-estado-flutuante .sidebar-footer {
     justify-content: center;
@@ -153,13 +163,12 @@ body.sidebar-estado-flutuante .sidebar:hover {
 body.sidebar-estado-flutuante .sidebar:hover .sidebar-header h2,
 body.sidebar-estado-flutuante .sidebar:hover .sidebar-footer p {
     opacity: 1;
-    width: auto; /* Devolve a largura do texto */
+    width: auto;
 }
 
 body.sidebar-estado-flutuante .sidebar:hover .sidebar-nav-link p {
     opacity: 1;
-    width: auto; /* Devolve a largura do texto */
-    margin-left: 0.75rem; /* Devolve o gap/espaçamento original */
+    width: auto;
 }
 
 body.sidebar-estado-flutuante .sidebar:hover .sidebar-nav-link {
@@ -170,8 +179,6 @@ body.sidebar-estado-flutuante .sidebar:hover .sidebar-footer {
     justify-content: space-between;
 }
 
-
-/* --- TOOLTIP PARA OS ÍCONES --- */
 .tooltip {
     position: absolute;
     left: 75px;
@@ -191,7 +198,6 @@ body.sidebar-estado-flutuante .sidebar:hover .sidebar-footer {
     transition: opacity 0.2s ease-in-out;
 }
 
-/* Mostra o tooltip nos modos RECOLHIDO ou FLUTUANTE (quando não está em hover) */
 body.sidebar-estado-recolhido .sidebar-nav-link:hover .tooltip,
 body.sidebar-estado-flutuante .sidebar:not(:hover) .sidebar-nav-link:hover .tooltip {
     opacity: 1;
