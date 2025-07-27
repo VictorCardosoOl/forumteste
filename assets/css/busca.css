@@ -1,0 +1,31 @@
+/* Estilos para os resultados de busca */
+mark {
+  background-color: rgba(255, 212, 0, 0.3);
+  color: inherit;
+  padding: 0 0.1em;
+  border-radius: 0.2em;
+}
+
+.card-link:hover mark {
+  background-color: rgba(255, 212, 0, 0.5);
+}
+
+.dark-mode mark {
+  background-color: rgba(255, 212, 0, 0.5);
+}
+
+/* Melhorias na exibição dos resultados */
+.search-result-item {
+  transition: all 0.2s ease;
+}
+
+.search-result-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px var(--shadow-color-hover);
+}
+
+.search-context {
+  font-size: 0.85rem;
+  opacity: 0.8;
+  margin-top: 0.25rem;
+}

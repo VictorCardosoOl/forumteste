@@ -1,4 +1,6 @@
 @import url(sidebar.css);
+@import url(responsividade.css);
+@import url(busca.css);
 
 :root {
   /* Cores (Modo Claro) - Tons mais suaves e profissionais */
@@ -406,34 +408,8 @@ body.dark-mode #footer-search .relative::before {
   border-bottom: 1px solid var(--border-color);
 }
 
-@media (max-width: 1024px) {
-  #page-container {
-    grid-template-columns: 0 1fr;
-  }
 
-  .sidebar {
-    transform: translateX(-100%);
-  }
 
-  #footer-search {
-    left: 0;
-  }
-}
-
-@media (max-width: 768px) {
-  #app {
-    padding: 1.5rem;
-    padding-bottom: 120px;
-  }
-
-  #footer-search .max-w-4xl {
-    padding: 0.5rem 1rem;
-  }
-
-  .article-content h1 {
-    font-size: 2.25rem;
-  }
-}
 
 .article-group {
   margin-top: 1rem;
@@ -537,104 +513,7 @@ pre {
   cursor: pointer;
 }
 
-/* 8. MELHORIAS DE RESPONSIVIDADE */
-@media (max-width: 1024px) {
-  #page-container {
-    grid-template-columns: 0 1fr;
-    position: relative;
-  }
 
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 280px;
-    transform: translateX(-100%);
-    z-index: 1000;
-    transition: transform 0.3s ease;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-  }
-
-  .sidebar.visible {
-    transform: translateX(0);
-  }
-
-  #footer-search {
-    left: 0;
-  }
-
-  #mobile-menu-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-  }
-
-  .sidebar.visible ~ #mobile-menu-overlay {
-    opacity: 1;
-    pointer-events: all;
-  }
-}
-
-@media (max-width: 768px) {
-  #app {
-    padding: 1.5rem;
-    padding-bottom: 120px;
-  }
-
-  .module-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .article-content h1 {
-    font-size: 2rem;
-  }
-
-  #footer-search .max-w-4xl {
-    padding: 0.5rem 1rem;
-  }
-
-  #search-input {
-    font-size: 0.9rem;
-    padding-left: 50px !important;
-  }
-
-  #search-filter-button {
-    padding: 0 0.5rem;
-    font-size: 0.7rem;
-  }
-
-  #search-filter-button span {
-    display: none;
-  }
-}
-
-@media (max-width: 480px) {
-  #app {
-    padding: 1rem;
-    padding-bottom: 100px;
-  }
-
-  .article-content h1 {
-    font-size: 1.75rem;
-  }
-
-  .card-link {
-    padding: 1.25rem;
-  }
-
-  #floating-group-filter {
-    top: 1rem;
-    right: 1rem;
-  }
-}
 
 /* No media query de 768px */
 #footer-search {
@@ -655,17 +534,7 @@ pre {
   font-size: 0.8rem;
 }
 
-@media (max-width: 768px) {
-  #floating-group-filter .group-filter-btn {
-    width: 36px;
-    height: 36px;
-  }
-  
-  #floating-group-filter {
-    right: 1rem;
-    top: 1rem;
-  }
-}
+
 
 .article-content {
   overflow-x: auto;
@@ -723,121 +592,23 @@ pre {
   height: 24px;
 }
 
-/* Ajustes para telas menores */
-@media (max-width: 1280px) {
-  .article-navigation.prev-button {
-    left: 2rem;
-  }
+
+/* Estilos para a seção "Veja Também" */
+.article-content .card-link {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-@media (max-width: 1024px) {
-  .article-navigation.prev-button {
-    /* Em modo mobile, a sidebar some, então ajustamos a distância */
-    left: 1rem;
-  }
-  .article-navigation.next-button {
-    right: 1rem;
-  }
+.article-content .card-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
-@media (max-width: 768px) {
-  .article-navigation {
-    width: 38px;
-    height: 38px;
-  }
-  .article-navigation.prev-button {
-    left: 0.5rem;
-  }
-  .article-navigation.next-button {
-    right: 0.5rem;
-  }
+/* Tags */
+.text-xs.bg-opacity-20 {
+  transition: all 0.2s ease;
 }
 
-/* ===================================================================
- * 8. RESPONSIVIDADE (SEÇÃO ATUALIZADA)
- * =================================================================== */
-
-/* --- TELAS DE TABLET E MENORES (A PARTIR DE 1024px) --- */
-@media (max-width: 1024px) {
-  /* O layout da página para de ser um grid fixo */
-  #page-container {
-    display: block; 
-  }
-
-  /* A sidebar agora fica fora da tela por padrão */
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 280px; /* Largura fixa para o menu mobile */
-    transform: translateX(-100%);
-    z-index: 1001; /* Z-index alto para ficar sobre o conteúdo */
-    transition: transform 0.4s var(--transition-curve);
-    border-right: 1px solid var(--border-color);
-  }
-
-  /* Quando a classe .visible é adicionada (via JS), a sidebar aparece */
-  .sidebar.visible {
-    transform: translateX(0);
-    box-shadow: 4px 0px 20px rgba(0,0,0,0.1);
-  }
-
-  /* FORÇA A SIDEBAR A FICAR EXPANDIDA NO MODO MOBILE, IGNORANDO O ESTADO DO DESKTOP */
-  .sidebar.visible .sidebar-nav-link p,
-  .sidebar.visible .sidebar-footer p,
-  .sidebar.visible .sidebar-header h2 {
-      opacity: 1 !important;
-      width: auto !important;
-  }
-  .sidebar.visible .sidebar-nav-link,
-  .sidebar.visible .sidebar-footer {
-      justify-content: flex-start !important;
-  }
-  .sidebar.visible .sidebar-footer {
-      justify-content: space-between !important;
-  }
-
-
-  /* O rodapé de busca ocupa a tela inteira */
-  #footer-search {
-    left: 0;
-    right: 0;
-    width: 100%;
-  }
-
-  /* Overlay escuro que aparece atrás da sidebar */
-  #sidebar-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s var(--transition-curve);
-  }
-
-  #sidebar-overlay.visible {
-    opacity: 1;
-    pointer-events: all;
-  }
-}
-
-/* --- AJUSTES FINAIS PARA TELAS MENORES --- */
-@media (max-width: 768px) {
-  #app {
-    padding: 1.5rem;
-    padding-bottom: 120px;
-  }
-
-  .module-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .article-content h1 {
-    font-size: 2.25rem;
-  }
+.text-xs.bg-opacity-20:hover {
+  background-opacity: 0.3;
+  transform: scale(1.05);
 }
