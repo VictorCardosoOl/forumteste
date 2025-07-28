@@ -221,3 +221,8 @@
     padding: 1.25rem;
   }
 }
+@media (max-width: 768px) {
+  .article-navigation {
+    display: none;
+  }
+}

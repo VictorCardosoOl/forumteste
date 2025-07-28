@@ -579,8 +579,7 @@ pre {
 }
 
 .article-navigation.prev-button {
-  /* A distância para a sidebar é a largura da sidebar + um espaçamento */
-  left: calc(var(--sidebar-width) + 2rem);
+ left: calc(var(--sidebar-current-width) + 2rem);
 }
 
 .article-navigation.next-button {
