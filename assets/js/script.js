@@ -28,7 +28,7 @@ const icons = {
   search: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="16" height="16"><path fill="currentColor" d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>`
 };
 
-// Configuração do Fuse.js para busca exata
+// Configuração do Fuse.js para busca
 const searchOptions = {
   keys: [
     { name: 'title', weight: 0.6 },
@@ -90,7 +90,7 @@ function updateSearchInputPadding() {
 }
 
 function highlightMatches(text, query) {
-  if (!query || !text) return text;
+  if (!query || !text || query === '%') return text;
   
   const words = query.split(/\s+/).filter(w => w.length > 1);
   if (words.length === 0) return text;
@@ -347,8 +347,6 @@ function initializeFuse() {
 }
 
 const debouncedSearch = debounce((query) => {
-  // CORREÇÃO: A lógica para '%' foi movida para dentro de handleSearch
-  // para simplificar e evitar duplicação.
   performSearch(query);
 }, 300);
 
@@ -364,7 +362,6 @@ function handleSearch(query) {
         debouncedSearch(trimmedQuery);
     }
 }
-
 
 function performSearch(query) {
     if (!query) {
@@ -445,7 +442,6 @@ function renderAllArticles() {
     }))
   );
   
-  // CORREÇÃO: Passa a query '%' para a função de renderização
   renderSearchResults(allArticles.map(item => ({ item })), '%');
 }
 
@@ -459,7 +455,6 @@ function renderArticlesByCategory(categoryId) {
     categoryTitle: category.title
   }));
   
-  // CORREÇÃO: Passa a query '%' para a função de renderização
   renderSearchResults(articles.map(item => ({ item })), '%');
 }
 
@@ -493,7 +488,6 @@ function setSearchScope(scopeId) {
     const selectedModule = forumData.find(m => m.id === scopeId);
 
     if (selectedModule) {
-        // CORREÇÃO 3: Envolve o ícone do módulo em um div para controlar seu tamanho
         filterButton.innerHTML = `
       <div class="flex items-center gap-2">
         <div class="w-4 h-4 flex-shrink-0">${selectedModule.icon || ''}</div>
@@ -509,8 +503,6 @@ function setSearchScope(scopeId) {
     `;
     }
 
-    // CORREÇÃO 2: Unifica a lógica de busca, chamando a função principal
-    // sempre que o escopo da busca é alterado.
     handleSearch(searchInput.value);
 
     toggleFilterMenu(false);
@@ -643,6 +635,7 @@ document.addEventListener('DOMContentLoaded', () => {
     onHomeClick: () => renderCategories()
   });
 
+  initAdaptiveNavigation();
   renderCategories();
   setSearchScope('all');
   renderFilterMenuItems();
@@ -701,3 +694,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initializeFuse();
 });
+
+// COLE ESTA NOVA FUNÇÃO NO SEU SCRIPT.JS
+function initAdaptiveNavigation() {
+    const sidebar = document.getElementById('sidebar');
+    const prevButton = document.querySelector('.article-navigation.prev-button');
+
+    // Se não houver sidebar ou o botão, não faz nada
+    if (!sidebar || !prevButton) {
+        return;
+    }
+
+    // Função para atualizar a posição do botão
+    const updateButtonPosition = () => {
+        // Pega a largura real da sidebar no momento
+        const sidebarWidth = sidebar.getBoundingClientRect().width;
+        // Pega o botão novamente caso ele tenha sido recriado
+        const currentPrevButton = document.querySelector('.article-navigation.prev-button');
+        if (currentPrevButton) {
+            // Define a posição do botão = largura da sidebar + 2rem de espaço
+            currentPrevButton.style.left = `${sidebarWidth + 32}px`; // 32px = 2rem
+        }
+    };
+
+    // Observer que "assiste" as mudanças de classe no <body>
+    const observer = new MutationObserver((mutationsList) => {
+        for (const mutation of mutationsList) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                // Se a classe do body mudou, a sidebar pode ter mudado de estado.
+                // Então, atualizamos a posição do botão.
+                updateButtonPosition();
+            }
+        }
+    });
+
+    // Inicia o observer para vigiar as classes do <body>
+    observer.observe(document.body, { attributes: true });
+
+    // Atualiza a posição uma vez no início
+    updateButtonPosition();
+}

@@ -213,6 +213,8 @@ body.dark-mode .theme-toggle-btn .sun-icon {
 }
 
 #footer-search .relative {
+  display: flex; /* ADICIONE ESTA LINHA */
+  align-items: center; /* ADICIONE ESTA LINHA */
   background-color: var(--glass-bg);
   backdrop-filter: blur(28px) saturate(150%);
   -webkit-backdrop-filter: blur(28px) saturate(150%);
@@ -265,10 +267,9 @@ body.dark-mode #footer-search .relative::before {
 }
 
 #search-filter-button {
-  position: absolute;
-  left: 6px;
-  top: 6px;
-  bottom: 6px;
+  /* REMOVEMOS a posição absoluta e as coordenadas top/left/bottom */
+  margin-left: 6px; /* Apenas uma margem para espaçamento */
+  height: 40px; /* Definimos uma altura fixa para consistência */
   display: flex;
   align-items: center;
   gap: .5rem;
@@ -579,9 +580,11 @@ pre {
 }
 
 .article-navigation.prev-button {
- left: calc(var(--sidebar-current-width) + 2rem);
+  /* O JavaScript agora controla a posição 'left' */
+  /* Deixe um valor padrão aqui, caso o JS falhe */
+  left: calc(var(--sidebar-width) + 2rem);
+  transition: left var(--transition-medium) var(--transition-curve); /* Adiciona uma transição suave */
 }
-
 .article-navigation.next-button {
   right: 2rem;
 }
@@ -611,3 +614,4 @@ pre {
   background-opacity: 0.3;
   transform: scale(1.05);
 }
+
