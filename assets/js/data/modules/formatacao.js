@@ -1,4 +1,4 @@
-export const formatacaoModule = {
+ const formatacaoModule = {
   id: 'formatacao',
   title: 'Formatação',
   description: 'Módulo de Formatação e Configuração de Sistemas',

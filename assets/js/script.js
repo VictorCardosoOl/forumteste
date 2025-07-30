@@ -1,6 +1,4 @@
-import { forumData } from './data/index.js';
-import { initSidebar } from './sidebar.js';
-import Fuse from 'https://cdn.jsdelivr.net/npm/fuse.js@6.6.2/dist/fuse.esm.js';
+
 
 // Exporta funções para o escopo global
 window.renderCategories = renderCategories;

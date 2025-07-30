@@ -7,7 +7,7 @@ function setSidebarState(state) {
     window.dispatchEvent(new Event('resize'));
 }
 
-export function initSidebar(callbacks) {
+ function initSidebar(callbacks) {
     const sidebarElement = document.getElementById('sidebar');
     if (!sidebarElement) return;
 
@@ -80,7 +80,7 @@ export function initSidebar(callbacks) {
     return { themeToggleBtn: document.getElementById('theme-toggle') };
 }
 
-export function updateActiveLink(activeCategoryId) {
+ function updateActiveLink(activeCategoryId) {
     const sidebarNav = document.getElementById('sidebar-nav');
     const navSection = document.getElementById('nav-section');
     if (!sidebarNav || !navSection) return;

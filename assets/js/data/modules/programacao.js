@@ -1,4 +1,4 @@
-export const programacaoModule = {
+ const programacaoModule = {
   id: 'programacao',
   title: 'Programação',
   description: 'Módulo de Fundamentos de Programação',

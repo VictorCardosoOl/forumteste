@@ -1,4 +1,4 @@
-export const resolucaoProblemasModule = {
+ const resolucaoProblemasModule = {
   id: 'resolucao-problemas',
   title: 'Resolução de Problemas',
   description: 'Soluções para erros e problemas comuns no ambiente de trabalho.',

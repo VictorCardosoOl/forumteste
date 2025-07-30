@@ -1,4 +1,4 @@
-export const redesModule = {
+ const redesModule = {
   id: 'redes',
   title: 'Redes',
   description: 'Módulo de Estrutura e Configuração de Redes',

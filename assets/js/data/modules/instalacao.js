@@ -1,4 +1,4 @@
-export const instalacaoModule = {
+ const instalacaoModule = {
   id: 'instalacao',
   title: 'Instalação',
   description: 'Módulo de Instalação de Programas e Sistemas',

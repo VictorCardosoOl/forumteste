@@ -1,4 +1,4 @@
-export const analiseDadosModule = {
+ const analiseDadosModule = {
   id: 'analise-dados',
   title: 'Análise de Dados',
   description: 'Módulo de Estruturas e Processamento de Dados',
