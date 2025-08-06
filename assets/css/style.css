@@ -266,13 +266,13 @@ mark {
 
 
 /* ===================================================================
- * 6. COMPONENTE: SIDEBAR
+ * 6. COMPONENTE: SIDEBAR (VERSÃO MELHORADA)
  * =================================================================== */
 .sidebar {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  width: var(--sidebar-current-width); /* Controlado por JS/classes no body */
+  width: var(--sidebar-current-width);
   position: relative;
   z-index: 1001;
   background-image: var(--bg-color-gradient-light);
@@ -285,14 +285,22 @@ body.dark-mode .sidebar {
 }
 
 .sidebar-header {
-  padding: 1.5rem 1rem;
+  padding: 1.5rem; /* ADICIONADO padding consistente */
   flex-shrink: 0;
+}
+
+/* ALTERADO: Isola o header, nav e footer para melhor controle */
+.sidebar > .flex {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 #sidebar-nav {
   flex-grow: 1;
   overflow-y: auto;
-  padding: 0 0.5rem;
+  overflow-x: hidden; /* ADICIONADO: Remove a barra de rolagem horizontal */
+  padding: 0 0.75rem; /* Ajustado o padding horizontal */
 }
 
 .sidebar-nav-link {
@@ -303,26 +311,65 @@ body.dark-mode .sidebar {
   border-radius: 0.5rem;
   position: relative;
   color: var(--text-color-light);
-  transition: all .3s var(--easing-curve);
+  transition: all .2s var(--easing-curve); /* Transição mais rápida */
   cursor: pointer;
 }
 
-.sidebar-nav-link p,
-.sidebar-header h2,
-.sidebar-footer .profile-info {
-  transition: opacity .4s, width .4s;
-}
-
+/* ALTERADO: Efeito de hover mais sutil e elegante */
 .sidebar-nav-link:hover:not(.active) {
   color: var(--text-color);
+  background-color: var(--hover-bg-color);
+  transform: translateX(3px);
 }
 
 .sidebar-nav-link.active {
   color: var(--text-color);
   background-color: var(--hover-bg-color);
+  font-weight: var(--font-weight-medium);
 }
 
-/* Lógica de estados da Sidebar para Desktop */
+/* ADICIONADO: Indicador de link ativo, uma barra vertical elegante */
+.sidebar-nav-link::before {
+  content: '';
+  position: absolute;
+  left: -0.75rem; /* Fica fora da área de padding */
+  top: 50%;
+  transform: translateY(-50%) scaleY(0);
+  width: 3px;
+  height: 60%;
+  background-color: var(--text-color);
+  border-radius: 99px;
+  opacity: 0;
+  transition: all .3s var(--easing-curve);
+}
+
+.sidebar-nav-link.active::before {
+  transform: translateY(-50%) scaleY(1);
+  opacity: 1;
+}
+
+/* ALTERADO: Controla o texto para evitar quebra de linha */
+.sidebar-nav-link p {
+  white-space: nowrap;     /* Impede a quebra de linha */
+  overflow: hidden;        /* Esconde o texto que transborda */
+  text-overflow: ellipsis; /* Adiciona "..." no final do texto cortado */
+  transition: opacity .3s, width .3s;
+}
+
+.sidebar-header h2 {
+  white-space: nowrap;
+  transition: opacity .3s, width .3s;
+}
+
+/* NOVO: Empurra o rodapé para o fundo da sidebar */
+.sidebar-footer {
+  margin-top: auto; /* A mágica acontece aqui! */
+  padding: 1rem 1.5rem;
+  flex-shrink: 0;
+  border-top: 1px solid var(--border-color); /* Separador visual */
+}
+
+/* Lógica de estados da Sidebar para Desktop (mantida e otimizada) */
 @media (min-width: 1025px) {
     body:not(.sidebar-estado-expandido) {
         --sidebar-current-width: 68px;
@@ -338,11 +385,9 @@ body.dark-mode .sidebar {
         opacity: 0;
         width: 0;
         pointer-events: none;
-        white-space: nowrap;
     }
 
-    body:not(.sidebar-estado-expandido) .sidebar-nav-link,
-    body:not(.sidebar-estado-expandido) .profile-section {
+    body:not(.sidebar-estado-expandido) .sidebar-nav-link {
         justify-content: center;
     }
 
@@ -361,10 +406,6 @@ body.dark-mode .sidebar {
 
     body.sidebar-estado-flutuante .sidebar:hover .sidebar-nav-link {
         justify-content: flex-start;
-    }
-
-    body.sidebar-estado-flutuante .sidebar:hover .profile-section {
-        justify-content: space-between;
     }
     
     /* Tooltip para sidebar recolhida */
@@ -390,7 +431,6 @@ body.dark-mode .sidebar {
         opacity: 1;
     }
 }
-
 
 /* ===================================================================
  * 7. COMPONENTE: CARDS
