@@ -266,7 +266,8 @@ mark {
 
 
 /* ===================================================================
- * 6. COMPONENTE: SIDEBAR (VERSÃO MELHORADA)
+ * 6. COMPONENTE: SIDEBAR (VERSÃO ELEGANTE)
+ * Foco em micro-interações, espaçamento e hierarquia visual.
  * =================================================================== */
 .sidebar {
   display: flex;
@@ -278,107 +279,128 @@ mark {
   background-image: var(--bg-color-gradient-light);
   box-shadow: inset -1px 0 0 var(--border-color);
   transition: width .5s var(--easing-curve), transform .4s var(--easing-curve);
+  padding: 0.5rem; /* NOVO: Um padding base para a sidebar inteira */
 }
 
 body.dark-mode .sidebar {
   background-image: var(--bg-color-gradient-dark);
 }
 
+/* NOVO: Variáveis RGB para usar em sombras com transparência */
+:root {
+  --text-color-rgb: 26, 26, 26;
+  --shadow-color-rgb: 0, 0, 0;
+}
+body.dark-mode {
+  --text-color-rgb: 240, 240, 240;
+  --shadow-color-rgb: 0, 0, 0;
+}
+
+/* REFINADO: Header com separador e alinhamento aprimorado */
 .sidebar-header {
-  padding: 1.5rem; /* ADICIONADO padding consistente */
+  padding: 1rem 0.75rem 1.25rem 0.75rem;
   flex-shrink: 0;
-}
-
-/* ALTERADO: Isola o header, nav e footer para melhor controle */
-.sidebar > .flex {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-#sidebar-nav {
-  flex-grow: 1;
-  overflow-y: auto;
-  overflow-x: hidden; /* ADICIONADO: Remove a barra de rolagem horizontal */
-  padding: 0 0.75rem; /* Ajustado o padding horizontal */
-}
-
-.sidebar-nav-link {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem;
-  border-radius: 0.5rem;
-  position: relative;
-  color: var(--text-color-light);
-  transition: all .2s var(--easing-curve); /* Transição mais rápida */
-  cursor: pointer;
-}
-
-/* ALTERADO: Efeito de hover mais sutil e elegante */
-.sidebar-nav-link:hover:not(.active) {
-  color: var(--text-color);
-  background-color: var(--hover-bg-color);
-  transform: translateX(3px);
-}
-
-.sidebar-nav-link.active {
-  color: var(--text-color);
-  background-color: var(--hover-bg-color);
-  font-weight: var(--font-weight-medium);
-}
-
-/* ADICIONADO: Indicador de link ativo, uma barra vertical elegante */
-.sidebar-nav-link::before {
-  content: '';
-  position: absolute;
-  left: -0.75rem; /* Fica fora da área de padding */
-  top: 50%;
-  transform: translateY(-50%) scaleY(0);
-  width: 3px;
-  height: 60%;
-  background-color: var(--text-color);
-  border-radius: 99px;
-  opacity: 0;
-  transition: all .3s var(--easing-curve);
-}
-
-.sidebar-nav-link.active::before {
-  transform: translateY(-50%) scaleY(1);
-  opacity: 1;
-}
-
-/* ALTERADO: Controla o texto para evitar quebra de linha */
-.sidebar-nav-link p {
-  white-space: nowrap;     /* Impede a quebra de linha */
-  overflow: hidden;        /* Esconde o texto que transborda */
-  text-overflow: ellipsis; /* Adiciona "..." no final do texto cortado */
-  transition: opacity .3s, width .3s;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .sidebar-header h2 {
   white-space: nowrap;
-  transition: opacity .3s, width .3s;
+  transition: opacity .3s var(--easing-curve);
+  font-weight: var(--font-weight-bold);
 }
 
-/* NOVO: Empurra o rodapé para o fundo da sidebar */
+/* REFINADO: Container principal da navegação com mais respiro */
+#sidebar-nav {
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-top: 0.5rem; /* Espaço após o header */
+}
+
+/* REFINADO: Estilo base dos links de navegação */
+.sidebar-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem; /* Mais espaço entre ícone e texto */
+  padding: 0.875rem;
+  border-radius: 0.625rem; /* Bordas mais arredondadas */
+  position: relative;
+  color: var(--text-color-light);
+  margin-bottom: 0.25rem;
+  /* REFINADO: Transições mais detalhadas para os novos efeitos */
+  transition: color 0.25s var(--easing-curve), 
+              background-color 0.25s var(--easing-curve), 
+              transform 0.25s var(--easing-curve), 
+              box-shadow 0.3s var(--easing-curve);
+  cursor: pointer;
+}
+
+/* REFINADO: Efeito de HOVER - Sutil e informativo */
+.sidebar-nav-link:hover:not(.active) {
+  color: var(--text-color);
+  background-color: var(--hover-bg-color);
+  transform: scale(1.02); /* Efeito de "aproximação" */
+}
+
+/* REFINADO: Estado ATIVO - Claro, destacado e com profundidade */
+.sidebar-nav-link.active {
+  color: var(--text-color);
+  background-color: var(--hover-bg-color);
+  font-weight: 600; /* Texto semi-bold para destaque */
+  box-shadow: 0 4px 12px -2px rgba(var(--shadow-color-rgb), 0.1);
+}
+
+/* REFINADO: Controle de texto para evitar quebras de linha */
+.sidebar-nav-link p,
+.sidebar-footer .profile-info {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: opacity .3s var(--easing-curve);
+}
+
+/* REFINADO: Rodapé com mais destaque e organização */
 .sidebar-footer {
-  margin-top: auto; /* A mágica acontece aqui! */
-  padding: 1rem 1.5rem;
+  margin-top: auto; /* Empurra para o fundo */
+  padding: 0.75rem;
   flex-shrink: 0;
   border-top: 1px solid var(--border-color); /* Separador visual */
 }
 
-/* Lógica de estados da Sidebar para Desktop (mantida e otimizada) */
+.sidebar-footer .flex.items-center {
+  background-color: var(--hover-bg-color);
+  border-radius: 0.75rem;
+  padding: 0.25rem;
+}
+
+/* NOVO: Estilo unificado para botões do rodapé */
+.sidebar-footer button {
+  flex: 1;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 0.625rem;
+  color: var(--text-color-light);
+  transition: all 0.25s var(--easing-curve);
+}
+
+.sidebar-footer button:hover {
+  background-color: var(--card-bg-color);
+  color: var(--text-color);
+  box-shadow: 0 2px 8px -1px rgba(var(--shadow-color-rgb), 0.1);
+}
+
+
+/* Lógica de estados da Sidebar para Desktop (mantida) */
 @media (min-width: 1025px) {
     body:not(.sidebar-estado-expandido) {
-        --sidebar-current-width: 68px;
+        --sidebar-current-width: 80px; /* Um pouco mais largo para acomodar os ícones confortavelmente */
     }
-
+    
     body.sidebar-estado-expandido {
         --sidebar-current-width: var(--sidebar-width);
     }
-
+    
     body:not(.sidebar-estado-expandido) .sidebar-header h2,
     body:not(.sidebar-estado-expandido) .sidebar-footer .profile-info,
     body:not(.sidebar-estado-expandido) .sidebar-nav-link p {
@@ -386,7 +408,7 @@ body.dark-mode .sidebar {
         width: 0;
         pointer-events: none;
     }
-
+    
     body:not(.sidebar-estado-expandido) .sidebar-nav-link {
         justify-content: center;
     }
@@ -403,7 +425,7 @@ body.dark-mode .sidebar {
         width: auto;
         pointer-events: auto;
     }
-
+    
     body.sidebar-estado-flutuante .sidebar:hover .sidebar-nav-link {
         justify-content: flex-start;
     }
@@ -411,24 +433,25 @@ body.dark-mode .sidebar {
     /* Tooltip para sidebar recolhida */
     .tooltip {
       position: absolute;
-      left: 75px;
+      left: 90px; /* Ajustado para a nova largura */
       top: 50%;
       transform: translateY(-50%);
       background-color: var(--card-bg-color);
       color: var(--text-color);
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: .8rem;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: .875rem;
       white-space: nowrap;
-      box-shadow: 0 4px 12px var(--shadow-color);
+      box-shadow: 0 6px 16px -2px var(--shadow-color);
       z-index: 1002;
       pointer-events: none;
       opacity: 0;
-      transition: opacity .2s ease-in-out;
+      transition: opacity .2s ease-in-out, transform .2s ease-in-out;
     }
 
     body:not(.sidebar-estado-expandido) .sidebar:not(:hover) .sidebar-nav-link:hover .tooltip {
         opacity: 1;
+        transform: translateY(-50%) translateX(5px);
     }
 }
 
