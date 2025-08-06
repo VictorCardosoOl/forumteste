@@ -622,7 +622,7 @@ pre:hover .copy-button {
 
 /* Efeito de foco refinado para a nova altura */
 #footer-search .relative:focus-within {
- 
+  border-color: rgba(var(--text-color-rgb), 0.4);
   box-shadow: inset 0 0 0 1.5px rgba(var(--text-color-rgb), 0.4), 
               0 0 0 3px rgba(var(--text-color-rgb), 0.1),
               0 8px 30px -10px var(--shadow-color-hover);
@@ -958,3 +958,4 @@ pre:hover .copy-button {
     padding: 1.25rem;
   }
 }
+
