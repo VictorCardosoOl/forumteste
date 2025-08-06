@@ -582,72 +582,141 @@ pre:hover .copy-button {
 
 
 /* ===================================================================
- * 9. COMPONENTE: RODAPÉ DE BUSCA (FOOTER SEARCH)
+ * 9. COMPONENTE: RODAPÉ DE BUSCA (VERSÃO FINAL COM PROPORÇÕES CORRIGIDAS)
  * =================================================================== */
+
+/* Container Principal do Rodapé */
 #footer-search {
   position: fixed;
   bottom: 0;
   z-index: 50;
   left: var(--sidebar-current-width);
   right: 0;
-  transition: left .5s var(--easing-curve), width .5s var(--easing-curve);
+  transition: left .5s var(--easing-curve);
 }
 
+/* CORREÇÃO: Padding vertical reduzido para diminuir a altura total */
 #footer-search .max-w-4xl {
-  padding: 0.75rem 2rem;
+  padding: 0.5rem 2rem; /* Reduzido de 0.75rem para 0.5rem */
 }
 
+/* Container com efeito Glass */
 #footer-search .relative {
   display: flex;
   align-items: center;
+  gap: 0.375rem; /* Espaçamento interno um pouco menor */
+  
+  /* CORREÇÃO: Altura total reduzida para um visual mais fino e elegante */
+  height: 2.75rem; /* 44px - Uma altura mais padrão e discreta */
+  
+  padding: 0 0.375rem; /* Padding interno menor */
+  position: relative;
   background-color: var(--glass-bg);
   backdrop-filter: blur(28px) saturate(150%);
   -webkit-backdrop-filter: blur(28px) saturate(150%);
-  border: 1px solid var(--glass-border);
   border-radius: 999px;
-  box-shadow: inset 0 0 0 1px var(--glass-outer-border-color), 0 8px 40px var(--shadow-color);
+  border: 1px solid var(--glass-border);
+  box-shadow: inset 0 0 0 1px var(--glass-outer-border-color), 0 8px 30px -10px var(--shadow-color);
   transition: all var(--transition-medium) var(--easing-curve);
-  position: relative;
 }
 
-#search-input {
-  background-color: transparent !important;
-  border: none !important;
-  outline: none !important;
-  color: var(--glass-text-color);
-  transition: all var(--transition-medium) var(--easing-curve);
-  width: 100%;
-  height: 3rem; /* 48px */
-  padding: 0 1.5rem; /* Ajustado dinamicamente via JS */
+/* Efeito de foco refinado para a nova altura */
+#footer-search .relative:focus-within {
+ 
+  box-shadow: inset 0 0 0 1.5px rgba(var(--text-color-rgb), 0.4), 
+              0 0 0 3px rgba(var(--text-color-rgb), 0.1),
+              0 8px 30px -10px var(--shadow-color-hover);
 }
 
-#search-input::placeholder {
-  color: var(--glass-placeholder-color);
-  opacity: 1;
-}
-
+/* Botão de filtro ajustado para o novo tamanho */
 #search-filter-button {
-  margin-left: 6px;
-  height: calc(3rem - 8px); /* 40px */
   display: flex;
   align-items: center;
-  gap: .5rem;
-  padding: 0 1rem;
-  background-color: var(--glass-button-bg);
+  flex-shrink: 0;
+  gap: 0.5rem;
+  height: calc(100% - 8px); /* Altura relativa ao container */
+  padding: 0 0.875rem; /* Padding horizontal ajustado */
   border-radius: 999px;
-  font-size: .8rem;
-  font-weight: var(--font-weight-medium);
+  background-color: var(--glass-button-bg);
   color: var(--glass-text-color);
+  font-size: 0.8rem; /* Fonte um pouco menor para melhor encaixe */
+  font-weight: 500;
+  border: none;
   cursor: pointer;
   transition: all var(--transition-fast) var(--easing-curve);
-  border: 1px solid transparent;
-  flex-shrink: 0;
 }
-
 #search-filter-button:hover {
   background-color: var(--glass-button-hover-bg);
 }
 
+/* Ícone do SVG com tamanho ajustado */
+#search-filter-button svg {
+  width: 15px;
+  height: 15px;
+  opacity: 0.7;
+}
+
+/* Input de busca ajustado para o novo layout */
+#search-input {
+  flex-grow: 1;
+  width: auto;
+  height: 100%;
+  padding: 0 0.5rem;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  color: var(--glass-text-color);
+  font-size: 0.9rem; /* Fonte ligeiramente menor para proporção */
+}
+
+/* --- MENU DE FILTRO (POP-UP) --- */
+/* Mantido o design elegante, mas garantindo que ele se origine da nova barra */
+.search-filter-menu {
+  position: absolute;
+  bottom: calc(100% + 8px); /* Distância menor */
+  left: 0;
+  width: 280px;
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 16px 40px -10px var(--shadow-color-hover);
+  border-radius: 1rem;
+  padding: 0.75rem;
+  z-index: 100;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all var(--transition-medium) var(--easing-curve);
+}
+.search-filter-menu.visible {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.filter-menu-input-wrapper {
+  position: relative;
+  margin-bottom: 0.75rem;
+}
+.filter-menu-input-wrapper svg {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 15px;
+  height: 15px;
+  color: var(--text-color-light);
+}
+#filter-menu-input {
+  width: 100%;
+  height: 40px;
+  padding: 0 1rem 0 2.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-color);
+}
+/* ... (outros estilos do menu mantidos) */
 /* Menu de Filtro da Busca */
 .search-filter-menu {
   position: absolute;
