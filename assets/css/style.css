@@ -556,37 +556,32 @@ pre {
   position: fixed;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 10;
   width: 44px;
   height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--glass-border);
+  background-color: var(--card-bg-color);
+  border: 1px solid var(--border-color);
   border-radius: 50%;
-  color: var(--text-color);
+  box-shadow: var(--shadow-sm);
   cursor: pointer;
-  opacity: 0.5;
-  transition: all 0.3s var(--transition-curve);
-}
-
-.article-navigation:hover {
-  opacity: 1;
-  transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 8px 30px var(--shadow-color);
+  z-index: 100;
+  transition: all var(--transition-fast), 
+              left var(--transition-medium);
 }
 
 .article-navigation.prev-button {
-  /* O JavaScript agora controla a posição 'left' */
-  /* Deixe um valor padrão aqui, caso o JS falhe */
-  left: calc(var(--sidebar-width) + 2rem);
-  transition: left var(--transition-medium) var(--transition-curve); /* Adiciona uma transição suave */
+  left: calc(var(--sidebar-width) + 1.5rem);
 }
+
 .article-navigation.next-button {
-  right: 2rem;
+  right: 1.5rem;
+}
+
+.article-navigation:hover {
+  background-color: var(--hover-bg-color);
+  box-shadow: var(--shadow-md);
 }
 
 .article-navigation svg {
