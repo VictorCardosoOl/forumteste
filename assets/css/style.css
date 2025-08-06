@@ -1,9 +1,58 @@
-@import url(sidebar.css);
-@import url(responsividade.css);
-@import url(busca.css);
+/* ===================================================================
+ *
+ * BASE DE CONHECIMENTO - FOLHA DE ESTILO PRINCIPAL
+ *
+ * Autor: Victor Cardoso (Análise por Parceiro de Programação)
+ * Versão: 2.0 (Refatorada)
+ *
+ * ===================================================================
+ *
+ * ÍNDICE
+ *
+ * 1. BASE: VARIÁVEIS
+ * - Cores, Fontes, Tamanhos, Transições
+ *
+ * 2. BASE: RESET E ESTILOS GLOBAIS
+ * - Reset do navegador, Estilos do Body
+ *
+ * 3. BASE: TIPOGRAFIA
+ * - Estilos para h1, h2, p, a, etc.
+ *
+ * 4. BASE: ANIMAÇÕES
+ * - Definições de @keyframes
+ *
+ * 5. LAYOUT: ESTRUTURA DA PÁGINA
+ * - Grid principal, containers #app e #content-wrapper
+ *
+ * 6. COMPONENTE: SIDEBAR
+ * - Estilos da barra lateral e seus estados (desktop e mobile)
+ *
+ * 7. COMPONENTE: CARDS
+ * - Estilos para .card-link, .module-grid, etc.
+ *
+ * 8. COMPONENTE: BOTÕES
+ * - Botões de tema, sidebar, copiar código, etc.
+ *
+ * 9. COMPONENTE: RODAPÉ DE BUSCA (FOOTER SEARCH)
+ * - Barra de busca fixa com efeito glass e menu de filtro
+ *
+ * 10. COMPONENTE: NAVEGAÇÃO DE ARTIGO
+ * - Botões laterais fixos para navegar entre artigos
+ *
+ * 11. COMPONENTE: TAGS
+ * - Estilos para as tags de artigos
+ *
+ * 12. RESPONSIVIDADE (MEDIA QUERIES)
+ * - Ajustes para tablets e celulares (sempre no final)
+ *
+ * =================================================================== */
 
+
+/* ===================================================================
+ * 1. BASE: VARIÁVEIS
+ * =================================================================== */
 :root {
-  /* Cores (Modo Claro) - Tons mais suaves e profissionais */
+  /* Cores (Modo Claro) */
   --bg-color: #fbfbfb;
   --card-bg-color: #ffffff;
   --text-color: #1a1a1a;
@@ -13,8 +62,9 @@
   --hover-border-color: #dcdcdc;
   --shadow-color: rgba(0, 0, 0, 0.04);
   --shadow-color-hover: rgba(0, 0, 0, 0.08);
+  --highlight-color: rgba(255, 212, 0, 0.3);
 
-  /* Variáveis para o Efeito Glass - Sutis e refinadas */
+  /* Efeito Glass (Modo Claro) */
   --glass-bg: rgba(255, 255, 255, 0.3);
   --glass-border: rgba(200, 200, 200, 0.3);
   --glass-outer-border-color: rgba(0, 0, 0, 0.08);
@@ -23,14 +73,17 @@
   --glass-button-bg: rgba(0, 0, 0, 0.03);
   --glass-button-hover-bg: rgba(0, 0, 0, 0.06);
 
+  /* Gradientes */
+  --bg-color-gradient-light: linear-gradient(180deg, #fdfdfd 0%, #f8f8f8 100%);
+
   /* Métricas, Tipografia e Animações */
   --sidebar-width: 220px;
+  --sidebar-current-width: var(--sidebar-width); /* Padrão para desktop expandido */
   --radius: 0.875rem;
-  /* Um raio ligeiramente mais subtil */
   --transition-fast: 0.25s;
   --transition-medium: 0.4s;
   --transition-slow: 0.6s;
-  --transition-curve: cubic-bezier(0.4, 0, 0.2, 1);
+  --easing-curve: cubic-bezier(0.4, 0, 0.2, 1);
   --font-family: 'Inter', sans-serif;
   --font-weight-body: 400;
   --font-weight-medium: 500;
@@ -38,7 +91,7 @@
 }
 
 body.dark-mode {
-  /* Cores (Modo Escuro) - Tons mais suaves */
+  /* Cores (Modo Escuro) */
   --bg-color: #0d0d0d;
   --card-bg-color: #131313;
   --text-color: #f0f0f0;
@@ -48,8 +101,9 @@ body.dark-mode {
   --hover-border-color: #3a3a3a;
   --shadow-color: rgba(0, 0, 0, 0.2);
   --shadow-color-hover: rgba(0, 0, 0, 0.3);
+  --highlight-color: rgba(255, 212, 0, 0.5);
 
-  /* Variáveis para o Efeito Glass (Modo Escuro) */
+  /* Efeito Glass (Modo Escuro) */
   --glass-bg: rgba(25, 25, 25, 0.3);
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-outer-border-color: rgba(255, 255, 255, 0.1);
@@ -57,9 +111,15 @@ body.dark-mode {
   --glass-placeholder-color: rgba(255, 255, 255, 0.4);
   --glass-button-bg: rgba(255, 255, 255, 0.06);
   --glass-button-hover-bg: rgba(255, 255, 255, 0.12);
+
+  /* Gradientes */
+  --bg-color-gradient-dark: linear-gradient(180deg, #151515 0%, #101010 100%);
 }
 
-/* 2. ESTILOS DE BASE E TIPOGRAFIA REFINADA */
+
+/* ===================================================================
+ * 2. BASE: RESET E ESTILOS GLOBAIS
+ * =================================================================== */
 *,
 *::before,
 *::after {
@@ -74,23 +134,9 @@ body {
   font-family: var(--font-family);
   font-weight: var(--font-weight-body);
   line-height: 1.6;
-  transition: background-color var(--transition-medium) var(--transition-curve), color var(--transition-medium) var(--transition-curve);
+  transition: background-color var(--transition-medium) var(--easing-curve), color var(--transition-medium) var(--easing-curve);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-h1,
-h2,
-h3 {
-  font-weight: var(--font-weight-bold);
-  letter-spacing: -0.03em;
-  color: var(--text-color);
-}
-
-p,
-span,
-div {
-  color: var(--text-color-light);
 }
 
 a {
@@ -98,30 +144,88 @@ a {
   color: inherit;
 }
 
+
+/* ===================================================================
+ * 3. BASE: TIPOGRAFIA
+ * =================================================================== */
+h1, h2, h3 {
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.03em;
+  color: var(--text-color);
+}
+
+p, span, div {
+  color: var(--text-color-light);
+}
+
+.article-content h1 {
+  font-size: 3rem;
+  line-height: 1.2;
+}
+
+.article-content h2 {
+  font-size: 1.5rem;
+  margin-top: 3rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  margin: 2rem auto;
+  display: block;
+  box-shadow: 0 8px 24px var(--shadow-color);
+  transition: transform var(--transition-slow) ease;
+}
+
+/* Tratamento de overflow para tabelas e blocos de código */
+.article-content pre,
+.article-content table {
+  max-width: 100%;
+  overflow-x: auto;
+  display: block;
+  position: relative; /* Para o botão de copiar */
+}
+
+/* Destaque de texto em busca */
+mark {
+  background-color: var(--highlight-color);
+  color: inherit;
+  padding: 0 0.1em;
+  border-radius: 0.2em;
+}
+
+
+/* ===================================================================
+ * 4. BASE: ANIMAÇÕES
+ * =================================================================== */
 @keyframes fadeIn {
   from {
     opacity: 0;
     transform: translateY(20px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-#app.animate-in {
-  animation: fadeIn var(--transition-slow) var(--transition-curve) forwards;
+.fade-in {
+  animation: fadeIn var(--transition-medium) forwards;
 }
 
-/* 3. LAYOUT E SIDEBAR COM INDICADOR ELEGANTE */
+
+/* ===================================================================
+ * 5. LAYOUT: ESTRUTURA DA PÁGINA
+ * =================================================================== */
 #page-container {
   display: grid;
-  /* A linha 'grid-template-columns' foi removida. */
-  /* Agora, o controle do layout é feito exclusivamente */
-  /* pelas classes de estado no arquivo sidebar.css. */
+  grid-template-columns: var(--sidebar-current-width) 1fr;
   height: 100vh;
   overflow: hidden;
+  transition: grid-template-columns .5s var(--easing-curve);
 }
 
 #content-wrapper {
@@ -133,13 +237,164 @@ a {
   width: 100%;
   margin: 0 auto;
   padding: 4rem;
-  padding-bottom: 150px;
+  padding-bottom: 150px; /* Espaço para o footer de busca */
+}
+
+/* Animação de entrada do conteúdo */
+#app.animate-in {
+  animation: fadeIn var(--transition-slow) var(--easing-curve) forwards;
+}
+
+/* Overlay para o menu mobile */
+#sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s var(--easing-curve);
+}
+
+#sidebar-overlay.visible {
+  opacity: 1;
+  pointer-events: all;
 }
 
 
+/* ===================================================================
+ * 6. COMPONENTE: SIDEBAR
+ * =================================================================== */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: var(--sidebar-current-width); /* Controlado por JS/classes no body */
+  position: relative;
+  z-index: 1001;
+  background-image: var(--bg-color-gradient-light);
+  box-shadow: inset -1px 0 0 var(--border-color);
+  transition: width .5s var(--easing-curve), transform .4s var(--easing-curve);
+}
+
+body.dark-mode .sidebar {
+  background-image: var(--bg-color-gradient-dark);
+}
+
+.sidebar-header {
+  padding: 1.5rem 1rem;
+  flex-shrink: 0;
+}
+
+#sidebar-nav {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 0 0.5rem;
+}
+
+.sidebar-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  position: relative;
+  color: var(--text-color-light);
+  transition: all .3s var(--easing-curve);
+  cursor: pointer;
+}
+
+.sidebar-nav-link p,
+.sidebar-header h2,
+.sidebar-footer .profile-info {
+  transition: opacity .4s, width .4s;
+}
+
+.sidebar-nav-link:hover:not(.active) {
+  color: var(--text-color);
+}
+
+.sidebar-nav-link.active {
+  color: var(--text-color);
+  background-color: var(--hover-bg-color);
+}
+
+/* Lógica de estados da Sidebar para Desktop */
+@media (min-width: 1025px) {
+    body:not(.sidebar-estado-expandido) {
+        --sidebar-current-width: 68px;
+    }
+
+    body.sidebar-estado-expandido {
+        --sidebar-current-width: var(--sidebar-width);
+    }
+
+    body:not(.sidebar-estado-expandido) .sidebar-header h2,
+    body:not(.sidebar-estado-expandido) .sidebar-footer .profile-info,
+    body:not(.sidebar-estado-expandido) .sidebar-nav-link p {
+        opacity: 0;
+        width: 0;
+        pointer-events: none;
+        white-space: nowrap;
+    }
+
+    body:not(.sidebar-estado-expandido) .sidebar-nav-link,
+    body:not(.sidebar-estado-expandido) .profile-section {
+        justify-content: center;
+    }
+
+    body.sidebar-estado-flutuante .sidebar:hover {
+        width: var(--sidebar-width);
+        box-shadow: 4px 0 30px -5px var(--shadow-color);
+    }
+
+    body.sidebar-estado-flutuante .sidebar:hover .sidebar-header h2,
+    body.sidebar-estado-flutuante .sidebar:hover .sidebar-footer .profile-info,
+    body.sidebar-estado-flutuante .sidebar:hover .sidebar-nav-link p {
+        opacity: 1;
+        width: auto;
+        pointer-events: auto;
+    }
+
+    body.sidebar-estado-flutuante .sidebar:hover .sidebar-nav-link {
+        justify-content: flex-start;
+    }
+
+    body.sidebar-estado-flutuante .sidebar:hover .profile-section {
+        justify-content: space-between;
+    }
+    
+    /* Tooltip para sidebar recolhida */
+    .tooltip {
+      position: absolute;
+      left: 75px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: var(--card-bg-color);
+      color: var(--text-color);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: .8rem;
+      white-space: nowrap;
+      box-shadow: 0 4px 12px var(--shadow-color);
+      z-index: 1002;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity .2s ease-in-out;
+    }
+
+    body:not(.sidebar-estado-expandido) .sidebar:not(:hover) .sidebar-nav-link:hover .tooltip {
+        opacity: 1;
+    }
+}
 
 
-/* 4. COMPONENTES E CARDS COM HOVER REFINADO */
+/* ===================================================================
+ * 7. COMPONENTE: CARDS
+ * =================================================================== */
 .module-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -147,13 +402,20 @@ a {
   margin-top: 4rem;
 }
 
+.article-group {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
 .card-link {
   border: 1px solid var(--border-color);
   background-color: var(--card-bg-color);
-  transition: all var(--transition-medium) var(--transition-curve);
+  transition: all var(--transition-medium) var(--easing-curve);
   border-radius: var(--radius);
   padding: 1.75rem;
   box-shadow: 0 4px 20px var(--shadow-color);
+  display: block;
 }
 
 .card-link:hover {
@@ -162,11 +424,12 @@ a {
   box-shadow: 0 10px 25px var(--shadow-color-hover);
 }
 
-.card-link .module-icon {
-  transition: transform var(--transition-medium) var(--transition-curve);
-}
 
+/* ===================================================================
+ * 8. COMPONENTE: BOTÕES
+ * =================================================================== */
 
+/* Botão de Tema (Sol/Lua) */
 .theme-toggle-btn {
   width: 36px;
   height: 36px;
@@ -175,7 +438,7 @@ a {
   justify-content: center;
   border-radius: 0.5rem;
   cursor: pointer;
-  transition: all var(--transition-fast) var(--transition-curve);
+  transition: all var(--transition-fast) var(--easing-curve);
   color: var(--text-color-light);
 }
 
@@ -185,27 +448,86 @@ a {
   transform: scale(1.1) rotate(5deg);
 }
 
-.theme-toggle-btn .sun-icon,
-.theme-toggle-btn .moon-icon {
-  display: none;
+.theme-toggle-btn .sun-icon { display: none; }
+.theme-toggle-btn .moon-icon { display: block; }
+body.dark-mode .theme-toggle-btn .sun-icon { display: block; }
+body.dark-mode .theme-toggle-btn .moon-icon { display: none; }
+
+/* Botão de Estado da Sidebar (Desktop) */
+#sidebar-toggle { display: none; } /* Escondido por padrão, aparece no desktop */
+@media (min-width: 1025px) {
+  #sidebar-toggle { display: grid; }
 }
 
-body:not(.dark-mode) .theme-toggle-btn .moon-icon {
-  display: block;
+.sidebar-toggle-btn {
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: .5rem;
+  cursor: pointer;
+  color: var(--text-color-light);
+  position: relative;
+  transition: all .3s var(--easing-curve);
 }
 
-body.dark-mode .theme-toggle-btn .sun-icon {
-  display: block;
+.sidebar-toggle-btn:hover {
+  background-color: var(--glass-button-hover-bg);
+  color: var(--text-color);
 }
 
-/* 5. RODAPÉ DE BUSCA - EFEITO AURA MAIS SUTIL */
+.sidebar-toggle-btn svg {
+  grid-area: 1/1;
+  opacity: 0;
+  transform: scale(.8) rotate(-15deg);
+  transition: opacity .4s var(--easing-curve),transform .4s var(--easing-curve);
+}
+
+body.sidebar-estado-expandido .sidebar-toggle-btn .icon-collapse,
+body.sidebar-estado-recolhido .sidebar-toggle-btn .icon-float,
+body.sidebar-estado-flutuante .sidebar-toggle-btn .icon-expand {
+  opacity: 1;
+  transform: scale(1) rotate(0);
+}
+
+/* Botão de Menu Mobile (Hamburguer) */
+#mobile-menu-button { display: none; } /* Escondido por padrão, aparece no mobile */
+
+/* Botão de Copiar Código */
+.copy-button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: var(--card-bg-color);
+  color: var(--text-color-light);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 5px 12px;
+  font-size: 12px;
+  cursor: pointer;
+  opacity: 0;
+  transition: all var(--transition-fast);
+}
+
+pre:hover .copy-button {
+  opacity: 1;
+}
+
+.copy-button:hover {
+  background-color: var(--hover-bg-color);
+  color: var(--text-color);
+}
+
+
+/* ===================================================================
+ * 9. COMPONENTE: RODAPÉ DE BUSCA (FOOTER SEARCH)
+ * =================================================================== */
 #footer-search {
   position: fixed;
   bottom: 0;
   z-index: 50;
-  left: var(--sidebar-width);
+  left: var(--sidebar-current-width);
   right: 0;
-  transition: left var(--transition-medium) var(--transition-curve);
+  transition: left .5s var(--easing-curve), width .5s var(--easing-curve);
 }
 
 #footer-search .max-w-4xl {
@@ -213,39 +535,16 @@ body.dark-mode .theme-toggle-btn .sun-icon {
 }
 
 #footer-search .relative {
-  display: flex; /* ADICIONE ESTA LINHA */
-  align-items: center; /* ADICIONE ESTA LINHA */
+  display: flex;
+  align-items: center;
   background-color: var(--glass-bg);
   backdrop-filter: blur(28px) saturate(150%);
   -webkit-backdrop-filter: blur(28px) saturate(150%);
   border: 1px solid var(--glass-border);
   border-radius: 999px;
   box-shadow: inset 0 0 0 1px var(--glass-outer-border-color), 0 8px 40px var(--shadow-color);
-  transition: all var(--transition-medium) var(--transition-curve);
+  transition: all var(--transition-medium) var(--easing-curve);
   position: relative;
-}
-
-#footer-search .relative::before {
-  content: '';
-  position: absolute;
-  top: -15px;
-  right: -15px;
-  bottom: -15px;
-  left: -15px;
-  border-radius: inherit;
-  background: radial-gradient(circle, rgba(64, 64, 65, 0.12) 0%, transparent 80%);
-  opacity: 0;
-  transition: opacity var(--transition-medium) var(--transition-curve);
-  z-index: -1;
-  pointer-events: none;
-}
-
-#footer-search .relative:hover::before {
-  opacity: 1;
-}
-
-body.dark-mode #footer-search .relative::before {
-  background: radial-gradient(circle, rgba(140, 140, 255, 0.1) 0%, transparent 80%);
 }
 
 #search-input {
@@ -253,23 +552,20 @@ body.dark-mode #footer-search .relative::before {
   border: none !important;
   outline: none !important;
   color: var(--glass-text-color);
-  transition: all var(--transition-medium) var(--transition-curve);
+  transition: all var(--transition-medium) var(--easing-curve);
+  width: 100%;
+  height: 3rem; /* 48px */
+  padding: 0 1.5rem; /* Ajustado dinamicamente via JS */
 }
 
 #search-input::placeholder {
   color: var(--glass-placeholder-color);
   opacity: 1;
-  font-weight: var(--font-weight-body);
-}
-
-#search-input::-webkit-search-cancel-button {
-  display: none;
 }
 
 #search-filter-button {
-  /* REMOVEMOS a posição absoluta e as coordenadas top/left/bottom */
-  margin-left: 6px; /* Apenas uma margem para espaçamento */
-  height: 40px; /* Definimos uma altura fixa para consistência */
+  margin-left: 6px;
+  height: calc(3rem - 8px); /* 40px */
   display: flex;
   align-items: center;
   gap: .5rem;
@@ -280,22 +576,16 @@ body.dark-mode #footer-search .relative::before {
   font-weight: var(--font-weight-medium);
   color: var(--glass-text-color);
   cursor: pointer;
-  transition: all var(--transition-fast) var(--transition-curve);
+  transition: all var(--transition-fast) var(--easing-curve);
   border: 1px solid transparent;
+  flex-shrink: 0;
 }
 
 #search-filter-button:hover {
   background-color: var(--glass-button-hover-bg);
-  transform: scale(1.02);
 }
 
-#search-filter-button span,
-#search-filter-button svg {
-  color: var(--glass-text-color) !important;
-  transition: transform var(--transition-fast) var(--transition-curve);
-}
-
-/* 6. MENU DE FILTRO SEM BARRA DE ROLAGEM */
+/* Menu de Filtro da Busca */
 .search-filter-menu {
   position: absolute;
   bottom: calc(100% + 10px);
@@ -310,7 +600,7 @@ body.dark-mode #footer-search .relative::before {
   visibility: hidden;
   opacity: 0;
   transform: translateY(10px);
-  transition: all var(--transition-medium) var(--transition-curve);
+  transition: all var(--transition-medium) var(--easing-curve);
 }
 
 .search-filter-menu.visible {
@@ -329,38 +619,14 @@ body.dark-mode #footer-search .relative::before {
   left: 0.875rem;
   top: 50%;
   transform: translateY(-50%);
-  width: 0.875rem;
-  height: 0.875rem;
+  width: 14px;
+  height: 14px;
   color: var(--text-color-light);
-  pointer-events: none;
-}
-
-#filter-menu-input {
-  width: 100%;
-  height: 2.5rem;
-  padding: 0.5rem 0.75rem 0.5rem 2.25rem;
-  border-radius: 999px;
-  border: 1px solid var(--border-color);
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  font-size: 0.875rem;
-  transition: all var(--transition-fast) var(--transition-curve);
-}
-
-#filter-menu-input:focus {
-  outline: none;
-  border-color: var(--text-color);
-  background-color: var(--card-bg-color);
 }
 
 .filter-menu-list {
   max-height: 200px;
   overflow-y: auto;
-  scrollbar-width: none;
-}
-
-.filter-menu-list::-webkit-scrollbar {
-  display: none;
 }
 
 .filter-menu-item {
@@ -370,187 +636,18 @@ body.dark-mode #footer-search .relative::before {
   padding: 0.5rem;
   border-radius: 0.5rem;
   cursor: pointer;
-  transition: background-color var(--transition-fast) var(--transition-curve);
-}
-
-.filter-menu-item span {
-  font-size: 0.875rem;
-  font-weight: var(--font-weight-medium);
+  transition: background-color var(--transition-fast) var(--easing-curve);
 }
 
 .filter-menu-item:hover,
 .filter-menu-item.active {
   background-color: var(--hover-bg-color);
-}
-
-.filter-menu-item.active span,
-.filter-menu-item.active svg {
   color: var(--text-color);
 }
 
-.filter-menu-item .item-icon {
-  width: 1.25rem;
-  height: 1.25rem;
-  opacity: 0.5;
-  color: var(--text-color-light);
-}
-
-/* 7. CONTEÚDO E RESPONSIVIDADE (Mantidos) */
-.article-content h1 {
-  font-size: 3rem;
-  font-weight: var(--font-weight-bold);
-  line-height: 1.2;
-}
-
-.article-content h2 {
-  font-size: 1.5rem;
-  margin-top: 3rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--border-color);
-}
-
-
-
-
-.article-group {
-  margin-top: 1rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--border-color);
-}
-
-#floating-group-filter {
-  position: fixed;
-  top: 2rem;
-  right: 2.5rem;
-  z-index: 40;
-}
-
-#floating-group-filter .group-filter-btn {
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  cursor: pointer;
-  color: var(--text-color-light);
-  border: 1px solid var(--border-color);
-  background-color: var(--card-bg-color);
-  transition: all var(--transition-medium) var(--transition-curve);
-}
-
-#floating-group-filter .group-filter-menu {
-  position: absolute;
-  top: calc(100% + 8px);
-  right: 0;
-  width: 240px;
-  background-color: var(--card-bg-color);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  box-shadow: 0 10px 30px var(--shadow-color);
-  padding: 0.5rem;
-  z-index: 100;
-  visibility: hidden;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all var(--transition-fast) var(--transition-curve);
-}
-
-#floating-group-filter .group-filter-menu.visible {
-  visibility: visible;
-  opacity: 1;
-  transform: translateY(0);
-}
-
-#floating-group-filter .group-filter-item {
-  display: block;
-  padding: 0.6rem 0.75rem;
-  font-size: 0.9rem;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  color: var(--text-color-light);
-  transition: all var(--transition-fast) var(--transition-curve);
-}
-
-#floating-group-filter .group-filter-item:hover {
-  background-color: var(--hover-bg-color);
-  color: var(--text-color);
-}
-
-.group-filter-container {
-  position: relative;
-}
-
-.group-filter-btn:hover {
-  border-color: var(--hover-border-color);
-  background-color: var(--hover-bg-color);
-  color: var(--text-color);
-}
-
-.article-content img {
-  max-width: 100%;
-  height: auto;
-  border-radius: var(--radius);
-  margin: 2rem auto;
-  display: block;
-  box-shadow: 0 8px 24px var(--shadow-color);
-  transition: transform var(--transition-slow) ease;
-}
-
-pre {
-  position: relative;
-}
-
-.copy-button {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background-color: var(--card-bg-color);
-  color: var(--text-color-light);
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  padding: 5px 12px;
-  font-size: 12px;
-  cursor: pointer;
-}
-
-
-
-/* No media query de 768px */
-#footer-search {
-  padding: 0 1rem;
-}
-
-#footer-search .relative {
-  max-width: 100%;
-}
-
-/* No media query de 480px */
-#footer-search {
-  padding: 0 0.5rem;
-}
-
-#search-input {
-  height: 44px;
-  font-size: 0.8rem;
-}
-
-
-
-.article-content {
-  overflow-x: auto;
-  max-width: 100%;
-}
-
-.article-content pre, 
-.article-content table {
-  max-width: 100%;
-  overflow-x: auto;
-  display: block;
-}
 
 /* ===================================================================
- * 9. NAVEGAÇÃO DE ARTIGOS FIXA E ELEGANTE
+ * 10. COMPONENTE: NAVEGAÇÃO DE ARTIGO
  * =================================================================== */
 .article-navigation {
   position: fixed;
@@ -564,15 +661,14 @@ pre {
   background-color: var(--card-bg-color);
   border: 1px solid var(--border-color);
   border-radius: 50%;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4px 12px var(--shadow-color);
   cursor: pointer;
-  z-index: 100;
-  transition: all var(--transition-fast), 
-              left var(--transition-medium);
+  z-index: 40;
+  transition: all var(--transition-fast), left var(--transition-medium) var(--easing-curve);
 }
 
 .article-navigation.prev-button {
-  left: calc(var(--sidebar-width) + 1.5rem);
+  left: calc(var(--sidebar-current-width) + 1.5rem);
 }
 
 .article-navigation.next-button {
@@ -581,32 +677,152 @@ pre {
 
 .article-navigation:hover {
   background-color: var(--hover-bg-color);
-  box-shadow: var(--shadow-md);
-}
-
-.article-navigation svg {
-  width: 24px;
-  height: 24px;
+  box-shadow: 0 6px 16px var(--shadow-color-hover);
+  transform: translateY(-50%) scale(1.05);
 }
 
 
-/* Estilos para a seção "Veja Também" */
-.article-content .card-link {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* ===================================================================
+ * 11. COMPONENTE: TAGS
+ * =================================================================== */
+.tag {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background-color: var(--hover-bg-color);
+  border-radius: 999px;
+  font-size: 0.75rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  transition: all var(--transition-fast);
 }
 
-.article-content .card-link:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+.tag:hover {
+  background-color: var(--border-color);
+  transform: translateY(-1px);
 }
 
-/* Tags */
-.text-xs.bg-opacity-20 {
-  transition: all 0.2s ease;
+
+/* ===================================================================
+ * 12. RESPONSIVIDADE (MEDIA QUERIES)
+ * Organizado do maior para o menor breakpoint.
+ * =================================================================== */
+
+/* Telas Grandes (Ajuste de Padding) */
+@media (max-width: 1200px) {
+  #app {
+    padding: 2.5rem;
+    padding-bottom: 150px;
+  }
 }
 
-.text-xs.bg-opacity-20:hover {
-  background-opacity: 0.3;
-  transform: scale(1.05);
+/* Tablets e Mobile (até 1024px) */
+@media (max-width: 1024px) {
+  /* Esconde o botão de controle de estado da sidebar do desktop */
+  #sidebar-toggle {
+    display: none;
+  }
+  
+  /* Garante que o botão do menu mobile (hambúrguer) seja exibido */
+  #mobile-menu-button {
+    display: flex !important;
+  }
+
+  /* Altera o layout principal para a sidebar se sobrepor */
+  #page-container {
+    display: block; /* Remove o grid layout */
+  }
+
+  /* Posiciona a sidebar fora da tela por padrão */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px !important; /* Largura fixa para o menu mobile */
+    transform: translateX(-100%);
+    box-shadow: 4px 0px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Exibe a sidebar quando a classe .visible for adicionada */
+  .sidebar.visible {
+    transform: translateX(0);
+  }
+
+  /* Garante que o conteúdo da sidebar fique visível no modo mobile */
+  .sidebar .sidebar-nav-link p,
+  .sidebar .sidebar-header h2 {
+    opacity: 1 !important;
+    width: auto !important;
+  }
+  .sidebar .sidebar-nav-link {
+    justify-content: flex-start !important;
+  }
+  
+  /* Rodapé de busca ocupa a largura toda */
+  #footer-search {
+    left: 0;
+    right: 0;
+    width: 100%;
+  }
+  
+  /* Ajusta os botões de navegação dos artigos */
+  .article-navigation.prev-button {
+    left: 1rem;
+  }
+  .article-navigation.next-button {
+    right: 1rem;
+  }
 }
 
+/* Celulares maiores e tablets em modo retrato (até 768px) */
+@media (max-width: 768px) {
+  #app {
+    padding: 1.5rem;
+    padding-bottom: 120px;
+  }
+
+  .module-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .article-content h1 {
+    font-size: 2.25rem;
+  }
+
+  #footer-search .max-w-4xl {
+    padding: 0.5rem 1rem;
+  }
+
+  #search-input {
+    font-size: 0.9rem;
+  }
+
+  /* Esconde o texto do botão de filtro, mantendo só o ícone */
+  #search-filter-button span {
+    display: none;
+  }
+
+  #search-filter-button {
+    padding: 0 0.75rem;
+  }
+
+  .article-navigation {
+    display: none; /* Esconde botões de navegação em telas pequenas */
+  }
+}
+
+/* Celulares menores (até 480px) */
+@media (max-width: 480px) {
+  #app {
+    padding: 1rem;
+    padding-bottom: 100px;
+  }
+
+  .article-content h1 {
+    font-size: 1.75rem;
+  }
+
+  .card-link {
+    padding: 1.25rem;
+  }
+}
