@@ -778,6 +778,16 @@ pre:hover .copy-button {
   color: var(--text-color);
 }
 
+#search-input {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+#search-input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 
 /* ===================================================================
  * 10. COMPONENTE: NAVEGAÇÃO DE ARTIGO
