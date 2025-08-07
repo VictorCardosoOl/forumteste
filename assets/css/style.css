@@ -283,7 +283,8 @@ mark {
 }
 
 body.dark-mode .sidebar {
-  background-image: var(--bg-color-gradient-dark);
+  background-image: none !important; /* Remove o gradiente */
+  background-color: var(--bg-color) !important;
 }
 
 /* NOVO: Variáveis RGB para usar em sombras com transparência */
@@ -664,7 +665,7 @@ pre:hover .copy-button {
   padding: 0 0.5rem;
   background: transparent !important;
   border: none !important;
-  outline: none !important;
+  
   color: var(--glass-text-color);
   font-size: 0.9rem; /* Fonte ligeiramente menor para proporção */
 }
