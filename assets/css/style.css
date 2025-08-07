@@ -113,7 +113,7 @@ body.dark-mode {
   --glass-button-hover-bg: rgba(255, 255, 255, 0.12);
 
   /* Gradientes */
-  --bg-color-gradient-dark: linear-gradient(180deg, #151515 0%, #101010 100%);
+  --bg-color-gradient-dark: #0d0d0d;
 }
 
 
@@ -508,7 +508,7 @@ body.dark-mode {
 .theme-toggle-btn:hover {
   background-color: var(--hover-bg-color);
   color: var(--text-color);
-  transform: scale(1.1) rotate(5deg);
+  transform: scale(1.1);
 }
 
 .theme-toggle-btn .sun-icon { display: none; }
