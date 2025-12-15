@@ -14,252 +14,66 @@ export const eSocial = {
       group: 'eSocial',
       tags: ['eSocial', 'Introdução'],
       content: `
-  < div class="header-banner" style = "background: #e3f2fd; color: white; padding: 30px; border-radius: 8px; margin-bottom: 40px; text-align: center;" >
-      <h1 style="margin: 0; font-size: 2.2em;">eSocial</h1>
-      <p style="margin: 10px 0 0; font-size: 1.2em;">Sistema de Escrituração Digital das Obrigações Fiscais, Previdenciárias e Trabalhistas</p>
-    </div >
+    <div class="article-standard">
+      <h1>eSocial</h1>
+      <p class="lead">Sistema de Escrituração Digital das Obrigações Fiscais, Previdenciárias e Trabalhistas</p>
 
-    <section style="margin-bottom: 50px;">
-      <h2 style="color: #00000; border-bottom: 2px solid #0056b3; padding-bottom: 10px; font-size: 1.8em;">1. Fundamentação Legal e Histórico</h2>
+      <h2>1. Fundamentação Legal e Histórica</h2>
+      <p>O eSocial foi consolidado em <strong>11 de dezembro de 2014</strong>, unificando o envio de informações para a Receita Federal, INSS, Caixa e Ministério do Trabalho. Sua obrigatoriedade geral iniciou-se em 2018.</p>
       
-      <div style="background: white; border-radius: 8px; box-shadow: 0 3px 15px rgba(0,0,0,0.1); padding: 25px; margin-bottom: 30px;">
-        <h3 style="color: #00000; margin-top: 0;">Criação e Marco Legal</h3>
-        <ul style="padding-left: 25px; line-height: 1.6;">
-          <li><strong>Data de fundação:</strong> 11 de dezembro de 2014</li>
-          <li><strong>Órgãos envolvidos:</strong> Receita Federal, INSS, Caixa Econômica Federal e Ministério do Trabalho</li>
-          <li><strong>Base tecnológica:</strong> Sistema Público de Escrituração Digital (SPED)</li>
-          <li><strong>Obrigatoriedade geral:</strong> 8 de janeiro de 2018 (com exceção inicial para eventos de SST)</li>
+      <div class="info-box">
+        <h3>Principais Objetivos</h3>
+        <ul>
+          <li>Eliminar a multiplicidade de declarações (RAIS, CAGED, etc).</li>
+          <li>Reduzir custos e burocracia para as empresas.</li>
+          <li>Aprimorar a qualidade das informações da seguridade social.</li>
+          <li>Garantir direitos trabalhistas e previdenciários.</li>
         </ul>
-        
-        <div style="background: #f0f7ff; padding: 20px; border-left: 4px solid #0056b3; margin-top: 20px;">
-          <h4 style="color: #00000; margin-top: 0;">Principais Objetivos</h4>
-          <ul style="padding-left: 25px;">
-            <li>Eliminar a multiplicidade de declarações</li>
-            <li>Reduzir custos de compliance para empresas</li>
-            <li>Aprimorar a fiscalização governamental</li>
-            <li>Garantir direitos trabalhistas e previdenciários</li>
-          </ul>
-        </div>
       </div>
-    </section>
 
-    <section style="margin-bottom: 50px;">
-      <h2 style="color: #00000; border-bottom: 2px solid #0056b3; padding-bottom: 10px; font-size: 1.8em;">2. Cronograma Detalhado de Implantação</h2>
-      
-      <div style="background: white; border-radius: 8px; box-shadow: 0 3px 15px rgba(0,0,0,0.1); padding: 25px; margin-bottom: 30px;">
-        <h3 style="color: #00000; margin-top: 0;">Fases de Implementação</h3>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 25px 0;">
-          <div style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 15px;">
-            <h4 style="color: #00000; margin-top: 0;">Fase 1 - Eventos de Tabela</h4>
-            <p>Informações cadastrais do empregador</p>
-          </div>
-          <div style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 15px;">
-            <h4 style="color: #00000; margin-top: 0;">Fase 2 - Eventos Não Periódicos</h4>
-            <p>Admissões, afastamentos e demissões</p>
-          </div>
-          <div style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 15px;">
-            <h4 style="color: #00000; margin-top: 0;">Fase 3 - Eventos Periódicos</h4>
-            <p>Folhas de pagamento</p>
-          </div>
-          <div style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 15px;">
-            <h4 style="color: #00000; margin-top: 0;">Fase 4 - Eventos de SST</h4>
-            <p>Saúde e Segurança no Trabalho</p>
-          </div>
+      <h2>2. Fases de Implementação</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h4>Fase 1: Tabelas</h4>
+          <p>Cadastros do empregador e tabelas.</p>
+        </div>
+        <div class="card">
+          <h4>Fase 2: Não Periódicos</h4>
+          <p>Admissões e vínculos.</p>
+        </div>
+        <div class="card">
+          <h4>Fase 3: Periódicos</h4>
+          <p>Folha de pagamento.</p>
+        </div>
+        <div class="card">
+          <h4>Fase 4: SST</h4>
+          <p>Saúde e Segurança.</p>
         </div>
       </div>
 
-      <h3 style="color: #00000;">Cronograma Específico para SST (Portaria SEPRT/RFB/ME nº 71/2021)</h3>
-      <div style="overflow-x: auto; margin: 30px 0;">
-        <table style="width: 100%; border-collapse: collapse; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-          <thead>
-            <tr style="background-color: #0056b3; color: white;">
-              <th style="padding: 15px; text-align: left; width: 10%;">Grupo</th>
-              <th style="padding: 15px; text-align: left; width: 60%;">Perfil das Empresas</th>
-              <th style="padding: 15px; text-align: left; width: 30%;">Data Limite</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style="border-bottom: 1px solid #e0e0e0;">
-              <td style="padding: 15px;">1</td>
-              <td style="padding: 15px;">Faturamento anual superior a R$78 milhões</td>
-              <td style="padding: 15px;">13/10/2021</td>
-            </tr>
-            <tr style="border-bottom: 1px solid #e0e0e0;">
-              <td style="padding: 15px;">2</td>
-              <td style="padding: 15px;">Entidades com faturamento até R$78 milhões (não optantes pelo Simples Nacional)</td>
-              <td style="padding: 15px;">10/01/2022</td>
-            </tr>
-            <tr style="border-bottom: 1px solid #e0e0e0;">
-              <td style="padding: 15px;">3</td>
-              <td style="padding: 15px;">Optantes pelo Simples Nacional, empregadores PF (exceto doméstico), produtor rural PF e entidades sem fins lucrativos</td>
-              <td style="padding: 15px;">10/01/2022</td>
-            </tr>
-            <tr>
-              <td style="padding: 15px;">4</td>
-              <td style="padding: 15px;">Órgãos públicos e organizações internacionais</td>
-              <td style="padding: 15px;">11/07/2022</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <h2>3. eSocial Simplificado (S-1.0)</h2>
+      <p>Atualmente vige o modelo simplificado, que reduziu drasticamente o número de campos e eventos, focando no que é realmente essencial para a apuração de tributos e FGTS.</p>
       
-      <div style="background: #fff8e1; padding: 20px; border-left: 4px solid #ff9800; margin: 30px 0;">
-        <h4 style="color: #e65100; margin-top: 0;">Situação Atual</h4>
-        <p>Desde 2022, a obrigatoriedade é universal para todas as empresas, com exceção de alguns órgãos públicos que possuem método de transmissão diferenciado.</p>
-      </div>
-    </section>
+      <h2>4. Impactos e LGPD</h2>
+      <p>Todas as informações transmitidas estão protegidas pela LGPD. O sistema garante que dados sensíveis dos trabalhadores sejam tratados com sigilo fiscal e previdenciário adequado.</p>
 
-    <section style="margin-bottom: 50px;">
-      <h2 style="color: #00000; border-bottom: 2px solid #0056b3; padding-bottom: 10px; font-size: 1.8em;">3. eSocial Simplificado (S-1.0)</h2>
-      
-      <div style="background: white; border-radius: 8px; box-shadow: 0 3px 15px rgba(0,0,0,0.1); padding: 25px; margin-bottom: 30px;">
-        <h3 style="color: #00000; margin-top: 0;">Principais Mudanças</h3>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin: 30px 0;">
-          <div style="border-left: 4px solid #4caf50; padding-left: 15px;">
-            <h4 style="color: #00000; margin-top: 0;">Redução de Burocracia</h4>
-            <ul style="padding-left: 20px;">
-              <li>Eliminação de campos duplicados</li>
-              <li>Substituição da RAIS e CAGED</li>
-              <li>Simplificação de layouts</li>
-            </ul>
-          </div>
-          
-          <div style="border-left: 4px solid #4caf50; padding-left: 15px;">
-            <h4 style="color: #00000; margin-top: 0;">Benefícios</h4>
-            <ul style="padding-left: 20px;">
-              <li>Menor carga de trabalho para empresas</li>
-              <li>Redução de erros no preenchimento</li>
-              <li>Processamento mais rápido pelo governo</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div style="background: #e8f5e9; padding: 20px; border-radius: 8px; margin-top: 20px;">
-          <h4 style="color: #2e7d32; margin-top: 0;">Impacto na Rotina</h4>
-          <p>As empresas passaram a enviar aproximadamente 30% menos informações, mantendo toda a qualidade dos dados necessários para fiscalização.</p>
-        </div>
-      </div>
-    </section>
-
-    <section style="margin-bottom: 50px;">
-      <h2 style="color: #00000; border-bottom: 2px solid #0056b3; padding-bottom: 10px; font-size: 1.8em;">4. Impacto nas Relações de Trabalho</h2>
-      
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin: 30px 0;">
-        <div style="background: white; border-radius: 8px; box-shadow: 0 3px 15px rgba(0,0,0,0.1); padding: 25px;">
-          <h3 style="color: #00000; margin-top: 0;">Para os Trabalhadores</h3>
-          <ul style="padding-left: 25px; line-height: 1.6;">
-            <li><strong>Transparência:</strong> Registro imediato de admissões, alterações salariais e afastamentos</li>
-            <li><strong>Histórico unificado:</strong> Facilita comprovação para aposentadoria especial</li>
-            <li><strong>Garantia de direitos:</strong> FGTS, INSS e seguro-desemprego com menos inconsistências</li>
-            <li><strong>Banco de dados:</strong> Informações sobre exames médicos, condições de trabalho e acidentes</li>
-          </ul>
-        </div>
-        
-        <div style="background: white; border-radius: 8px; box-shadow: 0 3px 15px rgba(0,0,0,0.1); padding: 25px;">
-          <h3 style="color: #00000; margin-top: 0;">Para as Empresas</h3>
-          <ul style="padding-left: 25px; line-height: 1.6;">
-            <li><strong>Fiscalização integrada:</strong> Cruzamento automático de informações entre órgãos</li>
-            <li><strong>Combate à sonegação:</strong> Identificação mais eficiente de irregularidades</li>
-            <li><strong>Redução de custos:</strong> Eliminação de múltiplos envios para diferentes sistemas</li>
-            <li><strong>Segurança jurídica:</strong> Registro oficial de todas as movimentações trabalhistas</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section style="margin-bottom: 50px;">
-      <h2 style="color: #00000; border-bottom: 2px solid #0056b3; padding-bottom: 10px; font-size: 1.8em;">5. Dados Coletados e LGPD</h2>
-      
-      <div style="background: white; border-radius: 8px; box-shadow: 0 3px 15px rgba(0,0,0,0.1); padding: 25px; margin-bottom: 30px;">
-        <h3 style="color: #00000; margin-top: 0;">Categorias de Informações</h3>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin: 30px 0;">
-          <div>
-            <h4 style="color: #00000; border-bottom: 1px solid #e0e0e0; padding-bottom: 8px;">Dados Pessoais</h4>
-            <ul style="padding-left: 20px;">
-              <li>CPF</li>
-              <li>Nome completo</li>
-              <li>Data de nascimento</li>
-              <li>Endereço</li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 style="color: #00000; border-bottom: 1px solid #e0e0e0; padding-bottom: 8px;">Dados Contratuais</h4>
-            <ul style="padding-left: 20px;">
-              <li>Data de admissão</li>
-              <li>Cargo e função</li>
-              <li>Salário e benefícios</li>
-              <li>Jornada de trabalho</li>
-            </ul>
-          </div>
-          
-          <div>
-            <h4 style="color: #00000; border-bottom: 1px solid #e0e0e0; padding-bottom: 8px;">Dados de SST</h4>
-            <ul style="padding-left: 20px;">
-              <li>Exames médicos (ASO)</li>
-              <li>Comunicação de Acidentes (CAT)</li>
-              <li>Condições ambientais</li>
-              <li>Exposição a agentes nocivos</li>
-            </ul>
-          </div>
-        </div>
-        
-        <div style="background: #f3e5f5; padding: 20px; border-left: 4px solid #9c27b0; border-radius: 8px; margin-top: 30px;">
-          <h4 style="color: #7b1fa2; margin-top: 0;">Conformidade com a LGPD</h4>
-          <p>O tratamento dos dados no eSocial segue rigorosamente os princípios da Lei Geral de Proteção de Dados (LGPD):</p>
-          <ul style="padding-left: 25px;">
-            <li>Finalidade específica e legítima</li>
-            <li>Necessidade e adequação</li>
-            <li>Transparência</li>
-            <li>Segurança e prevenção</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <h2 style="color: #00000; border-bottom: 2px solid #0056b3; padding-bottom: 10px; font-size: 1.8em;">6. Integração de Sistemas</h2>
-      
-      <div style="background: white; border-radius: 8px; box-shadow: 0 3px 15px rgba(0,0,0,0.1); padding: 25px; margin-bottom: 30px;">
-        <h3 style="color: #00000; margin-top: 0;">Eventos de SST Transmitidos</h3>
-        <p style="margin-bottom: 25px;">Os sistemas de gestão de SST modernos realizam a transmissão automática dos seguintes eventos para o eSocial:</p>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin: 30px 0;">
-          <div style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; border-top: 4px solid #0056b3;">
-            <h4 style="color: #00000; margin-top: 0;">S-2210</h4>
-            <p><strong>Comunicação de Acidente de Trabalho</strong></p>
-            <p style="font-size: 0.95em;">Deve ser enviado em até 1 dia útil após o acidente, contendo dados do acidentado, tipo de lesão e CID.</p>
-          </div>
-          
-          <div style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; border-top: 4px solid #0056b3;">
-            <h4 style="color: #00000; margin-top: 0;">S-2220</h4>
-            <p><strong>Monitoramento da Saúde do Trabalhador</strong></p>
-            <p style="font-size: 0.95em;">Registra todos os exames ocupacionais realizados, vinculados ao PCMSO da empresa.</p>
-          </div>
-          
-          <div style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; border-top: 4px solid #0056b3;">
-            <h4 style="color: #00000; margin-top: 0;">S-2221</h4>
-            <p><strong>Exame Toxicológico</strong></p>
-            <p style="font-size: 0.95em;">Obrigatório para motoristas profissionais (Lei 13.103/2015). Resultados positivos geram bloqueio automático.</p>
-          </div>
-          
-          <div style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; border-top: 4px solid #0056b3;">
-            <h4 style="color: #00000; margin-top: 0;">S-2240</h4>
-            <p><strong>Condições Ambientais do Trabalho</strong></p>
-            <p style="font-size: 0.95em;">Comunica os riscos ambientais identificados no PGR e as medidas de controle adotadas.</p>
-          </div>
-          
-          <div style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; border-top: 4px solid #0056b3;">
-            <h4 style="color: #00000; margin-top: 0;">S-3000</h4>
-            <p><strong>Exclusão de Eventos</strong></p>
-            <p style="font-size: 0.95em;">Utilizado para tornar sem efeito (excluir) um evento que foi enviado incorretamente.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+      <h3>Quadro de Obrigatoriedade SST</h3>
+      <table class="standard-table">
+        <thead>
+          <tr>
+            <th>Categoria</th>
+            <th>S-2210 (CAT)</th>
+            <th>S-2220 (Saúde)</th>
+            <th>S-2240 (Riscos)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>CLT</td><td>Sim</td><td>Sim</td><td>Sim</td></tr>
+          <tr><td>Estagiário</td><td>Não</td><td>Não</td><td>Não</td></tr>
+          <tr><td>Autônomo</td><td>Não</td><td>Não</td><td>Não</td></tr>
+        </tbody>
+      </table>
+    </div>
 `
     },
 

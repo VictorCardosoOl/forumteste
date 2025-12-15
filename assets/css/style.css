@@ -2,32 +2,197 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 
-  Reset total para Tailwind Puro.
-  Nenhum estilo global complexo para evitar conflitos.
-  Adicione aqui apenas o essencial que o Tailwind não cobrir.
-*/
-
 @layer base {
   body {
-    @apply bg-zinc-50 text-zinc-900 antialiased selection:bg-blue-500/20 selection:text-blue-600 dark:bg-zinc-950 dark:text-zinc-100;
+    @apply bg-white text-zinc-950 antialiased selection:bg-black selection:text-white dark:bg-zinc-950 dark:text-zinc-50;
   }
 }
 
-/* Custom Scrollbar opcional */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+@layer components {
+
+  /* 
+    Padrão Visual Premium Preto & Branco 
+    Estilo "Editorial" para artigos
+  */
+  .article-standard {
+    @apply max-w-none;
+  }
+
+  .article-standard h1 {
+    @apply text-4xl font-extrabold tracking-tight text-black dark:text-white mb-6 mt-10 first:mt-0;
+  }
+
+  .article-standard h2 {
+    @apply text-2xl font-bold tracking-tight text-black dark:text-white mb-4 mt-10 pb-2 border-b-2 border-zinc-100 dark:border-zinc-800;
+  }
+
+  .article-standard h3 {
+    @apply text-xl font-semibold text-zinc-900 dark:text-zinc-100 mb-3 mt-8;
+  }
+
+  .article-standard p {
+    @apply text-lg leading-relaxed text-zinc-700 dark:text-zinc-300 mb-6;
+  }
+
+  .article-standard ul,
+  .article-standard ol {
+    @apply my-6 ml-6 list-outside marker:text-zinc-400;
+  }
+
+  .article-standard ul {
+    @apply list-disc;
+  }
+
+  .article-standard ol {
+    @apply list-decimal;
+  }
+
+  .article-standard li {
+    @apply pl-2 mb-2 text-zinc-700 dark:text-zinc-300 leading-relaxed;
+  }
+
+  .article-standard strong {
+    @apply font-bold text-black dark:text-white;
+  }
+
+  .article-standard a {
+    @apply font-medium text-black underline decoration-zinc-400 decoration-2 underline-offset-2 hover:decoration-black dark:text-white dark:decoration-zinc-600 dark:hover:decoration-white transition-all;
+  }
+
+  .article-standard blockquote {
+    @apply pl-6 border-l-4 border-black dark:border-white italic text-zinc-600 dark:text-zinc-400 my-8 py-2 bg-zinc-50 dark:bg-zinc-900/50 rounded-r-lg;
+  }
+
+  .article-standard code {
+    @apply font-mono text-sm bg-zinc-100 dark:bg-zinc-900 px-1.5 py-0.5 rounded text-zinc-900 dark:text-zinc-100 border border-zinc-200 dark:border-zinc-800;
+  }
+
+  .article-standard pre {
+    @apply bg-zinc-950 text-zinc-50 p-6 rounded-xl overflow-x-auto my-8 border border-zinc-800 shadow-2xl;
+  }
+
+  .article-standard pre code {
+    @apply bg-transparent p-0 text-inherit border-none;
+  }
+
+  /* Tabelas Elegantes */
+  .article-standard table {
+    @apply w-full my-8 text-left border-collapse rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-800;
+  }
+
+  .article-standard thead {
+    @apply bg-zinc-100 dark:bg-zinc-900;
+  }
+
+  .article-standard th {
+    @apply px-6 py-4 font-bold text-xs uppercase tracking-wider text-zinc-500 dark:text-zinc-400 border-b border-zinc-200 dark:border-zinc-800;
+  }
+
+  .article-standard td {
+    @apply px-6 py-4 border-b border-zinc-100 dark:border-zinc-800/50 text-zinc-600 dark:text-zinc-300 text-sm;
+  }
+
+  .article-standard tr:last-child td {
+    @apply border-b-0;
+  }
+
+  /* Cards e Containers Especiais (compatibilidade com dados antigos) */
+  .welcome-banner {
+    @apply bg-zinc-100 dark:bg-zinc-900 p-8 rounded-2xl mb-10 text-center border border-zinc-200 dark:border-zinc-800 !important;
+  }
+
+  .welcome-banner h1 {
+    @apply text-3xl font-black mb-4 !important;
+  }
+
+  .concept-card,
+  .step-card,
+  .doc-card,
+  .event-card,
+  .nr-card {
+    @apply bg-white dark:bg-zinc-900 p-6 rounded-xl border border-zinc-200 dark:border-zinc-800 shadow-sm hover:shadow-md transition-shadow duration-300 mb-6 !important;
+  }
+
+  /* Icons */
+  .module-icon {
+    @apply w-full h-full text-current;
+  }
 }
 
-::-webkit-scrollbar-track {
+/* Animations defined in pure CSS for performance */
+.animate-in {
+  animation-duration: 0.5s;
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Ease Out Expo */
+}
+
+.fade-in {
+  animation-name: fadeIn;
+}
+
+.slide-in-from-bottom-4 {
+  --tw-enter-translate-y: 1rem;
+  animation-name: slideInFromBottom;
+}
+
+.slide-in-from-bottom-8 {
+  --tw-enter-translate-y: 2rem;
+  animation-name: slideInFromBottom;
+}
+
+.slide-in-from-top-2 {
+  --tw-enter-translate-y: -0.5rem;
+  animation-name: slideInFromTop;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(var(--tw-enter-translate-y));
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromTop {
+  from {
+    transform: translateY(var(--tw-enter-translate-y));
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Custom Scrollbar for Sidebar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
   background: transparent;
 }
 
-::-webkit-scrollbar-thumb {
-  @apply bg-zinc-300 dark:bg-zinc-700 rounded-full;
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-zinc-200 dark:bg-zinc-800 rounded-full;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-zinc-400 dark:bg-zinc-600;
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  @apply bg-zinc-300 dark:bg-zinc-700;
 }

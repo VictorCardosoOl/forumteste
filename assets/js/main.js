@@ -4,7 +4,7 @@
  */
 
 import LocomotiveScroll from 'locomotive-scroll';
-import { forumData } from './data/index.js';
+import { database } from './data/index.js';
 import { initSidebar } from './sidebar.js';
 import * as Router from './router.js';
 import * as View from './view.js'; // Imported for types/constants if needed
@@ -152,7 +152,7 @@ function setSearchScope(scopeId) {
   currentSearchScope = scopeId;
 
   // Update Filter Button Text
-  const selectedModule = forumData.find(m => m.id === scopeId);
+  const selectedModule = database.find(m => m.id === scopeId);
 
   const iconHtml = selectedModule
     ? `<div class="w-3.5 h-3.5">${selectedModule.icon || ''}</div>`
@@ -189,7 +189,7 @@ function setSearchScope(scopeId) {
 function renderFilterMenuItems(filterText = '') {
   if (!filterMenuList) return;
   const lowerFilterText = filterText.toLowerCase();
-  const allModules = [{ id: 'all', title: 'Todos os Módulos', icon: '' }, ...forumData];
+  const allModules = [{ id: 'all', title: 'Todos os Módulos', icon: '' }, ...database];
 
   const filteredModules = allModules.filter(module =>
     module.title.toLowerCase().includes(lowerFilterText)

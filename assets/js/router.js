@@ -3,9 +3,8 @@
  * @description Manages application state and navigation between views.
  */
 
-import { forumData } from './data/index.js';
+import { database, searchTopics } from './data/index.js';
 import * as View from './view.js';
-import * as Search from './search.js';
 import { updateActiveLink } from './sidebar.js';
 
 const state = {
@@ -21,9 +20,6 @@ const state = {
 export function initRouter(container, scrollInstance) {
     state.appContainer = container;
     state.currentScroll = scrollInstance;
-
-    // Index data for search
-    Search.initSearch(forumData);
 }
 
 // --- State Setters ---
@@ -39,11 +35,11 @@ export function navigateHome() {
     state.currentTopic = null;
     updateActiveLink(null);
 
-    render(View.templates_Home(forumData));
+    render(View.templates_Home(database));
 }
 
 export function navigateCategory(categoryId) {
-    const category = forumData.find(c => c.id === categoryId);
+    const category = database.find(c => c.id === categoryId);
     if (!category) return navigateHome();
 
     state.currentCategory = categoryId;
@@ -62,7 +58,7 @@ export function navigateCategory(categoryId) {
 }
 
 export function navigateArticle(categoryId, topicId) {
-    const category = forumData.find(c => c.id === categoryId);
+    const category = database.find(c => c.id === categoryId);
     if (!category) return navigateHome();
 
     const topic = category.topics.find(t => t.id === topicId);
@@ -76,7 +72,7 @@ export function navigateArticle(categoryId, topicId) {
 }
 
 export function navigateTag(tagName) {
-    const articlesWithTag = forumData.flatMap(category =>
+    const articlesWithTag = database.flatMap(category =>
         category.topics
             .filter(topic => topic.tags && topic.tags.includes(tagName))
             .map(topic => ({
@@ -95,8 +91,15 @@ export function performSearch(query) {
         return navigateHome();
     }
 
-    const results = Search.performSearch(query, state.searchScope);
-    render(View.templates_SearchResults(results, query));
+    const results = searchTopics(query);
+
+    // Filter by scope if needed
+    let filteredResults = results;
+    if (state.searchScope !== 'all') {
+        filteredResults = results.filter(r => r.categoryId === state.searchScope);
+    }
+
+    render(View.templates_SearchResults(filteredResults, query));
 }
 
 // --- Helper Functions ---
@@ -121,7 +124,7 @@ function getRelatedArticles(currentTopic, currentCategoryId) {
     if (currentTopic.manualSuggestions?.length > 0) {
         return currentTopic.manualSuggestions
             .map(s => {
-                const cat = forumData.find(c => c.id === s.categoryId);
+                const cat = database.find(c => c.id === s.categoryId);
                 if (!cat) return null;
                 const top = cat.topics.find(t => t.id === s.topicId);
                 return top ? { ...top, categoryId: cat.id, categoryTitle: cat.title } : null;
@@ -132,7 +135,7 @@ function getRelatedArticles(currentTopic, currentCategoryId) {
 
     // 2. Tag based
     if (currentTopic.tags?.length) {
-        const related = forumData.flatMap(cat =>
+        const related = database.flatMap(cat =>
             cat.topics
                 .filter(t => t.id !== currentTopic.id && t.tags?.length)
                 .map(t => {
@@ -146,7 +149,7 @@ function getRelatedArticles(currentTopic, currentCategoryId) {
     }
 
     // 3. Random/Same Category fallback
-    const sameCat = forumData.find(c => c.id === currentCategoryId);
+    const sameCat = database.find(c => c.id === currentCategoryId);
     return sameCat?.topics
         .filter(t => t.id !== currentTopic.id)
         .slice(0, 3)
