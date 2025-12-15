@@ -1,4 +1,4 @@
- const gerenciamentoderiscos =
+const gerenciamentoderiscos =
 {
   id: 'gerenciamento-de-riscos',
   title: 'Gerenciamento de Riscos',
@@ -300,233 +300,16 @@
   </style>
 `
 
-    }, 
-
-    {
-      id: 'migracao-gerenciamento-riscos-sigo-w3-para-sigo-web',
-      title: 'Migração do Gerenciamento de Riscos: Impactos na Transição do Sigo W3 para o Sigo Web',
-      description: 'Guia completo sobre a reestruturação de setores, funções, PCMSO e LTCAT durante a migração entre sistemas, com procedimentos para correção de vínculos e prevenção de erros operacionais.',
-      group: 'Gerenciamento de Riscos',
-      tags: ['Processos', 'Introdução', 'Migração'],
-      content: `
-  <h2>Migração do Gerenciamento de Riscos: Impactos na Transição do Sigo W3 para o Sigo Web</h2>
-  <p>A transição entre as plataformas exige atenção especial à gestão de setores, funções e seus vínculos com documentos ocupacionais. Este manual técnico detalha as mudanças estruturais e fornece soluções práticas para garantir a continuidade dos processos de saúde e segurança no trabalho.</p>
-
-  <!-- Seção 1 -->
-  <h3>1. Protocolos Críticos para Prevenção de Erros</h3>
-  <div class="warning-box">
-    <h4>Atenção Operacional</h4>
-    <ul>
-      <li><strong>Preservação de cadastros:</strong> Manter todos os setores e funções existentes no Gerenciamento de Riscos de empresas migradas</li>
-      <li><strong>Consolidação prévia:</strong> Verificar ativamente se todos os funcionários estão vinculados a um único setor/função antes de excluir duplicatas</li>
-    </ul>
-  </div>
-
-  <!-- Seção 2 -->
-  <h3>2. Análise Comparativa das Estruturas</h3>
-  
-  <h4>2.1 Arquitetura no Sigo W3 (Legado)</h4>
-  <ul>
-    <li><strong>Cadastro isolado:</strong> Cada empresa possuía seu próprio conjunto de setores e funções, mesmo com descrições idênticas</li>
-    <li><strong>Identificadores únicos:</strong> IDs independentes para cada combinação empresa-setor-função</li>
-  </ul>
-
-  <div class="code-example">
-    <p><strong>Exemplo Prático:</strong></p>
-    <p>Empresa A: Setor Administrativo (ID: 1) | Função: Auxiliar (ID: 1)</p>
-    <p>Empresa B: Setor Administrativo (ID: 2) | Função: Auxiliar (ID: 2)</p>
-  </div>
-
-  <!-- Espaço para imagem de fluxo Sigo W3 -->
-  <div class="image-placeholder">
-    <img src="assets/IMG/Artigos/Gerenciamentoderiscos/Erro na impressão do PGR/Screenshot_1.png">
-  </div>
-
-  <h4>2.2 Modelo no Sigo Web (Nova Versão)</h4>
-  <ul>
-    <li><strong>Cadastro unificado:</strong> Setores e funções tornaram-se entidades globais</li>
-    <li><strong>Seleção contextual:</strong> Associados às empresas durante a elaboração do Gerenciamento de Riscos</li>
-  </ul>
-
-  <div class="code-example">
-    <p><strong>Exemplo Prático:</strong></p>
-    <p>Setor: Administrativo (ID: 1) | Função: Auxiliar (ID: 1)</p>
-    <p>Aplicação uniforme em todas as empresas</p>
-  </div>
-
-  <!-- Seção 3 -->
-  <h3>3. Processo de Migração - Transformação de Dados</h3>
-  <p>Durante a conversão dos dados ocorre:</p>
-  
-  <div class="comparison-table">
-    <table>
-      <tr>
-        <th>Estado Inicial (Pré-Migração)</th>
-        <th>Estado Final (Pós-Migração)</th>
-      </tr>
-      <tr>
-        <td>
-          <ul>
-            <li>Administrativo, ID: 1 – Ativo</li>
-            <li>Administrativo, ID: 2 – Ativo</li>
-            <li>Administrativo, ID: 3 – Ativo</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>Administrativo, ID: 1 – Ativo</li>
-            <li>Administrativo, ID: 2 – Inativo</li>
-            <li>Administrativo, ID: 3 – Inativo</li>
-          </ul>
-        </td>
-      </tr>
-    </table>
-  </div>
-
-  <p><strong>Observação técnica:</strong> Os vínculos históricos são preservados mesmo para registros inativados, permitindo a recuperação via ID original quando necessário.</p>
-
-  <!-- Seção 4 -->
-  <h3>4. Impactos Operacionais e Soluções</h3>
-  
-  <h4>4.1 Quebra de Vínculos no PCMSO</h4>
-  <div class="alert-box">
-    <p><strong>Cenário crítico:</strong> Quando os IDs de setor/função no Registro de Admissão divergem dos IDs no PCMSO migrado, ocorre perda de associação.</p>
-    <p><em>Exemplo documentado:</em> Funcionária Luciana teve seu vínculo rompido devido à discrepância entre os sistemas.</p>
-  </div>
-
-  <!-- Espaço para imagem de alerta de vínculo quebrado -->
-  <div class="image-placeholder">
-    <p>[Imagem: Alerta de vínculo quebrado com exemplo da funcionária Luciana]</p>
-  </div>
-
-  <h4>4.2 Procedimento de Restauração (Passo a Passo)</h4>
-  <div class="step-by-step">
-    <div class="step">
-      <h5>Passo 1: Recuperação de Cadastros</h5>
-      <p>Acessar o cadastro de Setor/Função → Pesquisar pelo ID original → Reativar os registros inativados</p>
-    </div>
-    
-    <div class="step">
-      <h5>Passo 2: Reassociação no GR</h5>
-      <p>No Gerenciamento de Riscos da empresa → Incluir os setores reativados</p>
-    </div>
-    
-    <div class="step">
-      <h5>Passo 3: Transferência de Riscos</h5>
-      <p>Utilizar a função "Importar Exposições" para migrar os riscos do PGR antigo para a nova estrutura</p>
-    </div>
-  </div>
-
-  <!-- Espaço para imagem do assistente de importação -->
-  <div class="image-placeholder">
-    <p>[Imagem: Tela do assistente de importação de exposições do PGR]</p>
-  </div>
-
-  <!-- Seção 5 -->
-  <h3>5. Mudanças no LTCAT - Nova Abordagem</h3>
-  <div class="new-feature">
-    <h4>Desacoplamento de Funcionalidades</h4>
-    <ul>
-      <li><strong>Independência estrutural:</strong> LTCAT e PGR agora operam como módulos separados</li>
-      <li><strong>Facilidade de importação:</strong> Nova função "Importar do PGR" para transferência de riscos da Tabela 24</li>
-    </ul>
-  </div>
-
-  <div class="benefits-box">
-    <h4>Vantagens da Nova Versão</h4>
-    <ul>
-      <li>Replicação simplificada de LTCATs entre empresas</li>
-      <li>Atualização ágil de documentos</li>
-      <li>Redução de inconsistências</li>
-    </ul>
-  </div>
-
-  <div class="warning-box">
-    <h4>Restrição Importante</h4>
-    <p>Evitar importação de PGR entre empresas diferentes para prevenir falhas nos vínculos futuros entre PCMSO e atendimentos médicos.</p>
-  </div>
-
-  <!-- Seção 6 -->
-  <h3>6. Fluxograma de Decisão para Casos Complexos</h3>
-  <div class="flowchart">
-    <!-- Espaço para imagem do fluxograma -->
-    <p>[Imagem: Fluxograma de tratamento para migração com problemas de vínculo]</p>
-  </div>
-
-  <h3>Conclusão Técnica</h3>
-  <div class="summary">
-    <p>A migração para o Sigo Web representa uma evolução arquitetural significativa, com:</p>
-    <ul>
-      <li><strong>Otimização estrutural:</strong> Eliminação de redundâncias nos cadastros</li>
-      <li><strong>Gestão unificada:</strong> Padronização de setores e funções</li>
-      <li><strong>Continuidade assegurada:</strong> Mecanismos de recuperação para manutenção dos vínculos históricos</li>
-    </ul>
-    <p>As equipes devem priorizar a verificação dos vínculos pós-migração, seguindo os protocolos estabelecidos para garantia da integridade dos dados ocupacionais.</p>
-  </div>
-
-  <style>
-    .warning-box, .alert-box {
-      border-left: 4px solid #ff9800;
-      background-color: #fff8e1;
-      padding: 15px;
-      margin: 20px 0;
-    }
-    .alert-box {
-      border-color: #f44336;
-      background-color: #ffebee;
-    }
-    .code-example {
-      background: #f5f5f5;
-      padding: 10px;
-      border-radius: 4px;
-      font-family: monospace;
-    }
-    .step-by-step .step {
-      background: #e8f5e9;
-      padding: 10px 15px;
-      margin: 10px 0;
-      border-left: 4px solid #4caf50;
-    }
-    .new-feature {
-      background: #e3f2fd;
-      padding: 15px;
-      border-left: 4px solid #2196f3;
-    }
-    .benefits-box {
-      background: #e8f5e9;
-      padding: 15px;
-      margin: 15px 0;
-    }
-    .image-placeholder {
-      background: #f5f5f5;
-      padding: 30px;
-      text-align: center;
-      margin: 20px 0;
-      border: 1px dashed #ccc;
-    }
-    .comparison-table table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    .comparison-table th, .comparison-table td {
-      border: 1px solid #ddd;
-      padding: 12px;
-      vertical-align: top;
-    }
-    .comparison-table th {
-      background-color: #f2f2f2;
-    }
-  </style>
-`
-
     },
+
+
     {
-    id: 'diferenca-li-lp',
-    title: 'Diferença entre LI e LP - Conceitos, Aplicações e Obrigações Legais',
-    description: 'Guia visual comparativo entre Laudo de Insalubridade (LI) e Laudo de Periculosidade (LP), com objetivos, bases legais, critérios, prazos e orientações práticas.',
-    tags: ['eSocial', 'Introdução'],
-    group: 'Documentos',
-    content: `
+      id: 'diferenca-li-lp',
+      title: 'Diferença entre LI e LP - Conceitos, Aplicações e Obrigações Legais',
+      description: 'Guia visual comparativo entre Laudo de Insalubridade (LI) e Laudo de Periculosidade (LP), com objetivos, bases legais, critérios, prazos e orientações práticas.',
+      tags: ['eSocial', 'Introdução'],
+      group: 'Documentos',
+      content: `
     <div class="welcome-banner">
         <h1>Diferença entre LI e LP</h1>
         <p>Este guia esclarece as funções, critérios e aplicações práticas do <strong>Laudo de Insalubridade (LI)</strong> e do <strong>Laudo de Periculosidade (LP)</strong>, essenciais para a conformidade legal e a proteção do trabalhador.</p>
@@ -683,15 +466,15 @@
         }
     </style>
     `
-},
-  {
-    id: 'ltcat-guia-completo',
-    title: 'LTCAT: o que é, finalidade, validade e quando elaborar',
-    description:
-      'Laudo Técnico das Condições Ambientais do Trabalho: conceito, finalidade previdenciária (PPP/aposentadoria especial), quando elaborar, validade/atualização e integração com o eSocial.',
+    },
+    {
+      id: 'ltcat-guia-completo',
+      title: 'LTCAT: o que é, finalidade, validade e quando elaborar',
+      description:
+        'Laudo Técnico das Condições Ambientais do Trabalho: conceito, finalidade previdenciária (PPP/aposentadoria especial), quando elaborar, validade/atualização e integração com o eSocial.',
       tags: ['eSocial', 'Introdução'],
       group: 'Documentos',
-    content: `
+      content: `
     <div class="welcome-banner">
       <h1>LTCAT – Laudo Técnico das Condições Ambientais do Trabalho</h1>
       <p>Documento técnico-legal que registra a exposição dos trabalhadores a agentes nocivos no ambiente laboral
@@ -913,15 +696,15 @@
       li { margin: 6px 0; }
     </style>
     `
-  },
+    },
 
-  {
-  id: 'pcmso-programa-controle-medico',
-  title: 'PCMSO - Guia Completo sobre o Programa de Controle Médico de Saúde Ocupacional',
-  description: 'Entenda o que é o PCMSO, sua importância, os exames obrigatórios, o Relatório Analítico e as responsabilidades da empresa conforme a NR-7.',
-  tags: ['eSocial', 'Introdução'],
-  group: 'Documentos',
-  content: `
+    {
+      id: 'pcmso-programa-controle-medico',
+      title: 'PCMSO - Guia Completo sobre o Programa de Controle Médico de Saúde Ocupacional',
+      description: 'Entenda o que é o PCMSO, sua importância, os exames obrigatórios, o Relatório Analítico e as responsabilidades da empresa conforme a NR-7.',
+      tags: ['eSocial', 'Introdução'],
+      group: 'Documentos',
+      content: `
     <style>
       .document-card {
         background: white;
@@ -1082,15 +865,15 @@
       </div>
     </div>
   `
-},
+    },
 
-{
-  id: 'pgr-programa-gerenciamento-riscos',
-  title: 'PGR - Guia Completo do Programa de Gerenciamento de Riscos (NR-1)',
-  description: 'Entenda o que é o PGR, sua estrutura com Inventário de Riscos e Plano de Ação, quem precisa elaborar, prazos de revisão e as exceções da norma.',
-tags: ['eSocial', 'Introdução'],
-  group: 'Documentos',
-  content: `
+    {
+      id: 'pgr-programa-gerenciamento-riscos',
+      title: 'PGR - Guia Completo do Programa de Gerenciamento de Riscos (NR-1)',
+      description: 'Entenda o que é o PGR, sua estrutura com Inventário de Riscos e Plano de Ação, quem precisa elaborar, prazos de revisão e as exceções da norma.',
+      tags: ['eSocial', 'Introdução'],
+      group: 'Documentos',
+      content: `
     <style>
       .document-card {
         background: white;
@@ -1223,14 +1006,14 @@ tags: ['eSocial', 'Introdução'],
       </div>
     </div>
   `
-},
+    },
 
-{
-  id: 'prazos-validade-sst',
-  title: 'Prazos de Validade, Elaboração e Atualização de Documentos de SST',
-  description: 'Guia prático sobre prazos de validade, elaboração, renovação e revisão de documentos de Saúde e Segurança no Trabalho (SST), incluindo PCMSO, PGR, LTCAT, LI e LP.',
-  group: 'Documentos',
-  content: `
+    {
+      id: 'prazos-validade-sst',
+      title: 'Prazos de Validade, Elaboração e Atualização de Documentos de SST',
+      description: 'Guia prático sobre prazos de validade, elaboração, renovação e revisão de documentos de Saúde e Segurança no Trabalho (SST), incluindo PCMSO, PGR, LTCAT, LI e LP.',
+      group: 'Documentos',
+      content: `
     <div class="welcome-banner">
       <h1>Prazos de Validade e Atualização em SST</h1>
       <p>Este guia detalha os prazos de validade, momentos de elaboração, renovação e revisão dos principais documentos de Saúde e Segurança no Trabalho (SST).</p>
@@ -1397,14 +1180,14 @@ tags: ['eSocial', 'Introdução'],
       }
     </style>
   `
-},
+    },
 
-{
-  id: 'rat-risco-acidente-trabalho',
-  title: 'RAT - Risco Acidente de Trabaho: Legislação e Enquadramento',
-  description: 'Guia completo sobre o RAT, alíquotas, legislação e enquadramento previdenciário.',
-  group: 'Gerenciamento de Riscos',
-  content: `
+    {
+      id: 'rat-risco-acidente-trabalho',
+      title: 'RAT - Risco Acidente de Trabaho: Legislação e Enquadramento',
+      description: 'Guia completo sobre o RAT, alíquotas, legislação e enquadramento previdenciário.',
+      group: 'Gerenciamento de Riscos',
+      content: `
 <div class="welcome-banner">
   <h1>Entendendo o RAT - Risco Acidente de Trabalho</h1>
   <p>Este guia explica o conceito, legislação e aplicação prática do RAT no contexto previdenciário e de segurança do trabalho.</p>
@@ -1644,13 +1427,13 @@ tags: ['eSocial', 'Introdução'],
   }
 </style>
 `
-},
-{
-  id: 'erros-impressao-pgr-formatacao',
-  title: 'Erros na Impressão do PGR: Solução para Problemas de Formatação',
-  description: 'Guia completo para solucionar problemas de impressão no PGR, PCMSO, LTCAT e outros documentos causados por formatação incorreta de texto.',
-  group: 'Erros',
-  content: `
+    },
+    {
+      id: 'erros-impressao-pgr-formatacao',
+      title: 'Erros na Impressão do PGR: Solução para Problemas de Formatação',
+      description: 'Guia completo para solucionar problemas de impressão no PGR, PCMSO, LTCAT e outros documentos causados por formatação incorreta de texto.',
+      group: 'Erros',
+      content: `
 <div class="welcome-banner">
   <h1>Resolução de Erros na Impressão de Documentos</h1>
   <p>Este guia aborda os problemas mais comuns de formatação que causam erros na geração de documentos do Gerenciamento de Riscos e suas soluções.</p>
@@ -2016,11 +1799,11 @@ tags: ['eSocial', 'Introdução'],
   }
 </style>
 `
-},
+    },
 
 
 
-    
+
   ]
 
 };
