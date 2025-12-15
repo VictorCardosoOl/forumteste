@@ -1,19 +1,19 @@
- const eSocial = 
+const eSocial =
 {
   id: 'esocial',
   title: 'eSocial',
-  description: 'Módulo eSocial no sistema Sigo.',
+  description: 'Módulo eSocial.',
   icon: `<svg class="module-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
   <path fill="currentColor" d="M13.138.053a12.018 12.018 0 0 0-9.646 3.481A12.014 12.014 0 0 0 .937 16.651a12.014 12.014 0 0 0 11.162 7.348a2.275 2.275 0 1 0-.037-4.549a7.438 7.438 0 0 1-6.932-4.562a7.438 7.438 0 0 1 1.587-8.145a7.437 7.437 0 0 1 12.378 3.014H12.05a2.275 2.275 0 1 0 0 4.55h9.674A2.275 2.275 0 0 0 24 12.04A12.014 12.014 0 0 0 16.597.914a11.962 11.962 0 0 0-3.459-.86Z"/>
 </svg>`,
-  topics: [ 
-{
-  id: 'esocial-guia-completo',
-  title: 'eSocial: Guia Completo do Sistema de Escrituração Digital',
-  description: 'Tudo sobre a plataforma federal que unificou as obrigações trabalhistas, fiscais e previdenciárias no Brasil.',
-  group: 'eSocial',
-  tags: ['eSocial', 'Introdução'],
-  content: `
+  topics: [
+    {
+      id: 'esocial-guia-completo',
+      title: 'eSocial: Guia Completo do Sistema de Escrituração Digital',
+      description: 'Tudo sobre a plataforma federal que unificou as obrigações trabalhistas, fiscais e previdenciárias no Brasil.',
+      group: 'eSocial',
+      tags: ['eSocial', 'Introdução'],
+      content: `
     <div class="header-banner" style="background: #e3f2fd; color: white; padding: 30px; border-radius: 8px; margin-bottom: 40px; text-align: center;">
       <h1 style="margin: 0; font-size: 2.2em;">eSocial</h1>
       <p style="margin: 10px 0 0; font-size: 1.2em;">Sistema de Escrituração Digital das Obrigações Fiscais, Previdenciárias e Trabalhistas</p>
@@ -221,11 +221,11 @@
     </section>
 
     <section>
-      <h2 style="color: #00000; border-bottom: 2px solid #0056b3; padding-bottom: 10px; font-size: 1.8em;">6. Integração com o Sigo Web</h2>
+      <h2 style="color: #00000; border-bottom: 2px solid #0056b3; padding-bottom: 10px; font-size: 1.8em;">6. Integração de Sistemas</h2>
       
       <div style="background: white; border-radius: 8px; box-shadow: 0 3px 15px rgba(0,0,0,0.1); padding: 25px; margin-bottom: 30px;">
         <h3 style="color: #00000; margin-top: 0;">Eventos de SST Transmitidos</h3>
-        <p style="margin-bottom: 25px;">O sistema Sigo Web realiza a transmissão automática dos seguintes eventos para o eSocial:</p>
+        <p style="margin-bottom: 25px;">Os sistemas de gestão de SST modernos realizam a transmissão automática dos seguintes eventos para o eSocial:</p>
         
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin: 30px 0;">
           <div style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; border-top: 4px solid #0056b3;">
@@ -261,15 +261,15 @@
       </div>
     </section>
   `
-},
+    },
 
-{
+    {
 
-id: 'eventos-sst-esocial',
-title: 'Eventos de SST no eSocial',
-description: 'Material sobre os eventos S-2210, S-2220, S-2221 e S-2240 no eSocial, com regras, observações e tabela completa de obrigatoriedade por categoria.',
-group: 'Eventos do eSocial - SST',
-content: `
+      id: 'eventos-sst-esocial',
+      title: 'Eventos de SST no eSocial',
+      description: 'Material sobre os eventos S-2210, S-2220, S-2221 e S-2240 no eSocial, com regras, observações e tabela completa de obrigatoriedade por categoria.',
+      group: 'Eventos do eSocial - SST',
+      content: `
   <div class="welcome-banner">
     <h1>Eventos de SST no eSocial</h1>
     <p>Os eventos de Segurança e Saúde no Trabalho (SST) no eSocial substituem formulários tradicionais como a CAT e o PPP, garantindo conformidade legal e registro eletrônico unificado.</p>
@@ -737,16 +737,16 @@ content: `
     }
   </style>
   `
-},
+    },
 
 
-{
-  id: 'ecac-esocial-advanced-guide',
-  title: 'e-CAC e eSocial',
-  description: 'Aspectos do e-CAC e sua integração estratégica com o eSocial.',
-  group: 'eSocial',
-  tags: ['eSocial', 'Introdução'],
-  content: `
+    {
+      id: 'ecac-esocial-advanced-guide',
+      title: 'e-CAC e eSocial',
+      description: 'Aspectos do e-CAC e sua integração estratégica com o eSocial.',
+      group: 'eSocial',
+      tags: ['eSocial', 'Introdução'],
+      content: `
     <div class="welcome-banner">
       <h1>Domine o e-CAC: Guia Completo para Colaboradores Wise</h1>
       <p>Este guia aprofundado explica o e-CAC como pilar fundamental para a gestão das obrigações do eSocial, com ênfase nos processos de procuração eletrônica e certificação digital.</p>
@@ -1144,14 +1144,14 @@ content: `
       }
     </style>
   `
-},
-{
-  id: 'esocial-sst-transmission',
-  title: 'Rotina de Transmissão dos Eventos de SST ao eSocial',
-  description: 'Fluxo completo e prazos para transmissão dos eventos de Saúde e Segurança do Trabalho no eSocial.',
-  group: 'eSocial',
-  tags: ['eSocial', 'Processos', 'Webservice', 'Eventos'],
-  content: `
+    },
+    {
+      id: 'esocial-sst-transmission',
+      title: 'Rotina de Transmissão dos Eventos de SST ao eSocial',
+      description: 'Fluxo completo e prazos para transmissão dos eventos de Saúde e Segurança do Trabalho no eSocial.',
+      group: 'eSocial',
+      tags: ['eSocial', 'Processos', 'Webservice', 'Eventos'],
+      content: `
     <div class="transmission-header">
       <h1>Rotina de Transmissão Automatizada - Eventos SST</h1>
       <p>Envio automatizado via Serviço Mensageria do Sigo® conforme programação estabelecida</p>
@@ -1459,17 +1459,17 @@ content: `
       }
     </style>
   `
-},
-//Introdução SST
+    },
+    //Introdução SST
 
-  {
+    {
 
-  id: 'evento-s2210-comunicacao-cat',
-  title: 'Evento S-2210 - Comunicação de Acidente de Trabalho no eSocial',
-  description: 'Artigo completo para integração de novos colaboradores sobre o envio da CAT pelo evento S-2210. Entenda a legislação, responsabilidades e impacto direto na vida do trabalhador.',
-  group: 'Eventos do eSocial - SST',
-  tags: ['eSocial', 'Eventos','Introdução', 'S-2210'],
-  content: `
+      id: 'evento-s2210-comunicacao-cat',
+      title: 'Evento S-2210 - Comunicação de Acidente de Trabalho no eSocial',
+      description: 'Artigo completo para integração de novos colaboradores sobre o envio da CAT pelo evento S-2210. Entenda a legislação, responsabilidades e impacto direto na vida do trabalhador.',
+      group: 'Eventos do eSocial - SST',
+      tags: ['eSocial', 'Eventos', 'Introdução', 'S-2210'],
+      content: `
 
   <div class="welcome-banner">
     <h1>Bem-vindo à Comunicação de Acidente de Trabalho</h1>
@@ -1663,15 +1663,15 @@ content: `
     }
   </style>
   `
-},
+    },
 
-{
-  id: 'evento-s2220-monitoramento-saude',
-  title: 'Evento S-2220 - Monitoramento da Saúde do Trabalhador',
-  description: 'Entenda de forma clara e acolhedora como funciona o envio do evento S-2220 no eSocial e sua relação com o PCMSO e o ASO. Essencial para colaboradores e profissionais de SST.',
-  group: 'Eventos do eSocial - SST',
-  tags: ['eSocial', 'Eventos','Introdução', 'S-2220'],
-  content: `
+    {
+      id: 'evento-s2220-monitoramento-saude',
+      title: 'Evento S-2220 - Monitoramento da Saúde do Trabalhador',
+      description: 'Entenda de forma clara e acolhedora como funciona o envio do evento S-2220 no eSocial e sua relação com o PCMSO e o ASO. Essencial para colaboradores e profissionais de SST.',
+      group: 'Eventos do eSocial - SST',
+      tags: ['eSocial', 'Eventos', 'Introdução', 'S-2220'],
+      content: `
 
   <div class="welcome-banner">
     <h1>Monitoramento da Saúde no eSocial</h1>
@@ -1844,14 +1844,14 @@ content: `
     }
   </style>
   `
-},
-{
-  id: 'evento-s2221-exame-toxicologico',
-title: 'Evento S-2221 - Exame Toxicológico para Motoristas Profissionais',
-description: 'Guia completo sobre o envio do evento S-2221 ao eSocial, abrangendo requisitos legais, prazos, impacto previdenciário e operacional, com orientações específicas para uso no sistema.',
-group: 'Eventos do eSocial - SST',
-tags: ['eSocial', 'Eventos','Introdução', 'S-2221'],
-content: `
+    },
+    {
+      id: 'evento-s2221-exame-toxicologico',
+      title: 'Evento S-2221 - Exame Toxicológico para Motoristas Profissionais',
+      description: 'Guia completo sobre o envio do evento S-2221 ao eSocial, abrangendo requisitos legais, prazos, impacto previdenciário e operacional, com orientações específicas para uso no sistema.',
+      group: 'Eventos do eSocial - SST',
+      tags: ['eSocial', 'Eventos', 'Introdução', 'S-2221'],
+      content: `
 <div class="welcome-banner">
   <h1>Bem-vindo ao Guia sobre o Evento S-2221!</h1>
   <p>Este material foi desenvolvido para explicar de forma clara como funciona o envio do exame toxicológico de motoristas profissionais pelo evento S-2221 no eSocial, com instruções completas para uso do sistema.</p>
@@ -2013,15 +2013,15 @@ content: `
 </style>
 `
 
-},
+    },
 
-{
-  id: 'evento-s2240-condicoes-ambientais',
-  title: 'Evento S-2240: Condições Ambientais do Trabalho no eSocial',
-  description: 'Entenda como funciona o evento S-2240, sua base legal, prazos, impacto na aposentadoria e obrigatoriedade de envio, mesmo na ausência de riscos.',
-  group: 'Eventos do eSocial - SST',
-  tags: ['eSocial', 'Eventos','Introdução', 'S-2240'],
-  content: `
+    {
+      id: 'evento-s2240-condicoes-ambientais',
+      title: 'Evento S-2240: Condições Ambientais do Trabalho no eSocial',
+      description: 'Entenda como funciona o evento S-2240, sua base legal, prazos, impacto na aposentadoria e obrigatoriedade de envio, mesmo na ausência de riscos.',
+      group: 'Eventos do eSocial - SST',
+      tags: ['eSocial', 'Eventos', 'Introdução', 'S-2240'],
+      content: `
   <div class="welcome-banner">
     <h1>Evento S-2240: Condições Ambientais do Trabalho</h1>
     <p>Este guia foi elaborado para integrar novos colaboradores ao universo do eSocial, com foco no evento S-2240, essencial para o histórico previdenciário do trabalhador.</p>
@@ -2202,16 +2202,16 @@ content: `
     }
   </style>
   `
-},
+    },
 
 
-{
-  id: 'eventos-sst-orgaos-publicos',
-  title: 'Eventos de SST para Órgãos Públicos: Regras e Obrigatoriedades',
-  description: 'Guia completo sobre o envio de eventos de SST para servidores públicos no eSocial, com foco nas categorias 301-314, regimes previdenciários e particularidades legais.',
-  group: 'Eventos do eSocial - SST',
-  tags: ['eSocial', 'Eventos'],
-  content: `
+    {
+      id: 'eventos-sst-orgaos-publicos',
+      title: 'Eventos de SST para Órgãos Públicos: Regras e Obrigatoriedades',
+      description: 'Guia completo sobre o envio de eventos de SST para servidores públicos no eSocial, com foco nas categorias 301-314, regimes previdenciários e particularidades legais.',
+      group: 'Eventos do eSocial - SST',
+      tags: ['eSocial', 'Eventos'],
+      content: `
 <div class="public-sector-guide">
   <h1>Eventos de SST no Âmbito dos Órgãos Públicos</h1>
   <p>Este guia detalha as regras específicas para envio de eventos de Saúde e Segurança no Trabalho (SST) para servidores públicos e funcionários sem vínculo empregatício no sistema eSocial.</p>
@@ -2577,14 +2577,14 @@ content: `
   }
 </style>
 `
-},
-{
-  id: 'Erro S-2210',
-  title: 'Erros no Evento S-2210 - Comunicação de Acidente de Trabalho',
-  description: 'Guia completo para solução de problemas no envio do evento S-2210 ao eSocial, com principais erros, fluxos de correção e procedimentos de escalonamento.',
-  group: 'Erros',
-  tags: ['eSocial', 'Eventos','Erro', 'S-2210'],
-  content: `
+    },
+    {
+      id: 'Erro S-2210',
+      title: 'Erros no Evento S-2210 - Comunicação de Acidente de Trabalho',
+      description: 'Guia completo para solução de problemas no envio do evento S-2210 ao eSocial, com principais erros, fluxos de correção e procedimentos de escalonamento.',
+      group: 'Erros',
+      tags: ['eSocial', 'Eventos', 'Erro', 'S-2210'],
+      content: `
     <div class="welcome-banner">
       <h1>Resolução de Erros no Evento S-2210</h1>
       <p>Este guia detalha os procedimentos para correção de erros no envio da Comunicação de Acidente de Trabalho (CAT) ao eSocial.</p>
@@ -2947,14 +2947,14 @@ content: `
       }
     </style>
   `
-},
-{
-  id: 'resolucao-erros-s2240',
-  title: 'Resolução de Erros no Evento S-2240 do eSocial',
-  description: 'Guia completo para diagnóstico e correção de falhas no envio do evento S-2240, com foco em configurações de empresa, funcionário e preenchimento de campos obrigatórios.',
-  group: 'Erros',
-  tags: ['eSocial', 'Eventos','Erro', 'S-2240'],
-  content: `
+    },
+    {
+      id: 'resolucao-erros-s2240',
+      title: 'Resolução de Erros no Evento S-2240 do eSocial',
+      description: 'Guia completo para diagnóstico e correção de falhas no envio do evento S-2240, com foco em configurações de empresa, funcionário e preenchimento de campos obrigatórios.',
+      group: 'Erros',
+      tags: ['eSocial', 'Eventos', 'Erro', 'S-2240'],
+      content: `
 <div class="error-resolution-guide">
   <h1>Erros no Envio do Evento S-2240</h1>
   <p>Este guia detalha os pontos críticos para resolver inconsistências no envio do evento S-2240 referente às Condições do Ambiente de Trabalho, conforme documentação técnica.</p>
@@ -3322,15 +3322,15 @@ content: `
   }
 </style>
 `
-},
+    },
 
-{
-  id: 'funcionarios-declarantes-esocial',
-  title: 'Funcionários e Declarantes no eSocial - Regras de Identificação',
-  description: 'Guia completo sobre identificação de funcionários (CPF/matrícula) e declarantes (CNPJ/CPF) no contexto do eSocial, com regras específicas para casos especiais.',
-  group: 'eSocial',
-  tags: ['eSocial', 'Introdução'],
-  content: `
+    {
+      id: 'funcionarios-declarantes-esocial',
+      title: 'Funcionários e Declarantes no eSocial - Regras de Identificação',
+      description: 'Guia completo sobre identificação de funcionários (CPF/matrícula) e declarantes (CNPJ/CPF) no contexto do eSocial, com regras específicas para casos especiais.',
+      group: 'eSocial',
+      tags: ['eSocial', 'Introdução'],
+      content: `
     <div class="welcome-banner">
       <h1>Identificação no eSocial</h1>
       <p>Este guia explica as regras de identificação de funcionários e declarantes para integração com o eSocial.</p>
@@ -3566,14 +3566,14 @@ content: `
       }
     </style>
   `
-},
+    },
 
-{
-  id: 'procuracoes-eletronicas-ecac',
-  title: 'Procuração Eletrônica no e-CAC',
-  description: 'Passo a passo para cadastrar procurações eletrônicas no e-CAC, permitindo que clínicas e contadores transmitam eventos eSocial em nome das empresas.',
-  group: 'eSocial',
-  content: `
+    {
+      id: 'procuracoes-eletronicas-ecac',
+      title: 'Procuração Eletrônica no e-CAC',
+      description: 'Passo a passo para cadastrar procurações eletrônicas no e-CAC, permitindo que clínicas e contadores transmitam eventos eSocial em nome das empresas.',
+      group: 'eSocial',
+      content: `
 <div class="header-banner">
   <h1>Procuração Eletrônica para Transmissão eSocial</h1>
   <p>Guia completo para cadastrar autorizações no e-CAC e permitir que terceiros transmitam eventos como o S-2221</p>
@@ -3929,14 +3929,14 @@ content: `
   }
 </style>
 `
-},
+    },
 
-{
-  id: 'parametrizacao-transmissao-eventos-sst-esocial',
-  title: 'Parametrização para Transmissão de Eventos de SST no eSocial',
-  description: 'Guia completo sobre os procedimentos para testes e parametrização de eventos de Saúde e Segurança no Trabalho (SST) no ambiente do eSocial, incluindo configurações no sistema Sigo®.',
-  group: 'Eventos do eSocial - SST',
-  content: `
+    {
+      id: 'parametrizacao-transmissao-eventos-sst-esocial',
+      title: 'Parametrização para Transmissão de Eventos de SST no eSocial',
+      description: 'Guia completo sobre os procedimentos para testes e parametrização de eventos de Saúde e Segurança no Trabalho (SST) no ambiente do eSocial, incluindo configurações no sistema Sigo®.',
+      group: 'Eventos do eSocial - SST',
+      content: `
     <div class="welcome-banner">
       <h1>Parametrização para Transmissão de Eventos de SST no eSocial</h1>
       <p>Este guia detalha os passos necessários para realizar testes e configurar a transmissão de eventos de Saúde e Segurança no Trabalho (SST) no ambiente do eSocial, utilizando o sistema Sigo®.</p>
@@ -4143,7 +4143,7 @@ content: `
       }
     </style>
   `
-},
+    },
 
   ],
 };

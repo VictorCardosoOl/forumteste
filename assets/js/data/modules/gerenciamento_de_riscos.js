@@ -19,7 +19,7 @@ const gerenciamentoderiscos =
       content: `
   <div class="welcome-banner">
     <h1>Bem-vindo à Área de SST!</h1>
-    <p>Este guia foi criado para ajudar você a compreender os principais conceitos de Saúde e Segurança no Trabalho que utilizamos diariamente em nosso sistema.</p>
+    <p>Este guia foi criado para ajudar você a compreender os principais conceitos de Saúde e Segurança no Trabalho que utilizamos diariamente na gestão ocupacional.</p>
   </div>
 
   <section class="core-concepts">
@@ -83,7 +83,7 @@ const gerenciamentoderiscos =
   </section>
 
   <section class="documents-section">
-    <h2>Documentos Ocupacionais no Sistema Sigo</h2>
+    <h2>Documentos Ocupacionais e sua Gestão</h2>
     
     <div class="document-card">
       <h3 class="document-title">PGR (NR-1) - Programa de Gerenciamento de Riscos</h3>
@@ -98,10 +98,10 @@ const gerenciamentoderiscos =
           <li><strong>Validade:</strong> 1 ano, podendo ser prorrogado por igual período se não houver alterações significativas</li>
         </ul>
         
-        <h4>Fluxo no Sistema:</h4>
+        <h4>Fluxo de Gestão:</h4>
         <ol>
           <li>Cadastro inicial de setores e funções</li>
-          <li>Identificação automática de riscos associados</li>
+          <li>Identificação de riscos associados</li>
           <li>Plano de ação com prazos e responsáveis</li>
           <li>Assinatura digital do responsável técnico</li>
         </ol>
@@ -119,8 +119,8 @@ const gerenciamentoderiscos =
           <li><strong>Armazenamento:</strong> Os resultados devem ser mantidos por no mínimo 20 anos</li>
         </ul>
         
-        <h4>Dados no Sistema:</h4>
-        <p>Todos os exames são registrados no sistema com data, tipo, resultado e restrições identificadas.</p>
+        <h4>Registro de Dados:</h4>
+        <p>Os exames devem ser devidamente registrados em sistema de gestão com data, tipo, resultado e restrições identificadas.</p>
       </div>
     </div>
 
@@ -134,7 +134,7 @@ const gerenciamentoderiscos =
           <li><strong>Finalidade Principal:</strong> Base para concessão de aposentadoria especial</li>
           <li><strong>Validade:</strong> 5 anos, podendo ser antecipada em caso de mudanças significativas</li>
           <li><strong>Conteúdo:</strong> Descrição detalhada das atividades, agentes nocivos, níveis de exposição e medidas de controle</li>
-          <li><strong>Vínculo com PGR:</strong> Os dados de exposição são importados automaticamente do PGR</li>
+          <li><strong>Vínculo com PGR:</strong> Os dados de exposição geralmente são correlacionados com o PGR</li>
         </ul>
         
         <h4>Diferencial:</h4>
@@ -155,8 +155,8 @@ const gerenciamentoderiscos =
           <li><strong>Validade:</strong> Indeterminada, mas deve ser refeito quando houver alterações nas condições</li>
         </ul>
         
-        <h4>Processo no Sistema:</h4>
-        <p>Após cadastro dos dados de monitoramento, o sistema calcula automaticamente o grau de insalubridade.</p>
+        <h4>Cálculo:</h4>
+        <p>A definição do grau de insalubridade deve seguir estritamente as medições e limites da norma.</p>
       </div>
     </div>
 
@@ -173,15 +173,15 @@ const gerenciamentoderiscos =
           <li><strong>Validade:</strong> Enquanto persistirem as condições de periculosidade</li>
         </ul>
         
-        <h4>Integração:</h4>
-        <p>O sistema gera alertas quando um trabalhador é alocado em função com periculosidade.</p>
+        <h4>Atenção:</h4>
+        <p>A alocação de trabalhadores em funções perigosas gera obrigações trabalhistas imediatas.</p>
       </div>
     </div>
   </section>
 
   <section class="esocial-integration">
     <h2>Integração com o eSocial</h2>
-    <p>O sistema envia automaticamente os seguintes eventos para o eSocial:</p>
+    <p>Os sistemas de gestão de SST modernos enviam automaticamente os seguintes eventos para o eSocial:</p>
     
     <div class="event-grid">
       <div class="event-card">
@@ -214,6 +214,7 @@ const gerenciamentoderiscos =
         <p> Utilizado para tornar sem efeito (excluir) um evento que foi enviado incorretamente.</p>
       </div>
     </div>
+  </section>
 
   <style>
     .welcome-banner {
