@@ -13,4 +13,3 @@ const Coletivo = {
   topics: []
 };
 
-export default Coletivo;
