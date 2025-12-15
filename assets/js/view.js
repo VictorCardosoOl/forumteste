@@ -16,27 +16,28 @@ const CARD_CLASS = "group flex flex-col gap-4 p-6 bg-white dark:bg-zinc-900/50 b
 
 /**
  * SIDEBAR VIEW
+ * Shows only Modules (Categories) as requested.
  */
 export function templates_Sidebar(categories) {
-  return categories.map(category => `
-    <div class="group-category mb-6">
-      <h3 class="text-[11px] font-bold text-gray-500 uppercase tracking-wider px-3 mb-2 flex items-center gap-2">
-        ${category.title}
-      </h3>
-      <ul class="space-y-0.5">
-        ${category.topics.map(topic => `
-          <li>
-            <button data-action="view-article" data-category="${category.id}" data-id="${topic.id}"
-               class="sidebar-nav-link w-full text-left flex items-center gap-2 px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-md transition-all duration-200 border border-transparent hover:border-white/5 group"
-               data-id="${topic.id}">
-               <span class="w-1.5 h-1.5 rounded-full bg-gray-600 group-hover:bg-blue-500 transition-colors"></span>
-               <span class="truncate">${topic.title}</span>
-            </button>
-          </li>
-        `).join('')}
-      </ul>
-    </div>
-  `).join('');
+  return `
+    <ul class="space-y-2">
+      ${categories.map(category => `
+        <li>
+          <button data-action="view-topics" data-id="${category.id}"
+             class="sidebar-nav-link w-full flex items-center gap-3 px-3 py-3 text-sm font-medium text-gray-400 hover:text-white hover:bg-white/5 rounded-xl transition-all duration-200 group"
+             title="${category.title}">
+             
+             <!-- Icon Placeholder if none provided -->
+             <div class="w-6 h-6 flex items-center justify-center rounded-lg bg-gray-800 text-gray-400 group-hover:bg-blue-500 group-hover:text-white transition-colors shrink-0">
+                ${category.icon || `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>`}
+             </div>
+             
+             <span class="sidebar-text truncate duration-200 opacity-100">${category.title}</span>
+          </button>
+        </li>
+      `).join('')}
+    </ul>
+  `;
 }
 
 /**

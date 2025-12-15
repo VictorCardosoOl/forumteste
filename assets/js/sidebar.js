@@ -1,99 +1,106 @@
 /**
  * sidebar.js - Logic for the Tailwind Sidebar
+ * Supports: Expanded (Pinned), Collapsed (Icon only), and Hover-to-Expand.
  */
 
 export function initSidebar({ onNavLinkClick, onHomeClick }) {
     const sidebar = document.getElementById('sidebar');
-    const toggleBtn = document.getElementById('sidebar-toggle');
+    const toggleBtn = document.getElementById('sidebar-toggle'); // The button to pin/unpin
     const mobileCloseBtn = document.getElementById('mobile-close-button');
-    const overlay = document.getElementById('sidebar-overlay');
+    const overlay = document.getElementById('sidebar-overlay'); // If we have one for mobile
 
-    // Configura os links de navegação
-    document.querySelectorAll('[data-action="view-topics"]').forEach(link => {
-        link.addEventListener('click', (e) => {
-            // Fechar mobile sidebar se necessário
-            closeMobileSidebar();
+    // State
+    let isPinned = localStorage.getItem('sidebarPinned') === 'true'; // Default to collapsed if false? Let's default to true.
+    if (localStorage.getItem('sidebarPinned') === null) isPinned = true;
+
+    // Helper: Apply State
+    const applyState = () => {
+        if (isPinned) {
+            sidebar.classList.remove('sidebar-collapsed');
+            sidebar.classList.add('w-72');
+            sidebar.classList.remove('w-20');
+        } else {
+            sidebar.classList.add('sidebar-collapsed');
+            sidebar.classList.remove('w-72');
+            sidebar.classList.add('w-20');
+        }
+        localStorage.setItem('sidebarPinned', isPinned);
+    };
+
+    // Initial Apply
+    applyState();
+
+    // Toggle Pin Logic
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+            isPinned = !isPinned;
+            applyState();
         });
+    }
+
+    // Hover Logic (Only works if NOT pinned)
+    sidebar.addEventListener('mouseenter', () => {
+        if (!isPinned) {
+            sidebar.classList.remove('w-20');
+            sidebar.classList.add('w-72');
+        }
+    });
+
+    sidebar.addEventListener('mouseleave', () => {
+        if (!isPinned) {
+            sidebar.classList.remove('w-72');
+            sidebar.classList.add('w-20');
+        }
     });
 
     // Mobile Logic
     const mobileMenuBtn = document.getElementById('mobile-menu-button');
     if (mobileMenuBtn) {
         mobileMenuBtn.addEventListener('click', () => {
-            // Show Sidebar
-            // remove -ml-[280px] to slide it in
-            sidebar.classList.remove('-ml-[280px]');
-            sidebar.classList.add('ml-0');
-
-            overlay.classList.remove('opacity-0', 'pointer-events-none');
-            overlay.classList.add('opacity-100', 'pointer-events-auto');
+            sidebar.classList.remove('-translate-x-full');
         });
     }
 
-    const closeMobileSidebar = () => {
-        // Hide Sidebar
-        sidebar.classList.add('-ml-[280px]');
-        sidebar.classList.remove('ml-0');
+    if (mobileCloseBtn) {
+        mobileCloseBtn.addEventListener('click', () => {
+            sidebar.classList.add('-translate-x-full');
+        });
+    }
 
-        overlay.classList.remove('opacity-100', 'pointer-events-auto');
-        overlay.classList.add('opacity-0', 'pointer-events-none');
-    };
+    // Link Clicks
+    // Use event delegation on the nav container to handle clicks
+    const nav = document.getElementById('sidebar-nav');
+    if (nav) {
+        nav.addEventListener('click', (e) => {
+            const link = e.target.closest('button[data-action]');
+            if (link) {
+                // If mobile, close
+                if (window.innerWidth < 1024) {
+                    sidebar.classList.add('-translate-x-full');
+                }
 
-    if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMobileSidebar);
-    if (overlay) overlay.addEventListener('click', closeMobileSidebar);
+                // Active state styling is handled by global View updates or manual class toggles
+                // Here we just ensure logic runs
+                const action = link.dataset.action;
+                const id = link.dataset.id;
 
-    // Desktop Collapse Logic
-    if (toggleBtn) {
-        let isExpanded = true;
-
-        toggleBtn.addEventListener('click', () => {
-            isExpanded = !isExpanded;
-
-            if (isExpanded) {
-                // Expandido: w-[280px]
-                sidebar.classList.remove('lg:w-20');
-                sidebar.classList.add('lg:w-[280px]');
-
-                // Show text labels
-                document.querySelectorAll('.sidebar-label').forEach(el => {
-                    el.classList.remove('hidden', 'opacity-0');
-                    el.classList.add('block', 'opacity-100');
-                });
-
-                // Adjust footer search pos
-                const footer = document.getElementById('footer-search');
-                if (footer) footer.style.left = '280px';
-
-            } else {
-                // Recolhido: w-20
-                sidebar.classList.remove('lg:w-[280px]');
-                sidebar.classList.add('lg:w-20');
-
-                // Hide labels
-                document.querySelectorAll('.sidebar-label').forEach(el => {
-                    el.classList.add('hidden', 'opacity-0');
-                    el.classList.remove('block', 'opacity-100');
-                });
-
-                // Adjust footer search pos
-                const footer = document.getElementById('footer-search');
-                if (footer) footer.style.left = '80px';
+                if (action === 'view-topics' && onNavLinkClick) onNavLinkClick(id);
+                // Note: Articles are inside topics. The previous sidebar structure had categories -> topics. 
+                // If the user wants "Only Modules" in sidebar, then it's just Categories.
             }
         });
     }
 }
 
 export function updateActiveLink(categoryId) {
+    // Optional: Visual feedback for active category
     document.querySelectorAll('.sidebar-nav-link').forEach(link => {
-        const isActive = link.getAttribute('data-id') === categoryId;
-
-        // Tailwind active classes
-        if (isActive) {
-            link.classList.add('bg-zinc-100', 'dark:bg-zinc-800', 'text-blue-600', 'dark:text-blue-400', 'font-semibold');
-            link.classList.remove('text-zinc-500', 'dark:text-zinc-400');
+        if (link.dataset.id === categoryId) {
+            link.classList.add('bg-white/10', 'text-white');
+            link.classList.remove('text-gray-400');
         } else {
-            link.classList.remove('bg-zinc-100', 'dark:bg-zinc-800', 'text-blue-600', 'dark:text-blue-400', 'font-semibold');
-            link.classList.add('text-zinc-500', 'dark:text-zinc-400');
+            link.classList.remove('bg-white/10', 'text-white');
+            link.classList.add('text-gray-400');
         }
     });
 }
