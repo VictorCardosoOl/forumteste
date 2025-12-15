@@ -748,7 +748,7 @@ const eSocial =
       tags: ['eSocial', 'Introdução'],
       content: `
     <div class="welcome-banner">
-      <h1>Domine o e-CAC: Guia Completo para Colaboradores Wise</h1>
+      <h1>Domine o e-CAC: Guia Completo para Profissionais de SST</h1>
       <p>Este guia aprofundado explica o e-CAC como pilar fundamental para a gestão das obrigações do eSocial, com ênfase nos processos de procuração eletrônica e certificação digital.</p>
     </div>
 
@@ -822,7 +822,7 @@ const eSocial =
           </ul>
           
           <div class="warning-box">
-            <strong>Ponto Crítico:</strong> Sem procuração eletrônica válida no e-CAC, nenhum terceiro (incluindo a Wise) pode legalmente transmitir eventos ao eSocial em nome do cliente.
+            <strong>Ponto Crítico:</strong> Sem procuração eletrônica válida no e-CAC, nenhum terceiro pode legalmente transmitir eventos ao eSocial em nome do cliente.
           </div>
         </div>
       </div>
@@ -856,7 +856,7 @@ const eSocial =
           <h3>Preenchimento dos Dados</h3>
           <ul>
             <li><strong>Outorgante:</strong> Dados preenchidos automaticamente (empresa cliente)</li>
-            <li><strong>Procurador:</strong> CNPJ/CPF da Wise ou profissional designado</li>
+            <li><strong>Procurador:</strong> CNPJ/CPF da prestadora ou profissional designado</li>
             <li><strong>Vigência:</strong> Alinhar com duração do contrato de serviços</li>
           </ul>
         </div>
@@ -883,7 +883,7 @@ const eSocial =
       </div>
       
       <div class="process-note">
-        <p><strong>Observação:</strong> Todo o processo deve ser realizado pelo representante legal da empresa cliente. A Wise pode fornecer orientações, mas não pode executar esta etapa diretamente.</p>
+        <p><strong>Observação:</strong> Todo o processo deve ser realizado pelo representante legal da empresa cliente. A consultoria pode fornecer orientações, mas não pode executar esta etapa diretamente.</p>
       </div>
     </section>
 
@@ -896,12 +896,12 @@ const eSocial =
             <li><strong>Obrigatório</strong> para outorgar procurações</li>
             <li><strong>Tipo A1:</strong> Arquivo digital (.pfx) instalado no computador</li>
             <li><strong>Tipo A3:</strong> Token físico ou cartão inteligente</li>
-            <li>Validade: de 1 a 3 anos, conforme o tipo. Importante destacar que, no Sigo, é utilizado exclusivamente o certificado do Tipo A1</li>
+            <li>Validade: de 1 a 3 anos, conforme o tipo.</li>
           </ul>
         </div>
         
         <div class="certificate-card highlight">
-          <h3>e-CPF (Profissional Wise)</h3>
+          <h3>e-CPF (Profissional SST)</h3>
           <ul>
             <li>Necessário para assinar eventos como procurador</li>
             <li>Deve estar vinculado à procuração eletrônica</li>
@@ -922,18 +922,18 @@ const eSocial =
     </section>
 
     <section class="workflow-section">
-      <h2>Fluxo Operacional Wise: e-CAC + eSocial</h2>
+      <h2>Fluxo Operacional Padrão: e-CAC + eSocial</h2>
       <div class="workflow-diagram">
         <div class="workflow-step">
           <div class="step-number">1</div>
           <h3>Onboarding do Cliente</h3>
-          <p>Cliente cadastra procuração para Wise no e-CAC com permissões SST</p>
+          <p>Cliente cadastra procuração para a prestadora no e-CAC com permissões SST</p>
         </div>
         <div class="workflow-arrow">→</div>
         <div class="workflow-step">
           <div class="step-number">2</div>
           <h3>Transmissão de Eventos</h3>
-          <p>Wise envia eventos (S-2210, S-2220, etc.) usando e-CPF do responsável</p>
+          <p>Prestadora envia eventos (S-2210, S-2220, etc.) usando e-CPF do responsável</p>
         </div>
         <div class="workflow-arrow">→</div>
         <div class="workflow-step highlight">
@@ -1154,7 +1154,7 @@ const eSocial =
       content: `
     <div class="transmission-header">
       <h1>Rotina de Transmissão Automatizada - Eventos SST</h1>
-      <p>Envio automatizado via Serviço Mensageria do Sigo® conforme programação estabelecida</p>
+      <p>Envio automatizado via Webservice conforme programação estabelecida</p>
     </div>
 
     <section class="event-section">
@@ -1281,12 +1281,12 @@ const eSocial =
     </section>
 
     <section class="automation-section">
-      <h2>Processo Automatizado via Mensageria Sigo®</h2>
+      <h2>Processo Automatizado via Webservice</h2>
       <div class="automation-flow">
         <div class="flow-step">
           <div class="step-number">1</div>
           <h3>Verificação Horária</h3>
-          <p>A cada 1 hora, o sistema rastreia eventos disponíveis no prazo</p>
+          <p>Periodicamente, o sistema rastreia eventos disponíveis no prazo</p>
         </div>
         <div class="flow-arrow">→</div>
         <div class="flow-step">
@@ -1324,6 +1324,7 @@ const eSocial =
       }
       .transmission-header h1 {
         margin-top: 0;
+        font-size: 2.0em;
       }
       .event-grid {
         display: grid;
@@ -3373,7 +3374,7 @@ const eSocial =
       </div>
 
       <div class="document-card">
-        <h3 class="document-title">Gerenciamento de Matrículas no Sigo®</h3>
+        <h3 class="document-title">Gerenciamento de Matrículas do Colaborador</h3>
         <div class="document-content">
           <p>A matrícula é informada em:</p>
           <p><strong>Funcionários » Aba Registros de Admissões</strong></p>
@@ -3770,7 +3771,7 @@ const eSocial =
   <div class="benefits-card">
     <h2>Vantagens da Procuração Eletrônica</h2>
     <ul>
-      <li>• Transmissão automática de eventos pelo SIGO</li>
+      <li>• Transmissão automática de eventos pelo sistema de gestão</li>
       <li>• Redução de trâmites burocráticos</li>
       <li>• Segurança jurídica nas transmissões</li>
       <li>• Centralização das autorizações</li>
@@ -3934,12 +3935,12 @@ const eSocial =
     {
       id: 'parametrizacao-transmissao-eventos-sst-esocial',
       title: 'Parametrização para Transmissão de Eventos de SST no eSocial',
-      description: 'Guia completo sobre os procedimentos para testes e parametrização de eventos de Saúde e Segurança no Trabalho (SST) no ambiente do eSocial, incluindo configurações no sistema Sigo®.',
+      description: 'Guia completo sobre os procedimentos para testes e parametrização de eventos de Saúde e Segurança no Trabalho (SST) no ambiente do eSocial, incluindo configurações no sistema de gestão.',
       group: 'Eventos do eSocial - SST',
       content: `
     <div class="welcome-banner">
       <h1>Parametrização para Transmissão de Eventos de SST no eSocial</h1>
-      <p>Este guia detalha os passos necessários para realizar testes e configurar a transmissão de eventos de Saúde e Segurança no Trabalho (SST) no ambiente do eSocial, utilizando o sistema Sigo®.</p>
+      <p>Este guia detalha os passos necessários para realizar testes e configurar a transmissão de eventos de Saúde e Segurança no Trabalho (SST) no ambiente do eSocial, utilizando o sistema de gestão.</p>
     </div>
 
     <section class="core-concepts">
@@ -3952,12 +3953,12 @@ const eSocial =
         </ul>
       </div>
     <section class="configuration-section">
-      <h2>Configurações no Sistema Sigo®</h2>
+      <h2>Configurações no Sistema de Gestão</h2>
       <div class="document-card">
         <h3 class="document-title">Teste Realizado pelo RH/Folha de Pagamento do Cliente</h3>
         <div class="document-content">
-          <p>Se o teste for realizado pelo RH/Folha de Pagamento do cliente, o Prestador de SST deve configurar o sistema Sigo® conforme abaixo:</p>
-          <h4>Parâmetros no Sigo®:</h4>
+          <p>Se o teste for realizado pelo RH/Folha de Pagamento do cliente, o Prestador de SST deve configurar o sistema conforme abaixo:</p>
+          <h4>Parâmetros do Sistema:</h4>
           <div class="step-by-step">
             <div class="step">
               <h5>1. Acessar Clientes - Empresas » Aba eSocial Parâmetros eSocial</h5>
@@ -3988,10 +3989,10 @@ const eSocial =
         <h3 class="document-title">Teste Realizado pelo Prestador de SST</h3>
         <div class="document-content">
           <p>Se o teste for realizado pelo Prestador de SST, é necessário obter uma <strong>Procuração Eletrônica</strong> do cliente para assinar e enviar os eventos de SST em seu nome.</p>
-          <h4>Parâmetros no Sigo®:</h4>
+          <h4>Parâmetros do Sistema:</h4>
           <div class="step-by-step">
             <div class="step">
-              <h5>1. Configurações do Sigo® » Empresas – Unidades » Aba eSocial Certificado</h5>
+              <h5>1. Configurações do Sistema » Empresas – Unidades » Aba eSocial Certificado</h5>
               <ul>
                 <li><strong>Tipo de Certificado:</strong> Selecionar “A1”.</li>
                 <li><strong>Arquivo *.pfx:</strong> Anexar o arquivo do Certificado Digital A1 do Prestador de SST.</li>
