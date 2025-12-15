@@ -1,6 +1,5 @@
-
 /**
- * sidebar.js - Lógica para o novo comportamento da sidebar (Expandida, Flutuante, Recolhida)
+ * sidebar.js - Logic for the Tailwind Sidebar
  */
 
 export function initSidebar({ onNavLinkClick, onHomeClick }) {
@@ -10,18 +9,10 @@ export function initSidebar({ onNavLinkClick, onHomeClick }) {
     const overlay = document.getElementById('sidebar-overlay');
 
     // Configura os links de navegação
-    document.querySelectorAll('.sidebar-nav-link').forEach(link => {
+    document.querySelectorAll('[data-action="view-topics"]').forEach(link => {
         link.addEventListener('click', (e) => {
-            const categoryId = link.getAttribute('data-category-id');
-            onNavLinkClick(categoryId);
-
-            // Fecha sidebar no mobile ao clicar
-            if (window.innerWidth < 1024) {
-                sidebar.classList.remove('translate-x-0');
-                sidebar.classList.add('-translate-x-full'); // Esconde sidebar
-                overlay.classList.remove('opacity-100', 'pointer-events-auto');
-                overlay.classList.add('opacity-0', 'pointer-events-none');
-            }
+            // Fechar mobile sidebar se necessário
+            closeMobileSidebar();
         });
     });
 
@@ -29,7 +20,8 @@ export function initSidebar({ onNavLinkClick, onHomeClick }) {
     const mobileMenuBtn = document.getElementById('mobile-menu-button');
     if (mobileMenuBtn) {
         mobileMenuBtn.addEventListener('click', () => {
-            // Mobile: Mostra sidebar removendo a margem negativa ou transform
+            // Show Sidebar
+            // remove -ml-[280px] to slide it in
             sidebar.classList.remove('-ml-[280px]');
             sidebar.classList.add('ml-0');
 
@@ -38,27 +30,17 @@ export function initSidebar({ onNavLinkClick, onHomeClick }) {
         });
     }
 
-    if (mobileCloseBtn) {
-        mobileCloseBtn.addEventListener('click', () => {
-            // Mobile: Esconde sidebar
-            sidebar.classList.add('-ml-[280px]');
-            sidebar.classList.remove('ml-0');
+    const closeMobileSidebar = () => {
+        // Hide Sidebar
+        sidebar.classList.add('-ml-[280px]');
+        sidebar.classList.remove('ml-0');
 
-            overlay.classList.remove('opacity-100', 'pointer-events-auto');
-            overlay.classList.add('opacity-0', 'pointer-events-none');
-        });
-    }
+        overlay.classList.remove('opacity-100', 'pointer-events-auto');
+        overlay.classList.add('opacity-0', 'pointer-events-none');
+    };
 
-    if (overlay) {
-        overlay.addEventListener('click', () => {
-            // Mobile: Esconde sidebar ao clicar fora
-            sidebar.classList.add('-ml-[280px]');
-            sidebar.classList.remove('ml-0');
-
-            overlay.classList.remove('opacity-100', 'pointer-events-auto');
-            overlay.classList.add('opacity-0', 'pointer-events-none');
-        });
-    }
+    if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMobileSidebar);
+    if (overlay) overlay.addEventListener('click', closeMobileSidebar);
 
     // Desktop Collapse Logic
     if (toggleBtn) {
@@ -68,30 +50,32 @@ export function initSidebar({ onNavLinkClick, onHomeClick }) {
             isExpanded = !isExpanded;
 
             if (isExpanded) {
-                // Expandido
+                // Expandido: w-[280px]
                 sidebar.classList.remove('lg:w-20');
                 sidebar.classList.add('lg:w-[280px]');
 
-                document.querySelectorAll('.sidebar-text').forEach(el => {
-                    el.classList.remove('opacity-0', 'w-0', 'hidden');
-                    el.classList.add('opacity-100', 'w-auto');
+                // Show text labels
+                document.querySelectorAll('.sidebar-label').forEach(el => {
+                    el.classList.remove('hidden', 'opacity-0');
+                    el.classList.add('block', 'opacity-100');
                 });
 
-                // Ajuste footer search
+                // Adjust footer search pos
                 const footer = document.getElementById('footer-search');
                 if (footer) footer.style.left = '280px';
 
             } else {
-                // Recolhido
+                // Recolhido: w-20
                 sidebar.classList.remove('lg:w-[280px]');
                 sidebar.classList.add('lg:w-20');
 
-                document.querySelectorAll('.sidebar-text').forEach(el => {
-                    el.classList.remove('opacity-100', 'w-auto');
-                    el.classList.add('opacity-0', 'w-0', 'hidden');
+                // Hide labels
+                document.querySelectorAll('.sidebar-label').forEach(el => {
+                    el.classList.add('hidden', 'opacity-0');
+                    el.classList.remove('block', 'opacity-100');
                 });
 
-                // Ajuste footer search
+                // Adjust footer search pos
                 const footer = document.getElementById('footer-search');
                 if (footer) footer.style.left = '80px';
             }
@@ -101,10 +85,15 @@ export function initSidebar({ onNavLinkClick, onHomeClick }) {
 
 export function updateActiveLink(categoryId) {
     document.querySelectorAll('.sidebar-nav-link').forEach(link => {
-        if (link.getAttribute('data-category-id') === categoryId) {
-            link.classList.add('bg-black/5', 'dark:bg-white/10', 'font-semibold', 'text-black', 'dark:text-white');
+        const isActive = link.getAttribute('data-id') === categoryId;
+
+        // Tailwind active classes
+        if (isActive) {
+            link.classList.add('bg-zinc-100', 'dark:bg-zinc-800', 'text-blue-600', 'dark:text-blue-400', 'font-semibold');
+            link.classList.remove('text-zinc-500', 'dark:text-zinc-400');
         } else {
-            link.classList.remove('bg-black/5', 'dark:bg-white/10', 'font-semibold', 'text-black', 'dark:text-white');
+            link.classList.remove('bg-zinc-100', 'dark:bg-zinc-800', 'text-blue-600', 'dark:text-blue-400', 'font-semibold');
+            link.classList.add('text-zinc-500', 'dark:text-zinc-400');
         }
     });
 }

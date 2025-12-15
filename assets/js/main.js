@@ -153,17 +153,37 @@ function setSearchScope(scopeId) {
 
   // Update Filter Button Text
   const selectedModule = forumData.find(m => m.id === scopeId);
+
+  const iconHtml = selectedModule
+    ? `<div class="w-3.5 h-3.5">${selectedModule.icon || ''}</div>`
+    : `<svg class="w-3.5 h-3.5 opacity-60" viewBox="0 0 256 256"><path fill="currentColor" d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg>`;
+
   if (filterButton) {
-    filterButton.innerHTML = selectedModule
-      ? `<div class="flex items-center gap-2"><div class="w-4 h-4">${selectedModule.icon || ''}</div><span class="truncate max-w-[100px]">${selectedModule.title}</span></div>`
-      : `<div class="flex items-center gap-2"><svg class="w-3.5 h-3.5 opacity-60" viewBox="0 0 256 256"><path fill="currentColor" d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path></svg><span>Todos</span><svg class="w-3 h-3 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></div>`;
+    filterButton.innerHTML = `
+      <div class="flex items-center gap-2">
+        ${iconHtml}
+        <span class="truncate max-w-[100px]">${selectedModule ? selectedModule.title : 'Todos'}</span>
+        <svg class="w-3 h-3 opacity-40 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+      </div>
+    `;
   }
 
-  // Update Router state manually if needed, or pass scope to performSearch
-  // Router.setSearchScope(scopeId); // If we add this method
-  // For now, let's just re-trigger search with new scope implies updating router config?
-  // In this refactor, Router holds searchScope state potentially. 
-  // Ideally Router.setSearchScope should exist.
+  // Update Router state manually
+  if (Router.setSearchScope) {
+    Router.setSearchScope(scopeId);
+  }
+
+  // Re-trigger search to apply filter immediately
+  const query = searchInput.value;
+  if (query.trim() !== '') {
+    Router.performSearch(query);
+  }
+
+  // Update active state in menu
+  renderFilterMenuItems(filterMenuInput ? filterMenuInput.value : '');
+
+  // Close menu
+  if (filterMenu) filterMenu.classList.remove('visible');
 }
 
 function renderFilterMenuItems(filterText = '') {

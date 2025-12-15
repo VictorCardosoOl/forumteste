@@ -26,6 +26,12 @@ export function initRouter(container, scrollInstance) {
     Search.initSearch(forumData);
 }
 
+// --- State Setters ---
+
+export function setSearchScope(scope) {
+    state.searchScope = scope;
+}
+
 // --- Navigation Actions ---
 
 export function navigateHome() {
@@ -151,9 +157,9 @@ function getRelatedArticles(currentTopic, currentCategoryId) {
 function addCopyButtons() {
     document.querySelectorAll('pre:not(:has(.copy-button))').forEach(pre => {
         const button = document.createElement('button');
-        button.className = 'copy-button';
+        button.className = 'copy-button absolute top-3 right-3 px-2 py-1 text-xs bg-zinc-800 text-zinc-400 rounded hover:bg-zinc-700 hover:text-white transition-colors opacity-0 group-hover:opacity-100'; // Pure Tailwind
         button.textContent = 'Copiar';
-        button.onclick = (e) => { // Keep onclick here as it's generated content
+        button.onclick = (e) => {
             e.stopPropagation();
             const code = pre.querySelector('code')?.textContent || pre.textContent;
             navigator.clipboard.writeText(code).then(() => {
@@ -161,6 +167,8 @@ function addCopyButtons() {
                 setTimeout(() => button.textContent = 'Copiar', 2000);
             });
         };
+        // Ensure Pre has compatible classes
+        pre.classList.add('relative', 'group');
         pre.appendChild(button);
     });
 }
