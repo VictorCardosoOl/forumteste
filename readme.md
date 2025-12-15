@@ -1,99 +1,36 @@
-# 📚 FAQ Interno para Equipes
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-**Um sistema de conhecimento colaborativo para capacitação de equipes, com busca rápida e criação de artigos integrada.**
+## Getting Started
 
-![Preview do Projeto](https://via.placeholder.com/800x400?text=Preview+do+FAQ+Interno) *(Substitua por uma imagem real do seu projeto)*
+First, run the development server:
 
-## ✨ Funcionalidades Principais
-
-- **🔍 Busca inteligente** - Encontre artigos por termos-chave em título, descrição ou conteúdo
-- **📝 Editor integrado** - Crie e edite artigos com formatação rica (títulos, listas, código, etc.)
-- **📂 Organização por módulos** - Conteúdo categorizado para fácil navegação
-- **🌗 Modo claro/escuro** - Acessível em qualquer condição de iluminação
-- **📱 Responsivo** - Funciona bem em desktop e dispositivos móveis
-
-## 🛠 Tecnologias Utilizadas
-
-| Área         | Tecnologias                                                                 |
-|--------------|-----------------------------------------------------------------------------|
-| Frontend     | HTML5, CSS3, JavaScript Vanilla                                            |
-| Estilos      | CSS Moderno (Variáveis, Flexbox, Grid)                                     |
-| Persistência | localStorage (para auto-save do editor)                                    |
-| Ferramentas  | Font Awesome (ícones), Google Fonts (Poppins)                              |
-
-## 🚀 Como Executar o Projeto
-
-### Pré-requisitos
-- Navegador moderno (Chrome, Firefox, Edge)
-- Editor de código (VS Code recomendado)
-
-### Passo a Passo
-1. **Clone o repositório**:
-   ```bash
-   git clone https://github.com/seu-usuario/faq-interno.git
-   ```
-
-2. **Abra o projeto**:
-   - Navegue até a pasta do projeto
-   - Abra `index.html` no navegador para acessar a base de conhecimento
-   - Abra `creator.html` para acessar o editor de conteúdo
-
-3. **Comece a usar**:
-   - Na base de conhecimento: pesquise artigos ou navegue pelos módulos
-   - No editor: crie novos módulos ou artigos e gere o código para adicionar ao `data.js`
-
-## 📂 Estrutura de Arquivos
-```
-faq-interno/
-├── index.html          # Página principal da base de conhecimento
-├── creator.html        # Ferramenta de criação de conteúdo
-├── data.js             # Banco de dados de artigos e módulos
-├── script.js           # Lógica principal da base de conhecimento
-├── creator.js          # Lógica do editor de conteúdo
-├── style.css           # Estilos principais
-├── creator.css         # Estilos específicos do editor
-└── README.md           # Este arquivo
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-## 🧑‍💻 Como Contribuir
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-1. **Reporte problemas**:
-   - Abra uma issue descrevendo o bug ou melhoria
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-2. **Sugira novos artigos**:
-   - Use o editor integrado para criar conteúdo
-   - Submeta um pull request com as alterações no `data.js`
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-3. **Melhore o código**:
-   - Siga o padrão existente
-   - Documente novas funcionalidades
+## Learn More
 
-## 📝 Guia do Editor
+To learn more about Next.js, take a look at the following resources:
 
-1. **Selecione o modo**:
-   - "Módulo" para criar novas categorias
-   - "Tópico" para criar artigos dentro de módulos
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-2. **Preencha os campos**:
-   - Título e descrição claros
-   - Use o editor de texto com formatação adequada
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-3. **Gere o código**:
-   - Clique em "Gerar Código"
-   - Copie o resultado e cole no `data.js`
+## Deploy on Vercel
 
-## 🏆 Próximos Passos (Roadmap)
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-- [ ] Adicionar sistema de login para equipes
-- [ ] Implementar avaliação de artigos (útil/não útil)
-- [ ] Adicionar suporte a imagens nos artigos
-- [ ] Criar versão PWA (offline)
-
-## 📜 Licença
-
-Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
-
----
-
-Feito com ❤️ por [Seu Nome] - [seu@email.com](mailto:seu@email.com)  
-[🔗 LinkedIn](https://linkedin.com/in/seu-perfil) | [🐱 GitHub](https://github.com/seu-usuario)
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
