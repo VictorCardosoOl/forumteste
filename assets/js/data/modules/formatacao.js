@@ -1,4 +1,4 @@
- const formatacaoModule = {
+export default {
   id: 'formatacao',
   title: 'Formatação',
   description: 'Módulo de Formatação e Configuração de Sistemas',
@@ -37,7 +37,7 @@
       tags: ['windows', 'linux', 'dual-boot', 'partição'],
       content: `...`
     },
-    
+
     // Grupo: Configuração
     {
       id: 'pos-formatacao-checklist',
@@ -55,7 +55,7 @@
       tags: ['windows', 'otimização', 'desempenho', 'ssd'],
       content: `...`
     },
-    
+
     // Grupo: Drivers
     {
       id: 'drivers-essenciais',
@@ -73,7 +73,7 @@
       tags: ['drivers', 'erros', 'conflitos', 'dispositivos'],
       content: `...`
     },
-    
+
     // Grupo: Segurança
     {
       id: 'seguranca-pos-formatacao',

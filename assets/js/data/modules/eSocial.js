@@ -1,5 +1,4 @@
-const eSocial =
-{
+export default {
   id: 'esocial',
   title: 'eSocial',
   description: 'Módulo eSocial no sistema Sigo.',

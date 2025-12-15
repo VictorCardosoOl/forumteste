@@ -1,5 +1,4 @@
- const gerenciamentoderiscos =
-{
+export default {
   id: 'gerenciamento-de-riscos',
   title: 'Gerenciamento de Riscos',
   description: 'Este módulo aborda aspectos relacionados ao PGR, PCMSO, LTCAT, LI, LP e outros documentos ligados à saúde e segurança do trabalho.',
@@ -300,7 +299,7 @@
   </style>
 `
 
-    }, 
+    },
 
     {
       id: 'migracao-gerenciamento-riscos-sigo-w3-para-sigo-web',
@@ -521,12 +520,12 @@
 
     },
     {
-    id: 'diferenca-li-lp',
-    title: 'Diferença entre LI e LP - Conceitos, Aplicações e Obrigações Legais',
-    description: 'Guia visual comparativo entre Laudo de Insalubridade (LI) e Laudo de Periculosidade (LP), com objetivos, bases legais, critérios, prazos e orientações práticas.',
-    tags: ['eSocial', 'Introdução'],
-    group: 'Documentos',
-    content: `
+      id: 'diferenca-li-lp',
+      title: 'Diferença entre LI e LP - Conceitos, Aplicações e Obrigações Legais',
+      description: 'Guia visual comparativo entre Laudo de Insalubridade (LI) e Laudo de Periculosidade (LP), com objetivos, bases legais, critérios, prazos e orientações práticas.',
+      tags: ['eSocial', 'Introdução'],
+      group: 'Documentos',
+      content: `
     <div class="welcome-banner">
         <h1>Diferença entre LI e LP</h1>
         <p>Este guia esclarece as funções, critérios e aplicações práticas do <strong>Laudo de Insalubridade (LI)</strong> e do <strong>Laudo de Periculosidade (LP)</strong>, essenciais para a conformidade legal e a proteção do trabalhador.</p>
@@ -683,15 +682,15 @@
         }
     </style>
     `
-},
-  {
-    id: 'ltcat-guia-completo',
-    title: 'LTCAT: o que é, finalidade, validade e quando elaborar',
-    description:
-      'Laudo Técnico das Condições Ambientais do Trabalho: conceito, finalidade previdenciária (PPP/aposentadoria especial), quando elaborar, validade/atualização e integração com o eSocial.',
+    },
+    {
+      id: 'ltcat-guia-completo',
+      title: 'LTCAT: o que é, finalidade, validade e quando elaborar',
+      description:
+        'Laudo Técnico das Condições Ambientais do Trabalho: conceito, finalidade previdenciária (PPP/aposentadoria especial), quando elaborar, validade/atualização e integração com o eSocial.',
       tags: ['eSocial', 'Introdução'],
       group: 'Documentos',
-    content: `
+      content: `
     <div class="welcome-banner">
       <h1>LTCAT – Laudo Técnico das Condições Ambientais do Trabalho</h1>
       <p>Documento técnico-legal que registra a exposição dos trabalhadores a agentes nocivos no ambiente laboral
@@ -913,15 +912,15 @@
       li { margin: 6px 0; }
     </style>
     `
-  },
+    },
 
-  {
-  id: 'pcmso-programa-controle-medico',
-  title: 'PCMSO - Guia Completo sobre o Programa de Controle Médico de Saúde Ocupacional',
-  description: 'Entenda o que é o PCMSO, sua importância, os exames obrigatórios, o Relatório Analítico e as responsabilidades da empresa conforme a NR-7.',
-  tags: ['eSocial', 'Introdução'],
-  group: 'Documentos',
-  content: `
+    {
+      id: 'pcmso-programa-controle-medico',
+      title: 'PCMSO - Guia Completo sobre o Programa de Controle Médico de Saúde Ocupacional',
+      description: 'Entenda o que é o PCMSO, sua importância, os exames obrigatórios, o Relatório Analítico e as responsabilidades da empresa conforme a NR-7.',
+      tags: ['eSocial', 'Introdução'],
+      group: 'Documentos',
+      content: `
     <style>
       .document-card {
         background: white;
@@ -1082,15 +1081,15 @@
       </div>
     </div>
   `
-},
+    },
 
-{
-  id: 'pgr-programa-gerenciamento-riscos',
-  title: 'PGR - Guia Completo do Programa de Gerenciamento de Riscos (NR-1)',
-  description: 'Entenda o que é o PGR, sua estrutura com Inventário de Riscos e Plano de Ação, quem precisa elaborar, prazos de revisão e as exceções da norma.',
-tags: ['eSocial', 'Introdução'],
-  group: 'Documentos',
-  content: `
+    {
+      id: 'pgr-programa-gerenciamento-riscos',
+      title: 'PGR - Guia Completo do Programa de Gerenciamento de Riscos (NR-1)',
+      description: 'Entenda o que é o PGR, sua estrutura com Inventário de Riscos e Plano de Ação, quem precisa elaborar, prazos de revisão e as exceções da norma.',
+      tags: ['eSocial', 'Introdução'],
+      group: 'Documentos',
+      content: `
     <style>
       .document-card {
         background: white;
@@ -1223,14 +1222,14 @@ tags: ['eSocial', 'Introdução'],
       </div>
     </div>
   `
-},
+    },
 
-{
-  id: 'prazos-validade-sst',
-  title: 'Prazos de Validade, Elaboração e Atualização de Documentos de SST',
-  description: 'Guia prático sobre prazos de validade, elaboração, renovação e revisão de documentos de Saúde e Segurança no Trabalho (SST), incluindo PCMSO, PGR, LTCAT, LI e LP.',
-  group: 'Documentos',
-  content: `
+    {
+      id: 'prazos-validade-sst',
+      title: 'Prazos de Validade, Elaboração e Atualização de Documentos de SST',
+      description: 'Guia prático sobre prazos de validade, elaboração, renovação e revisão de documentos de Saúde e Segurança no Trabalho (SST), incluindo PCMSO, PGR, LTCAT, LI e LP.',
+      group: 'Documentos',
+      content: `
     <div class="welcome-banner">
       <h1>Prazos de Validade e Atualização em SST</h1>
       <p>Este guia detalha os prazos de validade, momentos de elaboração, renovação e revisão dos principais documentos de Saúde e Segurança no Trabalho (SST).</p>
@@ -1397,14 +1396,14 @@ tags: ['eSocial', 'Introdução'],
       }
     </style>
   `
-},
+    },
 
-{
-  id: 'rat-risco-acidente-trabalho',
-  title: 'RAT - Risco Acidente de Trabaho: Legislação e Enquadramento',
-  description: 'Guia completo sobre o RAT, alíquotas, legislação e enquadramento previdenciário.',
-  group: 'Gerenciamento de Riscos',
-  content: `
+    {
+      id: 'rat-risco-acidente-trabalho',
+      title: 'RAT - Risco Acidente de Trabaho: Legislação e Enquadramento',
+      description: 'Guia completo sobre o RAT, alíquotas, legislação e enquadramento previdenciário.',
+      group: 'Gerenciamento de Riscos',
+      content: `
 <div class="welcome-banner">
   <h1>Entendendo o RAT - Risco Acidente de Trabalho</h1>
   <p>Este guia explica o conceito, legislação e aplicação prática do RAT no contexto previdenciário e de segurança do trabalho.</p>
@@ -1644,13 +1643,13 @@ tags: ['eSocial', 'Introdução'],
   }
 </style>
 `
-},
-{
-  id: 'erros-impressao-pgr-formatacao',
-  title: 'Erros na Impressão do PGR: Solução para Problemas de Formatação',
-  description: 'Guia completo para solucionar problemas de impressão no PGR, PCMSO, LTCAT e outros documentos causados por formatação incorreta de texto.',
-  group: 'Erros',
-  content: `
+    },
+    {
+      id: 'erros-impressao-pgr-formatacao',
+      title: 'Erros na Impressão do PGR: Solução para Problemas de Formatação',
+      description: 'Guia completo para solucionar problemas de impressão no PGR, PCMSO, LTCAT e outros documentos causados por formatação incorreta de texto.',
+      group: 'Erros',
+      content: `
 <div class="welcome-banner">
   <h1>Resolução de Erros na Impressão de Documentos</h1>
   <p>Este guia aborda os problemas mais comuns de formatação que causam erros na geração de documentos do Gerenciamento de Riscos e suas soluções.</p>
@@ -2016,11 +2015,11 @@ tags: ['eSocial', 'Introdução'],
   }
 </style>
 `
-},
+    },
 
 
 
-    
+
   ]
 
 };

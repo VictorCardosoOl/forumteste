@@ -1,4 +1,4 @@
-const Duvidas = {
+export default {
   id: 'duvidas',
   title: 'Informações',
   description: 'Este módulo tem como objetivo a retirada de duvidas.',

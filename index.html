@@ -14,9 +14,9 @@
   <link rel="icon" href="assets/IMG/Fav _Icon/Claro/favicon.ico">
 
   <link rel="apple-touch-icon" href="images/icon-192x192.png">
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css">
-  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <!-- CSS imported via Vite entry point (assets/js/index.js) -->
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -82,8 +82,6 @@
               </span>
             </button>
 
-
-
             <button id="sidebar-toggle" class="sidebar-toggle-btn" aria-label="Alterar modo da barra lateral">
               <svg class="icon-collapse" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -136,22 +134,8 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="assets/js/sidebar.js"></script>
-
-  <script src="assets/js/data/modules/coletivo.js"></script>
-  <script src="assets/js/data/modules/duvidas.js"></script>
-  <script src="assets/js/data/modules/eSocial.js"></script>
-  <script src="assets/js/data/modules/gerenciamento_de_riscos.js"></script>
-
-  <script src="assets/js/data/modules/problemas.js"></script>
-  <script src="assets/js/data/modules/financeiro.js"></script>
-
-
-  <script src="assets/js/data/index.js"></script>
-  <script src="assets/js/script.js"></script>
+  <script type="module" src="assets/js/index.js"></script>
 
 </body>
 

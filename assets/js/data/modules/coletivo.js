@@ -1,4 +1,4 @@
-const Coletivo = {
+export default {
 
   id: 'coletivo',
   title: 'Coletivo',
@@ -1244,7 +1244,7 @@ document.addEventListener('click', function(e) {
 `
     },
 
-   
+
 
 
 

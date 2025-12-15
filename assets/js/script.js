@@ -1,4 +1,11 @@
 
+import forumData from './data/index.js';
+import { marked } from 'marked';
+import DOMPurify from 'dompurify';
+import Fuse from 'fuse.js';
+import LocomotiveScroll from 'locomotive-scroll';
+
+
 // Exporta funções para o escopo global
 window.renderCategories = renderCategories;
 window.renderTopics = renderTopics;
@@ -29,8 +36,9 @@ const icons = {
 const searchOptions = {
   keys: [
     { name: 'title', weight: 0.6 },
-    { name: 'description', weight: 0.3 },
-    { name: 'group', weight: 0.2 }
+    { name: 'description', weight: 0.2 },
+    { name: 'contentText', weight: 0.2 },
+    { name: 'group', weight: 0.1 }
   ],
   includeMatches: true,
   threshold: 0.4,
@@ -276,7 +284,7 @@ function renderTopics(categoryId, updateHistory = true) {
   if (groupNames.length > 1) manageFloatingButton('create_group_filter');
 }
 
-function renderArticle(categoryId, topicId, updateHistory = true) {
+async function renderArticle(categoryId, topicId, updateHistory = true) {
   const category = forumData.find(c => c.id === categoryId);
   const topic = category?.topics.find(t => t.id === topicId);
   if (!topic) return renderCategories();
@@ -290,8 +298,30 @@ function renderArticle(categoryId, topicId, updateHistory = true) {
   updateArticleNavigation(category, topicId);
   const relatedArticles = getRelatedArticles(topic, categoryId);
 
-  // Parse content using marked if available, otherwise fallback to raw content
-  const contentHtml = typeof marked !== 'undefined' ? marked.parse(topic.content) : topic.content;
+  let contentHtml = '';
+
+  if (topic.contentUrl) {
+    try {
+      const response = await fetch(topic.contentUrl);
+      if (!response.ok) throw new Error('Falha ao carregar conteúdo');
+      const markdown = await response.text();
+      // Sanitize before parsing/rendering
+      const rawHtml = typeof marked !== 'undefined' ? marked.parse(markdown) : markdown;
+      contentHtml = typeof DOMPurify !== 'undefined' ? DOMPurify.sanitize(rawHtml) : rawHtml;
+    } catch (error) {
+      console.error(error);
+      contentHtml = '<p class="text-red-500">Erro ao carregar o conteúdo do artigo.</p>';
+    }
+  } else {
+    // Fallback for existing inline content
+    const rawHtml = typeof marked !== 'undefined' ? marked.parse(topic.content) : topic.content;
+    contentHtml = typeof DOMPurify !== 'undefined' ? DOMPurify.sanitize(rawHtml) : rawHtml;
+  }
+
+
+  /* TOC and Feedback Logic */
+  const tocHTML = generateTOC(contentHtml);
+  const feedbackHTML = generateFeedbackUI(categoryId, topicId);
 
   app.innerHTML = `
     <div class="flex flex-wrap items-center gap-2 text-sm font-medium">
@@ -301,38 +331,54 @@ function renderArticle(categoryId, topicId, updateHistory = true) {
       <span class="opacity-50">/</span>
       <span class="font-semibold">${topic.title}</span>
     </div>
-    <div class="article-content mt-8 relative">
-      <h1>${topic.title}</h1>
-      ${topic.description ? `<p class="text-xl mt-4 opacity-80">${topic.description}</p>` : ''}
-      
-      ${topic.tags ? `
-        <div class="mt-6 flex flex-wrap gap-2">
-          ${topic.tags.map(tag => `
-            <span onclick="renderArticlesByTag('${tag}')" 
-                  class="text-xs px-2 py-1 rounded-full bg-opacity-20 bg-primary cursor-pointer hover:bg-opacity-30">
-              ${tag}
-            </span>
-          `).join('')}
+    
+    <div class="flex flex-col lg:flex-row gap-8 mt-8">
+      <div class="article-content flex-1 min-w-0 relative">
+        <h1>${topic.title}</h1>
+        ${topic.description ? `<p class="text-xl mt-4 opacity-80">${topic.description}</p>` : ''}
+        
+        ${topic.tags ? `
+          <div class="mt-6 flex flex-wrap gap-2">
+            ${topic.tags.map(tag => `
+              <span onclick="renderArticlesByTag('${tag}')" 
+                    class="text-xs px-2 py-1 rounded-full bg-opacity-20 bg-primary cursor-pointer hover:bg-opacity-30">
+                ${tag}
+              </span>
+            `).join('')}
+          </div>
+        ` : ''}
+        
+        <hr class="my-8 opacity-20">
+        <div class="markdown-body">${contentHtml}</div>
+        
+        ${feedbackHTML}
+
+        ${relatedArticles.length > 0 ? `
+        <div class="mt-12 border-t pt-8">
+          <h2 class="text-2xl font-bold mb-6">Recomendados para você</h2>
+          <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6">
+            ${relatedArticles.map(article => `
+              <a href="${getLinkHref(article.categoryId, article.id)}" onclick="handleLinkClick(event, () => renderArticle('${article.categoryId}', '${article.id}'))" 
+                 class="card-link flex cursor-pointer flex-col gap-3 rounded-xl p-6 group hover:border-primary transition-all">
+                <h3 class="text-lg font-semibold">${article.title}</h3>
+                <p class="text-sm font-normal opacity-80">${article.description || ''}</p>
+                <p class="text-xs mt-2 opacity-60">${article.categoryTitle}</p>
+              </a>
+            `).join('')}
+          </div>
         </div>
-      ` : ''}
-      
-      <hr class="my-8 opacity-20">
-      <div class="markdown-body">${contentHtml}</div>
-      
-      ${relatedArticles.length > 0 ? `
-      <div class="mt-12">
-        <h2 class="text-2xl font-bold mb-6">Recomendados para você</h2>
-        <div class="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6">
-          ${relatedArticles.map(article => `
-            <a href="${getLinkHref(article.categoryId, article.id)}" onclick="handleLinkClick(event, () => renderArticle('${article.categoryId}', '${article.id}'))" 
-               class="card-link flex cursor-pointer flex-col gap-3 rounded-xl p-6 group hover:border-primary transition-all">
-              <h3 class="text-lg font-semibold">${article.title}</h3>
-              <p class="text-sm font-normal opacity-80">${article.description || ''}</p>
-              <p class="text-xs mt-2 opacity-60">${article.categoryTitle}</p>
-            </a>
-          `).join('')}
-        </div>
+        ` : ''}
       </div>
+
+      ${tocHTML ? `
+        <aside class="hidden lg:block w-64 flex-shrink-0">
+          <div class="sticky top-8 bg-gray-50 dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700">
+            <h4 class="font-semibold mb-4 text-sm uppercase tracking-wider opacity-60">Nesta página</h4>
+            <nav class="toc-nav flex flex-col gap-2 text-sm opacity-80">
+              ${tocHTML}
+            </nav>
+          </div>
+        </aside>
       ` : ''}
     </div>
   `;
@@ -446,23 +492,45 @@ function renderSearchResults(results, query) {
 
   const resultsHTML = results.map(result => {
     const item = result.item;
-    const titleMatch = result.matches?.find(m => m.key === 'title');
-    const description = item.description ? highlightMatches(item.description, query) : '';
+
+    // Find matches in content
+    const contentMatch = result.matches?.find(m => m.key === 'contentText');
+    let snippet = '';
+
+    if (contentMatch) {
+      // Get the first matching range
+      const [start, end] = contentMatch.indices[0];
+      // Create a window around the match (e.g., 50 chars before and after)
+      const snippetStart = Math.max(0, start - 60);
+      const snippetEnd = Math.min(item.contentText.length, end + 60);
+
+      let text = item.contentText.substring(snippetStart, snippetEnd);
+
+      // Highlight the match within the snippet
+      // We can use the simple highlightMatches function or manually highlight based on indices
+      // Simpler to reuse highlightMatches on the snippet
+      text = highlightMatches(text, query);
+
+      snippet = `...${text}...`;
+    } else if (item.description) {
+      snippet = highlightMatches(item.description, query);
+    }
 
     return `
       <a href="${getLinkHref(item.categoryId, item.id)}" onclick="handleLinkClick(event, () => renderArticle('${item.categoryId}', '${item.id}'))" 
-         class="card-link block cursor-pointer p-5 rounded-xl group hover:border-primary">
-        <p class="text-sm font-semibold opacity-60 group-hover:opacity-100 mb-1">
-          ${item.categoryTitle}
-        </p>
-        <h3 class="text-lg font-semibold">
-          ${(titleMatch || query === '%') ? highlightMatches(item.title, query) : item.title}
+         class="card-link block cursor-pointer p-5 rounded-xl group hover:border-primary transition-all bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-sm hover:shadow-md">
+        <div class="flex items-center gap-3 mb-3">
+          <span class="text-xs font-semibold px-2 py-1 rounded bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            ${item.categoryTitle || 'Módulo'}
+          </span>
+          ${item.group ? `<span class="text-xs opacity-60">• ${item.group}</span>` : ''}
+        </div>
+        <h3 class="text-lg font-bold mb-2 group-hover:text-primary transition-colors">
+          ${highlightMatches(item.title, query)}
         </h3>
-        ${description && `
-          <p class="text-sm mt-2 opacity-70">
-            ${description}
-          </p>
-        `}
+        <p class="text-sm opacity-70 leading-relaxed">
+          ${snippet}
+        </p>
       </a>
     `;
   }).join('');
@@ -669,11 +737,11 @@ function updateArticleNavigation(category, topicId) {
   }
 }
 
-function navigateArticle(direction) {
+async function navigateArticle(direction) {
   const newIndex = state.currentArticleIndex + direction;
   if (newIndex >= 0 && newIndex < state.currentGroupArticles.length) {
     const topic = state.currentGroupArticles[newIndex];
-    renderArticle(state.currentCategory, topic.id);
+    await renderArticle(state.currentCategory, topic.id);
   }
 }
 
@@ -800,4 +868,64 @@ function initAdaptiveNavigation() {
 
   // Atualiza a posição uma vez no início
   updateButtonPosition();
+}
+
+function generateTOC(htmlContent) {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(htmlContent, 'text/html');
+  const headers = Array.from(doc.querySelectorAll('h2, h3'));
+
+  if (headers.length === 0) return '';
+
+  return headers.map(header => {
+    const text = header.textContent;
+    const slug = text.toLowerCase().replace(/[^\w]+/g, '-');
+    const isH3 = header.tagName === 'H3';
+    return `<a href="#${slug}" class="hover:text-primary transition-colors ${isH3 ? 'pl-4 text-xs' : ''}">${text}</a>`;
+  }).join('');
+}
+
+function generateFeedbackUI(categoryId, articleId) {
+  return `
+    <div class="mt-12 p-6 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700 text-center">
+        <h4 class="font-semibold mb-4">Este artigo foi útil?</h4>
+        <div class="flex justify-center gap-4">
+            <button onclick="handleFeedback('${categoryId}', '${articleId}', 'yes')" class="px-6 py-2 rounded-lg bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 hover:bg-green-200 transition-colors font-medium">Sim</button>
+            <button onclick="handleFeedback('${categoryId}', '${articleId}', 'no')" class="px-6 py-2 rounded-lg bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-300 hover:bg-red-200 transition-colors font-medium">Não</button>
+        </div>
+        <p id="feedback-message-${articleId}" class="hidden mt-3 text-sm opacity-60">Obrigado pelo seu feedback!</p>
+    </div>
+    `;
+}
+
+window.handleFeedback = function (categoryId, articleId, type) {
+  // Demo persistence
+  localStorage.setItem(`feedback-${categoryId}-${articleId}`, type);
+  const msgEl = document.getElementById(`feedback-message-${articleId}`);
+  if (msgEl) {
+    msgEl.classList.remove('hidden');
+    msgEl.textContent = "Obrigado! Seu feedback foi registrado.";
+  }
+};
+
+function initSidebar(callbacks) {
+  const sidebar = document.getElementById('sidebar');
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenuOverlay = document.getElementById('sidebar-overlay');
+
+  if (mobileMenuButton && mobileMenuOverlay && sidebar) {
+    // Cloning to remove any previous listeners if hot-reloaded
+    const newBtn = mobileMenuButton.cloneNode(true);
+    mobileMenuButton.parentNode.replaceChild(newBtn, mobileMenuButton);
+
+    newBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('visible');
+      mobileMenuOverlay.classList.toggle('visible');
+    });
+
+    mobileMenuOverlay.addEventListener('click', () => {
+      sidebar.classList.remove('visible');
+      mobileMenuOverlay.classList.remove('visible');
+    });
+  }
 }
