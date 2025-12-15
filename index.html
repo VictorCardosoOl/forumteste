@@ -8,113 +8,149 @@
 
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
-  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <link rel="icon" href="assets/IMG/Fav _Icon/Claro/favicon.ico">
 
   <link rel="apple-touch-icon" href="images/icon-192x192.png">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css">
   <link rel="stylesheet" href="assets/css/style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap"
+    rel="stylesheet">
 </head>
 
 <body>
 
 
-  <!-- Overlay do Mobile -->
-  <div id="sidebar-overlay"
-    class="fixed inset-0 bg-black/50 z-40 opacity-0 pointer-events-none transition-opacity duration-300 backdrop-blur-sm lg:hidden">
-  </div>
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
 
-  <!-- Container Principal -->
-  <div
-    class="flex h-screen overflow-hidden bg-[var(--bg-color)] text-[var(--text-color)] transition-colors duration-300">
-
-    <!-- Sidebar -->
-    <aside id="sidebar"
-      class="w-72 bg-dark-900/80 backdrop-blur-xl border-r border-white/10 flex flex-col flex-shrink-0 z-50 transition-all duration-300 lg:translate-x-0 -translate-x-full fixed lg:static h-full left-0 top-0">
-      <div class="p-6 border-b border-white/5 flex items-center justify-between gap-3">
-        <div class="flex items-center gap-3">
-          <div
-            class="w-8 h-8 bg-gradient-to-tr from-blue-500 to-purple-600 rounded-lg flex items-center justify-center shadow-lg shadow-blue-500/20">
-            <span class="font-bold text-white text-sm">KB</span>
+  <div id="page-container">
+    <aside id="sidebar" class="sidebar">
+      <div class="flex flex-col gap-4 h-full">
+        <div class="sidebar-header">
+          <div class="flex items-center justify-between w-full">
+            <div onclick="renderCategories()" class="flex items-center gap-3 cursor-pointer h-10">
+              <div class="size-6">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M24 4H6V17.3333V30.6667H24V44H42V30.6667V17.3333H24V4Z" fill="currentColor"></path>
+                </svg>
+              </div>
+              <h2 class="text-lg font-bold tracking-tight">Wise System</h2>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg hover:bg-hover-bg-color">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            </button>
           </div>
-          <h1 class="text-lg font-semibold text-white tracking-tight">WikiBase</h1>
         </div>
-        <!-- Mobile Close Button (re-added for compatibility) -->
-        <button id="mobile-close-button" class="lg:hidden p-1 rounded-md hover:bg-white/10 text-white">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
+        <div id="sidebar-nav" class="flex flex-col gap-1 flex-1 overflow-y-auto"></div>
+        <div class="sidebar-footer">
+          <p class="text-xs opacity-50">© 2024 Wise System</p>
+          <div class="flex items-center">
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="Alternar Tema">
+              <span class="sun-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="5"></circle>
+                  <line x1="12" y1="1" x2="12" y2="3"></line>
+                  <line x1="12" y1="21" x2="12" y2="23"></line>
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                  <line x1="1" y1="12" x2="3" y2="12"></line>
+                  <line x1="21" y1="12" x2="23" y2="12"></line>
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+              </span>
+              <span class="moon-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+              </span>
+            </button>
 
-      <div class="p-4">
-        <div class="relative group">
-          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <svg class="h-4 w-4 text-gray-500 group-focus-within:text-blue-400 transition-colors" fill="none"
-              viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-            </svg>
+        
+
+            <button id="sidebar-toggle" class="sidebar-toggle-btn" aria-label="Alterar modo da barra lateral">
+              <svg class="icon-collapse" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m11 17-5-5 5-5" />
+                <path d="m18 17-5-5 5-5" />
+              </svg>
+              <svg class="icon-float" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15.4 14.3L21 20" />
+                <path
+                  d="M12.4 2.6a1 1 0 0 0-1.8 0l-2.2 4.3-4.4.6a1 1 0 0 0-.6 1.7l3.2 3.1-.8 4.4a1 1 0 0 0 1.5 1l3.9-2 3.9 2a1 1 0 0 0 1.5-1l-.8-4.4 3.2-3.1a1 1 0 0 0-.6-1.7l-4.4-.6-2.2-4.3z" />
+              </svg>
+              <svg class="icon-expand" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m13 17 5-5-5-5" />
+                <path d="m6 17 5-5-5-5" />
+              </svg>
+            </button>
           </div>
-          <input type="text" id="sidebar-search-input"
-            class="w-full bg-white/5 border border-white/10 text-sm text-gray-200 rounded-lg pl-10 pr-4 py-2.5 focus:outline-none focus:bg-white/10 focus:border-blue-500/50 transition-all duration-200 placeholder-gray-500"
-            placeholder="Buscar conhecimento...">
         </div>
-      </div>
-
-      <nav id="sidebar-nav" class="flex-1 overflow-y-auto custom-scrollbar px-3 pb-4 space-y-2">
-        <!-- Populated by JS -->
-      </nav>
-
-      <!-- Footer with Theme Toggle -->
-      <div class="p-4 border-t border-white/5">
-        <button id="theme-toggle"
-          class="flex items-center gap-2 w-full px-3 py-2 text-sm text-gray-400 hover:text-white rounded-lg hover:bg-white/5 transition-colors">
-          <span class="sun-icon hidden">☀️ Light Mode</span>
-          <span class="moon-icon">🌙 Dark Mode</span>
-        </button>
       </div>
     </aside>
 
-    <!-- Main Content Area -->
-    <main data-scroll-container class="flex-1 bg-dark-900 relative h-screen overflow-y-auto custom-scrollbar">
-
-      <!-- Header Mobile (Visible only on mobile to open sidebar) -->
-      <header
-        class="lg:hidden h-16 border-b border-white/5 flex items-center px-4 justify-between bg-dark-900/80 backdrop-blur-md sticky top-0 z-40">
-        <button id="mobile-menu-button" class="p-2 -ml-2 rounded-lg hover:bg-white/5 text-white">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="3" y1="12" x2="21" y2="12"></line>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <line x1="3" y1="18" x2="21" y2="18"></line>
-          </svg>
-        </button>
-        <div class="font-bold text-lg text-white">WikiBase</div>
-        <div class="w-8"></div>
-      </header>
-
-      <div
-        class="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-blue-900/10 to-transparent pointer-events-none">
-      </div>
-
-      <div id="content-wrapper" class="relative p-6 sm:p-10 max-w-4xl mx-auto min-h-screen" data-scroll-section>
-        <!-- Breadcrumb Placeholder if needed -->
-
-        <div id="app" class="pb-20">
-          <!-- Content injected here -->
-        </div>
+    <main id="app-container" class="main-content">
+      <div id="content-wrapper" data-scroll-container>
+        <div id="app" class="app-content"></div>
       </div>
     </main>
-
   </div>
 
-  <script type="module" src="/assets/js/main.js"></script>
+  <footer id="footer-search">
+    <div class="max-w-4xl mx-auto px-4 py-3">
+      <div class="relative">
+        <button id="search-filter-button" class="search-filter-button"></button>
+        <input id="search-input" onkeyup="handleSearch(event.target.value)" placeholder="Pesquisar artigos..."
+          type="search" class="w-full h-12 pl-14 pr-24 text-base rounded-full" />
+        <div id="search-filter-menu" class="search-filter-menu">
+          <div class="filter-menu-input-wrapper">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+              <path fill="currentColor"
+                d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z">
+              </path>
+            </svg>
+            <input type="text" id="filter-menu-input" placeholder="Filtrar módulos..." class="filter-menu-input">
+          </div>
+          <div id="filter-menu-list" class="filter-menu-list"></div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+
+  <script src="assets/js/sidebar.js"></script>
+
+  <script src="assets/js/data/modules/coletivo.js"></script>
+  <script src="assets/js/data/modules/duvidas.js"></script>
+  <script src="assets/js/data/modules/eSocial.js"></script>
+  <script src="assets/js/data/modules/gerenciamento_de_riscos.js"></script>
+
+  <script src="assets/js/data/modules/problemas.js"></script>
+  <script src="assets/js/data/modules/financeiro.js"></script>
+
+
+  <script src="assets/js/data/index.js"></script>
+  <script src="assets/js/script.js"></script>
 
 </body>
 

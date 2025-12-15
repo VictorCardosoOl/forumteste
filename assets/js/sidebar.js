@@ -1,106 +1,96 @@
-/**
- * sidebar.js - Logic for the Tailwind Sidebar
- * Supports: Expanded (Pinned), Collapsed (Icon only), and Hover-to-Expand.
- */
+const sidebarStates = ['sidebar-estado-expandido', 'sidebar-estado-recolhido', 'sidebar-estado-flutuante'];
 
-export function initSidebar({ onNavLinkClick, onHomeClick }) {
-    const sidebar = document.getElementById('sidebar');
-    const toggleBtn = document.getElementById('sidebar-toggle'); // The button to pin/unpin
-    const mobileCloseBtn = document.getElementById('mobile-close-button');
-    const overlay = document.getElementById('sidebar-overlay'); // If we have one for mobile
+function setSidebarState(state) {
+    document.body.classList.remove(...sidebarStates);
+    document.body.classList.add(state);
+    localStorage.setItem('sidebarState', state);
+    window.dispatchEvent(new Event('resize'));
+}
 
-    // State
-    let isPinned = localStorage.getItem('sidebarPinned') === 'true'; // Default to collapsed if false? Let's default to true.
-    if (localStorage.getItem('sidebarPinned') === null) isPinned = true;
+ function initSidebar(callbacks) {
+    const sidebarElement = document.getElementById('sidebar');
+    if (!sidebarElement) return;
 
-    // Helper: Apply State
-    const applyState = () => {
-        if (isPinned) {
-            sidebar.classList.remove('sidebar-collapsed');
-            sidebar.classList.add('w-72');
-            sidebar.classList.remove('w-20');
-        } else {
-            sidebar.classList.add('sidebar-collapsed');
-            sidebar.classList.remove('w-72');
-            sidebar.classList.add('w-20');
-        }
-        localStorage.setItem('sidebarPinned', isPinned);
-    };
+    // --- ENCONTRAR ELEMENTOS NO HTML ---
+    const toggleBtn = document.getElementById('sidebar-toggle');
+    const navSection = document.getElementById('nav-section');
+    const navSectionHeader = document.getElementById('nav-section-header');
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenuOverlay = document.getElementById('sidebar-overlay');
+    const homeLink = sidebarElement.querySelector('[data-action="go-home"]');
+    const sidebarNav = document.getElementById('sidebar-nav');
 
-    // Initial Apply
-    applyState();
-
-    // Toggle Pin Logic
+    // --- CONFIGURAR EVENTOS ---
     if (toggleBtn) {
-        toggleBtn.addEventListener('click', () => {
-            isPinned = !isPinned;
-            applyState();
+        toggleBtn.addEventListener('click', e => {
+            e.stopPropagation();
+            const currentState = sidebarStates.find(s => document.body.classList.contains(s)) || sidebarStates[0];
+            const nextState = sidebarStates[(sidebarStates.indexOf(currentState) + 1) % sidebarStates.length];
+            setSidebarState(nextState);
         });
     }
 
-    // Hover Logic (Only works if NOT pinned)
-    sidebar.addEventListener('mouseenter', () => {
-        if (!isPinned) {
-            sidebar.classList.remove('w-20');
-            sidebar.classList.add('w-72');
-        }
-    });
-
-    sidebar.addEventListener('mouseleave', () => {
-        if (!isPinned) {
-            sidebar.classList.remove('w-72');
-            sidebar.classList.add('w-20');
-        }
-    });
-
-    // Mobile Logic
-    const mobileMenuBtn = document.getElementById('mobile-menu-button');
-    if (mobileMenuBtn) {
-        mobileMenuBtn.addEventListener('click', () => {
-            sidebar.classList.remove('-translate-x-full');
+    if (navSectionHeader) {
+        navSectionHeader.addEventListener('click', () => {
+            const isCollapsed = navSection.classList.toggle('collapsed');
+            localStorage.setItem('sidebarNavCollapsed', isCollapsed);
         });
     }
-
-    if (mobileCloseBtn) {
-        mobileCloseBtn.addEventListener('click', () => {
-            sidebar.classList.add('-translate-x-full');
-        });
-    }
-
-    // Link Clicks
-    // Use event delegation on the nav container to handle clicks
-    const nav = document.getElementById('sidebar-nav');
-    if (nav) {
-        nav.addEventListener('click', (e) => {
-            const link = e.target.closest('button[data-action]');
-            if (link) {
-                // If mobile, close
-                if (window.innerWidth < 1024) {
-                    sidebar.classList.add('-translate-x-full');
+    
+    if (sidebarNav) {
+        sidebarNav.addEventListener('click', e => {
+            const navLink = e.target.closest('.sidebar-nav-link');
+            if (navLink) {
+                e.preventDefault();
+                callbacks.onNavLinkClick(navLink.dataset.categoryId);
+                // Fecha o menu mobile ao clicar em um link
+                if (window.innerWidth <= 1024) {
+                    sidebarElement.classList.remove('visible');
+                    mobileMenuOverlay.classList.remove('visible');
                 }
-
-                // Active state styling is handled by global View updates or manual class toggles
-                // Here we just ensure logic runs
-                const action = link.dataset.action;
-                const id = link.dataset.id;
-
-                if (action === 'view-topics' && onNavLinkClick) onNavLinkClick(id);
-                // Note: Articles are inside topics. The previous sidebar structure had categories -> topics. 
-                // If the user wants "Only Modules" in sidebar, then it's just Categories.
             }
         });
     }
+    
+    if (homeLink) {
+        homeLink.addEventListener('click', e => {
+            e.preventDefault();
+            callbacks.onHomeClick();
+        });
+    }
+
+    if (mobileMenuButton && mobileMenuOverlay) {
+        mobileMenuButton.addEventListener('click', () => {
+            sidebarElement.classList.toggle('visible');
+            mobileMenuOverlay.classList.toggle('visible');
+        });
+        mobileMenuOverlay.addEventListener('click', () => {
+            sidebarElement.classList.remove('visible');
+            mobileMenuOverlay.classList.remove('visible');
+        });
+    }
+
+    // --- RESTAURAR ESTADOS SALVOS ---
+    if (localStorage.getItem('sidebarNavCollapsed') === 'true') {
+        navSection?.classList.add('collapsed');
+    }
+    const savedState = localStorage.getItem('sidebarState');
+    setSidebarState(savedState || sidebarStates[0]);
+
+    return { themeToggleBtn: document.getElementById('theme-toggle') };
 }
 
-export function updateActiveLink(categoryId) {
-    // Optional: Visual feedback for active category
-    document.querySelectorAll('.sidebar-nav-link').forEach(link => {
-        if (link.dataset.id === categoryId) {
-            link.classList.add('bg-white/10', 'text-white');
-            link.classList.remove('text-gray-400');
-        } else {
-            link.classList.remove('bg-white/10', 'text-white');
-            link.classList.add('text-gray-400');
-        }
+ function updateActiveLink(activeCategoryId) {
+    const sidebarNav = document.getElementById('sidebar-nav');
+    const navSection = document.getElementById('nav-section');
+    if (!sidebarNav || !navSection) return;
+
+    sidebarNav.querySelectorAll('.sidebar-nav-link').forEach(link => {
+        link.classList.toggle('active', link.dataset.categoryId === activeCategoryId);
     });
+
+    if (activeCategoryId && navSection.classList.contains('collapsed')) {
+        navSection.classList.remove('collapsed');
+        localStorage.setItem('sidebarNavCollapsed', 'false');
+    }
 }

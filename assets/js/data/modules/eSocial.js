@@ -1,93 +1,279 @@
-export const eSocial = {
-
+ const eSocial = 
+{
   id: 'esocial',
   title: 'eSocial',
-  description: 'Módulo eSocial.',
+  description: 'Módulo eSocial no sistema Sigo.',
   icon: `<svg class="module-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-  <path fill="currentColor" d="M13.138.053a12.018 12.018 0 0 0-9.646 3.481A12.014 12.014 0 0 0 .937 16.651a12.014 12.014 0 0 0 11.162 7.348a2.275 2.275 0 1 0-.037-4.549a7.438 7.438 0 0 1-6.932-4.562a7.438 7.438 0 0 1 1.587-8.145a7.437 7.437 0 0 1 12.378 3.014H12.05a2.275 2.275 0 1 0 0 4.55h9.674A2.275 2.275 0 0 0 24 12.04A12.014 12.014 0 0 0 16.597.914a11.962 11.962 0 0 0-3.459-.86Z" />
+  <path fill="currentColor" d="M13.138.053a12.018 12.018 0 0 0-9.646 3.481A12.014 12.014 0 0 0 .937 16.651a12.014 12.014 0 0 0 11.162 7.348a2.275 2.275 0 1 0-.037-4.549a7.438 7.438 0 0 1-6.932-4.562a7.438 7.438 0 0 1 1.587-8.145a7.437 7.437 0 0 1 12.378 3.014H12.05a2.275 2.275 0 1 0 0 4.55h9.674A2.275 2.275 0 0 0 24 12.04A12.014 12.014 0 0 0 16.597.914a11.962 11.962 0 0 0-3.459-.86Z"/>
 </svg>`,
-  topics: [
-    {
-      id: 'esocial-guia-completo',
-      title: 'eSocial: Guia Completo do Sistema de Escrituração Digital',
-      description: 'Tudo sobre a plataforma federal que unificou as obrigações trabalhistas, fiscais e previdenciárias no Brasil.',
-      group: 'eSocial',
-      tags: ['eSocial', 'Introdução'],
-      content: `
-    <div class="article-standard">
-      <h1>eSocial</h1>
-      <p class="lead">Sistema de Escrituração Digital das Obrigações Fiscais, Previdenciárias e Trabalhistas</p>
-
-      <h2>1. Fundamentação Legal e Histórica</h2>
-      <p>O eSocial foi consolidado em <strong>11 de dezembro de 2014</strong>, unificando o envio de informações para a Receita Federal, INSS, Caixa e Ministério do Trabalho. Sua obrigatoriedade geral iniciou-se em 2018.</p>
-      
-      <div class="info-box">
-        <h3>Principais Objetivos</h3>
-        <ul>
-          <li>Eliminar a multiplicidade de declarações (RAIS, CAGED, etc).</li>
-          <li>Reduzir custos e burocracia para as empresas.</li>
-          <li>Aprimorar a qualidade das informações da seguridade social.</li>
-          <li>Garantir direitos trabalhistas e previdenciários.</li>
-        </ul>
-      </div>
-
-      <h2>2. Fases de Implementação</h2>
-      <div class="grid-2">
-        <div class="card">
-          <h4>Fase 1: Tabelas</h4>
-          <p>Cadastros do empregador e tabelas.</p>
-        </div>
-        <div class="card">
-          <h4>Fase 2: Não Periódicos</h4>
-          <p>Admissões e vínculos.</p>
-        </div>
-        <div class="card">
-          <h4>Fase 3: Periódicos</h4>
-          <p>Folha de pagamento.</p>
-        </div>
-        <div class="card">
-          <h4>Fase 4: SST</h4>
-          <p>Saúde e Segurança.</p>
-        </div>
-      </div>
-
-      <h2>3. eSocial Simplificado (S-1.0)</h2>
-      <p>Atualmente vige o modelo simplificado, que reduziu drasticamente o número de campos e eventos, focando no que é realmente essencial para a apuração de tributos e FGTS.</p>
-      
-      <h2>4. Impactos e LGPD</h2>
-      <p>Todas as informações transmitidas estão protegidas pela LGPD. O sistema garante que dados sensíveis dos trabalhadores sejam tratados com sigilo fiscal e previdenciário adequado.</p>
-
-      <h3>Quadro de Obrigatoriedade SST</h3>
-      <table class="standard-table">
-        <thead>
-          <tr>
-            <th>Categoria</th>
-            <th>S-2210 (CAT)</th>
-            <th>S-2220 (Saúde)</th>
-            <th>S-2240 (Riscos)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>CLT</td><td>Sim</td><td>Sim</td><td>Sim</td></tr>
-          <tr><td>Estagiário</td><td>Não</td><td>Não</td><td>Não</td></tr>
-          <tr><td>Autônomo</td><td>Não</td><td>Não</td><td>Não</td></tr>
-        </tbody>
-      </table>
+  topics: [ 
+{
+  id: 'esocial-guia-completo',
+  title: 'eSocial: Guia Completo do Sistema de Escrituração Digital',
+  description: 'Tudo sobre a plataforma federal que unificou as obrigações trabalhistas, fiscais e previdenciárias no Brasil.',
+  group: 'eSocial',
+  tags: ['eSocial', 'Introdução'],
+  content: `
+    <div class="header-banner" style="background: #e3f2fd; color: white; padding: 30px; border-radius: 8px; margin-bottom: 40px; text-align: center;">
+      <h1 style="margin: 0; font-size: 2.2em;">eSocial</h1>
+      <p style="margin: 10px 0 0; font-size: 1.2em;">Sistema de Escrituração Digital das Obrigações Fiscais, Previdenciárias e Trabalhistas</p>
     </div>
-`
-    },
 
-    {
+    <section style="margin-bottom: 50px;">
+      <h2 style="color: #00000; border-bottom: 2px solid #0056b3; padding-bottom: 10px; font-size: 1.8em;">1. Fundamentação Legal e Histórico</h2>
+      
+      <div style="background: white; border-radius: 8px; box-shadow: 0 3px 15px rgba(0,0,0,0.1); padding: 25px; margin-bottom: 30px;">
+        <h3 style="color: #00000; margin-top: 0;">Criação e Marco Legal</h3>
+        <ul style="padding-left: 25px; line-height: 1.6;">
+          <li><strong>Data de fundação:</strong> 11 de dezembro de 2014</li>
+          <li><strong>Órgãos envolvidos:</strong> Receita Federal, INSS, Caixa Econômica Federal e Ministério do Trabalho</li>
+          <li><strong>Base tecnológica:</strong> Sistema Público de Escrituração Digital (SPED)</li>
+          <li><strong>Obrigatoriedade geral:</strong> 8 de janeiro de 2018 (com exceção inicial para eventos de SST)</li>
+        </ul>
+        
+        <div style="background: #f0f7ff; padding: 20px; border-left: 4px solid #0056b3; margin-top: 20px;">
+          <h4 style="color: #00000; margin-top: 0;">Principais Objetivos</h4>
+          <ul style="padding-left: 25px;">
+            <li>Eliminar a multiplicidade de declarações</li>
+            <li>Reduzir custos de compliance para empresas</li>
+            <li>Aprimorar a fiscalização governamental</li>
+            <li>Garantir direitos trabalhistas e previdenciários</li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-      id: 'eventos-sst-esocial',
-      title: 'Eventos de SST no eSocial',
-      description: 'Material sobre os eventos S-2210, S-2220, S-2221 e S-2240 no eSocial, com regras, observações e tabela completa de obrigatoriedade por categoria.',
-      group: 'Eventos do eSocial - SST',
-      content: `
-  < div class="welcome-banner" >
+    <section style="margin-bottom: 50px;">
+      <h2 style="color: #00000; border-bottom: 2px solid #0056b3; padding-bottom: 10px; font-size: 1.8em;">2. Cronograma Detalhado de Implantação</h2>
+      
+      <div style="background: white; border-radius: 8px; box-shadow: 0 3px 15px rgba(0,0,0,0.1); padding: 25px; margin-bottom: 30px;">
+        <h3 style="color: #00000; margin-top: 0;">Fases de Implementação</h3>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 25px 0;">
+          <div style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 15px;">
+            <h4 style="color: #00000; margin-top: 0;">Fase 1 - Eventos de Tabela</h4>
+            <p>Informações cadastrais do empregador</p>
+          </div>
+          <div style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 15px;">
+            <h4 style="color: #00000; margin-top: 0;">Fase 2 - Eventos Não Periódicos</h4>
+            <p>Admissões, afastamentos e demissões</p>
+          </div>
+          <div style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 15px;">
+            <h4 style="color: #00000; margin-top: 0;">Fase 3 - Eventos Periódicos</h4>
+            <p>Folhas de pagamento</p>
+          </div>
+          <div style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 15px;">
+            <h4 style="color: #00000; margin-top: 0;">Fase 4 - Eventos de SST</h4>
+            <p>Saúde e Segurança no Trabalho</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="color: #00000;">Cronograma Específico para SST (Portaria SEPRT/RFB/ME nº 71/2021)</h3>
+      <div style="overflow-x: auto; margin: 30px 0;">
+        <table style="width: 100%; border-collapse: collapse; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+          <thead>
+            <tr style="background-color: #0056b3; color: white;">
+              <th style="padding: 15px; text-align: left; width: 10%;">Grupo</th>
+              <th style="padding: 15px; text-align: left; width: 60%;">Perfil das Empresas</th>
+              <th style="padding: 15px; text-align: left; width: 30%;">Data Limite</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid #e0e0e0;">
+              <td style="padding: 15px;">1</td>
+              <td style="padding: 15px;">Faturamento anual superior a R$78 milhões</td>
+              <td style="padding: 15px;">13/10/2021</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #e0e0e0;">
+              <td style="padding: 15px;">2</td>
+              <td style="padding: 15px;">Entidades com faturamento até R$78 milhões (não optantes pelo Simples Nacional)</td>
+              <td style="padding: 15px;">10/01/2022</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #e0e0e0;">
+              <td style="padding: 15px;">3</td>
+              <td style="padding: 15px;">Optantes pelo Simples Nacional, empregadores PF (exceto doméstico), produtor rural PF e entidades sem fins lucrativos</td>
+              <td style="padding: 15px;">10/01/2022</td>
+            </tr>
+            <tr>
+              <td style="padding: 15px;">4</td>
+              <td style="padding: 15px;">Órgãos públicos e organizações internacionais</td>
+              <td style="padding: 15px;">11/07/2022</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div style="background: #fff8e1; padding: 20px; border-left: 4px solid #ff9800; margin: 30px 0;">
+        <h4 style="color: #e65100; margin-top: 0;">Situação Atual</h4>
+        <p>Desde 2022, a obrigatoriedade é universal para todas as empresas, com exceção de alguns órgãos públicos que possuem método de transmissão diferenciado.</p>
+      </div>
+    </section>
+
+    <section style="margin-bottom: 50px;">
+      <h2 style="color: #00000; border-bottom: 2px solid #0056b3; padding-bottom: 10px; font-size: 1.8em;">3. eSocial Simplificado (S-1.0)</h2>
+      
+      <div style="background: white; border-radius: 8px; box-shadow: 0 3px 15px rgba(0,0,0,0.1); padding: 25px; margin-bottom: 30px;">
+        <h3 style="color: #00000; margin-top: 0;">Principais Mudanças</h3>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin: 30px 0;">
+          <div style="border-left: 4px solid #4caf50; padding-left: 15px;">
+            <h4 style="color: #00000; margin-top: 0;">Redução de Burocracia</h4>
+            <ul style="padding-left: 20px;">
+              <li>Eliminação de campos duplicados</li>
+              <li>Substituição da RAIS e CAGED</li>
+              <li>Simplificação de layouts</li>
+            </ul>
+          </div>
+          
+          <div style="border-left: 4px solid #4caf50; padding-left: 15px;">
+            <h4 style="color: #00000; margin-top: 0;">Benefícios</h4>
+            <ul style="padding-left: 20px;">
+              <li>Menor carga de trabalho para empresas</li>
+              <li>Redução de erros no preenchimento</li>
+              <li>Processamento mais rápido pelo governo</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div style="background: #e8f5e9; padding: 20px; border-radius: 8px; margin-top: 20px;">
+          <h4 style="color: #2e7d32; margin-top: 0;">Impacto na Rotina</h4>
+          <p>As empresas passaram a enviar aproximadamente 30% menos informações, mantendo toda a qualidade dos dados necessários para fiscalização.</p>
+        </div>
+      </div>
+    </section>
+
+    <section style="margin-bottom: 50px;">
+      <h2 style="color: #00000; border-bottom: 2px solid #0056b3; padding-bottom: 10px; font-size: 1.8em;">4. Impacto nas Relações de Trabalho</h2>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin: 30px 0;">
+        <div style="background: white; border-radius: 8px; box-shadow: 0 3px 15px rgba(0,0,0,0.1); padding: 25px;">
+          <h3 style="color: #00000; margin-top: 0;">Para os Trabalhadores</h3>
+          <ul style="padding-left: 25px; line-height: 1.6;">
+            <li><strong>Transparência:</strong> Registro imediato de admissões, alterações salariais e afastamentos</li>
+            <li><strong>Histórico unificado:</strong> Facilita comprovação para aposentadoria especial</li>
+            <li><strong>Garantia de direitos:</strong> FGTS, INSS e seguro-desemprego com menos inconsistências</li>
+            <li><strong>Banco de dados:</strong> Informações sobre exames médicos, condições de trabalho e acidentes</li>
+          </ul>
+        </div>
+        
+        <div style="background: white; border-radius: 8px; box-shadow: 0 3px 15px rgba(0,0,0,0.1); padding: 25px;">
+          <h3 style="color: #00000; margin-top: 0;">Para as Empresas</h3>
+          <ul style="padding-left: 25px; line-height: 1.6;">
+            <li><strong>Fiscalização integrada:</strong> Cruzamento automático de informações entre órgãos</li>
+            <li><strong>Combate à sonegação:</strong> Identificação mais eficiente de irregularidades</li>
+            <li><strong>Redução de custos:</strong> Eliminação de múltiplos envios para diferentes sistemas</li>
+            <li><strong>Segurança jurídica:</strong> Registro oficial de todas as movimentações trabalhistas</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section style="margin-bottom: 50px;">
+      <h2 style="color: #00000; border-bottom: 2px solid #0056b3; padding-bottom: 10px; font-size: 1.8em;">5. Dados Coletados e LGPD</h2>
+      
+      <div style="background: white; border-radius: 8px; box-shadow: 0 3px 15px rgba(0,0,0,0.1); padding: 25px; margin-bottom: 30px;">
+        <h3 style="color: #00000; margin-top: 0;">Categorias de Informações</h3>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; margin: 30px 0;">
+          <div>
+            <h4 style="color: #00000; border-bottom: 1px solid #e0e0e0; padding-bottom: 8px;">Dados Pessoais</h4>
+            <ul style="padding-left: 20px;">
+              <li>CPF</li>
+              <li>Nome completo</li>
+              <li>Data de nascimento</li>
+              <li>Endereço</li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 style="color: #00000; border-bottom: 1px solid #e0e0e0; padding-bottom: 8px;">Dados Contratuais</h4>
+            <ul style="padding-left: 20px;">
+              <li>Data de admissão</li>
+              <li>Cargo e função</li>
+              <li>Salário e benefícios</li>
+              <li>Jornada de trabalho</li>
+            </ul>
+          </div>
+          
+          <div>
+            <h4 style="color: #00000; border-bottom: 1px solid #e0e0e0; padding-bottom: 8px;">Dados de SST</h4>
+            <ul style="padding-left: 20px;">
+              <li>Exames médicos (ASO)</li>
+              <li>Comunicação de Acidentes (CAT)</li>
+              <li>Condições ambientais</li>
+              <li>Exposição a agentes nocivos</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div style="background: #f3e5f5; padding: 20px; border-left: 4px solid #9c27b0; border-radius: 8px; margin-top: 30px;">
+          <h4 style="color: #7b1fa2; margin-top: 0;">Conformidade com a LGPD</h4>
+          <p>O tratamento dos dados no eSocial segue rigorosamente os princípios da Lei Geral de Proteção de Dados (LGPD):</p>
+          <ul style="padding-left: 25px;">
+            <li>Finalidade específica e legítima</li>
+            <li>Necessidade e adequação</li>
+            <li>Transparência</li>
+            <li>Segurança e prevenção</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 style="color: #00000; border-bottom: 2px solid #0056b3; padding-bottom: 10px; font-size: 1.8em;">6. Integração com o Sigo Web</h2>
+      
+      <div style="background: white; border-radius: 8px; box-shadow: 0 3px 15px rgba(0,0,0,0.1); padding: 25px; margin-bottom: 30px;">
+        <h3 style="color: #00000; margin-top: 0;">Eventos de SST Transmitidos</h3>
+        <p style="margin-bottom: 25px;">O sistema Sigo Web realiza a transmissão automática dos seguintes eventos para o eSocial:</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin: 30px 0;">
+          <div style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; border-top: 4px solid #0056b3;">
+            <h4 style="color: #00000; margin-top: 0;">S-2210</h4>
+            <p><strong>Comunicação de Acidente de Trabalho</strong></p>
+            <p style="font-size: 0.95em;">Deve ser enviado em até 1 dia útil após o acidente, contendo dados do acidentado, tipo de lesão e CID.</p>
+          </div>
+          
+          <div style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; border-top: 4px solid #0056b3;">
+            <h4 style="color: #00000; margin-top: 0;">S-2220</h4>
+            <p><strong>Monitoramento da Saúde do Trabalhador</strong></p>
+            <p style="font-size: 0.95em;">Registra todos os exames ocupacionais realizados, vinculados ao PCMSO da empresa.</p>
+          </div>
+          
+          <div style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; border-top: 4px solid #0056b3;">
+            <h4 style="color: #00000; margin-top: 0;">S-2221</h4>
+            <p><strong>Exame Toxicológico</strong></p>
+            <p style="font-size: 0.95em;">Obrigatório para motoristas profissionais (Lei 13.103/2015). Resultados positivos geram bloqueio automático.</p>
+          </div>
+          
+          <div style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; border-top: 4px solid #0056b3;">
+            <h4 style="color: #00000; margin-top: 0;">S-2240</h4>
+            <p><strong>Condições Ambientais do Trabalho</strong></p>
+            <p style="font-size: 0.95em;">Comunica os riscos ambientais identificados no PGR e as medidas de controle adotadas.</p>
+          </div>
+          
+          <div style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; border-top: 4px solid #0056b3;">
+            <h4 style="color: #00000; margin-top: 0;">S-3000</h4>
+            <p><strong>Exclusão de Eventos</strong></p>
+            <p style="font-size: 0.95em;">Utilizado para tornar sem efeito (excluir) um evento que foi enviado incorretamente.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  `
+},
+
+{
+
+id: 'eventos-sst-esocial',
+title: 'Eventos de SST no eSocial',
+description: 'Material sobre os eventos S-2210, S-2220, S-2221 e S-2240 no eSocial, com regras, observações e tabela completa de obrigatoriedade por categoria.',
+group: 'Eventos do eSocial - SST',
+content: `
+  <div class="welcome-banner">
     <h1>Eventos de SST no eSocial</h1>
     <p>Os eventos de Segurança e Saúde no Trabalho (SST) no eSocial substituem formulários tradicionais como a CAT e o PPP, garantindo conformidade legal e registro eletrônico unificado.</p>
-  </div >
+  </div>
 
   <section class="core-concepts">
     <h2>Definição Completa</h2>
@@ -550,21 +736,21 @@ export const eSocial = {
       }
     }
   </style>
-`
-    },
+  `
+},
 
 
-    {
-      id: 'ecac-esocial-advanced-guide',
-      title: 'e-CAC e eSocial',
-      description: 'Aspectos do e-CAC e sua integração estratégica com o eSocial.',
-      group: 'eSocial',
-      tags: ['eSocial', 'Introdução'],
-      content: `
-  < div class="welcome-banner" >
-      <h1>Domine o e-CAC: Guia Completo para Profissionais de SST</h1>
+{
+  id: 'ecac-esocial-advanced-guide',
+  title: 'e-CAC e eSocial',
+  description: 'Aspectos do e-CAC e sua integração estratégica com o eSocial.',
+  group: 'eSocial',
+  tags: ['eSocial', 'Introdução'],
+  content: `
+    <div class="welcome-banner">
+      <h1>Domine o e-CAC: Guia Completo para Colaboradores Wise</h1>
       <p>Este guia aprofundado explica o e-CAC como pilar fundamental para a gestão das obrigações do eSocial, com ênfase nos processos de procuração eletrônica e certificação digital.</p>
-    </div >
+    </div>
 
     <section class="core-concepts">
       <h2>O e-CAC em Detalhe: Centro Virtual de Atendimento ao Contribuinte</h2>
@@ -636,7 +822,7 @@ export const eSocial = {
           </ul>
           
           <div class="warning-box">
-            <strong>Ponto Crítico:</strong> Sem procuração eletrônica válida no e-CAC, nenhum terceiro pode legalmente transmitir eventos ao eSocial em nome do cliente.
+            <strong>Ponto Crítico:</strong> Sem procuração eletrônica válida no e-CAC, nenhum terceiro (incluindo a Wise) pode legalmente transmitir eventos ao eSocial em nome do cliente.
           </div>
         </div>
       </div>
@@ -670,7 +856,7 @@ export const eSocial = {
           <h3>Preenchimento dos Dados</h3>
           <ul>
             <li><strong>Outorgante:</strong> Dados preenchidos automaticamente (empresa cliente)</li>
-            <li><strong>Procurador:</strong> CNPJ/CPF da prestadora ou profissional designado</li>
+            <li><strong>Procurador:</strong> CNPJ/CPF da Wise ou profissional designado</li>
             <li><strong>Vigência:</strong> Alinhar com duração do contrato de serviços</li>
           </ul>
         </div>
@@ -697,7 +883,7 @@ export const eSocial = {
       </div>
       
       <div class="process-note">
-        <p><strong>Observação:</strong> Todo o processo deve ser realizado pelo representante legal da empresa cliente. A consultoria pode fornecer orientações, mas não pode executar esta etapa diretamente.</p>
+        <p><strong>Observação:</strong> Todo o processo deve ser realizado pelo representante legal da empresa cliente. A Wise pode fornecer orientações, mas não pode executar esta etapa diretamente.</p>
       </div>
     </section>
 
@@ -710,12 +896,12 @@ export const eSocial = {
             <li><strong>Obrigatório</strong> para outorgar procurações</li>
             <li><strong>Tipo A1:</strong> Arquivo digital (.pfx) instalado no computador</li>
             <li><strong>Tipo A3:</strong> Token físico ou cartão inteligente</li>
-            <li>Validade: de 1 a 3 anos, conforme o tipo.</li>
+            <li>Validade: de 1 a 3 anos, conforme o tipo. Importante destacar que, no Sigo, é utilizado exclusivamente o certificado do Tipo A1</li>
           </ul>
         </div>
         
         <div class="certificate-card highlight">
-          <h3>e-CPF (Profissional SST)</h3>
+          <h3>e-CPF (Profissional Wise)</h3>
           <ul>
             <li>Necessário para assinar eventos como procurador</li>
             <li>Deve estar vinculado à procuração eletrônica</li>
@@ -736,18 +922,18 @@ export const eSocial = {
     </section>
 
     <section class="workflow-section">
-      <h2>Fluxo Operacional Padrão: e-CAC + eSocial</h2>
+      <h2>Fluxo Operacional Wise: e-CAC + eSocial</h2>
       <div class="workflow-diagram">
         <div class="workflow-step">
           <div class="step-number">1</div>
           <h3>Onboarding do Cliente</h3>
-          <p>Cliente cadastra procuração para a prestadora no e-CAC com permissões SST</p>
+          <p>Cliente cadastra procuração para Wise no e-CAC com permissões SST</p>
         </div>
         <div class="workflow-arrow">→</div>
         <div class="workflow-step">
           <div class="step-number">2</div>
           <h3>Transmissão de Eventos</h3>
-          <p>Prestadora envia eventos (S-2210, S-2220, etc.) usando e-CPF do responsável</p>
+          <p>Wise envia eventos (S-2210, S-2220, etc.) usando e-CPF do responsável</p>
         </div>
         <div class="workflow-arrow">→</div>
         <div class="workflow-step highlight">
@@ -957,19 +1143,19 @@ export const eSocial = {
         }
       }
     </style>
-`
-    },
-    {
-      id: 'esocial-sst-transmission',
-      title: 'Rotina de Transmissão dos Eventos de SST ao eSocial',
-      description: 'Fluxo completo e prazos para transmissão dos eventos de Saúde e Segurança do Trabalho no eSocial.',
-      group: 'eSocial',
-      tags: ['eSocial', 'Processos', 'Webservice', 'Eventos'],
-      content: `
-  < div class="transmission-header" >
+  `
+},
+{
+  id: 'esocial-sst-transmission',
+  title: 'Rotina de Transmissão dos Eventos de SST ao eSocial',
+  description: 'Fluxo completo e prazos para transmissão dos eventos de Saúde e Segurança do Trabalho no eSocial.',
+  group: 'eSocial',
+  tags: ['eSocial', 'Processos', 'Webservice', 'Eventos'],
+  content: `
+    <div class="transmission-header">
       <h1>Rotina de Transmissão Automatizada - Eventos SST</h1>
-      <p>Envio automatizado via Webservice conforme programação estabelecida</p>
-    </div >
+      <p>Envio automatizado via Serviço Mensageria do Sigo® conforme programação estabelecida</p>
+    </div>
 
     <section class="event-section">
       <h2>Eventos de SST e Seus Prazos Legais</h2>
@@ -1095,12 +1281,12 @@ export const eSocial = {
     </section>
 
     <section class="automation-section">
-      <h2>Processo Automatizado via Webservice</h2>
+      <h2>Processo Automatizado via Mensageria Sigo®</h2>
       <div class="automation-flow">
         <div class="flow-step">
           <div class="step-number">1</div>
           <h3>Verificação Horária</h3>
-          <p>Periodicamente, o sistema rastreia eventos disponíveis no prazo</p>
+          <p>A cada 1 hora, o sistema rastreia eventos disponíveis no prazo</p>
         </div>
         <div class="flow-arrow">→</div>
         <div class="flow-step">
@@ -1138,7 +1324,6 @@ export const eSocial = {
       }
       .transmission-header h1 {
         margin-top: 0;
-        font-size: 2.0em;
       }
       .event-grid {
         display: grid;
@@ -1273,23 +1458,23 @@ export const eSocial = {
         }
       }
     </style>
-`
-    },
-    //Introdução SST
+  `
+},
+//Introdução SST
 
-    {
+  {
 
-      id: 'evento-s2210-comunicacao-cat',
-      title: 'Evento S-2210 - Comunicação de Acidente de Trabalho no eSocial',
-      description: 'Artigo completo para integração de novos colaboradores sobre o envio da CAT pelo evento S-2210. Entenda a legislação, responsabilidades e impacto direto na vida do trabalhador.',
-      group: 'Eventos do eSocial - SST',
-      tags: ['eSocial', 'Eventos', 'Introdução', 'S-2210'],
-      content: `
+  id: 'evento-s2210-comunicacao-cat',
+  title: 'Evento S-2210 - Comunicação de Acidente de Trabalho no eSocial',
+  description: 'Artigo completo para integração de novos colaboradores sobre o envio da CAT pelo evento S-2210. Entenda a legislação, responsabilidades e impacto direto na vida do trabalhador.',
+  group: 'Eventos do eSocial - SST',
+  tags: ['eSocial', 'Eventos','Introdução', 'S-2210'],
+  content: `
 
-  < div class="welcome-banner" >
+  <div class="welcome-banner">
     <h1>Bem-vindo à Comunicação de Acidente de Trabalho</h1>
     <p>Este conteúdo foi elaborado para você compreender a importância da Comunicação de Acidente de Trabalho (CAT) e como ela é feita através do evento S-2210 no eSocial. Um processo essencial para garantir os direitos do trabalhador e manter a empresa em conformidade com a legislação.</p>
-  </div >
+  </div>
 
   <section class="core-concepts">
     <h2>O que é o Evento S-2210?</h2>
@@ -1477,21 +1662,21 @@ export const eSocial = {
       margin-bottom: 12px;
     }
   </style>
-`
-    },
+  `
+},
 
-    {
-      id: 'evento-s2220-monitoramento-saude',
-      title: 'Evento S-2220 - Monitoramento da Saúde do Trabalhador',
-      description: 'Entenda de forma clara e acolhedora como funciona o envio do evento S-2220 no eSocial e sua relação com o PCMSO e o ASO. Essencial para colaboradores e profissionais de SST.',
-      group: 'Eventos do eSocial - SST',
-      tags: ['eSocial', 'Eventos', 'Introdução', 'S-2220'],
-      content: `
+{
+  id: 'evento-s2220-monitoramento-saude',
+  title: 'Evento S-2220 - Monitoramento da Saúde do Trabalhador',
+  description: 'Entenda de forma clara e acolhedora como funciona o envio do evento S-2220 no eSocial e sua relação com o PCMSO e o ASO. Essencial para colaboradores e profissionais de SST.',
+  group: 'Eventos do eSocial - SST',
+  tags: ['eSocial', 'Eventos','Introdução', 'S-2220'],
+  content: `
 
-  < div class="welcome-banner" >
+  <div class="welcome-banner">
     <h1>Monitoramento da Saúde no eSocial</h1>
     <p>Este guia foi criado para apresentar a importância do evento S-2220, que documenta a saúde ocupacional dos trabalhadores ao longo de sua trajetória na empresa. Uma ferramenta essencial para promover segurança, cumprir a legislação e proteger o trabalhador.</p>
-  </div >
+  </div>
 
   <section class="core-concepts">
     <h2>O que é o Evento S-2220?</h2>
@@ -1658,19 +1843,19 @@ export const eSocial = {
       margin-bottom: 12px;
     }
   </style>
-`
-    },
-    {
-      id: 'evento-s2221-exame-toxicologico',
-      title: 'Evento S-2221 - Exame Toxicológico para Motoristas Profissionais',
-      description: 'Guia completo sobre o envio do evento S-2221 ao eSocial, abrangendo requisitos legais, prazos, impacto previdenciário e operacional, com orientações específicas para uso no sistema.',
-      group: 'Eventos do eSocial - SST',
-      tags: ['eSocial', 'Eventos', 'Introdução', 'S-2221'],
-      content: `
-  < div class="welcome-banner" >
+  `
+},
+{
+  id: 'evento-s2221-exame-toxicologico',
+title: 'Evento S-2221 - Exame Toxicológico para Motoristas Profissionais',
+description: 'Guia completo sobre o envio do evento S-2221 ao eSocial, abrangendo requisitos legais, prazos, impacto previdenciário e operacional, com orientações específicas para uso no sistema.',
+group: 'Eventos do eSocial - SST',
+tags: ['eSocial', 'Eventos','Introdução', 'S-2221'],
+content: `
+<div class="welcome-banner">
   <h1>Bem-vindo ao Guia sobre o Evento S-2221!</h1>
   <p>Este material foi desenvolvido para explicar de forma clara como funciona o envio do exame toxicológico de motoristas profissionais pelo evento S-2221 no eSocial, com instruções completas para uso do sistema.</p>
-</div >
+</div>
 
 <section class="core-concepts">
   <h2>O que é o Evento S-2221?</h2>
@@ -1828,19 +2013,19 @@ export const eSocial = {
 </style>
 `
 
-    },
+},
 
-    {
-      id: 'evento-s2240-condicoes-ambientais',
-      title: 'Evento S-2240: Condições Ambientais do Trabalho no eSocial',
-      description: 'Entenda como funciona o evento S-2240, sua base legal, prazos, impacto na aposentadoria e obrigatoriedade de envio, mesmo na ausência de riscos.',
-      group: 'Eventos do eSocial - SST',
-      tags: ['eSocial', 'Eventos', 'Introdução', 'S-2240'],
-      content: `
-  < div class="welcome-banner" >
+{
+  id: 'evento-s2240-condicoes-ambientais',
+  title: 'Evento S-2240: Condições Ambientais do Trabalho no eSocial',
+  description: 'Entenda como funciona o evento S-2240, sua base legal, prazos, impacto na aposentadoria e obrigatoriedade de envio, mesmo na ausência de riscos.',
+  group: 'Eventos do eSocial - SST',
+  tags: ['eSocial', 'Eventos','Introdução', 'S-2240'],
+  content: `
+  <div class="welcome-banner">
     <h1>Evento S-2240: Condições Ambientais do Trabalho</h1>
     <p>Este guia foi elaborado para integrar novos colaboradores ao universo do eSocial, com foco no evento S-2240, essencial para o histórico previdenciário do trabalhador.</p>
-  </div >
+  </div>
 
   <section class="core-concepts">
     <h2>O que é o Evento S-2240?</h2>
@@ -2016,21 +2201,21 @@ export const eSocial = {
       border-radius: 5px;
     }
   </style>
-`
-    },
+  `
+},
 
 
-    {
-      id: 'eventos-sst-orgaos-publicos',
-      title: 'Eventos de SST para Órgãos Públicos: Regras e Obrigatoriedades',
-      description: 'Guia completo sobre o envio de eventos de SST para servidores públicos no eSocial, com foco nas categorias 301-314, regimes previdenciários e particularidades legais.',
-      group: 'Eventos do eSocial - SST',
-      tags: ['eSocial', 'Eventos'],
-      content: `
-  < div class="public-sector-guide" >
+{
+  id: 'eventos-sst-orgaos-publicos',
+  title: 'Eventos de SST para Órgãos Públicos: Regras e Obrigatoriedades',
+  description: 'Guia completo sobre o envio de eventos de SST para servidores públicos no eSocial, com foco nas categorias 301-314, regimes previdenciários e particularidades legais.',
+  group: 'Eventos do eSocial - SST',
+  tags: ['eSocial', 'Eventos'],
+  content: `
+<div class="public-sector-guide">
   <h1>Eventos de SST no Âmbito dos Órgãos Públicos</h1>
   <p>Este guia detalha as regras específicas para envio de eventos de Saúde e Segurança no Trabalho (SST) para servidores públicos e funcionários sem vínculo empregatício no sistema eSocial.</p>
-</div >
+</div>
 
 <section class="category-identification">
   <h2>Identificação de Funcionários Públicos</h2>
@@ -2392,14 +2577,14 @@ export const eSocial = {
   }
 </style>
 `
-    },
-    {
-      id: 'Erro S-2210',
-      title: 'Erros no Evento S-2210 - Comunicação de Acidente de Trabalho',
-      description: 'Guia completo para solução de problemas no envio do evento S-2210 ao eSocial, com principais erros, fluxos de correção e procedimentos de escalonamento.',
-      group: 'Erros',
-      tags: ['eSocial', 'Eventos', 'Erro', 'S-2210'],
-      content: `
+},
+{
+  id: 'Erro S-2210',
+  title: 'Erros no Evento S-2210 - Comunicação de Acidente de Trabalho',
+  description: 'Guia completo para solução de problemas no envio do evento S-2210 ao eSocial, com principais erros, fluxos de correção e procedimentos de escalonamento.',
+  group: 'Erros',
+  tags: ['eSocial', 'Eventos','Erro', 'S-2210'],
+  content: `
     <div class="welcome-banner">
       <h1>Resolução de Erros no Evento S-2210</h1>
       <p>Este guia detalha os procedimentos para correção de erros no envio da Comunicação de Acidente de Trabalho (CAT) ao eSocial.</p>
@@ -2762,14 +2947,14 @@ export const eSocial = {
       }
     </style>
   `
-    },
-    {
-      id: 'resolucao-erros-s2240',
-      title: 'Resolução de Erros no Evento S-2240 do eSocial',
-      description: 'Guia completo para diagnóstico e correção de falhas no envio do evento S-2240, com foco em configurações de empresa, funcionário e preenchimento de campos obrigatórios.',
-      group: 'Erros',
-      tags: ['eSocial', 'Eventos', 'Erro', 'S-2240'],
-      content: `
+},
+{
+  id: 'resolucao-erros-s2240',
+  title: 'Resolução de Erros no Evento S-2240 do eSocial',
+  description: 'Guia completo para diagnóstico e correção de falhas no envio do evento S-2240, com foco em configurações de empresa, funcionário e preenchimento de campos obrigatórios.',
+  group: 'Erros',
+  tags: ['eSocial', 'Eventos','Erro', 'S-2240'],
+  content: `
 <div class="error-resolution-guide">
   <h1>Erros no Envio do Evento S-2240</h1>
   <p>Este guia detalha os pontos críticos para resolver inconsistências no envio do evento S-2240 referente às Condições do Ambiente de Trabalho, conforme documentação técnica.</p>
@@ -3137,15 +3322,15 @@ export const eSocial = {
   }
 </style>
 `
-    },
+},
 
-    {
-      id: 'funcionarios-declarantes-esocial',
-      title: 'Funcionários e Declarantes no eSocial - Regras de Identificação',
-      description: 'Guia completo sobre identificação de funcionários (CPF/matrícula) e declarantes (CNPJ/CPF) no contexto do eSocial, com regras específicas para casos especiais.',
-      group: 'eSocial',
-      tags: ['eSocial', 'Introdução'],
-      content: `
+{
+  id: 'funcionarios-declarantes-esocial',
+  title: 'Funcionários e Declarantes no eSocial - Regras de Identificação',
+  description: 'Guia completo sobre identificação de funcionários (CPF/matrícula) e declarantes (CNPJ/CPF) no contexto do eSocial, com regras específicas para casos especiais.',
+  group: 'eSocial',
+  tags: ['eSocial', 'Introdução'],
+  content: `
     <div class="welcome-banner">
       <h1>Identificação no eSocial</h1>
       <p>Este guia explica as regras de identificação de funcionários e declarantes para integração com o eSocial.</p>
@@ -3188,7 +3373,7 @@ export const eSocial = {
       </div>
 
       <div class="document-card">
-        <h3 class="document-title">Gerenciamento de Matrículas do Colaborador</h3>
+        <h3 class="document-title">Gerenciamento de Matrículas no Sigo®</h3>
         <div class="document-content">
           <p>A matrícula é informada em:</p>
           <p><strong>Funcionários » Aba Registros de Admissões</strong></p>
@@ -3381,14 +3566,14 @@ export const eSocial = {
       }
     </style>
   `
-    },
+},
 
-    {
-      id: 'procuracoes-eletronicas-ecac',
-      title: 'Procuração Eletrônica no e-CAC',
-      description: 'Passo a passo para cadastrar procurações eletrônicas no e-CAC, permitindo que clínicas e contadores transmitam eventos eSocial em nome das empresas.',
-      group: 'eSocial',
-      content: `
+{
+  id: 'procuracoes-eletronicas-ecac',
+  title: 'Procuração Eletrônica no e-CAC',
+  description: 'Passo a passo para cadastrar procurações eletrônicas no e-CAC, permitindo que clínicas e contadores transmitam eventos eSocial em nome das empresas.',
+  group: 'eSocial',
+  content: `
 <div class="header-banner">
   <h1>Procuração Eletrônica para Transmissão eSocial</h1>
   <p>Guia completo para cadastrar autorizações no e-CAC e permitir que terceiros transmitam eventos como o S-2221</p>
@@ -3585,7 +3770,7 @@ export const eSocial = {
   <div class="benefits-card">
     <h2>Vantagens da Procuração Eletrônica</h2>
     <ul>
-      <li>• Transmissão automática de eventos pelo sistema de gestão</li>
+      <li>• Transmissão automática de eventos pelo SIGO</li>
       <li>• Redução de trâmites burocráticos</li>
       <li>• Segurança jurídica nas transmissões</li>
       <li>• Centralização das autorizações</li>
@@ -3744,9 +3929,221 @@ export const eSocial = {
   }
 </style>
 `
-    },
+},
 
+{
+  id: 'parametrizacao-transmissao-eventos-sst-esocial',
+  title: 'Parametrização para Transmissão de Eventos de SST no eSocial',
+  description: 'Guia completo sobre os procedimentos para testes e parametrização de eventos de Saúde e Segurança no Trabalho (SST) no ambiente do eSocial, incluindo configurações no sistema Sigo®.',
+  group: 'Eventos do eSocial - SST',
+  content: `
+    <div class="welcome-banner">
+      <h1>Parametrização para Transmissão de Eventos de SST no eSocial</h1>
+      <p>Este guia detalha os passos necessários para realizar testes e configurar a transmissão de eventos de Saúde e Segurança no Trabalho (SST) no ambiente do eSocial, utilizando o sistema Sigo®.</p>
+    </div>
 
+    <section class="core-concepts">
+      <h2>Ambientes do eSocial</h2>
+      <div class="concept-card">
+        <p>O eSocial possui dois ambientes distintos:</p>
+        <ul>
+          <li><strong>Produção:</strong> Ambiente oficial para processamento e apuração das informações do declarante, gerando efeitos jurídicos.</li>
+          <li><strong>Produção Restrita:</strong> Ambiente de testes, onde as informações não produzem efeitos jurídicos.</li>
+        </ul>
+      </div>
+    <section class="configuration-section">
+      <h2>Configurações no Sistema Sigo®</h2>
+      <div class="document-card">
+        <h3 class="document-title">Teste Realizado pelo RH/Folha de Pagamento do Cliente</h3>
+        <div class="document-content">
+          <p>Se o teste for realizado pelo RH/Folha de Pagamento do cliente, o Prestador de SST deve configurar o sistema Sigo® conforme abaixo:</p>
+          <h4>Parâmetros no Sigo®:</h4>
+          <div class="step-by-step">
+            <div class="step">
+              <h5>1. Acessar Clientes - Empresas » Aba eSocial Parâmetros eSocial</h5>
+              <ul>
+                <li><strong>eSocial – Habilitado:</strong> Definir como “Sim”.</li>
+                <li><strong>Grupo de Declarantes Obrigados ao eSocial:</strong> Selecionar o grupo correspondente ao cliente.</li>
+                <li><strong>Identificação do Ambiente:</strong> Selecionar “2 - Produção Restrita” durante os testes.</li>
+                <li><strong>Método de Geração e Transmissão:</strong> Selecionar “Mensageria Manual”.</li>
+              </ul>
+            </div>
+            <div class="step">
+              <h5>2. Dados do Transmissor</h5>
+              <ul>
+                <li><strong>Transmissor:</strong> Selecionar “Empregador – Empresa”.</li>
+              </ul>
+            </div>
+          </div>
+          <h4>Próximos Passos:</h4>
+          <ul>
+            <li>Disponibilizar o <strong>Módulo Mensageria Manual</strong> e o <strong>Módulo Cliente</strong> no computador do responsável pela transmissão, com login de acesso.</li>
+            <li>Capacitar o usuário sobre o uso dos módulos, especialmente o menu <strong>eSocial » Painel de Pendências</strong>.</li>
+            <li>Utilizar um <strong>Certificado Digital A1 ou A3</strong> para assinatura dos eventos de SST (arquivos XML).</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="document-card">
+        <h3 class="document-title">Teste Realizado pelo Prestador de SST</h3>
+        <div class="document-content">
+          <p>Se o teste for realizado pelo Prestador de SST, é necessário obter uma <strong>Procuração Eletrônica</strong> do cliente para assinar e enviar os eventos de SST em seu nome.</p>
+          <h4>Parâmetros no Sigo®:</h4>
+          <div class="step-by-step">
+            <div class="step">
+              <h5>1. Configurações do Sigo® » Empresas – Unidades » Aba eSocial Certificado</h5>
+              <ul>
+                <li><strong>Tipo de Certificado:</strong> Selecionar “A1”.</li>
+                <li><strong>Arquivo *.pfx:</strong> Anexar o arquivo do Certificado Digital A1 do Prestador de SST.</li>
+                <li><strong>Senha do Certificado:</strong> Preencher com a senha correspondente.</li>
+              </ul>
+            </div>
+            <div class="step">
+              <h5>2. Acessar Clientes - Empresas » Aba eSocial Parâmetros eSocial</h5>
+              <ul>
+                <li><strong>eSocial – Habilitado:</strong> Definir como “Sim”.</li>
+                <li><strong>Grupo de Declarantes Obrigados ao eSocial:</strong> Selecionar o grupo correspondente ao cliente.</li>
+                <li><strong>Identificação do Ambiente:</strong> Selecionar “2 - Produção Restrita” durante os testes.</li>
+                <li><strong>Método de Geração e Transmissão:</strong> Selecionar “Serviço Mensageria (Automático)”.</li>
+              </ul>
+            </div>
+            <div class="step">
+              <h5>3. Dados do Transmissor</h5>
+              <ul>
+                <li><strong>Transmissor:</strong> Selecionar “Prestador de SST - Procurador”.</li>
+                <li><strong>Procurador:</strong> Selecionar a unidade do Prestador de SST configurada com o Certificado Digital e a Procuração Eletrônica.</li>
+              </ul>
+            </div>
+          </div>
+
+          </ul>
+        </div>
+      </div>
+
+  
+        <ul>
+  
+        </ul>
+      </div>
+    <style>
+      .welcome-banner {
+        background: #e3f2fd;
+        padding: 25px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+
+      .concept-card {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        margin: 15px 0;
+        transition: transform 0.2s;
+      }
+      .concept-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .event-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+        margin: 25px 0;
+      }
+
+      .event-card {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        border-left: 4px solid #2196F3;
+        transition: transform 0.2s;
+      }
+      .event-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .event-card p {
+        margin: 8px 0;
+      }
+
+      .event-card p:first-of-type {
+        font-weight: bold;
+        margin-bottom: 12px;
+      }
+
+      .document-card {
+        background: white;
+        padding: 0;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        margin-bottom: 30px;
+        overflow: hidden;
+        transition: transform 0.2s;
+      }
+      .document-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .document-title {
+        background: #f5f5f5;
+        padding: 18px;
+        margin: 0;
+        font-size: 1.2em;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .document-content {
+        padding: 25px;
+      }
+
+      .document-content h4 {
+        color: #2196F3;
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
+
+      .image-placeholder {
+        background: #f5f5f5;
+        padding: 50px;
+        text-align: center;
+        margin: 30px 0;
+        border: 2px dashed #ccc;
+        border-radius: 5px;
+      }
+
+      .warning-box {
+        border-left: 4px solid #ff9800;
+        background-color: #fff8e1;
+        padding: 15px;
+        margin: 20px 0;
+        transition: transform 0.2s;
+      }
+      .warning-box:hover {
+        transform: translateY(-5px);
+      }
+
+      .step-by-step .step {
+        background: #e8f5e9;
+        padding: 10px 15px;
+        margin: 10px 0;
+        border-left: 4px solid #4caf50;
+        transition: transform 0.2s;
+      }
+      .step-by-step .step:hover {
+        transform: translateY(-5px);
+      }
+
+      .note {
+        font-style: italic;
+        color: #555;
+        margin-top: 10px;
+      }
+    </style>
+  `
+},
 
   ],
 };

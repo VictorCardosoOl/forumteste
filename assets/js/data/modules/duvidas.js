@@ -1,4 +1,4 @@
-export const Duvidas = {
+const Duvidas = {
   id: 'duvidas',
   title: 'Informações',
   description: 'Este módulo tem como objetivo a retirada de duvidas.',
@@ -10,7 +10,959 @@ export const Duvidas = {
 </svg>`,
   topics: [
 
+    {
 
+      id: 'guia-painel-de-chamada-sigo-web',
+      title: 'Guia de Utilização do Painel de Chamada no Sigo Web',
+      description: 'Passo a passo completo para configurar e operar o Painel de Chamada, desde a criação do link até a chamada do funcionário pelo médico no consultório.',
+      group: 'Processos',
+      tags: ['eSocial', 'Funcionalidades'],
+      content: `
+  <div class="welcome-banner-chamada">
+    <h1>Olá! Bem-vindo ao Guia do Painel de Chamada!</h1>
+    <p>Este material foi criado para te ajudar a entender o fluxo de atendimento e como utilizar nosso painel de chamada de forma simples e eficiente.</p>
+  </div>
+
+  <section class="process-overview">
+    <h2>Como Funciona o Fluxo?</h2>
+    <p>O processo envolve três etapas principais: a criação do painel, a configuração do atendimento pela recepção e a chamada final pelo médico. Vamos detalhar cada uma delas a seguir.</p>
+  </section>
+
+  <section class="step-by-step-guide">
+    <h2>Passo a Passo da Operação</h2>
+    
+    <div class="step-card">
+      <h3 class="step-title">Passo 1: Criar o Link do Painel de Chamada</h3>
+      <div class="step-content">
+        <p>O primeiro passo é gerar o link que será exibido na TV ou monitor da sala de espera. Este link é único e persistente.</p>
+        
+        <h4>Instruções:</h4>
+        <ol>
+          <li>Acesse o menu: <strong>Atendimento > Criar painel de chamada</strong>.</li>
+          <li>Na tela, selecione os locais de atendimento que farão parte deste painel (Ex: Coleta, Consultório, Sala de Espera, etc.).</li>
+          <li>Clique no botão <strong>"Gerar Link"</strong> para obter a URL do seu painel.</li>
+        </ol>
+        
+        <div class="image-placeholder-chamada">
+          <p>[Caminho para sua imagem: 'menu-criar-painel.png']</p>
+          <span>Navegação e seleção dos locais para gerar o link do painel.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <h3 class="step-title">Passo 2: Preparar o Atendimento (Recepção)</h3>
+      <div class="step-content">
+        <p>A recepcionista é responsável por direcionar o funcionário (paciente) para a fila de espera correta, preparando-o para a chamada do médico.</p>
+        
+        <h4>Instruções:</h4>
+        <ul>
+          <li>A recepção deve incluir o atendimento em: <strong>Menu > Atendimento > Recepção</strong>, filtrando pela sala de espera desejada.</li>
+          <li>Ao editar o atendimento do funcionário, é crucial preencher três campos:</li>
+          <li><strong>1. Sala de Espera:</strong> Selecione para qual fila o funcionário será enviado (Ex: Audiometria, Exame médico).</li>
+          <li><strong>2. Status:</strong> Mude o status para <strong>"Aguardando Atendimento"</strong>.</li>
+          <li><strong>3. Procedimento:</strong> Na aba "Procedimentos", edite o exame e defina o <strong>Local do Atendimento</strong> e o <strong>Profissional Médico</strong> responsável.</li>
+        </ul>
+
+        <div class="image-placeholder-chamada">
+          <p>[Caminho para sua imagem: 'configuracao-atendimento.png']</p>
+          <span>Tela de edição do atendimento, destacando os campos Sala de Espera, Status e a aba Procedimentos.</span>
+        </div>
+
+        <div class="image-placeholder-chamada">
+          <p>[Caminho para sua imagem: 'edicao-procedimento.png']</p>
+          <span>Janela de edição do procedimento, mostrando a seleção da Unidade de Atendimento e do Médico.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <h3 class="step-title">Passo 3: Chamar o Funcionário (Consultório)</h3>
+      <div class="step-content">
+        <p>Após a preparação pela recepção, o funcionário fica visível para o médico, que pode então realizar a chamada para o consultório.</p>
+        
+        <h4>Instruções para o Médico:</h4>
+        <ol>
+          <li>O médico acessa seu módulo em: <strong>Menu > Atendimento > Consultório</strong>.</li>
+          <li>A lista de funcionários "Aguardando Atendimento" será exibida.</li>
+          <li>Selecione o funcionário desejado e clique no botão <strong>"Chamar Funcionário"</strong>.</li>
+          <li>Pronto! O nome do funcionário e o local de destino aparecerão instantaneamente no painel de chamada.</li>
+        </ol>
+
+        <div class="image-placeholder-chamada">
+          <p>[Caminho para sua imagem: 'tela-consultorio-medico.png']</p>
+          <span>Tela do consultório do médico, mostrando a lista de pacientes e o botão "Chamar Funcionário".</span>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="important-note">
+    <div class="note-card">
+      <h3>Observação Importante</h3>
+      <p>Independentemente do tipo de usuário no sistema, <strong>somente o perfil de "Médico"</strong> consegue visualizar e chamar os funcionários através do módulo "Consultório". Outros perfis não terão acesso a esta funcionalidade.</p>
+    </div>
+  </section>
+
+  <style>
+    .welcome-banner-chamada {
+      background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+      color: #1e3a56;
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 35px;
+      text-align: center;
+      border: 1px solid #90caf9;
+    }
+    
+    .process-overview {
+        text-align: center;
+        margin-bottom: 30px;
+        padding: 0 20px;
+    }
+
+    .process-overview h2 {
+        color: #333;
+        margin-bottom: 10px;
+    }
+    
+    .step-by-step-guide .step-card {
+      background: #ffffff;
+      padding: 0;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-bottom: 30px;
+      overflow: hidden;
+      border: 1px solid #e0e0e0;
+    }
+    
+    .step-card .step-title {
+      background: #f5f7fa;
+      padding: 20px 25px;
+      margin: 0;
+      font-size: 1.3em;
+      color: #0d47a1;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .step-card .step-content {
+      padding: 25px;
+    }
+    
+    .step-card h4 {
+      color: #1976d2;
+      margin-top: 20px;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #e3f2fd;
+      padding-bottom: 8px;
+    }
+
+    .step-card ol, .step-card ul {
+        padding-left: 25px;
+        line-height: 1.8;
+    }
+    
+    .image-placeholder-chamada {
+      background: #fafafa;
+      padding: 30px;
+      text-align: center;
+      margin: 25px 0 15px 0;
+      border: 2px dashed #d0dbe8;
+      border-radius: 8px;
+    }
+
+    .image-placeholder-chamada p {
+        font-weight: bold;
+        color: #555;
+        margin: 0 0 10px 0;
+    }
+
+    .image-placeholder-chamada span {
+        font-size: 0.9em;
+        color: #777;
+    }
+    
+    .important-note .note-card {
+      background: #fff9c4;
+      border-left: 5px solid #fbc02d;
+      padding: 20px 25px;
+      border-radius: 8px;
+      margin: 25px 0;
+    }
+
+    .note-card h3 {
+        color: #795548;
+        margin-top: 0;
+    }
+  </style>
+  `
+    },
+    {
+      id: 'prospect-to-company-conversion',
+      title: 'Solução para Erro de Duplicidade ao Cadastrar Empresa',
+      description: 'Orientações para resolver conflitos quando um Prospect com pedidos não aprovados impede novo cadastro.',
+      group: 'Processos',
+      tags: ['Cadastros', 'Erro', 'Empresas'],
+      content: `
+    <div class="issue-header">
+      <h1>Prospect → Empresa: Resolução de Conflitos</h1>
+      <p>Problema relatado: Erro de duplicidade ao cadastrar empresa com CNPJ existente</p>
+    </div>
+
+    <section class="problem-analysis">
+      <h2>Análise do Caso</h2>
+      <div class="case-card">
+        <div class="case-timeline">
+          <div class="timeline-step">
+            <div class="step-number">1</div>
+            <h3>Cadastro Inicial</h3>
+            <p>Empresa registrada como <strong>Prospect</strong> com dois pedidos gerados</p>
+          </div>
+          <div class="timeline-arrow">→</div>
+          <div class="timeline-step">
+            <div class="step-number">2</div>
+            <h3>Pedidos Não Aprovados</h3>
+            <p>Nenhum dos pedidos foi aprovado</p>
+          </div>
+          <div class="timeline-arrow">→</div>
+          <div class="timeline-step error">
+            <div class="step-number">3</div>
+            <h3>Exclusão do Prospect</h3>
+            <p>Registro foi excluído no módulo Prospects</p>
+          </div>
+          <div class="timeline-arrow">→</div>
+          <div class="timeline-step error">
+            <div class="step-number">4</div>
+            <h3>Tentativa de Novo Cadastro</h3>
+            <p>Erro de duplicidade ao tentar cadastrar no módulo Empresas</p>
+          </div>
+        </div>
+
+        <div class="technical-details">
+          <h3>Motivo Técnico:</h3>
+          <div class="detail-item">
+            <div class="detail-icon">!</div>
+            <p>O sistema mantém referência do CNPJ mesmo após exclusão do prospect quando há pedidos pendentes</p>
+          </div>
+          <div class="detail-item">
+            <div class="detail-icon">✓</div>
+            <p>A migração para Empresas só ocorre após <strong>aprovação</strong> de pelo menos um pedido</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="solution-section">
+      <h2>Orientações para Resolução</h2>
+      <div class="solution-flow">
+        <div class="solution-step">
+          <div class="step-number">1</div>
+          <h3>Restaurar o Prospect</h3>
+          <p>Recuperar o cadastro original no módulo Prospects</p>
+        </div>
+        <div class="solution-arrow">→</div>
+        <div class="solution-step">
+          <div class="step-number">2</div>
+          <h3>Gerenciar Pedidos</h3>
+          <p>Ajustar pedidos existentes ou criar novo pedido</p>
+        </div>
+        <div class="solution-arrow">→</div>
+        <div class="solution-step highlight">
+          <div class="step-number">3</div>
+          <h3>Aprovar Pedido</h3>
+          <p>Concluir o processo de aprovação para ativar migração</p>
+        </div>
+      </div>
+
+      <div class="benefit-box">
+        <h3>Vantagens desta Solução:</h3>
+        <ul>
+          <li>Preserva todos os dados históricos</li>
+          <li>Evita necessidade de cadastro manual</li>
+          <li>Não requer intervenção técnica no banco de dados</li>
+          <li>Seguindo o fluxo natural do sistema</li>
+        </ul>
+      </div>
+    </section>
+  
+    <style>
+      .issue-header {
+        background: #e3f2fd;
+        color: white;
+        padding: 25px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+      .issue-header h1 {
+        margin-top: 0;
+        font-size: 1.8em;
+      }
+      .case-card {
+        background: white;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        margin-top: 20px;
+      }
+      .case-timeline {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+      }
+      .timeline-step {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        text-align: center;
+        min-width: 150px;
+        flex: 1;
+        margin: 0 5px;
+        position: relative;
+      }
+      .timeline-step.error {
+        border-top: 3px solid #f44336;
+      }
+      .step-number {
+        background: #2196F3;
+        color: white;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin: 0 auto 10px;
+      }
+      .timeline-arrow {
+        color: #2196F3;
+        font-weight: bold;
+        font-size: 1.2em;
+      }
+      .technical-details {
+        background: #f5f5f5;
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 25px;
+      }
+      .detail-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 15px;
+      }
+      .detail-icon {
+        background: #2196F3;
+        color: white;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        margin-right: 15px;
+        flex-shrink: 0;
+      }
+      .solution-flow {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 30px 0;
+        flex-wrap: wrap;
+      }
+      .solution-step {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        text-align: center;
+        min-width: 180px;
+        flex: 1;
+        margin: 0 5px;
+      }
+      .solution-step.highlight {
+        background: #e3f2fd;
+        border: 2px solid #2196F3;
+      }
+      .solution-arrow {
+        color: #2196F3;
+        font-weight: bold;
+        font-size: 1.3em;
+      }
+      .benefit-box {
+        background: #e8f5e9;
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 25px;
+      }
+      .benefit-box h3 {
+        margin-top: 0;
+        color: #2e7d32;
+      }
+      .checklist-card {
+        background: white;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        margin-top: 20px;
+      }
+      .checklist-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+      .checklist-item input {
+        margin-right: 15px;
+      }
+      h2 {
+        color: #2196F3;
+        border-bottom: 2px solid #e3f2fd;
+        padding-bottom: 8px;
+      }
+      @media (max-width: 768px) {
+        .case-timeline, .solution-flow {
+          flex-direction: column;
+        }
+        .timeline-arrow, .solution-arrow {
+          transform: rotate(90deg);
+          margin: 15px 0;
+        }
+      }
+    </style>
+  `
+    },
+
+    {
+      id: 'configuracao-servidor-smtp-sigoweb',
+      title: 'Configuração do Servidor SMTP - SigoWeb',
+      description: 'Guia completo para configuração do servidor SMTP no sistema SigoWeb, incluindo dados necessários, orientações para provedores e configurações específicas para domínios públicos e privados.',
+      group: 'Seu computador',
+      tags: ['Configurações', 'Funcionaliades'],
+      content: `
+<div class="welcome-banner">
+  <h1>Configuração do Servidor SMTP</h1>
+  <p>Este guia técnico orienta sobre a configuração do protocolo SMTP para envio automatizado de e-mails no sistema SigoWeb.</p>
+</div>
+
+<section class="core-concepts">
+  <h2>1. Importância do SMTP para uma clínica de SST</h2>
+  <div class="concept-card">
+    <p>O <strong>SMTP (Simple Mail Transportation Protocol)</strong> é um protocolo de rede utilizado para:</p>
+    <ul>
+      <li>• Encaminhar e disparar e-mails de forma automatizada através de gatilhos ou comandos</li>
+      <li>• Enviar um ou centenas de e-mails simultaneamente para diversos destinatários</li>
+      <li>• Agilizar o envio de documentos como guias de autorizações, boletos e demonstrativos financeiros</li>
+      <li>• Padronizar comunicações com empresas e funcionários</li>
+    </ul>
+  </div>
+</section>
+
+<section class="configuration-steps">
+  <h2>2. Criação de um SMTP</h2>
+  
+  <div class="step-card">
+    <h3>Pré-requisitos</h3>
+    <ul>
+      <li>1/ Conta de e-mail configurada em um provedor compatível</li>
+      <li>2/ Liberação da verificação de duas etapas (obrigatório na maioria dos provedores modernos)</li>
+      <li>3/ Suporte técnico para configuração de portas e criptografia</li>
+    </ul>
+  </div>
+
+    </br><h3>Principais provedores de SMTP:</h3>
+  <div class="provider-comparison">
+    <div class="provider-card">
+      <h4>Gmail</h4>
+      <ul>
+        <li>Verificação de duas etapas obrigatória</li>
+        <li>Alta documentação disponível</li>
+        <li>Configuração intuitiva</li>
+      </ul>
+    </div>
+    
+    <div class="provider-card">
+      <h4>Thunderbird</h4>
+      <ul>
+        <li>Boa documentação</li>
+        <li>Suporte limitado</li>
+      </ul>
+    </div>
+    
+    <div class="provider-card">
+      <h4>Locaweb</h4>
+      <ul>
+        <li>Utiliza senha única</li>
+        <li>Suporte especializado</li>
+        <li>Boa documentação</li>
+      </ul>
+    </div>
+  </div>
+  
+  <h3>Configuração no Sistema SigoWeb</h3>
+  <div class="step-by-step">
+    <div class="step">
+      <h4>Passo 1</h4>
+      <p>Acesse o módulo "Configurações Gerais"</p>
+    </div>
+    
+    <div class="step">
+      <h4>Passo 2</h4>
+      <p>Localize o campo "Servidor SMTP"</p>
+    </div>
+    
+    <div class="step">
+      <h4>Passo 3</h4>
+      <p>Preencha os dados conforme instruções abaixo</p>
+    </div>
+  </div>
+</section>
+
+<section class="required-data">
+  <h2>3. Dados necessários para o preenchimento</h2>
+  
+  <div class="data-card">
+    <h3>Endereço do servidor SMTP</h3>
+    <p>Endereço genérico do provedor (ex: smtp.gmail.com, smtplw.com.br)</p>
+  </div>
+  
+  <div class="data-card">
+    <h3>Porta SMTP</h3>
+    <table class="port-table">
+      <tr>
+        <th>Porta</th>
+        <th>Tecnologia</th>
+        <th>Segurança</th>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td>Sem criptografia</td>
+        <td>Baixa</td>
+      </tr>
+      <tr>
+        <td>465</td>
+        <td>SSL</td>
+        <td>Média</td>
+      </tr>
+      <tr>
+        <td>587</td>
+        <td>TLS/STARTTLS</td>
+        <td>Alta (recomendada)</td>
+      </tr>
+      <tr>
+        <td>2525</td>
+        <td>Não oficial</td>
+        <td>Variável</td>
+      </tr>
+    </table>
+  </div>
+  
+  <div class="data-card">
+    <h3>Credenciais de acesso, exemplo:</h3>
+    <ul>
+      <li>•	Servidor SMTP: smtp.meuprovedor.com.br </li>
+      <li>•	Login SMTP: wisesystem@meuprovedor.com.br</li>
+    </ul>
+  </div>
+  
+  <div class="data-card">
+    <h3>Configurações de segurança</h3>
+    <ul>
+      <li>Autenticação obrigatória (normalmente SIM)</li>
+      <li>Conexão SSL/TLS (depende da porta utilizada)</li>
+    </ul>
+  </div>
+</section>
+
+<section class="email-providers">
+  <h2>4. Orientações para Provedores de E-mail</h2>
+  
+  <div class="provider-links">
+    <h3>Documentação oficial:</h3>
+    <ul>
+      <li><a href="https://support.microsoft.com/pt-br/office/configura%C3%A7%C3%B5es-pop-imap-e-smtp-para-outlook-com-d088b986-291d-42b8-9564-9c414e2aa040" target="_blank">Configurações SMTP para Outlook/Microsoft</a></li>
+      <li><a href="https://support.google.com/a/answer/176600?hl=pt" target="_blank">Configurações SMTP para Google Workspace</a></li>
+    </ul>
+  </div>
+  
+  <div class="special-instructions">
+    <h3>Configuração Especial para Google</h3>
+    <p>Devido à autenticação de dois fatores, é necessário gerar uma senha específica para aplicativos:</p>
+    <ol>
+      <li>Acesse o <a href="https://support.google.com/accounts/answer/185833?hl=pt-BR" target="_blank">gerador de senhas de app</a></li>
+      <li>Selecione "Outro (Nome personalizado)"</li>
+      <li>Digite "SigoWeb" como nome do aplicativo</li>
+      <li>Use a senha gerada no campo "Senha SMTP" do sistema</li>
+    </ol>
+  </div>
+</section>
+
+<section class="domain-config">
+  <h2>4.1 Configuração para Domínios Públicos e Privados</h2>
+  
+  <div class="config-card">
+    <h3>Domínios Públicos (Gmail, Outlook, etc)</h3>
+    <ul>
+      <li>Seguir configurações padrão do provedor</li>
+      <li>Utilizar endereços SMTP genéricos</li>
+    </ul>
+  </div>
+  
+  <div class="config-card">
+    <h3>Domínios Privados (Empresariais)</h3>
+    <ul>
+      <li>Servidor SMTP específico (ex: smtp.meuprovedor.com.br)</li>
+      <li>Login SMTP completo (ex: wisesystem@meuprovedor.com.br)</li>
+      <li>Configurações personalizadas de porta e segurança</li>
+    </ul>
+    <p class="note">Recomenda-se consultar o suporte técnico do provedor para configurações específicas</p>
+  </div>
+  
+  <h3>Exemplo de Configuração para Domínio Privado:</h3>
+  <div class="code-block">
+    <p>Endereço SMTP: smtp.meudominio.com.br</p>
+    <p>Porta: 587</p>
+    <p>Login: sistema@meudominio.com.br</p>
+    <p>Requer SSL: Sim</p>
+    <p>Requer autenticação: Sim</p>
+  </div>
+</section>
+
+<style>
+  .welcome-banner {
+    background: #e3f2fd;
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .concept-card, .data-card, .config-card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin: 15px 0;
+  }
+  
+  .provider-comparison {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 25px 0;
+  }
+  
+  .provider-card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-left: 4px solid #4CAF50;
+  }
+  
+  .step-by-step {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
+  
+  .step {
+    flex: 1;
+    min-width: 200px;
+    background: #e8f5e9;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #2E7D32;
+  }
+  
+  .port-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+  }
+  
+  .port-table th, .port-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+  }
+  
+  .port-table th {
+    background-color: #f5f5f5;
+  }
+  
+  .provider-links ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .provider-links li {
+    margin: 10px 0;
+  }
+  
+  .provider-links a {
+    color: #1a73e8;
+    text-decoration: none;
+  }
+  
+  .provider-links a:hover {
+    text-decoration: underline;
+  }
+  
+  .special-instructions {
+    background: #fff8e1;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid #FFC107;
+    margin: 20px 0;
+  }
+  
+  .code-block {
+    background: #f5f5f5;
+    padding: 20px;
+    border-radius: 8px;
+    font-family: monospace;
+    margin: 15px 0;
+  }
+  
+  .note {
+    font-style: italic;
+    color: #666;
+    margin-top: 10px;
+  }
+  
+  .image-placeholder {
+    background: #fafafa;
+    padding: 50px;
+    text-align: center;
+    margin: 30px 0;
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    color: #777;
+  }
+</style>
+`
+    },
+
+    {
+      id: 'processo-solicitacoes-banco-dados',
+      title: 'Processo de Solicitações via Banco de Dados',
+      description: 'Protocolo completo para solicitações via banco de dados com ênfase na análise prévia, informações obrigatórias e configuração correta de status.',
+      group: 'Processos',
+      tags: ['Atendimento', 'Protocolo', 'Processo'],
+      content: `
+    <div class="welcome-banner">
+      <h1>Solicitações Técnicas via Banco de Dados</h1>
+      <p>Este guia detalha o processo correto para solicitações que exigem intervenção direta no banco de dados, garantindo eficiência e rastreabilidade.</p>
+    </div>
+
+    <section class="core-concepts">
+      <h2>Análise Prévia Obrigatória</h2>
+      <div class="concept-card">
+        <p><strong>Requisito fundamental:</strong> Todas as solicitações devem passar por análise técnica completa antes do encaminhamento ao departamento responsável.</p>
+        <ul>
+          <li>• Realizar diagnóstico completo durante o atendimento</li>
+          <li>• Efetuar sondagens técnicas com o cliente para identificar causas-raiz</li>
+          <li>• Documentar todas as tentativas de resolução no ambiente local</li>
+          <li>• Validar compreensão do cliente sobre o problema antes do encaminhamento</li>
+        </ul>
+      </div>
+    <section class="documents-section">
+      <h2>Informações Obrigatórias para Solicitação</h2>
+      
+      <div class="document-card">
+        <h3 class="document-title">Dados Técnicos Essenciais</h3>
+        <div class="document-content">
+          <p>Toda solicitação enviada por e-mail deve conter:</p>
+          <ul>
+            <li><strong>Endereço de destino:</strong> suporte@wisesystem.com.br</li>
+            <li><strong>Número de protocolo:</strong> Identificador único do atendimento</li>
+            <li><strong>Nome do Analista:</strong> Responsável pelo atendimento inicial</li>
+            <li><strong>IDs relacionados:</strong> Conjunto completo de identificadores técnicos</li>
+          </ul>
+          
+          <h4>Estrutura Padrão do E-mail:</h4>
+          <div class="code-block">
+            <p><strong>Assunto:</strong> Solicitação Banco de Dados - [N° Protocolo]</p>
+            <p><strong>Corpo:</strong></p>
+            <p>• Descrição detalhada da ocorrência<br>
+               • IDs envolvidos (listados abaixo)<br>
+          </div>
+        </div>
+      </div>
+
+  <!-- Imagem: Exemplo de tabela de IDs -->
+          <div class="image-placeholder">
+            <p>[Imagem: Exemplo de e-mail que deve ser enviado a Wise]</p>
+          </div>
+        </div>
+      </div>
+    </section>
+      <div class="document-card">
+        <h3 class="document-title">Identificadores Técnicos (IDs)</h3>
+        <div class="document-content">
+          <table class="id-table">
+            <tr>
+              <th>Tipo de Solicitação</th>
+              <th>IDs Obrigatórios</th>
+            </tr>
+            <tr>
+              <td><strong>Casos Gerais</strong></td>
+              <td>
+                <ul>
+                  <li>- ID Funcionário</li>
+                  <li>- ID Empresa</li>
+                  <li>- ID Gerenciamento de Riscos</li>
+                </ul>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>Atendimento</strong></td>
+              <td>
+                <ul>
+                  <li>- ID Cliente</li>
+                  <li>- ID Funcionário</li>
+                  <li>- ID Registro de Admissão</li>
+                  <li>- ID Registro de Ocupação</li>
+                </ul>
+              </td>
+            </tr>
+          </table>
+
+    <section class="nr-overview">
+      <h2>Configuração do Protocolo</h2>
+      
+      <div class="grid-container">
+        <div class="nr-card">
+          <h3>Status</h3>
+          <p>Aguardando Cliente</p>
+          <p class="nr-desc">Status obrigatório para todos os protocolos encaminhados</p>
+        </div>
+        
+        <div class="nr-card">
+          <h3>Detalhamento</h3>
+          <p>Ocorrência</p>
+          <p class="nr-desc">Descrição técnica completa do problema</p>
+        </div>
+        
+        <div class="nr-card">
+          <h3>Resolução</h3>
+          <p>Solução Proposta</p>
+          <p class="nr-desc">Campo deve ser pré-preenchido com ação sugerida</p>
+        </div>
+        
+        <div class="nr-card">
+          <h3>Executor</h3>
+          <p>Atendente Executor</p>
+          <p class="nr-desc">Responsável técnico do departamento destino</p>
+        </div>
+      </div>
+
+      <!-- Imagem: Configuração de protocolo no sistema -->
+      <div class="image-placeholder">
+        <p>[Imagem: Captura de tela do w-GSC com campos destacados]</p>
+      </div>
+    </section>
+
+    <style>
+      .welcome-banner {
+        background: #e3f2fd;
+        padding: 25px;
+        border-radius: 8px;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+      
+      .concept-card {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        margin: 15px 0;
+      }
+      
+      .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+        margin: 25px 0;
+      }
+      
+      .nr-card {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        border-left: 4px solid #2196F3;
+      }
+      
+      .nr-desc {
+        font-size: 0.9em;
+        color: #555;
+        margin-top: 10px;
+      }
+      
+      .document-card {
+        background: white;
+        padding: 0;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        margin-bottom: 30px;
+        overflow: hidden;
+      }
+      
+      .document-title {
+        background: #f5f5f5;
+        padding: 18px;
+        margin: 0;
+        font-size: 1.2em;
+        border-bottom: 1px solid #e0e0e0;
+      }
+      
+      .document-content {
+        padding: 25px;
+      }
+      
+      .image-placeholder {
+        background: #f5f5f5;
+        padding: 50px;
+        text-align: center;
+        margin: 30px 0;
+        border: 2px dashed #ccc;
+        border-radius: 5px;
+      }
+      
+      .id-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+      }
+      
+      .id-table th, .id-table td {
+        border: 1px solid #ddd;
+        padding: 12px;
+        text-align: left;
+      }
+      
+      .id-table th {
+        background-color: #f2f2f2;
+      }
+      
+      .code-block {
+        background: #f8f8f8;
+        border-left: 4px solid #2196F3;
+        padding: 15px;
+        margin: 15px 0;
+        font-family: monospace;
+      }
+    </style>
+  `
+    },
 
     {
       id: 'xml-esocial',
@@ -264,7 +1216,7 @@ export const Duvidas = {
     {
       id: 'assinatura-medica-certificado-a1',
       title: 'Assinatura Digital Médica e Certificado A1: Requisitos Técnicos',
-      description: 'Esclarecimentos sobre os requisitos para uso de certificado digital A1 por médicos em sistemas de gestão de SST, incluindo limitações técnicas e alternativas.',
+      description: 'Especificações técnicas para registro de assinatura médica em formato BMP e uso do certificado digital A1 para transmissão de eventos.',
       group: 'Seu computador',
       tags: ['Configurações', 'Usuarios'],
       content: `
@@ -274,7 +1226,7 @@ export const Duvidas = {
     </div>
 
     <section class="core-concepts">
-      <h2>Requisitos Técnicos para Assinatura Médica Digital</h2>
+      <h2>Requisitos Técnicos para Assinatura Médica no Sigo Web</h2>
       
       <div class="document-card">
         <h3 class="document-title">Especificações da Assinatura Digital</h3>
@@ -293,7 +1245,7 @@ export const Duvidas = {
             </div>
             
             <div class="spec-card">
-              <p>Configuração da assinatura médica no perfil do usuário médico dentro do sistema de gestão.</p>
+              <p>Configuração da assinatura médica no perfil do usuário médico dentro do sistema Sigo</p>
             </div>
           </div>
           
@@ -307,7 +1259,7 @@ export const Duvidas = {
           <div class="alert-box">
             <h4>Restrições Técnicas:</h4>
             <ul>
-              <li>• Formatos JPG/PNG são <strong>rejeitados</strong> por padrão em sistemas legados. Imagens fora do padrão dimensional causam falha na validação</li>
+              <li>• Formatos JPG/PNG são <strong>rejeitados</strong> pelo sistema. Imagens fora do padrão dimensional causam falha na validação</li>
               <li>• Assinaturas digitalizadas devem ter fundo branco e traço preto</li>
             </ul>
           </div>
@@ -369,7 +1321,7 @@ export const Duvidas = {
             <h4>Procedimentos Críticos:</h4>
             <ul>
               <li>• Renovar o certificado com 30 dias de antecedência da expiração</li>
-              <li>• Exportar/importar o certificado ao trocar de máquina</li>
+              <li>• ar/importar o certificado ao trocar de máquina</li>
               <li>• Manter backup do arquivo .PFX protegido por senha forte</li>
             </ul>
           </div>
@@ -2196,7 +3148,249 @@ export const Duvidas = {
   </script>
   `,
     },
+    {
+      id: 'tutorial-instalacao-sigoplugin-drives',
+      title: 'Tutorial de Instalação do SigoPlugin® e Drives',
+      description: 'Guia completo para instalação de drives de biometria e SigoPlugin® para utilização de leitura biométrica e assinatura digital do médico.',
+      group: 'Tutoriais',
+      tags: ['Instalação', 'SigoPlugin', 'Biometria', 'Drives', 'Java', 'Wise System'],
+      content: `
+<div class="welcome-banner">
+  <h1>Tutorial de Instalação de Drives/Plugin</h1>
+  <p>Guia passo a passo para a instalação do SigoPlugin® e dos drivers de biometria para utilização no sistema Wise System.</p>
+</div>
 
+<section class="core-concepts">
+  <h2>1. Introdução</h2>
+  <p>Se você pretende utilizar o computador para realizar "Leitura Biométrica" e "Assinatura Digital do Médico", é necessário instalar o Java, o driver específico do seu leitor e o "Sigo Plugin".</p>
+  <p>Por outro lado, se a sua intenção é utilizar o computador apenas para a "Assinatura Digital do Médico", será suficiente instalar apenas o "Sigo Plugin".</p>
+
+  <h3>Leitores Biométricos Compatíveis</h3>
+  <p>Atualmente, o sistema é compatível apenas com os seguintes modelos de leitores biométricos:</p>
+  <ul>
+    <li>Futronic FS80/88</li>
+    <li>Digital Persona U4500</li>
+  </ul>
+  <div class="note-box">
+    <strong>Importante:</strong> Certifique-se de instalar os drivers corretos para garantir o funcionamento adequado. O Sigo Plugin funcionará apenas em máquinas 64 bits. Verificar a compatibilidade do Sigo Plugin com o sistema operacional que esta recebendo o aplicativo, ele deve ter arquitetura x86, Não funciona na x32 nem em arquitetura arm.
+
+  </div>
+</section>
+
+---
+
+<section class="core-concepts">
+  <h2>2. Downloads</h2>
+
+  <h3>2.1. Drivers de Leitores Biométricos e SigoPlugin</h3>
+  <p>Primeiramente, acesse a página de suporte da Wise System, onde você encontrará os drivers dos leitores biométricos.</p>
+  <ul>
+    <li> <button onclick="window.open('https://www.wisesystem.com.br/suporte/desktop/', '_blank')" style="padding: 8px 16px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; margin-left: 10px;">Acessar Suporte Desktop</button></li>
+    <li>Na seção Biometria, baixe o driver compatível com seu leitor. (Se não possuir leitor biométrico, ignore esta etapa.)</li>
+  </ul>
+  <div class="image-placeholder">
+    <img src="assets/IMG/Artigos/DuvidaseOrientações/Instalação sigo plugin/Screenshot_1.png">
+  </div>
+  <p>Baixe o Sigo Plugin no link abaixo:</p>
+  <ul>
+   <button onclick="window.open('https://wisesystem.com.br/sigoweb/upload/SigoPlugin.exe', '_blank')" style="padding: 8px 16px; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 14px; margin-left: 10px;">Download Sigo Plugin</button>
+  </ul>
+
+  <h3>2.2. Java</h3>
+  <p>Em seguida, baixe o Java, pois o Sigo Plugin utiliza alguns de seus recursos para funcionar corretamente. Recomenda-se a instalação da versão 64 bits.</p>
+  <ul>
+    <li>Link para download do Java e manual de instalação: <a href="https://www.java.com/pt-BR/download/manual.jsp" target="_blank">https://www.java.com/pt-BR/download/manual.jsp</a></li>
+  </ul>
+  <div class="image-placeholder">
+    <img src="assets/IMG/Artigos/DuvidaseOrientações/Instalação sigo plugin/Screenshot_2.png">
+  </div>
+  <div class="note-box">
+    <strong>Atenção ao Java:</strong> Se você usa navegadores de 32 e 64 bits de forma intercambiável, será necessário instalar o Java de 32 e 64 bits para ter o plug-in Java em ambos os navegadores. Após instalar o Java, talvez seja necessário reiniciar seu browser para ativá-lo.
+  </div>
+</section>
+
+---
+
+<section class="core-concepts">
+  <h2>3. Instalações</h2>
+
+  <h3>3.1. Instalação de Dependências</h3>
+  <ol>
+    <li>Instale o Java (versão 64 bits).</li>
+    <li>Em seguida, instale o driver correspondente ao seu leitor biométrico, baixado no item 2. (Se não possuir um leitor biométrico, ignore esta etapa.)</li>
+  </ol>
+
+  <h3>3.2. Extração e Instalação do Sigo Plugin (e DRIVE SDK)</h3>
+  <p>Para instalar o Sigo Plugin, siga os passos abaixo:</p>
+  <ol>
+    <li>Selecione o executável Sigo Plugin, clique com o botão direito do mouse e selecione a opção "Executar como Administrador".</li>
+    <li>Ao abrir o SigoPlugin, será exibida a opção para selecionar o idioma e, em seguida, a tela de requisitos. O SigoPlugin exige o Griaule FingerPrint instalado. Clique em Instalar para iniciar a instalação desses requisitos.</li>
+    <div class="image-placeholder">
+      <img src="assets/IMG/Artigos/DuvidaseOrientações/Instalação sigo plugin/Screenshot_3.png">
+    </div>
+    <li>Em seguida, clique em Avançar para prosseguir a Instalação do DRIVE SDK. Na tela de boas-vindas do Assistente de Instalação do Fingerprint SDK 2009, clique em "Avançar".</li>
+    <div class="image-placeholder">
+      <img src="assets/IMG/Artigos/DuvidaseOrientações/Instalação sigo plugin/Screenshot_4.png">
+    </div>
+    <li>Aceite os termos do "Contrato Geral de Uso de Licença de Software" marcando "Eu aceito os termos do Contrato" e clique em "Avançar".</li>
+    <div class="image-placeholder">
+      <img src="assets/IMG/Artigos/DuvidaseOrientações/Instalação sigo plugin/Screenshot_5.png">
+    </div>
+    <li>Aceite novamente os termos do "Acordo Específico de Licença de Uso de Software", marcando "Eu aceito os termos do Contrato" e clique em "Avançar".</li>
+    <div class="image-placeholder">
+      <img src="assets/IMG/Artigos/DuvidaseOrientações/Instalação sigo plugin/Screenshot_6.png">
+    </div>
+    <li>Na tela de Informação sobre o Fingerprint SDK 2009, clique em "Avançar" para prosseguir com a instalação.</li>
+    <div class="image-placeholder">
+      <img src="assets/IMG/Artigos/DuvidaseOrientações/Instalação sigo plugin/Screenshot_7.png">
+    </div>
+    <li>Na tela "Escolha a Pasta de destino", é recomendado manter o padrão que já vem selecionado e clique em "Avançar".</li>
+    <div class="image-placeholder">
+      <img src="assets/IMG/Artigos/DuvidaseOrientações/Instalação sigo plugin/Screenshot_8.png">
+    </div>
+    <li>Na tela "Selecionar a Pasta do Menu Iniciar", mantenha o padrão e clique em "Avançar" para prosseguir e criar o atalho.</li>
+    <div class="image-placeholder">
+      <img src="assets/IMG/Artigos/DuvidaseOrientações/Instalação sigo plugin/Screenshot_9.png">
+    </div>
+    <li>Na tela "Pronto para Instalar", clique em "Instalar" para começar a instalação do DRIVE SDK e aguarde.</li>
+    <div class="image-placeholder">
+      <img src="assets/IMG/Artigos/DuvidaseOrientações/Instalação sigo plugin/Screenshot_10.png">
+    </div>
+    <li>Durante a instalação, se for questionado sobre o FingerCap USB Driver, clique em "NÃO" para não baixá-lo.</li>
+    <div class="image-placeholder">
+      <img src="assets/IMG/Artigos/DuvidaseOrientações/Instalação sigo plugin/Screenshot_11.png">
+    </div>
+    <li>Se aparecer a mensagem de aviso sobre o Java Runtime Environment 1.4 ou superior, clique em "OK" para prosseguir.</li>
+    <div class="image-placeholder">
+      <img src="assets/IMG/Artigos/DuvidaseOrientações/Instalação sigo plugin/Screenshot_12.png">
+    </div>
+    <li>Na tela "Finalizando o Assistente de Instalação de Fingerprint SDK 2009", selecione a opção "Não, eu vou reiniciar o computador depois" e clique em "Concluir" para finalizar a instalação do DRIVE SDK.</li>
+    <div class="image-placeholder">
+      <img src="assets/IMG/Artigos/DuvidaseOrientações/Instalação sigo plugin/Screenshot_13.png">
+    </div>
+  </ol>
+
+  <h3>3.3. Instalação do SigoPlugin®</h3>
+  <ol>
+    <li>Após a conclusão da instalação do DRIVE SDK, o instalador do SigoPlugin® deve abrir automaticamente. Clique em "Avançar".</li>
+    <div class="image-placeholder">
+      <img src="assets/IMG/Artigos/DuvidaseOrientações/Instalação sigo plugin/Screenshot_14.png">
+    </div>
+    <li>Na tela "Pronto para instalar o programa", clique em "Instalar" para iniciar a instalação.</li>
+    <div class="image-placeholder">
+      <img src="assets/IMG/Artigos/DuvidaseOrientações/Instalação sigo plugin/Screenshot_15.png">
+    </div>
+    <li>Ao finalizar a instalação, clique em "Concluir".</li>
+    <div class="image-placeholder">
+      <img src="assets/IMG/Artigos/DuvidaseOrientações/Instalação sigo plugin/Screenshot_16.png">
+    </div>
+    <li>Por fim, após realizar a instalação do SIGO Puglin, automaticamente será aberto a página da extensão do Sigo.</li>
+    <div class="image-placeholder">
+      <img src="assets/IMG/Artigos/DuvidaseOrientações/Instalação sigo plugin/Screenshot_17.png">
+    </div>
+  </ol>
+
+  <h3>3.4. Pós-Instalação e Observações (Imagens de Alerta)</h3>
+  <p>As seguintes imagens estão presentes no documento como alertas ou passos de limpeza após a instalação, detalhando o processo que deve ser ignorado/excluído:</p>
+  <ol start="18">
+    <li>O ícone do instalador "Instalar o FingerCap" na área de trabalho.</li>
+    <div class="image-placeholder">
+      <img src="assets/IMG/Artigos/DuvidaseOrientações/Instalação sigo plugin/18 para frente 25/Screenshot_18.png">
+    </div>
+    <li>Tela de seleção do idioma do instalador do FingerCap.</li>
+    <div class="image-placeholder">
+      <img src="assets/IMG/Artigos/DuvidaseOrientações/Instalação sigo plugin/18 para frente 25/Screenshot_19.png">
+    </div>
+    <li>Tela de Atenção sobre o FingerCap substituir drivers.</li>
+    <div class="image-placeholder">
+      <img src="assets/IMG/Artigos/DuvidaseOrientações/Instalação sigo plugin/18 para frente 25/Screenshot_20.png">
+    </div>
+    <li>Tela de boas-vindas do assistente de instalação do Griaule FingerCap USB Driver.</li>
+    <div class="image-placeholder">
+      <img src="assets/IMG/Artigos/DuvidaseOrientações/Instalação sigo plugin/18 para frente 25/Screenshot_21.png">
+    </div>
+    <li>Tela do Contrato de Licença de Uso do FingerCap.</li>
+    <div class="image-placeholder">
+      <img src="assets/IMG/Artigos/DuvidaseOrientações/Instalação sigo plugin/18 para frente 25/Screenshot_22.png">
+    </div>
+    <li>Tela de Informação do FingerCap, alertando para desconectar o leitor.</li>
+    <div class="image-placeholder">
+     <img src="assets/IMG/Artigos/DuvidaseOrientações/Instalação sigo plugin/18 para frente 25/Screenshot_23.png">
+    </div>
+    <li>Tela Pronto para Instalar do FingerCap.</li>
+    <div class="image-placeholder">
+      <img src="assets/IMG/Artigos/DuvidaseOrientações/Instalação sigo plugin/18 para frente 25/Screenshot_24.png">
+    </div>
+    <li>Tela Finalizando o Assistente de Instalação do Griaule FingerCap USB Driver.</li>
+    <div class="image-placeholder">
+      <img src="assets/IMG/Artigos/DuvidaseOrientações/Instalação sigo plugin/18 para frente 25/Screenshot_25.png">
+    </div>
+  </ol>
+  <p>Instrução Final: Após finalizar a instalação, vá até a área de trabalho e exclua o atalho do aplicativo FingerCap.</p>
+
+<div class="note-box" style="text-align: center;">
+  <p>Para baixar o documento original, clique no botão abaixo.</p>
+  <a href="https://wisesystem.com.br/sigoweb/tutorial/tutorial-de-instalacao-sigoplugin-e-drives.pdf" class="download-button" style="display: inline-block; background-color: #0d47a1; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 20px;" target="_blank">
+    Baixar Documento Direcionado ao Cliente (PDF)
+  </a>
+</div>
+
+<style>
+  .welcome-banner {
+    background: #e3f2fd;
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .core-concepts h1, .core-concepts h2 {
+    color: #0d47a1;
+    margin-top: 40px;
+  }
+
+  .core-concepts ul {
+    margin: 20px 0;
+    padding-left: 20px;
+  }
+
+  .core-concepts li {
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 0.95em;
+  }
+
+  .note-box {
+    background: #f0f4f8;
+    padding: 15px;
+    border-left: 4px solid #90caf9;
+    margin-top: 20px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    color: #333;
+  }
+
+  .image-placeholder {
+    background: #f5f5f5;
+    padding: 50px 10px;
+    text-align: center;
+    margin: 30px 0;
+    border: 2px dashed #ccc;
+    border-radius: 5px;
+    font-style: italic;
+    color: #666;
+  }
+
+  /* Adicionado para diferenciar subtítulos */
+  .core-concepts h3 {
+    color: #1565c0; /* Um tom de azul um pouco mais claro */
+    margin-top: 25px;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 5px;
+  }
+</style>
+`
+    },
 
 
 
