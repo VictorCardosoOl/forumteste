@@ -1,11 +1,11 @@
-const eSocial =
-{
+export const eSocial = {
+
   id: 'esocial',
   title: 'eSocial',
   description: 'Módulo eSocial.',
-  icon: `<svg class="module-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-  <path fill="currentColor" d="M13.138.053a12.018 12.018 0 0 0-9.646 3.481A12.014 12.014 0 0 0 .937 16.651a12.014 12.014 0 0 0 11.162 7.348a2.275 2.275 0 1 0-.037-4.549a7.438 7.438 0 0 1-6.932-4.562a7.438 7.438 0 0 1 1.587-8.145a7.437 7.437 0 0 1 12.378 3.014H12.05a2.275 2.275 0 1 0 0 4.55h9.674A2.275 2.275 0 0 0 24 12.04A12.014 12.014 0 0 0 16.597.914a11.962 11.962 0 0 0-3.459-.86Z"/>
-</svg>`,
+  icon: `< svg class="module-icon" xmlns = "http://www.w3.org/2000/svg" viewBox = "0 0 24 24" >
+  <path fill="currentColor" d="M13.138.053a12.018 12.018 0 0 0-9.646 3.481A12.014 12.014 0 0 0 .937 16.651a12.014 12.014 0 0 0 11.162 7.348a2.275 2.275 0 1 0-.037-4.549a7.438 7.438 0 0 1-6.932-4.562a7.438 7.438 0 0 1 1.587-8.145a7.437 7.437 0 0 1 12.378 3.014H12.05a2.275 2.275 0 1 0 0 4.55h9.674A2.275 2.275 0 0 0 24 12.04A12.014 12.014 0 0 0 16.597.914a11.962 11.962 0 0 0-3.459-.86Z" />
+</svg > `,
   topics: [
     {
       id: 'esocial-guia-completo',
@@ -14,10 +14,10 @@ const eSocial =
       group: 'eSocial',
       tags: ['eSocial', 'Introdução'],
       content: `
-    <div class="header-banner" style="background: #e3f2fd; color: white; padding: 30px; border-radius: 8px; margin-bottom: 40px; text-align: center;">
+  < div class="header-banner" style = "background: #e3f2fd; color: white; padding: 30px; border-radius: 8px; margin-bottom: 40px; text-align: center;" >
       <h1 style="margin: 0; font-size: 2.2em;">eSocial</h1>
       <p style="margin: 10px 0 0; font-size: 1.2em;">Sistema de Escrituração Digital das Obrigações Fiscais, Previdenciárias e Trabalhistas</p>
-    </div>
+    </div >
 
     <section style="margin-bottom: 50px;">
       <h2 style="color: #00000; border-bottom: 2px solid #0056b3; padding-bottom: 10px; font-size: 1.8em;">1. Fundamentação Legal e Histórico</h2>
@@ -260,7 +260,7 @@ const eSocial =
         </div>
       </div>
     </section>
-  `
+`
     },
 
     {
@@ -270,10 +270,10 @@ const eSocial =
       description: 'Material sobre os eventos S-2210, S-2220, S-2221 e S-2240 no eSocial, com regras, observações e tabela completa de obrigatoriedade por categoria.',
       group: 'Eventos do eSocial - SST',
       content: `
-  <div class="welcome-banner">
+  < div class="welcome-banner" >
     <h1>Eventos de SST no eSocial</h1>
     <p>Os eventos de Segurança e Saúde no Trabalho (SST) no eSocial substituem formulários tradicionais como a CAT e o PPP, garantindo conformidade legal e registro eletrônico unificado.</p>
-  </div>
+  </div >
 
   <section class="core-concepts">
     <h2>Definição Completa</h2>
@@ -736,7 +736,7 @@ const eSocial =
       }
     }
   </style>
-  `
+`
     },
 
 
@@ -747,10 +747,10 @@ const eSocial =
       group: 'eSocial',
       tags: ['eSocial', 'Introdução'],
       content: `
-    <div class="welcome-banner">
+  < div class="welcome-banner" >
       <h1>Domine o e-CAC: Guia Completo para Profissionais de SST</h1>
       <p>Este guia aprofundado explica o e-CAC como pilar fundamental para a gestão das obrigações do eSocial, com ênfase nos processos de procuração eletrônica e certificação digital.</p>
-    </div>
+    </div >
 
     <section class="core-concepts">
       <h2>O e-CAC em Detalhe: Centro Virtual de Atendimento ao Contribuinte</h2>
@@ -1143,7 +1143,7 @@ const eSocial =
         }
       }
     </style>
-  `
+`
     },
     {
       id: 'esocial-sst-transmission',
@@ -1152,10 +1152,10 @@ const eSocial =
       group: 'eSocial',
       tags: ['eSocial', 'Processos', 'Webservice', 'Eventos'],
       content: `
-    <div class="transmission-header">
+  < div class="transmission-header" >
       <h1>Rotina de Transmissão Automatizada - Eventos SST</h1>
       <p>Envio automatizado via Webservice conforme programação estabelecida</p>
-    </div>
+    </div >
 
     <section class="event-section">
       <h2>Eventos de SST e Seus Prazos Legais</h2>
@@ -1459,7 +1459,7 @@ const eSocial =
         }
       }
     </style>
-  `
+`
     },
     //Introdução SST
 
@@ -1472,10 +1472,10 @@ const eSocial =
       tags: ['eSocial', 'Eventos', 'Introdução', 'S-2210'],
       content: `
 
-  <div class="welcome-banner">
+  < div class="welcome-banner" >
     <h1>Bem-vindo à Comunicação de Acidente de Trabalho</h1>
     <p>Este conteúdo foi elaborado para você compreender a importância da Comunicação de Acidente de Trabalho (CAT) e como ela é feita através do evento S-2210 no eSocial. Um processo essencial para garantir os direitos do trabalhador e manter a empresa em conformidade com a legislação.</p>
-  </div>
+  </div >
 
   <section class="core-concepts">
     <h2>O que é o Evento S-2210?</h2>
@@ -1663,7 +1663,7 @@ const eSocial =
       margin-bottom: 12px;
     }
   </style>
-  `
+`
     },
 
     {
@@ -1674,10 +1674,10 @@ const eSocial =
       tags: ['eSocial', 'Eventos', 'Introdução', 'S-2220'],
       content: `
 
-  <div class="welcome-banner">
+  < div class="welcome-banner" >
     <h1>Monitoramento da Saúde no eSocial</h1>
     <p>Este guia foi criado para apresentar a importância do evento S-2220, que documenta a saúde ocupacional dos trabalhadores ao longo de sua trajetória na empresa. Uma ferramenta essencial para promover segurança, cumprir a legislação e proteger o trabalhador.</p>
-  </div>
+  </div >
 
   <section class="core-concepts">
     <h2>O que é o Evento S-2220?</h2>
@@ -1844,7 +1844,7 @@ const eSocial =
       margin-bottom: 12px;
     }
   </style>
-  `
+`
     },
     {
       id: 'evento-s2221-exame-toxicologico',
@@ -1853,10 +1853,10 @@ const eSocial =
       group: 'Eventos do eSocial - SST',
       tags: ['eSocial', 'Eventos', 'Introdução', 'S-2221'],
       content: `
-<div class="welcome-banner">
+  < div class="welcome-banner" >
   <h1>Bem-vindo ao Guia sobre o Evento S-2221!</h1>
   <p>Este material foi desenvolvido para explicar de forma clara como funciona o envio do exame toxicológico de motoristas profissionais pelo evento S-2221 no eSocial, com instruções completas para uso do sistema.</p>
-</div>
+</div >
 
 <section class="core-concepts">
   <h2>O que é o Evento S-2221?</h2>
@@ -2023,10 +2023,10 @@ const eSocial =
       group: 'Eventos do eSocial - SST',
       tags: ['eSocial', 'Eventos', 'Introdução', 'S-2240'],
       content: `
-  <div class="welcome-banner">
+  < div class="welcome-banner" >
     <h1>Evento S-2240: Condições Ambientais do Trabalho</h1>
     <p>Este guia foi elaborado para integrar novos colaboradores ao universo do eSocial, com foco no evento S-2240, essencial para o histórico previdenciário do trabalhador.</p>
-  </div>
+  </div >
 
   <section class="core-concepts">
     <h2>O que é o Evento S-2240?</h2>
@@ -2202,7 +2202,7 @@ const eSocial =
       border-radius: 5px;
     }
   </style>
-  `
+`
     },
 
 
@@ -2213,10 +2213,10 @@ const eSocial =
       group: 'Eventos do eSocial - SST',
       tags: ['eSocial', 'Eventos'],
       content: `
-<div class="public-sector-guide">
+  < div class="public-sector-guide" >
   <h1>Eventos de SST no Âmbito dos Órgãos Públicos</h1>
   <p>Este guia detalha as regras específicas para envio de eventos de Saúde e Segurança no Trabalho (SST) para servidores públicos e funcionários sem vínculo empregatício no sistema eSocial.</p>
-</div>
+</div >
 
 <section class="category-identification">
   <h2>Identificação de Funcionários Públicos</h2>

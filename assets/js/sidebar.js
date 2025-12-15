@@ -7,7 +7,7 @@ function setSidebarState(state) {
     window.dispatchEvent(new Event('resize'));
 }
 
- function initSidebar(callbacks) {
+export function initSidebar(callbacks) {
     const sidebarElement = document.getElementById('sidebar');
     if (!sidebarElement) return;
 
@@ -36,7 +36,7 @@ function setSidebarState(state) {
             localStorage.setItem('sidebarNavCollapsed', isCollapsed);
         });
     }
-    
+
     if (sidebarNav) {
         sidebarNav.addEventListener('click', e => {
             const navLink = e.target.closest('.sidebar-nav-link');
@@ -51,7 +51,7 @@ function setSidebarState(state) {
             }
         });
     }
-    
+
     if (homeLink) {
         homeLink.addEventListener('click', e => {
             e.preventDefault();
@@ -80,7 +80,7 @@ function setSidebarState(state) {
     return { themeToggleBtn: document.getElementById('theme-toggle') };
 }
 
- function updateActiveLink(activeCategoryId) {
+export function updateActiveLink(activeCategoryId) {
     const sidebarNav = document.getElementById('sidebar-nav');
     const navSection = document.getElementById('nav-section');
     if (!sidebarNav || !navSection) return;

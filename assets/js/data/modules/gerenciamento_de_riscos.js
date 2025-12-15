@@ -1,4 +1,4 @@
-const gerenciamentoderiscos =
+export const gerenciamentoderiscos =
 {
   id: 'gerenciamento-de-riscos',
   title: 'Gerenciamento de Riscos',

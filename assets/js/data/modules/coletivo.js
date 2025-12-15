@@ -1,4 +1,4 @@
-const Coletivo = {
+export const Coletivo = {
 
   id: 'coletivo',
   title: 'Coletivo',

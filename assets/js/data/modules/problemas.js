@@ -1,4 +1,4 @@
-const problemas = {
+export const problemas = {
   id: 'resolu-o-de-problemas',
   title: 'Resolução de problemas',
   description: 'Este módulo tem como objetivo apoiar o processo de solução de problemas.',

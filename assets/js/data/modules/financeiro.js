@@ -1,4 +1,4 @@
-const financeiro = {
+export const financeiro = {
   id: 'financeiro',
   title: 'Financeiro e Faturamento',
   description: 'Este módulo tem como objetivo apoiar o processo de solução de problemas relacionados a processos financeiros e de faturamento.',
