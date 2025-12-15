@@ -15,171 +15,105 @@ const ICONS = {
 const CARD_CLASS = "group flex flex-col gap-4 p-6 bg-white dark:bg-zinc-900/50 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-sm hover:shadow-xl hover:border-blue-500/30 hover:-translate-y-1 transition-all duration-300 backdrop-blur-sm cursor-pointer text-left w-full";
 
 /**
+ * SIDEBAR VIEW
+ */
+export function templates_Sidebar(categories) {
+  return categories.map(category => `
+    <div class="group-category mb-6">
+      <h3 class="text-[11px] font-bold text-gray-500 uppercase tracking-wider px-3 mb-2 flex items-center gap-2">
+        ${category.title}
+      </h3>
+      <ul class="space-y-0.5">
+        ${category.topics.map(topic => `
+          <li>
+            <button data-action="view-article" data-category="${category.id}" data-id="${topic.id}"
+               class="sidebar-nav-link w-full text-left flex items-center gap-2 px-3 py-2 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-md transition-all duration-200 border border-transparent hover:border-white/5 group"
+               data-id="${topic.id}">
+               <span class="w-1.5 h-1.5 rounded-full bg-gray-600 group-hover:bg-blue-500 transition-colors"></span>
+               <span class="truncate">${topic.title}</span>
+            </button>
+          </li>
+        `).join('')}
+      </ul>
+    </div>
+  `).join('');
+}
+
+/**
  * 1. HOME VIEW
  */
 export function templates_Home(categories) {
   return `
     <div class="flex flex-col items-center text-center mb-16 space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      <div class="inline-flex items-center justify-center p-2 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 mb-4 ring-1 ring-blue-500/20">
-        <span class="text-xs font-bold uppercase tracking-wider px-2">Base de Conhecimento</span>
+      <div class="inline-flex items-center justify-center p-2 rounded-full bg-blue-500/10 text-blue-400 mb-4 ring-1 ring-blue-500/20">
+        <span class="text-xs font-bold uppercase tracking-wider px-2">WikiBase Docs</span>
       </div>
-      <h1 class="text-5xl font-extrabold tracking-tight bg-gradient-to-br from-zinc-900 to-zinc-500 dark:from-white dark:to-zinc-500 bg-clip-text text-transparent sm:text-6xl text-balance">
-        Como podemos ajudar?
+      <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
+        Base de Conhecimento
       </h1>
-      <p class="text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed text-balance">
-        Explore nossos guias detalhados e documentação para encontrar respostas rápidas.
+      <p class="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
+        Bem-vindo à documentação oficial. Selecione um módulo na barra lateral para começar.
       </p>
     </div>
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-7xl mx-auto px-4">
-      ${categories.map(category => `
-        <button data-action="view-topics" data-id="${category.id}" class="${CARD_CLASS}">
-          <div class="w-12 h-12 rounded-xl bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center text-zinc-900 dark:text-white group-hover:scale-110 group-hover:bg-blue-500 group-hover:text-white transition-all duration-300 shadow-inner">
-            ${category.icon || ICONS.HOME}
-          </div>
-          <div class="space-y-2">
-            <h3 class="text-xl font-bold text-zinc-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-              ${category.title}
-            </h3>
-            <p class="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed line-clamp-2">
-              ${category.description || 'Acesse os guias e documentação deste módulo.'}
-            </p>
-          </div>
-          <div class="mt-auto pt-4 border-t border-zinc-100 dark:border-zinc-800/50 flex items-center text-xs font-medium text-blue-600 dark:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">
-            <span>Ver tópicos</span>
-            <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-          </div>
-        </button>
-      `).join('')}
-    </div>
-  `;
-}
-
-/**
- * 2. CATEGORY VIEW (Grouped Topics)
- */
-export function templates_Category(category, groupedTopics) {
-  const groupsHTML = Object.entries(groupedTopics).map(([groupName, topics]) => `
-    <div id="group-${groupName.replace(/\s+/g, '-').toLowerCase()}" class="scroll-mt-32 mb-16">
-      <div class="flex items-center gap-4 mb-8">
-        <h2 class="text-2xl font-bold text-zinc-900 dark:text-white tracking-tight">${groupName}</h2>
-        <div class="h-px flex-1 bg-zinc-200 dark:bg-zinc-800"></div>
-      </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-        ${topics.map(topic => `
-          <button data-action="view-article" data-category="${category.id}" data-id="${topic.id}" class="${CARD_CLASS}">
-            <h3 class="text-lg font-bold text-zinc-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-              ${topic.title}
-            </h3>
-            <p class="text-sm text-zinc-500 dark:text-zinc-400 line-clamp-3">
-              ${topic.description || ''}
-            </p>
-          </button>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        ${categories.map(category => `
+            <div class="p-6 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition-colors">
+                 <h3 class="text-lg font-bold text-white mb-2">${category.title}</h3>
+                 <p class="text-sm text-gray-400 line-clamp-2">${category.description || ''}</p>
+                 <button data-action="view-topics" data-id="${category.id}" class="mt-4 text-xs font-medium text-blue-400 hover:text-blue-300">Ver Tópicos &rarr;</button>
+            </div>
         `).join('')}
-      </div>
-    </div>
-  `).join('');
-
-  return `
-    <!-- Breadcrumb -->
-    <nav class="flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400 mb-8 animate-in fade-in slide-in-from-top-2">
-      <button data-action="go-home" class="hover:text-zinc-900 dark:hover:text-white transition-colors">Início</button>
-      ${ICONS.CHEVRON_RIGHT}
-      <span class="font-semibold text-zinc-900 dark:text-white">${category.title}</span>
-    </nav>
-
-    <!-- Header -->
-    <header class="mb-12 animate-in fade-in slide-in-from-bottom-2">
-      <div class="flex items-start justify-between gap-8">
-        <div>
-          <h1 class="text-4xl sm:text-5xl font-extrabold text-zinc-900 dark:text-white tracking-tight mb-4">${category.title}</h1>
-          <p class="text-lg text-zinc-600 dark:text-zinc-400 max-w-3xl">${category.description || 'Explore os tópicos abaixo.'}</p>
-        </div>
-        <div class="hidden lg:flex items-center justify-center w-16 h-16 rounded-2xl bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white shadow-sm">
-           ${category.icon || ICONS.HOME}
-        </div>
-      </div>
-    </header>
-
-    <!-- Content -->
-    <div class="animate-in fade-in slide-in-from-bottom-4 delay-100">
-      ${category.topics.length === 0
-      ? `<div class="p-12 text-center bg-zinc-50 dark:bg-zinc-900 rounded-3xl border border-dashed border-zinc-200 dark:border-zinc-800">
-             <p class="text-zinc-500">Nenhum artigo encontrado nesta categoria.</p>
-           </div>`
-      : groupsHTML}
     </div>
   `;
 }
 
 /**
- * 3. ARTICLE VIEW
+ * 3. ARTICLE VIEW (PREMIUM SAAS STYLE)
  */
 export function templates_Article(category, topic, relatedArticles = []) {
   return `
-    <nav class="flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400 mb-8 animate-in fade-in slide-in-from-top-2">
-      <button data-action="go-home" class="hover:text-zinc-900 dark:hover:text-white transition-colors">Início</button>
-      ${ICONS.CHEVRON_RIGHT}
-      <button data-action="view-topics" data-id="${category.id}" class="hover:text-zinc-900 dark:hover:text-white transition-colors">${category.title}</button>
-      ${ICONS.CHEVRON_RIGHT}
-      <span class="font-semibold text-zinc-900 dark:text-white truncate max-w-[200px]">${topic.title}</span>
-    </nav>
+    <article class="prose prose-invert prose-lg max-w-none fade-in">
+        <header class="mb-12 not-prose">
+            <div class="flex items-center text-xs text-gray-500 font-medium uppercase tracking-widest mb-6">
+                <button data-action="go-home" class="hover:text-blue-400 cursor-pointer transition-colors">Home</button>
+                <span class="mx-2 text-gray-700">/</span>
+                <span class="text-gray-300">${category.title}</span>
+            </div>
+            
+            <h1 class="text-4xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-400">
+                ${topic.title}
+            </h1>
+            
+             ${topic.description ? `
+            <div class="text-lg text-gray-300 mb-8 leading-relaxed border-l-2 border-blue-500/50 pl-6 py-1">
+                ${topic.description}
+            </div>` : ''}
+        </header>
 
-    <article class="max-w-4xl mx-auto animate-in fade-in slide-in-from-bottom-4">
-      <header class="mb-12 pb-8 border-b border-zinc-200 dark:border-zinc-800">
-        <h1 class="text-4xl sm:text-5xl font-extrabold text-zinc-900 dark:text-white tracking-tight mb-6 leading-tight">
-          ${topic.title}
-        </h1>
-        
-        ${topic.description ? `
-          <p class="text-xl text-zinc-600 dark:text-zinc-400 leading-relaxed mb-6">
-            ${topic.description}
-          </p>
-        ` : ''}
+        <hr class="border-white/10 my-8">
 
-        ${topic.tags ? `
-          <div class="flex flex-wrap gap-2">
-            ${topic.tags.map(tag => `
-              <button data-action="filter-by-tag" data-id="${tag}" 
-                      class="px-3 py-1 text-xs font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 rounded-full hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors">
-                ${tag}
-              </button>
-            `).join('')}
-          </div>
-        ` : ''}
-      </header>
-      
-      <!-- Article Body - Styled via Tailwind Typography (prose) equivalent classes -->
-      <div class="prose prose-zinc dark:prose-invert max-w-none 
-                  prose-headings:font-bold prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl
-                  prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline
-                  prose-img:rounded-2xl prose-img:shadow-lg
-                  prose-code:text-blue-600 dark:prose-code:text-blue-400 prose-code:bg-blue-50 dark:prose-code:bg-blue-900/20 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none
-                  prose-pre:bg-zinc-900 prose-pre:text-zinc-100 prose-pre:rounded-xl prose-pre:shadow-lg text-lg leading-relaxed">
-        ${topic.content}
-      </div>
-
-      ${relatedArticles.length > 0 ? `
-        <div class="mt-24 pt-12 border-t border-zinc-200 dark:border-zinc-800">
-          <h2 class="text-2xl font-bold text-zinc-900 dark:text-white mb-8">Artigos Relacionados</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-             ${relatedArticles.map(article => `
-              <button data-action="view-article" data-category="${article.categoryId}" data-id="${article.id}" class="${CARD_CLASS} py-5">
-                <p class="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-1">
-                  ${article.categoryTitle}
-                </p>
-                <h3 class="text-base font-bold text-zinc-900 dark:text-white leading-tight">
-                  ${article.title}
-                </h3>
-              </button>
-            `).join('')}
-          </div>
+        <div class="text-gray-400 font-light leading-7">
+            ${topic.content}
         </div>
-      ` : ''}
+        
+        ${relatedArticles.length > 0 ? `
+            <div class="mt-16 pt-8 border-t border-white/10 not-prose">
+                <h3 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-6">Leia também</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    ${relatedArticles.map(article => `
+                        <button data-action="view-article" data-category="${article.categoryId}" data-id="${article.id}" class="text-left p-4 rounded-lg border border-white/5 bg-white/5 hover:border-blue-500/30 transition-all">
+                            <h4 class="text-white font-medium text-sm mb-1">${article.title}</h4>
+                            <p class="text-xs text-gray-500">${article.categoryTitle}</p>
+                        </button>
+                    `).join('')}
+                </div>
+            </div>
+        ` : ''}
     </article>
   `;
 }
+
 
 /**
  * 4. SEARCH & TAG RESULTS

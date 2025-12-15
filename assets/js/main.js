@@ -11,13 +11,16 @@ import * as View from './view.js'; // Imported for types/constants if needed
 import { debounce } from './utils.js';
 
 // DOM Elements
+// DOM Elements
 const appContainer = document.getElementById('app');
-const searchInput = document.getElementById('search-input');
-const filterButton = document.getElementById('search-filter-button');
-const filterMenu = document.getElementById('search-filter-menu');
-const filterMenuList = document.getElementById('filter-menu-list');
-const filterMenuInput = document.getElementById('filter-menu-input');
+const searchInput = document.getElementById('sidebar-search-input');
 const themeToggleBtn = document.getElementById('theme-toggle');
+
+// Render Sidebar Immediately
+const sidebarNav = document.getElementById('sidebar-nav');
+if (sidebarNav) {
+  sidebarNav.innerHTML = View.templates_Sidebar(database);
+}
 
 // State
 let scrollInstance = null;
@@ -69,11 +72,6 @@ function setupEventListeners() {
     // Find closest element with data-action
     const target = e.target.closest('[data-action]');
 
-    // Handle global menu closing (outside click)
-    if (target !== filterButton && !filterMenu.contains(e.target)) {
-      filterMenu.classList.remove('visible');
-    }
-
     if (!target) return;
 
     const action = target.dataset.action;
@@ -88,43 +86,21 @@ function setupEventListeners() {
         if (id) Router.navigateCategory(id);
         break;
       case 'view-article':
-        if (category && id) Router.navigateArticle(category, id);
+        console.log('Navigating to article:', category, id);
+        if (category && id) {
+          // Close mobile sidebar if open
+          document.getElementById('sidebar')?.classList.add('-translate-x-full');
+          Router.navigateArticle(category, id);
+        }
         break;
       case 'filter-by-tag':
         if (id) Router.navigateTag(id);
         break;
-      case 'scroll-to-group':
-        if (id) {
-          const el = document.getElementById(id);
-          if (el && scrollInstance) scrollInstance.scrollTo(el, { offset: -20, duration: 600 });
-        }
-        break;
-      case 'toggle-filter-menu':
-        e.stopPropagation();
-        filterMenu.classList.toggle('visible');
-        break;
       case 'set-scope':
         setSearchScope(id);
         break;
-      case 'article-nav-prev':
-        // Logic for prev/next could be handled by router if track state
-        break;
     }
   });
-
-  // Specific listeners for static elements
-  if (filterButton) {
-    filterButton.addEventListener('click', (e) => {
-      e.stopPropagation();
-      filterMenu.classList.toggle('visible');
-    });
-  }
-
-  if (filterMenuInput) {
-    filterMenuInput.addEventListener('input', (e) => {
-      renderFilterMenuItems(e.target.value);
-    });
-  }
 }
 
 
